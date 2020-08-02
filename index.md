@@ -5,39 +5,94 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 ---
 
 > ## Instructor
-> - **Instructor**: Golden Rams
-> - **Office**: the Quad
-> - **Office Hours**: 24/7
-> - **Email**: goldenrams AT wcupa DOT edu
-> - **Phone**: 123 456 7890
+> - **Instructor**: Linh B. Ngo
+> - **Office**: Room 138, 25 University Avenue (UNA building)
+> - **Office Hours**: TBD
+> - **Email**: lngo AT wcupa DOT edu
+> - **Phone**: 610-436-2595 (don’t call, email)
 {: .prereq}
 
 > ## Course Description
-> Course description goes here
+> This course will introduce three fundamental concepts in operating system (OS): Virtualization, 
+> Concurrency, and Persistence.
+>
+> - In Virtualization, we learn how OS creates abstractions through which programmers can interact 
+> with the underlying hardware. Examples of these abstractions include processes, memory spaces, 
+> and CPU scheduling.
+>
+> - In Concurrency, we learn about how OS supports sharing of physical resources among these 
+> abstractions. These include thread, lock, and semaphores.
+> 
+> - In Persistence, we learn about how OS enables the long term management of information, produced 
+> or required by computer programs, in a manner that persists beyond the scope or the 
+> duration of these programs.
+>
+> Understanding how operating systems work will facilitate better understanding about how programs 
+> are run by the computer hardware. This will lead to more efficient, stable, and secure programs.
 >
 {: .prereq}
 
 > ## Learning Objectives:
 >
 > ### Student Learning Objectives:
-> - SLO1
+> - Be able to apply theory, techniques, and methodologies to create and/or maintain high quality
+> computing systems that function effectively and reliably in the emerging and future information
+> infrastructure.
+> - Be able to work in teams, demonstrate ethical professionalism in their work, and grow professionally 
+> while engaging in life-long learning. 
 >
 > ### General Education Learning Objectives:
-> - GELO1
+> 1. Analyze a complex computing problem and to apply principles of computing and other relevant
+> disciplines to identify solutions.
+> 2. Design, implement, and evaluate a computing-based solution to meet a given set of computing
+> requirements in the context of the program’s discipline.
+> 3. Function effectively as a member or leader of a team engaged in activities appropriate to the 
+> program’s discipline.
 >
-> ### Alignment of Course to General Education Goals:
-> - Alignment 1
+> ### Course Topics:
+> - Virtualization
+>   - Process 
+>   - CPU scheduling
+>   - Memory management 
+> - Concurrency
+>   - Threads
+>   - Locks and condition variables
+>   - Semaphores and deadlocks
+> - Persistence
+>   - Input/output
+>   - File systems
+> - Real-time OS and security issues
+> - Distributed OS and security issues
 >
 > ### Artifacts used to demonstrate Student Learning Outcomes:
+> - Assignments: In writing and running programs and analyzing execution performances, 
+> students will be assessed on SLO1 and SLO2.
+>   - Writing C codes that demonstrate understanding and the ability to:
+>     - create and manipulate processes.
+>     - manage run-time memory.
+>     - read and write to file systems. 
+>   - Writing C codes that demonstrate understanding and the ability to:
+>     - create and manage threads. 
+>     - navigate around the potential issues in thread concurrency. 
+>   - Working as a team to modify existing codes in the xv6 OS to implement architectural 
+>   changes to the OS. 
+> - Quizzes and Exams: Students will be assessed on their understanding of theoretical concepts
+> necessary to support the tasks decribed in the assignments.
 >
 {: .objectives}
 
 
 > ## Prerequisites
-> This course requires ...
+> - Foundation of Computer Science (CSC 220)
+> - Computer Science III (CSC 240)
+> - Computer Organizations (CSC 242) or Computer Systems (CSC 231)
+> - Data Structures and Algorithms (CSC 241)
 {: .prereq}
 
 > ## Required Text (either print or e-book):
+> 
+> **Operating Systems: Three Easy Pieces** by Remzi H. Arpaci-Dusseau and Andrea C. Arpaci-Dusseau.
+> The authors offer free downloadable PDF of all the book's chapters on [the book's website][ostep]. 
 >
 {: .prereq}
 
@@ -47,11 +102,11 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 >
 > | Percentage | Tasks |
 > | ---------- | ----- |
-> | 20% | Homework Sets (approximately 4-5 homework sets) |
-> | 15% | Labs (approximately biweekly labs) |
-> | 5% | Problets (online practice exercises) |
-> | 45% | Three Midterm Exams (15% each) |
-> | 15% | Final Exam |
+> | 50% | Homework Sets |
+> | 20% | Quizzes       |
+> |  5% | Participation |
+> | 15% | Midterm Exam |
+> | 10% | Final Exam |
 >
 > ### Grade Scale:
 >
@@ -71,8 +126,8 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 > | <= 59	| F |
 >
 > ### Lateness Policy:
-> Assignments that are late are assessed a 10% per day late penalty.
-> Saturday and Sunday are each days.
+> Without prior approval from the instructors, late homework assignments will not be accepted but 
+> will be assigned a grade of zero.
 {: .keypoints}
 
 

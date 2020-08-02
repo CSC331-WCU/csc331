@@ -24,6 +24,7 @@ $color-objectives:  #daee84 !default;
 $color-prereq:      #9cd6dc !default;
 $color-solution:    #ded4b9 !default;
 $color-testimonial: #fc8dc1 !default;
+$color-slide:       #aff5ef !default;
 
 //----------------------------------------
 // Specialized code blocks.
@@ -125,6 +126,8 @@ $codeblock-padding: 5px !default;
 .prereq{ @include bkSetup($color-prereq, "\e124"); }
 .solution{ @include bkSetup($color-solution, "\e105"); }
 .testimonial{ @include bkSetup($color-testimonial, "\e143"); }
+.slide{ @include bkSetup($color-slide, "\e114"); }
+
 
 .callout h3,
 .challenge h3,
@@ -134,6 +137,7 @@ $codeblock-padding: 5px !default;
 .objectives h3,
 .prereq h3,
 .solution h3,
+.slide h3,
 .testimonial h3 {
 font-size: 18px;
 }
@@ -148,6 +152,8 @@ font-size: 18px;
 .prereq       { background-color: #9cd6dc20; }
 .solution     { background-color: #ded4b94d; }
 .testimonial  { background-color: #fc8dc120; }
+.slide        { background-color: #eec27520; }
+
 
 blockquote p {
     margin: 5px;

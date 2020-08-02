@@ -45,3 +45,5 @@
 [swc-releases]: https://github.com/swcarpentry/swc-releases
 [training]: https://carpentries.github.io/instructor-training/
 [yaml]: http://yaml.org/
+[ostep]: http://pages.cs.wisc.edu/~remzi/OSTEP/
+[virtualbox]: https://www.virtualbox.org/wiki/Downloads
