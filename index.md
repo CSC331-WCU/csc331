@@ -41,7 +41,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 > - Be able to work in teams, demonstrate ethical professionalism in their work, and grow professionally 
 > while engaging in life-long learning. 
 >
-> ### General Education Learning Objectives:
+> ### Student Learning Outcomes:
 > 1. Analyze a complex computing problem and to apply principles of computing and other relevant
 > disciplines to identify solutions.
 > 2. Design, implement, and evaluate a computing-based solution to meet a given set of computing

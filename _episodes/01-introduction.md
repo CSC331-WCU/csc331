@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Introduction to Operating Systems"
 teaching: 0
 exercises: 0
 questions:
