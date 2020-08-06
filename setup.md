@@ -23,19 +23,19 @@ it is necessary to use VirtualBox to create an isolated environment for operatin
 - The installation file can be downloaded from [VirtualBox's Download Page][virtualbox].
 - Install VirtualBox by following the [online instruction page](https://www.virtualbox.org/manual/UserManual.html#installation).
 
-<img src="../assets/figure/setup/virtualbox_1.png" alt="VirtualBox" style="height:400px">
+<img src="assets/figure/setup/virtualbox_1.png" alt="VirtualBox" style="height:400px">
 
 ## Setup CSC331 virtual image
 
 - Download the disk image from the following link: [http://bit.ly/2GzKM3e](http://bit.ly/2GzKM3e).
 - On the menu bar of VirtualBox, click **File**, then select **Virtual Media Manager**. 
 
-<img src="../assets/figure/setup/virtualbox_2.png" alt="virtual media manager" style="height:400px">
+<img src="assets/figure/setup/virtualbox_2.png" alt="virtual media manager" style="height:400px">
 
 - Click **Add**, navigate to select the downloaded disk image, then click **Open**. 
 - Once the image is added, click **Close**. 
 
-<img src="../assets/figure/setup/virtualbox_3.png" alt="added hard disk" style="height:400px">
+<img src="assets/figure/setup/virtualbox_3.png" alt="added hard disk" style="height:400px">
 
 - Click **New** to bring up the Create Virtual Machine dialog.
 - Type in a **Name** for the virtual machine (csc331).
@@ -45,56 +45,56 @@ if you have additional hard drives with more space.
   - **Version** is `Ubuntu (64-bit)`
 - Click **Next**
 
-<img src="../assets/figure/setup/virtualbox_4.png" alt="virtual machine creation" style="height:500px">
+<img src="assets/figure/setup/virtualbox_4.png" alt="virtual machine creation" style="height:500px">
 
 - Memory size can be kept at 521 MB
 - Click Next
 
-<img src="../assets/figure/setup/virtualbox_5.png" alt="memory selection" style="height:500px">
+<img src="assets/figure/setup/virtualbox_5.png" alt="memory selection" style="height:500px">
 
 - For Hard disk, click **Use existing virtual hard disk file**
 - Select the **ubuntu-server.vdi** file that you added earlier.
 - Click **Create**. 
 
-<img src="../assets/figure/setup/virtualbox_6.png" alt="hard disk selection" style="height:500px">
+<img src="assets/figure/setup/virtualbox_6.png" alt="hard disk selection" style="height:500px">
 
 - The VM is now created and appeared on the left windows. 
 - Click **OK**
 - Next, select the VM and click the yellow **Settings** gear button. 
 - Select **Network** then click **Port Forwarding**. 
 
-<img src="../assets/figure/setup/virtualbox_7.png" alt="virtual machine settings" style="height:500px">
+<img src="assets/figure/setup/virtualbox_7.png" alt="virtual machine settings" style="height:500px">
 
 - Click the green **Add rule** button (top right) and enter the information as 
 shown in the figure below. 
 - Click **OK** when done. 
 
-<img src="../assets/figure/setup/virtualbox_8.png" alt="port forwarding" style="height:500px">
+<img src="assets/figure/setup/virtualbox_8.png" alt="port forwarding" style="height:500px">
 
 - Start the VM in **headless** mode, as shown below:
 
-<img src="../assets/figure/setup/virtualbox_9.png" alt="headless start" style="height:500px">
+<img src="assets/figure/setup/virtualbox_9.png" alt="headless start" style="height:500px">
 
 ## Working with the image through VSCode 
 
 - Launch VSCode. 
 - On the left bar, select the `Extension` button (the button with blocks). 
 
-<img src="../assets/figure/setup/vscode_1.png" alt="Extension lists" style="height:700px">
+<img src="assets/figure/setup/vscode_1.png" alt="Extension lists" style="height:700px">
 
 - Type **remote** in the search box.
 - Select the **Remote - SSH**, then click `Install`. 
 
-<img src="../assets/figure/setup/vscode_2.png" alt="Remote SSH extension" style="height:700px">
+<img src="assets/figure/setup/vscode_2.png" alt="Remote SSH extension" style="height:700px">
 
 - Once the installation finish, click on the bottom left green button. If you mouse over the button, it shows **Open a remote windows**. 
 - Select **Remote-SSH: Connect to Host...**.
 
-<img src="../assets/figure/setup/vscode_3.png" alt="Connect via remote SSH" style="height:700px">
+<img src="assets/figure/setup/vscode_3.png" alt="Connect via remote SSH" style="height:700px">
 
 - Select **Add New SSH Host...**
 
-<img src="../assets/figure/setup/vscode_4.png" alt="List of possible hosts (currently empty)" style="height:700px">
+<img src="assets/figure/setup/vscode_4.png" alt="List of possible hosts (currently empty)" style="height:700px">
 
 - Enter the following into the **Enter SSH Connection Command** box:
 
@@ -102,41 +102,41 @@ shown in the figure below.
 ssh -p 2222 student@127.0.0.1
 ```
 
-<img src="../assets/figure/setup/vscode_5.png" alt="Provide SSH command to host" style="height:100px">
+<img src="assets/figure/setup/vscode_5.png" alt="Provide SSH command to host" style="height:100px">
 
 - Select the top option for the **SSH configuration file to update**. 
 
-<img src="../assets/figure/setup/vscode_6.png" alt="Select destination to save configuration files" style="height:200px">
+<img src="assets/figure/setup/vscode_6.png" alt="Select destination to save configuration files" style="height:200px">
 
 - Next, repeat the step where you clicked the **Open a remote windows** option. 
 - This time, the `127.0.0.1` host will show up. 
 - Click on this host. 
 
-<img src="../assets/figure/setup/vscode_7.png" alt="Updated list of possible hosts" style="height:100px">
+<img src="assets/figure/setup/vscode_7.png" alt="Updated list of possible hosts" style="height:100px">
 
 - Select `Linux` as the platform for `127.0.0.1`. 
 
-<img src="../assets/figure/setup/vscode_8.png" alt="Remote host platform selection" style="height:700px">
+<img src="assets/figure/setup/vscode_8.png" alt="Remote host platform selection" style="height:700px">
 
 - Enter `goldenram` as the password for account `student`. 
 
-<img src="../assets/figure/setup/vscode_9.png" alt="SSH password" style="height:200px">
+<img src="assets/figure/setup/vscode_9.png" alt="SSH password" style="height:200px">
 
 - You should see the bottom left green bar now show the `127.0.0.1` connection. 
 
-<img src="../assets/figure/setup/vscode_10.png" alt="Connected VSCode" style="height:150px">
+<img src="assets/figure/setup/vscode_10.png" alt="Connected VSCode" style="height:150px">
 
 - Click the top left Explorer button. 
 - Click `OK`, as we want to open and view the files in `/home/student`. 
 - You will be asked to enter the password again. 
 
-<img src="../assets/figure/setup/vscode_11.png" alt="Remote file explorers" style="height:700px">
+<img src="assets/figure/setup/vscode_11.png" alt="Remote file explorers" style="height:700px">
 
 - You will see the files and directories in `/home/student` in the left windows. 
 - Click `Terminal` and select `New Terminal`. 
 - A `bash` shell into the VM will be opened. 
 
-<img src="../assets/figure/setup/vscode_12.png" alt="Bash terminals" style="height:700px">
+<img src="assets/figure/setup/vscode_12.png" alt="Bash terminals" style="height:700px">
 
 To gracefully shutdown the VM, in the bash terminal, enter `shutdown now`. This will 
 shutdown the *headless` VM. 

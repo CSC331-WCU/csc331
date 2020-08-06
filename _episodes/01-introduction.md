@@ -64,7 +64,7 @@ keypoints:
 > - Navigate to `ostep-code/intro`
 > - Click on `cpu.c` to view the file. 
 > - *VSCode will recommend a C/C++ extension for this file type. You can select to install them or not*. 
-> <img src="../assets/figure/intro_to_os/vscode_02.png" alt="File cpu.c" style="height:700px">
+> <img src="../assets/figure/intro_to_os/vscode_02.png" alt="File cpu.c" style="height:500px">
 >
 {: .slide}
 
@@ -153,7 +153,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 5: Memory Virtualization
+> ## Hands-on 6: Memory Virtualization
 > 
 > - Navigate to `ostep-code/intro`
 > - Click on `mem.c` to view the file. 
@@ -172,7 +172,7 @@ keypoints:
 > {: .solution}
 {: .challenge}
 
-> ## Hands-on 6: Memory Virtualization
+> ## Hands-on 7: Memory Virtualization
 > 
 > - In the bash terminal that you run the muliple `cpu` instances, run `clear` and hit `Enter`
 > to clear the terminal from output lines. 
@@ -204,7 +204,7 @@ keypoints:
 >
 {: .callout}
 
-> ## Hands-on 7: Memory Virtualization
+> ## Hands-on 8: Memory Virtualization
 > 
 > - Go to the bash terminal where you executed the command to kill the running `cpu` processes
 > and repeat the procedure, this time to kill the running `mem` processes:
@@ -222,7 +222,7 @@ keypoints:
 >
 {: .slide}
 
-> ## Hands-on 8: Concurrency
+> ## Hands-on 9: Concurrency
 >
 > - Navigate to `ostep-code/intro`
 > - Click on `threads.c` to view the file. 
@@ -234,7 +234,7 @@ keypoints:
 {:.slide}
 
 
-> ## Hands-on 9: Concurrency
+> ## Hands-on 10: Concurrency
 >
 > - `threads.c` creates two functions running at the same time, within the same memory 
 > space of the  main program.
@@ -258,7 +258,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 10: Concurrency
+> ## Hands-on 11: Concurrency
 >
 > - We need to change the VM so that it uses 2 CPU. To do that, run the following in the terminal:
 > ~~~
@@ -272,7 +272,7 @@ keypoints:
 >
 {: .slide}
 
-> ## Hands-on 11: Concurrency
+> ## Hands-on 12: Concurrency
 >
 > - Go to VirtualBox, select the csc331 image, go to **Settings**/**System**/**Processor** and
 > change the number of Processor(s) to `2`
@@ -283,7 +283,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 12: Concurrency
+> ## Hands-on 13: Concurrency
 >
 > - Reconnect VSCode to the VM. 
 > - Rerun the `threads` program:
