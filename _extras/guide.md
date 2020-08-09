@@ -361,5 +361,372 @@ title: "Introduction to C"
 {: .challenge}
 
 
+> ## Pointers and memory allocation
+>
+> - How does C request dynamic memory when you don't know at 
+> compile-time exactly what you will need?
+> - How does C allocate memory?
+>   - Automatic: compile arranges for memory to be allocated 
+>   and initialized for local variables when it is in scope.
+>   - Static: memory for static variables are allocated once 
+>   when program starts.
+>   - Dynamic: memory is allocated on the fly as needed.
+{: .slide}
+
+
+> ## Dynamic memory allocation
+>
+> - Unlike Java, you have to do everything!
+>   - Ask for memory.
+>   - Return memory when you are done (garbage collection!).
+> - C function: [`malloc`](https://linux.die.net/man/3/malloc)
+>   - `void *malloc(size_t size);`
+>   - The `malloc()` function allocates `size` bytes and returns 
+>   a pointer to the allocated memory. The memory is **not initialized**. 
+>   If size is 0, then `malloc()` returns either `NULL`, or a unique 
+>   pointer value that can later be successfully passed to `free()`.
+> - C function: [`free`](https://linux.die.net/man/3/free)
+>   - void free(void *ptr);
+>   - The `free()` function frees the memory space pointed to by ptr, 
+>   which must have been returned by a previous call to `malloc()`, 
+>   `calloc()` or `realloc()`. Otherwise, or if `free(ptr)` has already 
+>   been called before, undefined behavior occurs. If `ptr` is `NULL`, 
+>   no operation is performed.
+{: .slide}
+
+
+> ## Void pointer
+>
+> - When `malloc` allocates memory, it returns a sequence of bytes, with
+> no predefined types. 
+> - A pointer that points to this sequence of bytes (the address of the 
+> starting byte), is called a **void pointer**.  
+> - A void pointer will then be typecast to an appropriate type. 
+{: .slide}
+
+
+> ## Hands-on 10: Malloc and type cast
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `malloc_1.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdlib.h>
+> #include <stdio.h>
+> 
+> int main(int argc, char *argv[]) {
+>   void *p = malloc(4);
+>   int *ip = (int *)p;
+>   *ip = 98765;
+>   printf("%d\n", *ip);
+>  return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - What points to where:
+>   - `void *p = malloc(4);`: allocate 4 contiguous bytes. The address of the
+>   first byte is returned and assign to pointer variable `p`. `p` has no 
+>   type, so it is a `void pointer`. 
+>   - `int *ip = (int *)p;`: The address value *pointed to* by `p` is assigned
+>   to pointer variable `ip`. The bytes pointed to be `p` are now casted to 
+>   type `int`. 
+> - Compile and run `malloc_1.c`
+> 
+> <img src="../assets/figure/guide/13.png" alt="Compile and run malloc_1.c" style="height:450px">
+>
+{: .slide}
+
+
+> ## Hands-on 11: Malloc and type cast with calculation
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `malloc_2.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdlib.h>
+> #include <stdio.h>
+> 
+> int main(int argc, char *argv[]) {
+>   int *ip = (int *)malloc(sizeof(int));
+>   *ip = 98765;
+>   printf("%d\n", *ip);
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - Only ask for exactly what you need!
+> - Compile and run `malloc_2.c`
+> 
+> <img src="../assets/figure/guide/14.png" alt="Compile and run malloc_2.c" style="height:450px">
+>
+{: .slide}
+
+
+> ## Hands-on 12: Safety
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `malloc_3.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdlib.h>
+> #include <stdio.h>
+> 
+> int main(int argc, char *argv[]) {
+>   int *ip = (int *)malloc(sizeof(int));
+>   *ip = 98765;
+>   printf("%d\n", *ip);
+>   free(ip);
+>   ip = NULL;
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - Only ask for exactly what you need!
+> - Compile and run `malloc_3.c`
+> 
+> <img src="../assets/figure/guide/15.png" alt="Compile and run malloc_3.c" style="height:450px">
+>
+{: .slide}
+
+> ## Dynamic memory allocation
+>
+> - Critical to support complex data structures that grow as the 
+>  program executes. 
+> - In Java, custom classes such as ArrayList and Vector provide 
+> such support.
+> - In C, you have to do it manually: How?
+> - Let’s start with a simpler problem:
+>   - How can we dynamically allocate memory to an array 
+>   whose size is not known until during run time?
+{: .slide}
+
+
+> ## Hands-on 13: What does an array in C look like?
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `array_1.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdio.h>
+> int main(int argc, char *argv[]) {
+>   int numbers[5];
+>   int i;
+>   for (i = 0; i < 5; i++){
+>     numbers[i] = i * 2;
+>     printf("Index %d has value %d at address (%p)\n", i, numbers[i], (numbers + i));
+>   }
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - What is the distance between addresses? Why?
+> - Compile and run `array_1.c`
+> 
+> <img src="../assets/figure/guide/16.png" alt="Compile and run array_1.c" style="height:450px">
+>
+{: .slide}
+
+
+> ## Exercise
+>
+> - Create a copy of `array_1.c` called `array_2.c`. 
+> - Change the type of `numbers` to `double`. 
+> - What is the address step now?
+>
+> > ## Answer     
+> > <img src="../assets/figure/guide/17.png" alt="Compile and run array_2.c" style="height:200px"> 
+> >
+> {: .solution}
+{: .challenge}
+
+
+> ## An array variable
+>
+> - ... is in fact pointing to an address containing a value. 
+> - ... without the bracket notation and an index points to the 
+> corresponding address of the value at the index. 
+> - ... is quite similar to a pointer!
+{: .slide}
+
+> ## Hands-on 14: Array as pointer (or vice versa ...)
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `array_3.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdio.h>
+> #include <stdlib.h>
+> int main(int argc, char *argv[]) {
+>   int i, size;
+>   int *p; 
+>   size = 5;
+>   p = malloc(sizeof(int) * size);
+>   for (i = 0; i < size; i++){
+>     printf("Before init, index %d has value %d at addr (%p)\n", i, p[i], p + i);
+>     p[i] = i * 2;
+>     printf("After init, index %d has value %d at addr (%p)\n", i, p[i], p + i);
+>   }
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - Compile and run `array_3.c`
+> 
+> <img src="../assets/figure/guide/18.png" alt="Compile and run array_1.c" style="height:400px">
+>
+{: .slide}
+
+
+> ## Hands-on 15: Dynamic array creation with command line arguments. 
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `array_4.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdio.h>
+> #include <stdlib.h>
+> int main(int argc, char *argv[]) {
+>   int i, size;
+>   int *p; 
+>   size = atoi(argv[1]);
+>   printf(“Before malloc, p is pointing to address (%p)\n”, p);
+>   p = malloc(sizeof(int) * size);
+>   for (i = 0; i < size; i++){
+>     p[i] = i * 2;
+>     printf("After malloc and assignment, index %d has value %d at addr (%p)\n", i, p[i], p + i);
+>   }
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - In C, the command line arguments **include** the program's name. The
+> actual arguments start at index position 1 (not 0 like Java).
+> - Compile and run `array_4.c`
+> 
+> <img src="../assets/figure/guide/19.png" alt="Compile and run array_4.c" style="height:400px">
+>
+{: .slide}
+
+
+> ## Hands-on 16: String 
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `string_1.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include<stdio.h> 
+> 
+> int main(int argc, char *argv[]) {    
+>   int i;
+>   char str[] = "Hello, world!"; 
+>   printf("%s\n",str);     
+>   for (i = 0; i < 12; i++) {
+>     printf("%c ", str[i]);
+>   } 
+>   printf("\n");
+>   return 0; 
+> } 
+> ~~~
+> {: .language-c}
+>
+> - Compile and run `string_1.c`
+> 
+> <img src="../assets/figure/guide/20.png" alt="Compile and run string_1.c" style="height:400px">
+>
+{: .slide}
+
+
+> ## Hands-on 17: Array of strings
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `string_2.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdio.h>
+> #include <stdlib.h>
+> #include <string.h>
+>
+> int main(int argc, char *argv[]){ 
+>   int i, word_count;
+>   int str_len[2] = {6, 4};
+>   char **s_array;
+>   word_count = 2;
+>   s_array = (char**)calloc(word_count, sizeof(char *));
+>   for (i = 0; i < word_count; i++){
+>     s_array[i] = (char *)calloc(str_len[i], sizeof(char));
+>   }
+>   strcpy(s_array[0], "Golden");
+>   strcpy(s_array[1], "Rams");
+>   printf("%s %s\n", s_array[0], s_array[1]);
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - Compile and run `string_2.c`
+> 
+> <img src="../assets/figure/guide/21.png" alt="Compile and run string_2.c" style="height:400px">
+>
+{: .slide}
+
+
+> ## Object in C
+>
+> - C has no classes or objects. 
+> - Instead, it has `struct` type (think ancestor of objects) .
+{: .slide}
+
+
+> ## Hands-on 18: Struct in C
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `struct_1.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdio.h>
+> 
+> struct point {
+>   int x;
+>   int y;
+> };
+> 
+> int main(int argc, char *argv[]){ 
+>   struct point origin;
+>   origin.x = 0;
+>   origin.y = 0;
+>
+>   printf("The coordinates of the origin are: %d %d\n", origin.x, origin.y);
+>   printf("The address of coordinates of the origin are: %p %p\n", &origin.x, &origin.y);
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - Compile and run `struct_1.c`
+> 
+> <img src="../assets/figure/guide/22.png" alt="Compile and run struct_1.c" style="height:400px">
+>
+{: .slide}
+
+
+
+
+
+
 
 {% include links.md %}
