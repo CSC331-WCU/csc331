@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Semaphores"
 teaching: 0
 exercises: 0
 questions:

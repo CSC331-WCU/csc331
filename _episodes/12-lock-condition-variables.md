@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Lock and Condition Variables"
 teaching: 0
 exercises: 0
 questions:

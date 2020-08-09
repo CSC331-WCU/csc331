@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "CPU Scheduling"
 teaching: 0
 exercises: 0
 questions:

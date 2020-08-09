@@ -3,7 +3,7 @@ title: "Introduction"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "Who get served first?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

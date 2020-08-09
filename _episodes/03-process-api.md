@@ -1,9 +1,9 @@
 ---
-title: "Introduction"
+title: "Process API"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How do you programmatically interact with processes?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

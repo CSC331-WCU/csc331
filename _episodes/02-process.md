@@ -1,9 +1,9 @@
 ---
-title: "Introduction"
+title: "Abstraction: The process"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "What is a program and what is a process?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

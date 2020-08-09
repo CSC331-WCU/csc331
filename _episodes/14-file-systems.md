@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Introduction to file systems"
 teaching: 0
 exercises: 0
 questions:
