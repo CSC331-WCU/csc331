@@ -724,7 +724,126 @@ title: "Introduction to C"
 {: .slide}
 
 
+> ## Hands-on 19: Struct of structs in C
+>
+> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
+> - Type `struct_2.c` as the file name and hits Enter. 
+> - Enter the following source code in the editor windows:
+>
+> ~~~
+> #include <stdio.h>
+> 
+> struct point {
+>   int x;
+>   int y;
+> };
+> 
+> struct line {
+>   struct point start;
+>   struct point end;
+> };
+>
+> int main(int argc, char *argv[]){ 
+>   struct point origin;
+>   origin.x = 0;
+>   origin.y = 0;
+>
+>   printf("The coordinates of the lines are: %d %d %d %d\n", 
+>           l.start.x, l.start.y, l.end.x, l.end.y);
+>   printf("The address of coordinates of the origin are: %p %p %p %p\n", 
+>           &l.start.x, &l.start.y, &l.end.x, &l.end.y);
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> - Compile and run `struct_1.c`
+> 
+> <img src="../assets/figure/guide/23.png" alt="Compile and run struct_1.c" style="height:400px">
+>
+{: .slide}
 
+
+
+> ## Function in C
+>
+> - Almost the same as methods in Java, except for one small difference. 
+> - They need to either be declared, or must be defined prior to being
+> called (relative to written code position). 
+{: .slide}
+
+
+> ## Hands-on 20: Functions in C - definition and declaration
+>
+> - Create three C files, `funcion_1.c`, `function_2.c`, and `function_3.c`,
+> with the source codes below:
+>
+> ~~~
+> /* function_1.c */
+> #include <stdio.h>
+> 
+> int times2(int x) {
+>   return x * 2;
+> }
+>
+> int times4(int x) {
+>   return times2(x) * 2;
+> }
+> 
+> int main(int argc, char *argv[]) {
+>   int x = 100;
+>   printf("Result: %d\n", times4(x));
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> ~~~
+> /* function_2.c */
+> #include <stdio.h>
+> 
+> int times4(int x) {
+>   return times2(x) * 2;
+> }
+>
+> int times2(int x) {
+>   return x * 2;
+> }
+> 
+> int main(int argc, char *argv[]) {
+>   int x = 100;
+>   printf("Result: %d\n", times4(x));
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+>
+> ~~~
+> /* function_3.c */
+> #include <stdio.h>
+> int times2(int x);
+> int times4(int x);
+>
+> int times4(int x) {
+>   return times2(x) * 2;
+> }
+>
+> int times2(int x) {
+>   return x * 2;
+> }
+> 
+> int main(int argc, char *argv[]) {
+>   int x = 100;
+>   printf("Result: %d\n", times4(x));
+>   return 0;
+> }
+> ~~~
+> {: .language-c}
+> - Compile and run these files. 
+> 
+> <img src="../assets/figure/guide/24.png" alt="Compile and run funcion_1.c, funcion_2.c, and function_3.c" style="height:400px">
+>
+{: .slide}
 
 
 
