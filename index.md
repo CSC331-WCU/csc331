@@ -12,6 +12,18 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 > - **Phone**: 610-436-2595 (don’t call, email)
 {: .prereq}
 
+> ## COVID-19 Statement
+> Part of West Chester University’s response to the COVID-19 pandemic was to 
+> switch the vast majority of instruction to remote.  This decision was made 
+> out of an abundance of caution to protect the health of all members of the WCU 
+> community.  Faculty have been asked to make every effort to adapt their courses 
+> to this novel situation while still meeting the critical learning outcomes of 
+> the course.  Students are asked to discuss any problems with the new course 
+> format and schedule directly with their instructors.  Patience and flexibility 
+> on everyone’s behalf are critical to our community’s navigation of this public 
+> health crisis.
+{: .prereq}
+
 > ## Course Description
 > This course will introduce three fundamental concepts in operating system (OS): Virtualization, 
 > Concurrency, and Persistence.
