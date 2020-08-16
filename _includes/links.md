@@ -50,3 +50,6 @@
 [c4java]: https://www.cs.rochester.edu/u/ferguson/csc/c/c-for-java-programmers.pdf
 [c_vs_java]: https://introcs.cs.princeton.edu/java/faq/c2java.html
 [gcc_output_conversion]: https://www.gnu.org/software/libc/manual/html_node/Other-Output-Conversions.html#Other-Output-Conversions
+[xv6_process]: https://github.com/mit-pdos/xv6-public/blob/0754d21c865e97582968fa5d155eac133e5829b0/proc.h
+[linux_task_struct]: https://github.com/torvalds/linux/blob/master/include/linux/sched.h
+[linux_x86_tss]: https://github.com/torvalds/linux/blob/master/arch/x86/include/asm/processor.h

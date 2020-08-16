@@ -53,7 +53,7 @@ keypoints:
 >
 > - Start the csc331 VM in headless mode. 
 > - Connect VSCode to csc331. 
-> - Navigate to `/home/student/ostep-code/intro
+> - Navigate to `/home/student/ostep-code/intro`
 > - Open a terminal
 > <img src="../assets/figure/intro_to_os/vscode_01.png" alt="VSCode/csc331 working environment" style="height:700px">
 > 
