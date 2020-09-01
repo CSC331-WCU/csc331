@@ -24,7 +24,7 @@ keypoints:
 >
 > - ... is a system call. 
 > - ... is used to create a new process.   
-> - Documentation: [https://www.man7.org/linux/man-pages/man2/fork.2.html]    
+> - [Documentation for fork()](https://www.man7.org/linux/man-pages/man2/fork.2.html)    
 > - Some important points:
 >   - fork() creates a new process by duplicating the calling process. 
 >   The new process is referred to as the child process.  The calling proces
@@ -92,6 +92,107 @@ keypoints:
 > <img src="../assets/figure/process-api/02.png" alt="Compile and run p1.c" style="height:500px">
 {: .slide}
 
+
+> ## wait()/waitpid()/waitid()
+>
+> - ... belongs to a family of system calls. 
+> - ... are used to make a process to *wait* for its child process. 
+> - [Documentation for wait()](https://man7.org/linux/man-pages/man2/wait.2.html)
+> - Some important points:
+>   - What are we waiting for? **state changes**. 
+>     - The child process was stopped by a signal.  
+>     - The child process terminated. 
+>     - The child process was resumed by a signal. 
+>   - **wait()**: suspends execution of the calling thread until one of its child processes terminates.
+{: .slide}
+
+
+> ## Hands-on 4: processes management using wait() 
+> 
+> - If not already done:
+>   - SSH into csc331
+>   - Run the following commands:
+>
+> ~~~
+> $ cd ~/ostep-code/cpu-api
+> $ cat -n p2.c
+> ~~~
+> {: .language-bash}
+>
+> <img src="../assets/figure/process-api/03.png" alt="File p2.c" style="height:500px">
+>
+> - Line 1-4: Pay attention to the libraries included. 
+> - Line 6-7: No idea why the author sets up the source code that way ...
+> - Line 9: prints out hello world and the process identifier (pid) of the current process.
+> - Line 10: calls `fork()`, which initiate the creation of a new process. The return of this fuction 
+> call is assigned to variable `rc`. 
+> - Line 11: If `rc` is negative, the function call failed and the program exits with return value 1. 
+> This line is evaluated within the parent process (since the child process creation failed).
+> - Line 15: If `rc` is equal to `0`.
+>   - The child process will execute the codes inside this conditional block. 
+>   - Line 17: prints out a statement and the child's `pid`. 
+>   - Line 18: sleeps for one second. 
+> - Line 19: This is the parent process (`rc` is non-negative and not equal to 0) 
+>     - Line 21: calls the `wait()` function. 
+>     - Line 22: prints out the information of the parent process. 
+{: .slide}
+
+
+> ## Hands-on 5: compile and run p2.c 
+> 
+> - If not already done:
+>   - SSH into csc331
+>   - Run the following commands:
+> - Navigate to `~/ostep-code/cpu-api`
+>
+> ~~~
+> $ gcc -o p2 p2.c
+> $ ./p2
+> ~~~
+> {: .language-bash}
+>
+> <img src="../assets/figure/process-api/04.png" alt="Compile and run p2.c" style="height:200px">
+>
+{: .slide}
+
+
+> ## exec()
+>
+> - [Documentation for exec()](https://linux.die.net/man/3/exec)
+> - `fork()` lets you create and run a copy of the original process. 
+> - `exec()` lets you run a different process in place of **the copy** of the original process. 
+{: .slide}
+
+
+> ## Hands-on 6: processes management using exec() 
+> 
+> - If not already done:
+>   - SSH into csc331
+>   - Run the following commands:
+>
+> ~~~
+> $ cd ~/ostep-code/cpu-api
+> $ cat -n p3.c
+> ~~~
+> {: .language-bash}
+>
+> <img src="../assets/figure/process-api/05.png" alt="File p3.c" style="height:500px">
+>
+> - Line 1-5: Pay attention to the libraries included. 
+> - Line 7-8: `main`
+> - Line 10: prints out hello world and the process identifier (pid) of the current process.
+> - Line 11: calls `fork()`, which initiate the creation of a new process. The return of this fuction 
+> call is assigned to variable `rc`. 
+> - Line 12: If `rc` is negative, the function call failed and the program exits with return value 1. 
+> This line is evaluated within the parent process (since the child process creation failed).
+> - Line 16: If `rc` is equal to `0`.
+>   - The child process will execute the codes inside this conditional block. 
+>   - Line 18: prints out a statement and the child's `pid`. 
+>   - Line 18: sleeps for one second. 
+> - Line 25: This is the parent process (`rc` is non-negative and not equal to 0) 
+>     - Line 21: calls the `wait()` function. 
+>     - Line 22: prints out the information of the parent process. 
+{: .slide}
 
 {% include links.md %}
 
