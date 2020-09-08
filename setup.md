@@ -27,7 +27,8 @@ it is necessary to use VirtualBox to create an isolated environment for operatin
 
 ## Setup CSC331 virtual image
 
-- Download the disk image from the following link: [http://bit.ly/2GzKM3e](http://bit.ly/2GzKM3e).
+- Download the 64-bit disk image from the following link: [http://bit.ly/2GzKM3e](http://bit.ly/2GzKM3e). 
+- For 32-bit, use [the following image](https://drive.google.com/file/d/1gZU6r8R7DZPITNIjGAflFFAuQ5bq1zth/view?usp=sharing).
 - On the menu bar of VirtualBox, click **File**, then select **Virtual Media Manager**. 
 
 <img src="assets/figure/setup/virtualbox_2.png" alt="virtual media manager" style="height:400px">
@@ -138,7 +139,7 @@ ssh -p 2222 student@127.0.0.1
 
 <img src="assets/figure/setup/vscode_12.png" alt="Bash terminals" style="height:700px">
 
-To gracefully shutdown the VM, in the bash terminal, enter `shutdown now`. This will 
+To gracefully shutdown the VM, in the bash terminal, enter `sudo poweroff`. This will 
 shutdown the *headless` VM. 
 
 ## Setup GitHub account
