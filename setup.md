@@ -142,6 +142,40 @@ ssh -p 2222 student@127.0.0.1
 To gracefully shutdown the VM, in the bash terminal, enter `sudo poweroff`. This will 
 shutdown the *headless` VM. 
 
+
+## Access csc331 directly without VSCode
+
+- VSCode helps making editing codes easier; however, setting up VSCode with csc331 can be
+challenging. 
+- It is possible to SSH directly into csc331 after port forwarding is created. 
+- Caveat: you will need to learn how to use terminal-based editor. 
+- To SSH into csc331, the following command can be used on a terminal that has SSH:
+
+~~~
+ssh -p 2222 student@127.0.0.1
+~~~
+{: .language-bash}
+
+By default, MacOS's terminal will have SSH. 
+For Windows, you can try to use `PowerShell`. 
+
+<img src="assets/figure/setup/ssh_1.png" alt="Powershell SSH" style="height:400px">
+
+
+If an error is returned (something to the effect of SSH not found), you will need to download and 
+install one of the followings:
+
+- [Download and install Git](https://git-scm.com/downloads), then run `Git Bash` application.
+
+<img src="assets/figure/setup/ssh_2.png" alt="Git Bash SSH" style="height:400px">
+
+- [Download, unzip, then install MobaXTerm](https://mobaxterm.mobatek.net/download-home-edition.html). Either portable or installer edition is fine. 
+
+<img src="assets/figure/setup/ssh_3.png" alt="MobaXterm SSH" style="height:400px">
+
+- Review [the following document](https://www.howtogeek.com/howto/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/) to learn about `nano`, a CLI editor.s
+
+
 ## Setup GitHub account
 - If you don't already have a GitHub account, go to [GitHub web page][github] to sign up for an account. 
 - It should be noted that you can link multiple email addresses to a GitHub account. Even if you
