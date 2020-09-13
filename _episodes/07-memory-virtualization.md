@@ -3,7 +3,7 @@ title: "Memory virtualization"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How can an illusion of infinite and isolated memory space be managed?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

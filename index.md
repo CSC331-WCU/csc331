@@ -44,22 +44,36 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 >
 {: .prereq}
 
-> ## Learning Objectives:
->
-> ### Student Learning Objectives:
-> - Be able to apply theory, techniques, and methodologies to create and/or maintain high quality
-> computing systems that function effectively and reliably in the emerging and future information
-> infrastructure.
-> - Be able to work in teams, demonstrate ethical professionalism in their work, and grow professionally 
-> while engaging in life-long learning. 
->
-> ### Student Learning Outcomes:
-> 1. Analyze a complex computing problem and to apply principles of computing and other relevant
-> disciplines to identify solutions.
-> 2. Design, implement, and evaluate a computing-based solution to meet a given set of computing
-> requirements in the context of the program’s discipline.
-> 3. Function effectively as a member or leader of a team engaged in activities appropriate to the 
-> program’s discipline.
+> ## Learning Objectives
+> <table>
+>   <thead>
+>     <tr>
+>       <th> Course Level Student Learning Outcomes (SLO) </th>
+>       <th> CS/ABET Program Outcomes </th>
+>       <th> CS Program Objectives </th>
+>       <th> Assessment </th>    
+>     </tr>
+>   </thead>
+>   <tbody>
+>     <tr>
+>       <td> 1. Be able to create and manipulate processes, manage run-time memory, and read and write to file systems </td>
+>       <td> 1. Analyze a complex computing problem and to apply principles of computing and other relevant disciplines to identify solutions. </td>
+>       <td rowspan="2"> 1. Be able to apply theory, techniques, and methodologies to create and/or maintain high quality computing systems that function effectively and reliably in the emerging and future information infrastructure.</td>
+>       <td> Assignment, Quiz, Exam </td>     
+>     </tr>
+>     <tr>
+>       <td> 2. Be able to create and manage threads and navigate around the potential issues in thread concurrency. </td>
+>       <td> 2. Design, implement, and evaluate a computing-based solution to meet a given set of computing requirements in the context of the program’s discipline.  </td>    
+>       <td> Assignment, Quiz, Exam </td> 
+>     </tr>
+>     <tr>
+>       <td> 3. Be able to implement architectural changes to an OS </td>
+>       <td> 3. Function effectively as a member or leader of a team engaged in activities appropriate to the program’s discipline. </td>
+>       <td> 2. Be able to work in teams, demonstrate ethical professionalism in their work, and grow professionally while engaging in life-long learning. </td> 
+>       <td> Lab </td>
+>     </tr>
+>   </tbody>
+> </table>
 >
 > ### Course Topics:
 > - Virtualization
@@ -86,11 +100,10 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 >   - Writing C codes that demonstrate understanding and the ability to:
 >     - create and manage threads. 
 >     - navigate around the potential issues in thread concurrency. 
->   - Working as a team to modify existing codes in the xv6 OS to implement architectural 
+> - Lab: Working as a team to modify existing codes in the xv6 OS to implement architectural 
 >   changes to the OS. 
 > - Quizzes and Exams: Students will be assessed on their understanding of theoretical concepts
 > necessary to support the tasks decribed in the assignments.
->
 {: .objectives}
 
 

@@ -3,7 +3,7 @@ title: "File systems implementation"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to implement a simple file system?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

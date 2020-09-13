@@ -3,7 +3,7 @@ title: "Lock and Condition Variables"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to support atomicity with locks and condition variables?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

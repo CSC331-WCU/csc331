@@ -172,6 +172,8 @@ keypoints:
 >
 > ~~~
 > $ cd ~/ostep-code/cpu-api
+> $ gcc -o p3 p3.c
+> $ ./p3
 > $ cat -n p3.c
 > ~~~
 > {: .language-bash}
@@ -192,6 +194,146 @@ keypoints:
 > - Line 25: This is the parent process (`rc` is non-negative and not equal to 0) 
 >     - Line 21: calls the `wait()` function. 
 >     - Line 22: prints out the information of the parent process. 
+{: .slide}
+
+> ## Why fork(), wait(), and exec()?
+>
+> - The separation of `fork()` and `exec()` is essential to the building of a Linux shell.  
+> - It lets the shell runs code after the call to `fork()`, but before the call to `exec()`.  
+> - This facilitates a number of interesting features in the UNIX shell. 
+{: .slide}
+
+> ## The Shell
+>
+> - What is the UNIX shell?.  
+> - In Unix, the shell is a program that interprets commands and acts as an intermediary between 
+> the user and the inner workings of the operating system. Providing a command-line interface (that 
+> is, the shell prompt or command prompt), the shell is analogous to DOS and serves a purpose similar 
+> to graphical interfaces like Windows, Mac, and the X Window System. 
+{: .slide}
+
+> ## The Shell
+>
+> - What is the UNIX shell?.  
+> - **In Unix, the shell is a program ...** 
+{: .slide}
+
+> ## The Shell
+>
+> - **In Unix, the shell is a program ...** 
+> - Therefore, the running shell is **a process**.
+> - In other words, inside a running shell, if we want to run another program, we are essentially
+> *asking a process (the running shell) to create and run another process*. 
+{: .slide}
+
+> ## When you run a program from the shell prompt ...
+>
+> The shell will  
+> - find out where the program is in the file system. 
+> - call `fork()` to create a new child process (to run the program). 
+> - call one of the `exec()` family functions in the scope of this child process
+> to actually load and run this program. 
+> - call `wait()` to wait for the child process to finish (now with new process content) before
+> giving user the **shell prompt** again. 
+{: .slide}
+
+> ## When you run a program from the shell prompt ...
+>
+> The shell will  
+> - find out where the program is in the file system. 
+> - call `fork()` to create a new child process (to run the program). 
+> - call one of the `exec()` family functions in the scope of this child process
+> to actually load and run this program. 
+> - call `wait()` to wait for the child process to finish (now with new process content) before
+> giving user the **shell prompt** again. 
+{: .slide}
+
+> ## Hands-on 7: redirection 
+> 
+> - If not already done:
+>   - SSH into csc331
+>   - Run the following commands:
+>
+> ~~~
+> $ cd ~/ostep-code/cpu-api
+> $ wc p3.c
+> $ wc p3.c > newfile.txt
+> $ cat newfile.txt
+> ~~~
+> {: .language-bash}
+>
+> <img src="../assets/figure/process-api/06.png" alt="Redirection" style="height:200px">
+>
+> The shell ... 
+> - finds out where `wc` is in the file system. 
+> - prepares `p3` as in input to `wc`. 
+> - calls `fork()` to create a new child process to run the command.
+> - recognizes that `>` represents a redirection, thus closes the file descriptor to 
+> standard output and replaces it with a file descriptor to newfile.txt.
+> - calls one of exec() family to run wc p3.c.
+>   - output of wc p3.c are now send to newfile.txt.
+> - calls wait() to wait for the child process to finish before giving user the prompt again. 
+{: .slide}
+
+> ## Hands-on 8: more on file descriptors 
+> 
+> - If not already done:
+>   - SSH into csc331
+>   - Run the following commands:
+> *you don't have to do this if you have VSCode setup and you can see the lines count on
+> VSCode*.
+>
+> ~~~
+> $ cd ~/ostep-code/cpu-api
+> $ nano -c p4.c
+> ~~~
+> {: .language-bash}
+>
+> <img src="../assets/figure/process-api/07.png" alt="View p4.c" style="height:700px">
+>
+> - `wc p4` should have printed out to terminal.
+> - `close(STDOUT_FILENO)` closes the file descriptor that writes to the terminal 
+> (hence free up that particular file descriptor ID).
+> - `open(“./p4.output”, …)` creates a file descriptor for the p4.output file, but since the 
+> file descriptor ID for the terminal is now free, this file descriptor is assigned to p4.output.
+> - As `wc p4` is executed and attempts to write to terminal, it actually writes to p4.output instead.  
+>
+> Compile and run `p4.c`
+>
+> ~~~
+> $ gcc -o p4 p4.c
+> $ ./p4
+> $ cat p4.output
+> ~~~
+> {: .language-bash}
+>
+> <img src="../assets/figure/process-api/08.png" alt="View p4.c" style="height:200px">
+{: .slide}
+
+
+> ## Hands-on 9: piping 
+> 
+> - If not already done:
+>   - SSH into csc331
+>   - Run the following commands:
+>
+> ~~~
+> $ ps aux
+> $ ps aux | grep student
+> $ ps aux | grep student | wc -l
+> ~~~
+> {: .language-bash}
+>
+{: .slide}
+
+> ## Other system calls ...
+>
+> - `kill()`: send signals to a process, including directive to pause, die, and other imperatives.
+>   - http://man7.org/linux/man-pages/man2/kill.2.html
+>   - SIGINT: signal to terminate a process  
+>   - SIGTSTP: pause the process (can be resumed later).
+> - `signal()`: to catch a signal.
+>   - http://man7.org/linux/man-pages/man7/signal.7.html 
 {: .slide}
 
 {% include links.md %}

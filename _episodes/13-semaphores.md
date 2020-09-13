@@ -3,7 +3,7 @@ title: "Semaphores"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to support atomicity with semaphores?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

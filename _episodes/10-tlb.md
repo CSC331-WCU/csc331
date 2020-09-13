@@ -3,7 +3,7 @@ title: "Memory Virtualization Mechanism: TLB"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to speed up address translation?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

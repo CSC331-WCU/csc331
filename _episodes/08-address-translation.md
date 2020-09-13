@@ -3,7 +3,7 @@ title: "Memory virtualization mechanism: address translation"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to efficiently and flexibly virtualize memory"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

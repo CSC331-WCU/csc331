@@ -3,7 +3,7 @@ title: "I/O and Disks: Disk Scheduling"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to access data on disk?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

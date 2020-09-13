@@ -3,7 +3,7 @@ title: "Micro versus monolithnic kernels: Minix and Linux"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "The argument of the ages"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

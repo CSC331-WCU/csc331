@@ -3,7 +3,7 @@ title: "Introduction to file systems"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to manage a persistent device?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

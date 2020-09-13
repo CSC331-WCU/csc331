@@ -3,7 +3,7 @@ title: "Memory virtualization mechanism: paging"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to virtualize memory with pages to avoid segmentation issues?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

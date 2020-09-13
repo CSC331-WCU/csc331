@@ -3,7 +3,7 @@ title: "CPU Scheduling"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How can an illusion of infinite CPU be managed?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

@@ -3,7 +3,7 @@ title: "Crash consistency: fsck and journaling"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to update the disks despite crashes?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:

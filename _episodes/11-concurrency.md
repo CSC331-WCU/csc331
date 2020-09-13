@@ -3,7 +3,7 @@ title: "Introduction to concurrency using threads"
 teaching: 0
 exercises: 0
 questions:
-- "Key question (FIXME)"
+- "How to support concurrency?"
 objectives:
 - "First learning objective. (FIXME)"
 keypoints:
