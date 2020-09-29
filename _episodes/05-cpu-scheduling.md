@@ -262,6 +262,7 @@ the real world."
 >       <td bgcolor="#dbdbd3">  </td>
 >       <td bgcolor="#dbdbd3">  </td>
 >       <td bgcolor="#dbdbd3">  </td>
+>       <td bgcolor="#dbdbd3">  </td>
 >       <td bgcolor="#c484ae"> C </td>
 >       <td bgcolor="#c484ae"> C </td>
 >       <td bgcolor="#c484ae"> C </td>
@@ -499,6 +500,7 @@ the real world."
 >     <tr>
 >       <td>  </td>
 >       <td>  </td>
+>       <td bgcolor="#dbdbd3">  </td>
 >       <td bgcolor="#dbdbd3">  </td>
 >       <td bgcolor="#dbdbd3">  </td>
 >       <td bgcolor="#dbdbd3">  </td>
@@ -793,7 +795,7 @@ the real world."
 {: .slide}
 
 
-> ## 21. STCF/PSJF in action
+> ## 21. RR in action
 >
 > <table>
 >   <thead>
@@ -1095,7 +1097,7 @@ the real world."
 >   - Ph.D. in Physics (CalTech)
 >   - MIT Professor
 > - One of the original developers of Multics (Predecessor of UNIX)
-> - First use of password to secure file access on comptuers. 
+> - First use of password to secure file access on computers. 
 > - Recipient of the 1990 Turing Award (The Nobel prize in computing)
 {: .slide}
 
