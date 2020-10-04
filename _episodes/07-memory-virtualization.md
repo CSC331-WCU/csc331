@@ -242,5 +242,31 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 >
 {: .slide}
 
+
+> ## 13. Hands on: is memory unlimited?
+> 
+> - Reduce the number of vertical panels down to 2 and adjust the sizes 
+> (see screenshot below).
+> - In one of the panels, create `largemem.c` inside `memory` with the following 
+> contents, then compile.
+> 
+> <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=largemem.c"></script>
+>
+> - Split the right vertical panel to four (or more) horizontal panels. 
+> - In the left panel, first run `free -hm` and study the output. 
+> - In the top right panel, inside `memory`, run `largemem` with a command line 
+> argument of `200`. 
+> - In the left panel, rerun `free -hm` and study the new output.  
+> - Subsequently, alternatve between running `largemem` in the right panels and 
+> `free -hm` in the left panel, adjusting the command line argument of `largemem`
+> such that you run into a segmentation fault in the last panel. 
+> - This is the impact of memory allocation (reservation). 
+>
+> <img src="../assets/figure/memory-virtualization/09.png" alt="foods" style="height:800px">
+>
+{: .slide}
+
+
+
 {% include links.md %}
 
