@@ -189,7 +189,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 {: .slide}
 
 
-> ## 8. Hands on: where the stack grows?
+> ## 9. Hands on: where the stack grows?
 > 
 > - Add one more vertical panel to your tmux session. 
 > - Adjust the panels' width (`resize-pane -L/-R`) so that they balance.
@@ -197,16 +197,16 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 >   
 > <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=simple4.c"></script>
 > 
-> - Stack grows downward relative to stack frames …
+> - Stack grows downward (high to low) relative to stack frames …
 > - Within a stack frame, memory reserved for data are 
-> allocated in order of declaration from high to low
+> allocated in order of declaration from low to high
 > 
 > <img src="../assets/figure/memory-virtualization/07.png" alt="where the stack grows" style="height:250px">
 >
 {: .slide}
 
 
-> ## 9. Hands on: observing inner growth (of the stacks)?
+> ## 10. Hands on: observing inner growth (of the stacks)?
 > 
 > - In the first or second panel (the one next to the result from running 
 > `simple4`, create a copy of `simple5.c` called `simple5.c`.
@@ -219,7 +219,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 {: .slide}
 
 
-> ## 10. What is address space, really?
+> ## 11. What is address space, really?
 > 
 > - The **abstraction of physical memory** that the OS is providing to the 
 > running program. 
@@ -230,7 +230,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 {: .slide}
 
 
-> ## 11. Goals of memory virtualization
+> ## 12. Goals of memory virtualization
 > 
 > - `Transparency`: The program should not be aware that memory is virtualized 
 > (did you feel anything different when programming?). The program should perceive 
@@ -244,7 +244,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 {: .slide}
 
 
-> ## 12. Dr. Ngo loves his analogies
+> ## 13. Dr. Ngo loves his analogies
 > 
 > - In the firgure to the right, what represents the heap?
 > 
@@ -253,7 +253,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 {: .slide}
 
 
-> ## 13. Hands on: is memory unlimited?
+> ## 14. Hands on: is memory unlimited?
 > 
 > - Reduce the number of vertical panels down to 2 and adjust the sizes 
 > (see screenshot below).
