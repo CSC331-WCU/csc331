@@ -186,7 +186,7 @@ keypoints:
 {: .slide}
 
 
-> ## 9. Segmentation with generalized base/bounds: Summary
+> ## 14. Segmentation with generalized base/bounds: Summary
 > 
 > - Pros:
 >   - Efficient saving of physical memory (avoid internal fragmentation)
@@ -197,9 +197,26 @@ keypoints:
 {: .slide}
 
 
+> ## 15. External fragmentation: compacting
+> 
+> - Computationally expensive
+>
+> <img src="../assets/figure/address-translation/07.png" alt="Compacting fragmented memory" style="height:800px">
+>
+{: .slide}
 
 
-
+> ## 15. External fragmentation: algorithmic allocation
+> 
+> - A data structure that keeps track of free memory regions:
+>   - Best-fit
+>   - Worst-fit
+>   - First-fit
+>   - Next-fit
+>   - Buddy algorithm
+> - Does not address the core of the issue, only minimize it as much as possible. New solution is needed!
+>
+{: .slide}
 
 {% include links.md %}
 
