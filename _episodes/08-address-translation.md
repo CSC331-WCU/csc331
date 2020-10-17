@@ -102,6 +102,60 @@ keypoints:
 {: .slide}
 
 
+> ## 7. Dynamic relocation: after boot
+> 
+> <img src="../assets/figure/address-translation/04.png" alt="dynamic relocation after boot" style="height:400px">
+>
+{: .slide}
+
+
+> ## 8. Dynamic relocation: during process run
+> 
+> <img src="../assets/figure/address-translation/05.png" alt="dynamic relocation during process running" style="height:800px">
+>
+{: .slide}
+
+
+> ## 9. Dynamic relocation: Summary
+> 
+> - Pros:
+>   - Highly efficient through simple translation mechanisms
+>   - Provides protection
+> - Cons:
+>   - Wastage through **internal fragmentation** due to space inside
+>   the allocated (contiguous) memory units are not fully utilized. 
+>
+{: .slide}
+
+
+
+> ## 10. Initial assumptions
+> 
+> - ~~~User’s address space must be place **contiguously in physical memory**.~~~
+> - ~~~The size of the address space is **less than the size of physical memory**.~~~ 
+> - ~~~Each address space is **exactly the same size**.~~~
+>
+> *How do we support a large address space with (potentially) a lot of free space
+> between the stack and the heap?*
+{: .slide}
+
+
+> ## 11. Segmentation: generalized base/bounds
+> 
+> - Original: One base/bound pair for one address space.
+> - Segmentation: One base/bound pair per logical segment of an address space:
+>   - Code
+>   - Stack
+>   - Heap
+>
+{: .slide}
+
+
+> ## 12. Segmentation: generalized base/bounds
+> 
+> <img src="../assets/figure/address-translation/06.png" alt="mapping of virtual address space to physical memory in generalized base/bounds" style="height:800px">
+>
+{: .slide}
 
 {% include links.md %}
 
