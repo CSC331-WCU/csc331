@@ -7,7 +7,7 @@ questions:
 objectives:
 - "Understand the design principles behind an efficient memory virtualization implementation."
 - "Understand the required flexibility for applications."
-- "Undestand how to maintain control over memory location accessibility."
+- "Understand how to maintain control over memory location accessibility."
 keypoints:
 - "First key point. Brief Answer to questions. (FIXME)"
 ---
