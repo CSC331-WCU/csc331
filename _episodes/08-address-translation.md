@@ -206,7 +206,7 @@ keypoints:
 {: .slide}
 
 
-> ## 15. External fragmentation: algorithmic allocation
+> ## 16. External fragmentation: algorithmic allocation
 > 
 > - A data structure that keeps track of free memory regions:
 >   - Best-fit
