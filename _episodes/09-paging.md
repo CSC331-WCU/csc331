@@ -1,9 +1,10 @@
 ---
-title: "Memory virtualization mechanism: paging"
+title: "Memory virtualization mechanism: paging and tlb"
 teaching: 0
 exercises: 0
 questions:
 - "How to virtualize memory with pages to minimize segmentation issues?"
+- "How to speed up address translation?"
 objectives:
 - "Understand the overall concept of paging."
 - "Understand the data structure for page tables."
@@ -94,7 +95,7 @@ FIXME
 > - `D`: dirty bit, whether this page has been modified
 > - `PWT, PCD, PAT, G`: [how hardware caching works for this page](https://xem.github.io/minix86/manual/intel-x86-and-64-manual-vol3/o_fe12b1e2a880e0ce-425.html)
 >
-> <img src="../assets/figure/paging/05.png" alt="page table entry" style="height:350px">
+> <img src="../assets/figure/paging/05.png" alt="page table entry" style="height:150px">
 {: .slide}
 
 
@@ -183,7 +184,7 @@ FIXME
 {: .slide}
 
 
-> ## 13. Multi-level page tables: cost
+> ## 14. Multi-level page tables: cost
 > 
 > - `Space` versus `Time`: To reduce space, increased access translation steps are needed: 
 > one for the page directory and one for the PTE itself. 
@@ -191,6 +192,272 @@ FIXME
 > page-table look up. 
 >
 {: .slide}
+
+
+> ## 15. Multi-level page tables: cost
+> 
+> - Each level of multi-level page tables requires one additional memory access:
+>   - One to get PTE. 
+>   - One to get the actual data. 
+>   - [Linux can go up to 4 level of page tables](https://github.com/torvalds/linux/blob/master/arch/x86/mm/pgtable.c)
+> - Hardware to the rescue!
+>   - Translation Lookaside Buffer (aka TLB, aka address translation cache, aka cache)
+{: .slide}
+
+
+> ## 16. Translation Lookaside Buffer
+> 
+> - Part of the memory management unit (MMU)
+> - Small, fully associative hardware cache of recently used translations
+>   - small, so it’s fast by laws of physics
+>   - fully associative, i.e., all entries looked up in parallel, so it’s fast
+>   - hardware, so it’s fast
+>   - It is so fast that the lookup can be done in a single CPU cycle.
+> - A successful lookup in TLB is called a TLB hit, otherwise it is a TLB miss
+{: .slide}
+
+
+> ## 17. What is in TLB?
+> 
+> - Lookup entries: VPN -> PFN plus some other bits
+> - A TLB typically has 32, 64, or 128 entries
+>
+> <img src="../assets/figure/paging/07.png" alt="Intel Skylake cache" style="height:350px">
+{: .slide}
+
+
+> ## 18. First issue with TLB
+> 
+> - Context switch invalidates all entries in TLB. Why?
+>   - Because the VPN stored in a TLB entry is for **current** process, which becomes 
+>   meaningless when switched to another process.
+>   - Could lead to wrong translation if not careful.
+> - Possible solutions:
+>   - Simply flush the the TLB on context switch, i.e., set all valid bits to 0.
+>     - Safe, but inefficient.
+>     - Think of two Processes A and B that frequently context switch between 
+>     each other. 
+>   - Add Address Space Identifier (ASID) to TLB entry
+>     - It’s basically PID, but shorter (e.g., 8 bits instead of 32 bits)
+>     - Avoids wrong translation without having to flush all entries
+{: .slide}
+
+
+> ## 19. Second issue with TLB
+> 
+> - Replacement policy
+> - When TLB is full, and we want to add a new entry to it, we will have to 
+>  evict an existing entry.
+> - Which one to evict?
+{: .slide}
+
+
+> ## 20. TLB and locality
+> 
+> - Processes only use a handful of pages at a time.
+> - A TLB with 64 entries can map 64 * 4K = 192KB of memory, which usually. 
+> covers most of the frequently accessed memory by a process within certain time span.
+> - In reality, TLB hit rates (hit / (hit + miss)) are typically very high (> 99%). 
+> - Caching is an important idea, use it when possible.
+{: .slide}
+
+
+> ## 21. Hands on: memory access
+> 
+> - SSH into `csc331` VM (command: `ssh -p 2222 student@127.0.0.1` password: `goldenram`).
+> - **Reminder**: The sequence to create/edit files using `nano` is as follows:
+>   - Run `nano -c file_name`
+>   - Type in the contents
+>   - When done, press `Ctrl-X`
+>   - Press `y` to confirm that you want to save modification
+>   - Press `Enter` to confirm the file name to save to. 
+> - Launch a tmux session called `mem` with two vertical panels.  
+> - Create two vertical panels. 
+> - In the left panel, change to directory `memory` and create `memory_access_v1.c` with 
+> the following contents:
+>
+> <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=memory_access_v1.c"></script>
+>
+> - In the right panel, change to directory `memory` and create `memory_access_v2.c` with 
+> the following contents:
+>
+> <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=memory_access_v2.c"></script>
+>
+> **Questions**
+>
+> - Which is faster?
+> - Why?
+> 
+> - In the left panel, compile and timed run `memory_access_v1.c`:
+> ~~~
+> $ gcc -o memory_access_v1 memory_access_v1.c
+> $ time ./memory_access_v1
+> ~~~ 
+> {: .language-bash}
+>   
+> 
+> - In the right panel, compile and timed run `memory_access_v2.c`. 
+>
+> ~~~
+> $ gcc -o memory_access_v2 memory_access_v2.c
+> $ time ./memory_access_v2
+> ~~~ 
+> {: .language-bash}
+>   
+> 
+> <img src="../assets/figure/paging/08.png" alt="large memory access" style="height:400px">
+>
+{: .slide}
+
+
+> ## 22. Demand paging
+> 
+> - In an ideal world, we have an infinite amount of RAM …
+> - In reality:
+>   - Many processes use memory, and in combination exceeds the size of physical memory.
+>   - One process’ memory usage can be larger the size of physical memory. 
+>   - OS supports a mechanism to offload exceed memory demands to hard disks to store 
+>   pages that are not being accessed. 
+>   - From the perspective of processes, everything is still within a large virtual 
+>   address space. 
+> - This mechanism is called demand paging. 
+{: .slide}
+
+
+> ## 23. Demand paging
+> 
+> - Swap space: a reserved space on hard disk for moving pages back and forth
+>   - Linux/Unix: a separate disk partition 
+>   - Windows: a binary file called `pagefile.sys`
+> - Initially, pages are allocated in physical memory.
+> - As memory fills up, more allocations require existing pages to be evicted. 
+> - Evicted pages go to disk (into swap space).
+{: .slide}
+
+
+> ## 24. Demand paging
+> 
+> - Present bit (`P`) indicates whether the page is in memory or on disk. 
+> - `P` = 0 (on disk), then the remaining bits in PTE store the disk address of the page. 
+> - When the page is loaded into memory, P is set to 1, and the appropriate PTE contents 
+> are updated. 
+>
+> <img src="../assets/figure/paging/05.png" alt="page table entry" style="height:150px">
+{: .slide}
+
+
+> ## 25. Demand paging control flow
+> 
+> - If the page is in memory, keep going. 
+> - If the page is to be evicted, the OS sets `P` to 0, moves the page to swap space, 
+> and stores the location of the page in the swap space in the PTE. 
+> - When a process access the page, the 0 value of P will cause a system trap called 
+> page fault. 
+> - The trap run the OS `page_fault_handler`, which locates the page in the swap file. 
+> - The trap reads the page into a physical frame, and updates PTE to points to this frame. 
+> - The trap returns to the process, and the page will be available for the process. 
+{: .slide}
+
+
+> ## 26. Dirty bit
+> 
+> - If the page has been not been modified (`dirty` == 0) since it was loaded from swap, 
+> nothing will need to be written to disk when the page is evicted again. 
+> - If the page has been modified (dirty == 1), it must be rewritten to disk when it 
+> is evicted. 
+> - This mechanism is invented by Corbato. (Who is Corbato?). 
+> - Issue:
+>   - When we have to evict a page to disk, which one should we choose?
+{: .slide}
+
+
+> ## 27. Replacement algorithms
+> 
+> - Reduce fault/miss rate by selecting the best victim to evict. 
+> - Unrealistic assumption: we know the **whole** memory reference trace of the 
+> program, including the **future** ones at any point in time. 
+> - Algorithm 1: evict the one that will never be used again.  
+>   - Does not always work. 
+> - Algorithm 2: evict the page whose next access is furthest in the future. 
+>   - Belady's algorithm ("A study of replacement algorithm for a virtual-storage computer", IBM Systems Journal, 5(2), 1966).
+>   - Caveat: we don't know the future. 
+>   - Belady's algorithm serves as the benchmark to see **how close** other algorithms are to 
+>   being perfect!
+{: .slide}
+
+
+> ## 28. We predict the future based on patterns ...
+> 
+> - `Locality`: the patterns in computer programs’ behaviors. 
+> - `Spatial locality`: If an address A is accessed, then addresses A - 1 and A + 1 
+> are also likely to be accessed. 
+> - `Temporal locality`: if an address is accessed at time T, then it is also likely to 
+> be accessed again in the future T + Δt.
+> - This is not a set-in-stone rule, but in general, it is a good heuristic to remember 
+> when designing computing systems. 
+{: .slide}
+
+
+> ## 29. Example policies
+> 
+> - FIFO: 
+>   - Good: oldest page is unlikely to be used again.
+>   - Bad: oldest page is likely to be used again.
+> - Random:
+>   - Based purely on luck. 
+>   - TLB replacement is usually random. 
+> - LRU:
+>   - Least recently used. 
+>   - Close to optimal. 
+>   - Not very easy to implement. 
+{: .slide}
+
+
+> ## 30. Matrix multiplication
+> 
+> - Which approach is faster?
+> - Why?
+>
+> <img src="../assets/figure/paging/09.png" alt="matrix multiplication" style="height:500px">
+{: .slide}
+
+
+> ## 31. Hands on: matrix multiplication
+> 
+> - SSH into `csc331` VM (command: `ssh -p 2222 student@127.0.0.1` password: `goldenram`).
+> - **Reminder**: The sequence to create/edit files using `nano` is as follows:
+>   - Run `nano -c file_name`
+>   - Type in the contents
+>   - When done, press `Ctrl-X`
+>   - Press `y` to confirm that you want to save modification
+>   - Press `Enter` to confirm the file name to save to. 
+> - Launch a tmux session called `mem` with two vertical panels.  
+> - Create two vertical panels. 
+> - In the left panel, change to directory `memory` and create `matrix_compare.c` with 
+> the following contents:
+>
+> <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=matrix_compare.c"></script>
+>
+> **Questions**
+>
+> - Which matrix multiplication function (`matrix_mul_v1` or `matrix_mul_v2`) represents
+> which multiplication approach from slide 30?
+> 
+> - Compile and run `matrix_compare.c`:
+> ~~~
+> $ gcc -o matrix_compare matrix_compare.c
+> $ ./matrix_compare 1000
+> $ ./matrix_compare 1500
+> $ ./matrix_compare 2000
+> ~~~ 
+> {: .language-bash}
+>   
+> <img src="../assets/figure/paging/10.png" alt="matrix compare" style="height:300px">
+>
+>
+> <img src="../assets/figure/paging/11.png" alt="matrix compare" style="height:500px">
+{: .slide}
+
 
 
 {% include links.md %}
