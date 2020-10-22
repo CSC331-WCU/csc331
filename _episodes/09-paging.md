@@ -287,8 +287,8 @@ FIXME
 >
 > - Which is faster?
 > - Why?
-> 
 > - In the left panel, compile and timed run `memory_access_v1.c`:
+> 
 > ~~~
 > $ gcc -o memory_access_v1 memory_access_v1.c
 > $ time ./memory_access_v1
@@ -442,8 +442,8 @@ FIXME
 >
 > - Which matrix multiplication function (`matrix_mul_v1` or `matrix_mul_v2`) represents
 > which multiplication approach from slide 30?
-> 
 > - Compile and run `matrix_compare.c`:
+> 
 > ~~~
 > $ gcc -o matrix_compare matrix_compare.c
 > $ ./matrix_compare 1000
