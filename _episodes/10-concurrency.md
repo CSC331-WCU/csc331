@@ -104,7 +104,6 @@ keypoints:
 {: .slide}
 
 
-
 > ## 7. API: POSIX threads (pthreads)
 > 
 > - Standardized C language thread programming API.
@@ -119,6 +118,30 @@ keypoints:
 
 
 
+> ## 31. Hands on: matrix multiplication
+>
+> - Before turning on the VM, makes sure that you have two processors assigned
+> to your VM. 
+>
+> <img src="../assets/figure/concurrency/03.png" alt="setup two processors" style="height:500px">
+>
+> - SSH into `csc331` VM (command: `ssh -p 2222 student@127.0.0.1` password: `goldenram`).
+> - **Reminder**: The sequence to create/edit files using `nano` is as follows:
+>   - Run `nano -c file_name`
+>   - Type in the contents
+>   - When done, press `Ctrl-X`
+>   - Press `y` to confirm that you want to save modification
+>   - Press `Enter` to confirm the file name to save to. 
+> - Launch a tmux session with two vertical panels.  
+> - Create two vertical panels. 
+> - In the left panel, create a directory named `concurrency`, 
+> change to this directory, and create `thread_hello.c` with 
+> the following contents:
+>
+> <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=thread_hello.c"></script>
+>
+> <img src="../assets/figure/paging/11.png" alt="matrix compare" style="height:500px">
+{: .slide}
 
 
 
