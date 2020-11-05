@@ -15,7 +15,7 @@ keypoints:
 > 
 > <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=threads.c"></script>
 >
-> <img src="../assets/figure/lock/01.png" alt="thread problem" style="height:350px">
+> <img src="../assets/figure/lock/01.png" alt="thread problem" style="height:600px">
 >
 > - Two concurrent threads manipulated a shared resource (the counter variable) 
 > without any synchronization.
@@ -30,7 +30,7 @@ keypoints:
 
 > ## 2. What is shared/not shared in a multithreaded program?
 > 
-> <img src="../assets/figure/lock/02.png" alt="shared and not shared" style="height:350px">
+> <img src="../assets/figure/lock/02.png" alt="shared and not shared" style="height:450px">
 >
 {: .slide}
 
@@ -149,8 +149,8 @@ keypoints:
 > - Hardware support for locking begins in early 1960.
 > - TestAndSet can be performed atomically by hardware.
 >
-> <img src="../assets/figure/lock/04.png" alt="test and set" style="height:350px">
-> <img src="../assets/figure/lock/05.png" alt="test and set" style="height:500px">
+> <img src="../assets/figure/lock/04.png" alt="test and set" style="height:100px">
+> <img src="../assets/figure/lock/05.png" alt="test and set" style="height:400px">
 {: .slide}
 
 
