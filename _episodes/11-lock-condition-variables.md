@@ -178,5 +178,139 @@ keypoints:
 {: .slide}
 
 
+> ## 14. Scenario: one thread waiting on another
+> 
+> <img src="../assets/figure/lock/07.png" alt="one thread waiting on another" style="height:350px">
+{: .slide}
+
+
+> ## 15. A lock-based solution
+> 
+> - How to implement a lock-based solution? 
+> - What is the issue?
+>
+> <img src="../assets/figure/lock/08.png" alt="lock-based solution" style="height:350px">
+>
+{: .slide}
+
+
+> ## 16. How to wait for a condition?
+> 
+> - Condition Variable: an explicit queue that threads can put themselves 
+> on when some state of execution (condition) is not as desired (waiting 
+> on the condition).
+> - When the state is changed, the condition variable can wake up one (or 
+> more) of the waiting threads to continue. 
+> - [pthread_cond_wait](https://linux.die.net/man/3/pthread_cond_wait)
+> - [pthread_cond_signal](https://linux.die.net/man/3/pthread_cond_signal)
+>
+{: .slide}
+
+
+> ## 17. Lock and conditional variable
+> 
+> <img src="../assets/figure/lock/09.png" alt="lock and cv" style="height:500px">
+>
+{: .slide}
+
+
+> ## 18. Do we really need both?
+> 
+> - Infinite sleep for parent thread. 
+> - Why?
+>
+> <img src="../assets/figure/lock/10.png" alt="lock and cv" style="height:550px">
+>
+{: .slide}
+
+
+> ## 19. The producer/consumer (bounded buffer) problem
+> 
+> - Proposed in 1972 by Edsger W. Dijkstra
+> - Imagine one or more producer threads and one or more consumer 
+> threads. 
+>   - Producers generate data items and place them in a buffer; 
+>   - Consumers grab said items from the buffer and consume them 
+>   in some way.
+> - Occurs in many real systems
+>   - Multi-threaded web servers
+>   - Linux pipe
+> - Generalization: many producers/consumers running concurrently. 
+> - Requirement:
+>   - Only place data in buffer when count is 0 (available space on buffer)
+>   - Only grab data from buffer when count is 1 (buffer is full)
+>
+{: .slide}
+
+
+> ## 20. Vanilla: not thread-safe
+> 
+> <img src="../assets/figure/lock/11.png" alt="producer and consumer" style="height:550px">
+>
+{: .slide}
+
+
+> ## 21. First implementation
+> 
+> - Start with 1 CV and 1 lock.
+> - Work with 1 producer and 1 consumer. 
+> - What happens if we have more consumers?
+>
+> <img src="../assets/figure/lock/12.png" alt="producer and consumer" style="height:550px">
+>
+{: .slide}
+
+
+> ## 22. First implementation: broken
+> 
+> <img src="../assets/figure/lock/13.png" alt="producer and consumer" style="height:500px">
+>
+{: .slide}
+
+
+> ## 23. First implementation: why?
+> 
+> - After the producer wakes  a consumer, the state of bound buffer 
+> changed for the consumer due to the other consumer. 
+> - Signaling a state only wakes them up (implying a state changes) 
+> but does not guarantee maintaining a desired state. 
+> - This is called Mesa semantics
+>   - "Experience with Processes and Monitors in Mesa" by B.W. Lampson, 
+>   D.R. Redell. Communications of the ACM. 23:2, pages 105-117, 
+>   February 1980
+>   - Virtually all computing systems are built using Mesa semantics.
+> - Hoare semantics
+>   - Stronger guarantee that the woken thread will run immediately upon 
+> being woken. 
+>
+{: .slide}
+
+
+> ## 24. Second implementation: slightly less broken
+> 
+> <img src="../assets/figure/lock/14.png" alt="producer and consumer" style="height:500px">
+>
+{: .slide}
+
+
+> ## 25. Third implementation: finally work
+> 
+> - Consumer only wake producer and vice versa
+> - Two condition variables are needed. 
+> - Not yet generalized. 
+>
+> <img src="../assets/figure/lock/15.png" alt="producer and consumer" style="height:450px">
+>
+{: .slide}
+
+
+> ## 26. A generalized solution
+> 
+> <img src="../assets/figure/lock/16.png" alt="producer and consumer" style="height:500px">
+>
+{: .slide}
+
+
+
 {% include links.md %}
 
