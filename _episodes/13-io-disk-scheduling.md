@@ -168,7 +168,7 @@ keypoints:
 {: .slide}
 
 
-> ## 12. Disk scheduling algorithms
+> ## 13. Disk scheduling algorithms
 >
 > - FCFS (do nothing)
 >   - reasonable when load is low, long waiting time when load is high
