@@ -191,7 +191,7 @@ keypoints:
 >     - physical logging: putting exact physical content
 >     - logical logging: putting more compact logical representation
 >   - ends with a `transaction end` (TxE) block, containing the TID.
-> <img src="../assets/figure/fsck/04.png" alt="Journal transaction data structure" style="height:350px">
+> <img src="../assets/figure/fsck/04.png" alt="Journal transaction data structure" style="height:100px">
 >
 {: .slide}
 
@@ -208,7 +208,7 @@ keypoints:
 >   - When having a batch of writes, the disk may perform some disk scheduling, so 
 >   the writes in the batch can happen in any order.
 >
-> <img src="../assets/figure/fsck/05.png" alt="Journal transaction data structure" style="height:350px">
+> <img src="../assets/figure/fsck/05.png" alt="Journal transaction data structure" style="height:100px">
 {: .slide}
 
 
@@ -268,7 +268,7 @@ keypoints:
 > that we only write metadata (NOT data) to the journal.
 > - The journal looks like ...
 >
-> <img src="../assets/figure/fsck/06.png" alt="metadata journaling" style="height:350px">
+> <img src="../assets/figure/fsck/06.png" alt="metadata journaling" style="height:100px">
 {: .slide}
 
 
