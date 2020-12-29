@@ -190,9 +190,8 @@ command (`podman` versus `docker`). All subcommands for both engines are the sam
 > ~~~
 > {: .language-bash}
 >
-> <img src="fig/setup/11.png" alt="Top parts of the build script" style="height:200px">
+> <img src="fig/setup/17.png" alt="Top parts of the build script" style="height:200px">
 > - *Don't worry about the error when you first run the command. It only means that you don't have the image in your local image repository.*
-> <img src="fig/setup/12.png" alt="Bottom parts of the build script" style="height:700px">
 >
 > - To test launch the container based on this image, do the followings:
 >   - Check that the image exists in your local repository
@@ -202,14 +201,14 @@ command (`podman` versus `docker`). All subcommands for both engines are the sam
 >   contents can be created and shared properly. 
 > 
 > ~~~
-> $ podman image ls
-> $ mkdir /mnt/c/csc331
-> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /home/$USER/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> $ docker image ls
+> $ mkdir /Users/$USER/csc331
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
 > $ touch csc331/test
 > ~~~
 > {: .language-bash}
 >
-> <img src="fig/setup/13.png" alt="Running container" style="height:500px">
+> <img src="fig/setup/18.png" alt="Running container" style="height:500px">
 >
 {: .slide}
 
