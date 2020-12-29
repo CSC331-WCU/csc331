@@ -11,7 +11,7 @@ keypoints:
 - "Operating systems manage resources and map them to their corresponding virtualization abstractions."
 ---
 
-> ## What happens when a computer program run?     
+> ## 1. What happens when a computer program run?     
 >  
 >  The process
 >    - **fetches** an instruction from memory,
@@ -23,7 +23,7 @@ keypoints:
 
 
 > ## Why do we need OS?
-> <img src="../assets/figure/intro_to_os/01.png" alt="Codes to hardware to screen" style="height:400px">
+> <img src="../fig/intro_to_os/01.png" alt="Codes to hardware to screen" style="height:400px">
 > 
 >  - What a programmer see is all code, lines of codes.
 >  - Underneath, there is a complex ecosystem of hardware components. 
@@ -31,7 +31,7 @@ keypoints:
 > 
 {: .slide}
 
-> ## How do the OS help (1)?
+> ## 2. How do the OS help (1)?
 >
 >  This is possible due to **virtualization**.
 >  - Virtualization: presents general, powerful, and easy-to-use **virtual** forms of 
@@ -41,7 +41,7 @@ keypoints:
 >
 {: .slide}
 
-> ## How do the OS help (2)?
+> ## 3. How do the OS help (2)?
 >
 >  - Each physical component in a computing system is considered a resource. 
 >  - The OS **manages** these resources so that multiple programs can access
@@ -49,10 +49,10 @@ keypoints:
 >  - This is called **concurrency**. 
 {: .slide}
 
-> ## Hands-on 1: Getting started
+> ## 4. Hands-on 1: Getting started
 >
-> - Start the csc331 VM in headless mode. 
-> - Connect VSCode to csc331. 
+> - Open a terminal (Windows Terminal or Mac Terminal). 
+> - Run the following command to launch th 
 > - Navigate to `/home/student/ostep-code/intro`
 > - Open a terminal
 > <img src="../assets/figure/intro_to_os/vscode_01.png" alt="VSCode/csc331 working environment" style="height:700px">
