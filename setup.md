@@ -157,7 +157,7 @@ command (`podman` versus `docker`). All subcommands for both engines are the sam
 >
 {: .slide}
 
-> ## Setup for Mac
+> ## Setup Docker for Mac
 > - Download and install [Docker Desktop for Mac](https://docs.docker.com/docker-for-mac/install/)
 > - Use the Search box (magnifying glass on top-right of your Mac Desktop) to find Docker and run. 
 >

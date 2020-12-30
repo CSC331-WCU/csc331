@@ -22,8 +22,8 @@ keypoints:
 {: .slide}
 
 
-> ## Why do we need OS?
-> <img src="../fig/intro_to_os/01.png" alt="Codes to hardware to screen" style="height:400px">
+> ## 2. Why do we need OS?
+> <img src="../fig/01-intro/01.png" alt="Codes to hardware to screen" style="height:400px">
 > 
 >  - What a programmer see is all code, lines of codes.
 >  - Underneath, there is a complex ecosystem of hardware components. 
@@ -31,7 +31,7 @@ keypoints:
 > 
 {: .slide}
 
-> ## 2. How do the OS help (1)?
+> ## 3. How do the OS help (1)?
 >
 >  This is possible due to **virtualization**.
 >  - Virtualization: presents general, powerful, and easy-to-use **virtual** forms of 
@@ -41,7 +41,7 @@ keypoints:
 >
 {: .slide}
 
-> ## 3. How do the OS help (2)?
+> ## 4. How do the OS help (2)?
 >
 >  - Each physical component in a computing system is considered a resource. 
 >  - The OS **manages** these resources so that multiple programs can access
@@ -49,59 +49,74 @@ keypoints:
 >  - This is called **concurrency**. 
 {: .slide}
 
-> ## 4. Hands-on 1: Getting started
+> ## 5. Hands-on 1: Getting started
 >
 > - Open a terminal (Windows Terminal or Mac Terminal). 
-> - Run the following command to launch th 
-> - Navigate to `/home/student/ostep-code/intro`
-> - Open a terminal
-> <img src="../assets/figure/intro_to_os/vscode_01.png" alt="VSCode/csc331 working environment" style="height:700px">
+> - Run the command to launch the image container for your platform:
+> - Windows:
 > 
-{: .slide}
-
-> ## Hands-on 2: CPU Virtualization 
-> 
-> - Navigate to `ostep-code/intro`
-> - Click on `cpu.c` to view the file. 
-> - *VSCode will recommend a C/C++ extension for this file type. You can select to install them or not*. 
-> <img src="../assets/figure/intro_to_os/vscode_02.png" alt="File cpu.c" style="height:500px">
+> ~~~
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /home/$USER/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> ~~~
+> {: .language-bash}
 >
-{: .slide}
-
-
-> ## Hands-on 3: CPU Virtualization 
-> 
-> - Run the following in the terminal:
+> - Mac:
 >
 > ~~~
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Navigate to `/home/$USER/csc331`
+> - Clone the scripts [Dr. Arpaci-Dusseau's Git repo](https://github.com/remzi-arpacidusseau/ostep-code).
+> - Change to directory `ostep-code/intro`, then run `make` to build the programs. 
+>
+> ~~~
+> $ git clone https://github.com/remzi-arpacidusseau/ostep-code.git
 > $ cd ostep-code/intro
-> $ gcc -Wall -o cpu cpu.c
-> $ ./cpu A
+> $ make
+> ~~~
+> {: .language-bash}
+>
+> <img src="../fig/01-intro/02.png" alt="setup containers" style="height:700px">
+> 
+{: .slide}
+
+> ## 6. Hands-on 2: CPU Virtualization 
+> 
+> - Our workspace is limited within the scope of a single terminal (a single shell) 
+> to interact with the operating system. 
+> - `tmux`: *terminal multiplexer*. 
+> - `tmux` allows user to open multiple terminals and organize split-views (panes) 
+> within these terminals within a single original terminal. 
+> - We can run/keep track off multiple programs within a single terminal. 
+>
+> ~~~
+> $ cd ~/csc331/ostep-code/intro
+> $ tmux
+> ~~~
+> {: .language-bash}
+>
+> - Splits the `tmux` terminal into vertical panes: first press the keys `Ctrl-b` then lift your fingers and press
+> the keys `Shift-5` (technical documents > often write this as `Ctrl-b` and `%`).
+>
+> <img src="../fig/01-intro/03.png" alt="tmux terminal" style="height:500px">
+>
+> - You can use `Ctrl-b` then the `left` and `right` arrows to move the active cursors between the two panes. 
+> - Move the cursor to the right channel and run the following commands to view the source code of `cpu.c`.
+> - Also run `nproc` in the right pane to figure out how many CPUs your container has access to. 
+>
+> ~~~
+> $ cat -n cpu.c
+> $ nproc
 > ~~~
 > {: .language-bash} 
 >
-> - You will see letter A being printer out one-per-line continously. 
-> - To interrupt the process, hit `Ctrl-C`. 
-> <img src="../assets/figure/intro_to_os/vscode_03.png" alt="Single run of cpu" style="height:300px">
->
-{: .slide}
-
-> ## How many CPU did we assign to the VM?
->
-> > ## Answer     
-> >  - 1
-> >  - We can see this in csc331's Settings
-> >  <img src="../assets/figure/intro_to_os/virtualbox_01.png" alt="CPU count of csc331" style="height:500px">
-> >
-> {: .solution}
-{: .challenge}
-
-> ## Hands-on 4: CPU Virtualization 
-> 
-> - Next, run the following command in the terminal:
+> - Run the following command on the left pane to execute `cpu` program accordingly. 
+> - In my case, I have 8 cores, so my commands will be extended for two more. 
 >
 > ~~~
-> $ (./cpu A &); (./cpu B &); (./cpu C &); (./cpu D)
+> $ (./cpu A &); (./cpu B &); (./cpu C &); (./cpu D &); (./cpu E &); (./cpu F &); (./cpu G &); (./cpu H); (./cpu I)
 > ~~~
 > {: .language-bash}
 >
