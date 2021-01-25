@@ -57,7 +57,7 @@ entire running operation is called a process."
 > - Load a program's code and static data into memory (the virtual address space
 > of the process).
 > - Allocate memory for run-time stack (for stack).     
-> - Alocate memory for heap (used for dynamic memory allocation via `malloc` family).
+> - Allocate memory for heap (used for dynamic memory allocation via `malloc` family).
 > - Initialization: 
 >   - File descriptor for standard input.
 >   - File descriptor for standard output. 

@@ -1,8 +1,19 @@
 ---
 title: "Introduction to C"
+teaching: 0
+exercises: 0
+questions:
+- "How to learn C, once you already not Java?"
+objectives:
+- "Know how to write and compile programs in C to a level similar to Java 
+(think at least CSC 142)?"
+keypoints:
+- "To learn a new language most efficiently, you are to rely on knowledge from 
+previously known languages."
 ---
 
-> ## What is C?     
+
+> ## 1. What is C?     
 >  
 > - Developed by Dennis Ritchie at Bell Labs
 > - First public released in 1972. 
@@ -10,26 +21,26 @@ title: "Introduction to C"
 > Prentice Hall 1988. 
 {: .slide}
 
-> ## How to learn C (now that you already know Java)?     
+> ## 2. How to learn C (now that you already know Java)?     
 >  
 > - [C for Java programmers][c4java]
 > - [C programming vs. Java programming][c_vs_java]
 {: .slide}
 
-> ## Scary stuff ahead ...     
+> ## 3. Scary stuff ahead ...     
 >  
 > - C is much less supportive for programmers than Java.
 > - (Much) easier to make mistake, and (much) harder to fix. 
 {: .slide}
 
-> ## But it is exciting ...     
+> ## 4. But it is exciting ...     
 >  
 > - C requires less memory resources than Java.
 > - C, in many instances, runs faster than Java. 
 > - Knowing C will make you a better programmer overall. 
 {: .slide}
 
-> ## Similarities (or mostly similar) between C and Java     
+> ## 5. Similarities (or mostly similar) between C and Java     
 >  
 > - Values, types, literals, expressions
 > - Variables
@@ -41,7 +52,7 @@ title: "Introduction to C"
 > - Library usage. 
 {: .slide}
 
-> ## Differences between C and Java     
+> ## 6. Differences between C and Java     
 >  
 > - C has no classes or objects (but something similar)
 > - C is not object-oriented. 
@@ -54,157 +65,216 @@ title: "Introduction to C"
 > - **Pointers!!!**
 {: .slide}
 
-> ## How Java programs run
+> ## 7. How Java programs run
 >
-> <img src="../assets/figure/guide/java.png" alt="Java programs" style="height:400px">
+> <img src="../fig/guide//java.png" alt="Java programs" style="height:400px">
 {: .slide}
 
-> ## How C programs run
+> ## 8. How C programs run
 >
-> <img src="../assets/figure/guide/c.png" alt="C programs" style="height:400px">
+> <img src="../fig/guide//c.png" alt="C programs" style="height:400px">
 {: .slide}
 
-> ## Hands-on 1: Getting started
+
+> ## 9. Hands-on: Getting started
 >
-> - Start the csc331 VM in headless mode. 
-> - Connect VSCode to csc331. 
-> - Navigate to `/home/student/
-> - Open a terminal
+> - Open a terminal (Windows Terminal or Mac Terminal).  
+> - Reminder: It is `podman` on Windows and `docker` on Mac. Everything else 
+> is the same!. 
+> - Launch the container: 
+>
+> > ## Windows:
+> >
+> > ~~~
+> > $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /mnt/c/csc231:/home/$USER/csc231:Z localhost/csc-container /bin/bash
+> > ~~~
+> > {: .language-bash}
+> >
+> {:.slide}
+>
+> > ## Mac:
+> >
+> > ~~~
+> > $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /Users/$USER/csc231:/home/$USER/csc231:Z localhost/csc-container /bin/bash
+> > ~~~
+> > {: .language-bash}
+> >
+> {:.slide}
+> 
 {: .slide}
 
-> ## Hands-on 2: Setup directory
+
+> ## 10. Hands-on: Setup directory
 >
-> Create a directory named `intro-c` inside `/home/student`, 
+> Create a directory named `intro-c` inside your home directory, 
 > then change into that directory.
 >
 > ~~~
-> $ cd
+> $ cd ~/csc231
 > $ pwd
 > $ mkdir intro-c
 > $ ls
 > $ cd intro-c
+> $ pwd
 > ~~~
 > {: .language-bash}
 > 
-> <img src="../assets/figure/guide/02.png" alt="create intro-c directory" style="height:200px">
+> <img src="../fig/guide//02.png" alt="create intro-c directory" style="height:250px">
 >
 {: .slide}
 
-> ## Hands-on 3: Create hello.c
+
+> ## 11. Hands-on: Create hello.c
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `hello.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
-> - Save the file when you are done: 
->   - `Ctrl-S` for Windows/Linux
->   - `Command-S` for Macs
-> - **Memorize your key-combos!**.
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `hello.c`with the source code below. 
 >
 > ~~~
-> /*
->  * File: hello.c
->  */
-> #include <stdio.h>
-> int main(int argc, char *argv[]) {
->   printf("Hello world!\n");
->   return 0;
-> }
+> $ pwd
+> $ nano intro-c
 > ~~~
-> {: .language-c}
+> {: .language-bash}
+>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=hello.c"></script>
 > 
-> <img src="../assets/figure/guide/03.png" alt="create hello.c" style="height:700px">
 >
-{: .slide}
-
-> ## What's in the code?
+> - Once finished editing in `nano`:
+>   - first hit `Ctrl-X` (same for both Windows and Mac). 
+>   - Next hit `Y` to save modified buffer (new contents). 
+>   - Hit `Enter` to save to the same file name as what you opened with. 
+> - **Memorize your key-combos!**.
+> 
+> <img src="../fig/guide//03.png" alt="Creating hello.c using nano" style="height:550px">
 >
-> - Line 1-3: Comments, similar to Java.
-> - Line 4: Standard C library for I/O, similar to Java's `import`.
-> - Line 5-8: Function declaration for `main`:
->   - Line 5: 
+> ### What's in the code?
+>
+> - Line 1: Standard C library for I/O, similar to Java's `import`.
+> - Line 2-4: Function declaration/definition for `main`:
+>   - Line 2: 
 >     - return type: `int`
 >     - function name: `main`
 >     - parameter list: 
 >        - `argc`: number of command line arguments.
 >        - `*argv[]`: pointers to array of command line argument strings. 
->    - Line 6: Invoke builtin function `printf` to print out  string `Hello world!`
+>    - Line 3: Invoke builtin function `printf` to print out  string `Hello world!`
 >    with an end-of-line character `\n`. This is similar to `System.out.printf`.
->    - Line 7: Exit a successfully executed program with a return value of 0. 
+>    - Line 4: Exit a successfully executed program with a return value of 0. 
 >
 > {: .language-c}
 > 
-> <img src="../assets/figure/guide/04.png" alt="examine hello.c code" style="height:300px">
 >
 {: .slide}
 
 
-> ## Hands-on 4: Simple compile and run
+> ## 12. Hands-on: Simple compile and run
 >
 > - Similar to `javac`, we use `gcc` to compile C code. 
 > - Before compile, make sure that you are still inside `intro-c` in the terminal. 
 >
 > ~~~
-> $ pwd
 > $ ls
+> $ pwd
 > $ gcc -o hello hello.c
 > $ ls
 > $ ./hello
 > ~~~
 > {: .language-bash}
 > 
-> <img src="../assets/figure/guide/05.png" alt="compile and run hello.c" style="height:300px">
+> <img src="../fig/guide//04.png" alt="Creating hello.c using nano" style="height:350px">
 >
 {: .slide}
 
 
-> ## Hands-on 5: Compile and show everything
+> ## 13. Hands-on: Compile and show everything
 >
 > - There are a number of steps from C codes to executable binaries.  
 >
 > ~~~
-> $ ls
+> $ ls -l
 > $ gcc -save-temps -o hello2 hello.c
 > $ ls -l
 > $ ./hello2
 > ~~~
 > {: .language-bash}
 > 
-> <img src="../assets/figure/guide/06.png" alt="compile and run hello.c, keeping intermediate files" style="height:300px">
+> <img src="../fig/guide//05.png" alt="compile and run hello.c, keeping intermediate files" style="height:400px">
 >
 {: .slide}
 
 
-> ## What are those?
+> ## 14. What are those?
 >
 > - `hello.i`: generated by pre-processor
 > - `hello.s`: generated by compiler.
 > - `hello.o`: generated by assembler.
-> - `hello2`: executable, generated by linker.
+> - `hello` (or `hello2`): executable, generated by linker.
 > 
-> <img src="../assets/figure/guide/07.png" alt="hello.c compilation process" style="height:700px">
+> <img src="../fig/guide//06.png" alt="hello.c compilation process" style="height:700px">
 >
 {: .slide}
 
 
-> ## Hands-on 5: View files
+> ## 15. Hands-on: View files
 >
 > - For `hello.i` and `hello.s`, they can be view on the editor. 
-> - For `hello.o` and `hello2`, we need to dump the binary contents first. 
+> - Run the following command to view `hello.i`
+>
+> ~~~
+> $ cat -n hello.i
+> ~~~
+> {: .language-bash}
+>
+> - Run the following command to view `hello.s`
+>
+> ~~~
+> $ cat -n hello.s
+> ~~~
+> {: .language-bash}
+>
+> - For `hello.o` and `hello`, we need to dump the binary contents first. 
 >
 > ~~~
 > $ xxd -b hello.o > hello.o.txt
-> $ xxd -b hello2 > hello.txt
+> $ xxd -b hello > hello.txt
 > $ ls -l
 > ~~~
 > {: .language-bash}
 > 
 > - 
-> <img src="../assets/figure/guide/08.png" alt="hexdump of hello.o and hello" style="height:700px">
+> <img src="../fig/guide//07.png" alt="hexdumping hello.o and hello" style="height:300px">
+>
+> - Run the following command to view `hello.o.txt`
+>
+> ~~~
+> $ cat -n hello.o.txt
+> ~~~
+> {: .language-bash}
+>
+> - Run the following command to view `hello.txt`
+>
+> ~~~
+> $ cat -n hello.txt
+> ~~~
+> {: .language-bash}
 >
 {: .slide}
 
 
-> ## Variables, Addresses, and Pointers
+> ## 16. Challenge: 
+>
+> The usage of C's `printf` is similar to Java's `System.out.printf`. Find out how to 
+> modify `hello.c` so that the program prints out `Hello Golden Rams!` with each word
+> on a single line. The program should use exactly one `printf` statement. 
+>
+> > ## Answer
+> >     
+> > <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=hello-3.c"></script> 
+> >
+> {: .solution}
+{: .challenge}
+
+
+> ## 17. Variables, Addresses, and Pointers
 >
 > - In Java, you can manipulate the value of a variable via the program but not directly 
 > in memory (inside the JVM). 
@@ -214,33 +284,31 @@ title: "Introduction to C"
 {: .slide}
 
 
-> ## Hands-on 6: Pointer
+> ## 18. Hands-on: Pointer
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `pointer_1.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `pointer-1.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
-> int main(int argc, char *argv[]) {
->   int i = 123;
->   printf("Variable i has addr (%p) and value %d\n", &i, i);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
-> 
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=pointer-1.c"></script>
+>
 > - `%p` is an output conversion syntax (similar to Java specifiers) for displaying memory 
-> address in hex format. See [Other Output Conversions][gcc_output_conversion] for more 
+> address in hex format. See [Other Output Conversions](https://www.gnu.org/software/libc/manual/html_node/Other-Output-Conversions.html#Other-Output-Conversions) for more 
 > details.
-> - Compile and run `pointer_1.c`
+> - Compile and run `pointer-1.c`
 > 
-> <img src="../assets/figure/guide/09.png" alt="Compile and run pointer_1.c" style="height:400px">
+> ~~~
+> $ ls
+> $ gcc -o pointer-1 pointer-1.c
+> $ ./pointer-1
+> ~~~
+> {: .language-bash}
+>
+> <img src="../fig/guide//08.png" alt="Compile and run pointer-1.c" style="height:400px">
 >
 {: .slide}
 
 
-> ## Pointer Definition
+> ## 19. Pointer Definition
 >
 > - Pointer is a variable that points to a memory location (contains a memory location).  
 >   - We can them *pointer variables*. 
@@ -252,104 +320,59 @@ title: "Introduction to C"
 >   variable's address location. 
 {: .slide}
 
-> ## Hands-on 7: Pointer and Variable's Addresses
+> ## 20. Hands-on: Pointer and Variable's Addresses
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `pointer_2.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `pointer-2.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
-> int main(int argc, char *argv[]) {
->   int i = 123;
->   int *p_i = &i;
->   printf("Variable i has addr (%p) and value %d\n", &i, i);
->   printf("The pointer points to addr (%p) containing value %d\n", p_i, *p_i);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=pointer-2.c"></script>
 > 
 > - Since `p_i` is a pointer variable, `p_i` contains a memory address (hence `%p`).
 > - Then, `*p_i` will point to **the value in the memory address contained in p_i**. 
 >   - This is referred to as *de-referencing*. 
 >   - This is also why the type of a pointer variable must match the type of data stored
 >   in the memory address the pointer variable contains. 
-> - Compile and run `pointer_2.c`
+> - Compile and run `pointer-2.c`
 > 
-> <img src="../assets/figure/guide/10.png" alt="Compile and run pointer_2.c" style="height:400px">
+> <img src="../fig/guide//09.png" alt="Compile and run pointer-2.c" style="height:150px">
 >
 {: .slide}
 
-> ## Pass by Value and Pass by Reference
+> ## 21. Pass by Value and Pass by Reference
 >
 > - Parameters are passed to functions. 
 > - Parameters can be value variables or pointer variables. 
 > - What is the difference?  
 {: .slide}
 
-> ## Hands-on 8: Pass by value
+> ## 22. Hands-on: Pass by value
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `pointer_3.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `pointer-3.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=pointer-3.c"></script>
 >
-> int pass_by_value(int i) {
->    i = i * 2;
->    return i;
-> }
->
-> int main(int argc, char *argv[]) {
->   int i = 123;
->   printf("Value of i before function call: %d\n", i);
->   printf("The function returns: %d\n", pass_by_value(i)); 
->   printf("Value of i after function call: %d\n", i);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> - Compile and run `pointer_3.c`
+> - Compile and run `pointer-3.c`
 > 
-> <img src="../assets/figure/guide/11.png" alt="Compile and run pointer_3.c" style="height:450px">
+> <img src="../fig/guide//10.png" alt="Compile and run pointer-3.c" style="height:150px">
 >
 {: .slide}
 
 
-> ## Hands-on 9: Pass by reference
+> ## 23. Hands-on: Pass by reference
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `pointer_4.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `pointer-4.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=pointer-4.c"></script>
 >
-> int pass_by_ref(int *a_pointer) {
->   *a_pointer = (*a_pointer) * 2;
->   return *a_pointer;
-> }
->
-> int main(int argc, char *argv[]) {
->   int i = 123;
->   printf("Value of i before function call: %d\n", i);
->   printf("The function returns: %d\n", pass_by_ref(&i)); 
->   printf("Value of i after function call: %d\n", i);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> - Compile and run `pointer_4.c`
+> - Compile and run `pointer-4.c`
 > 
-> <img src="../assets/figure/guide/12.png" alt="Compile and run pointer_4.c" style="height:450px">
+> <img src="../fig/guide//11.png" alt="Compile and run pointer-4.c" style="height:450px">
 >
 {: .slide}
 
-> ## Question
+> ## 24. Question
 >
 > In Java, do you pass by value or pass by reference?
 >
@@ -361,7 +384,7 @@ title: "Introduction to C"
 {: .challenge}
 
 
-> ## Pointers and memory allocation
+> ## 25. Pointers and memory allocation
 >
 > - How does C request dynamic memory when you don't know at 
 > compile-time exactly what you will need?
@@ -374,7 +397,7 @@ title: "Introduction to C"
 {: .slide}
 
 
-> ## Dynamic memory allocation
+> ## 26. Dynamic memory allocation
 >
 > - Unlike Java, you have to do everything!
 >   - Ask for memory.
@@ -395,7 +418,7 @@ title: "Introduction to C"
 {: .slide}
 
 
-> ## Void pointer
+> ## 27. Void pointer
 >
 > - When `malloc` allocates memory, it returns a sequence of bytes, with
 > no predefined types. 
@@ -405,25 +428,12 @@ title: "Introduction to C"
 {: .slide}
 
 
-> ## Hands-on 10: Malloc and type cast
+> ## 28. Hands-on: malloc and type cast
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `malloc_1.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `malloc-1.c`with the source code below. 
 >
-> ~~~
-> #include <stdlib.h>
-> #include <stdio.h>
-> 
-> int main(int argc, char *argv[]) {
->   void *p = malloc(4);
->   int *ip = (int *)p;
->   *ip = 98765;
->   printf("%d\n", *ip);
->  return 0;
-> }
-> ~~~
-> {: .language-c}
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=malloc-1.c"></script>
 >
 > - What points to where:
 >   - `void *p = malloc(4);`: allocate 4 contiguous bytes. The address of the
@@ -432,69 +442,45 @@ title: "Introduction to C"
 >   - `int *ip = (int *)p;`: The address value *pointed to* by `p` is assigned
 >   to pointer variable `ip`. The bytes pointed to be `p` are now casted to 
 >   type `int`. 
-> - Compile and run `malloc_1.c`
+> - Compile and run `malloc-1.c`
 > 
-> <img src="../assets/figure/guide/13.png" alt="Compile and run malloc_1.c" style="height:450px">
+> <img src="../fig/guide//11.png" alt="Compile and run malloc-1.c" style="height:150px">
 >
 {: .slide}
 
 
-> ## Hands-on 11: Malloc and type cast with calculation
+> ## 29. Hands-on: malloc and type cast with calculation
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `malloc_2.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `malloc-2.c`with the source code below. 
 >
-> ~~~
-> #include <stdlib.h>
-> #include <stdio.h>
-> 
-> int main(int argc, char *argv[]) {
->   int *ip = (int *)malloc(sizeof(int));
->   *ip = 98765;
->   printf("%d\n", *ip);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=malloc-2.c"></script>
+>
 >
 > - Only ask for exactly what you need!
-> - Compile and run `malloc_2.c`
+> - Compile and run `malloc-2.c`
 > 
-> <img src="../assets/figure/guide/14.png" alt="Compile and run malloc_2.c" style="height:450px">
+> <img src="../fig/guide//13.png" alt="Compile and run malloc-2.c" style="height:150px">
 >
 {: .slide}
 
 
-> ## Hands-on 12: Safety
+> ## 30. Hands-on: Safety
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `malloc_3.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `malloc-3.c`with the source code below. 
 >
-> ~~~
-> #include <stdlib.h>
-> #include <stdio.h>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=malloc-3.c"></script>
+>
+>
+> - Return and free memory after you are done!
+> - Compile and run `malloc-3.c`
 > 
-> int main(int argc, char *argv[]) {
->   int *ip = (int *)malloc(sizeof(int));
->   *ip = 98765;
->   printf("%d\n", *ip);
->   free(ip);
->   ip = NULL;
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> - Only ask for exactly what you need!
-> - Compile and run `malloc_3.c`
-> 
-> <img src="../assets/figure/guide/15.png" alt="Compile and run malloc_3.c" style="height:450px">
+> <img src="../fig/guide//14.png" alt="Compile and run malloc-3.c" style="height:450px">
 >
 {: .slide}
 
-> ## Dynamic memory allocation
+> ## 31. Dynamic memory allocation
 >
 > - Critical to support complex data structures that grow as the 
 >  program executes. 
@@ -507,48 +493,38 @@ title: "Introduction to C"
 {: .slide}
 
 
-> ## Hands-on 13: What does an array in C look like?
+> ## 32. Hands-on: What does an array in C look like?
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `array_1.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `array-1.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
-> int main(int argc, char *argv[]) {
->   int numbers[5];
->   int i;
->   for (i = 0; i < 5; i++){
->     numbers[i] = i * 2;
->     printf("Index %d has value %d at address (%p)\n", i, numbers[i], (numbers + i));
->   }
->   return 0;
-> }
-> ~~~
-> {: .language-c}
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=array-1.c"></script>
+>
 >
 > - What is the distance between addresses? Why?
-> - Compile and run `array_1.c`
+> - Compile and run `array-1.c`
 > 
-> <img src="../assets/figure/guide/16.png" alt="Compile and run array_1.c" style="height:450px">
+> <img src="../fig/guide//15.png" alt="Compile and run array-1.c" style="height:250px">
 >
 {: .slide}
 
 
-> ## Exercise
+> ## 33. Exercise
 >
-> - Create a copy of `array_1.c` called `array_2.c`. 
+> - Create a copy of `array-1.c` called `array-2.c`. 
 > - Change the type of `numbers` to `double`. 
 > - What is the address step now?
 >
-> > ## Answer     
-> > <img src="../assets/figure/guide/17.png" alt="Compile and run array_2.c" style="height:200px"> 
+> > ## Answer    
 > >
+> > <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=array-2.c"></script> 
+> > <img src="../fig/guide//16.png" alt="Compile and run array-2.c" style="height:250px"> 
+> > 
 > {: .solution}
 {: .challenge}
 
 
-> ## An array variable
+> ## 34. An array variable
 >
 > - ... is in fact pointing to an address containing a value. 
 > - ... without the bracket notation and an index points to the 
@@ -556,218 +532,104 @@ title: "Introduction to C"
 > - ... is quite similar to a pointer!
 {: .slide}
 
-> ## Hands-on 14: Array as pointer (or vice versa ...)
+> ## 35. Hands-on: Array as pointer (or vice versa ...)
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `array_3.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `array-3.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
-> #include <stdlib.h>
-> int main(int argc, char *argv[]) {
->   int i, size;
->   int *p; 
->   size = 5;
->   p = malloc(sizeof(int) * size);
->   for (i = 0; i < size; i++){
->     printf("Before init, index %d has value %d at addr (%p)\n", i, p[i], p + i);
->     p[i] = i * 2;
->     printf("After init, index %d has value %d at addr (%p)\n", i, p[i], p + i);
->   }
->   return 0;
-> }
-> ~~~
-> {: .language-c}
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=array-3.c"></script>
 >
-> - Compile and run `array_3.c`
+> - Compile and run `array-3.c`
 > 
-> <img src="../assets/figure/guide/18.png" alt="Compile and run array_1.c" style="height:400px">
+> <img src="../fig/guide//17.png" alt="Compile and run array-3.c" style="height:250px">
 >
 {: .slide}
 
 
-> ## Hands-on 15: Dynamic array creation with command line arguments. 
+> ## 36. Hands-on: Dynamic array creation with command line arguments. 
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `array_4.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `array-4.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
-> #include <stdlib.h>
-> int main(int argc, char *argv[]) {
->   int i, size;
->   int *p; 
->   size = atoi(argv[1]);
->   printf(“Before malloc, p is pointing to address (%p)\n”, p);
->   p = malloc(sizeof(int) * size);
->   for (i = 0; i < size; i++){
->     p[i] = i * 2;
->     printf("After malloc and assignment, index %d has value %d at addr (%p)\n", i, p[i], p + i);
->   }
->   return 0;
-> }
-> ~~~
-> {: .language-c}
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=array-4.c"></script>
+>
 >
 > - In C, the command line arguments **include** the program's name. The
 > actual arguments start at index position 1 (not 0 like Java).
-> - Compile and run `array_4.c`
+> - Compile and run `array-4.c`
 > 
-> <img src="../assets/figure/guide/19.png" alt="Compile and run array_4.c" style="height:400px">
+> <img src="../fig/guide//18.png" alt="Compile and run array-4.c" style="height:250px">
 >
 {: .slide}
 
 
-> ## Hands-on 16: String 
+> ## 37. Hands-on: String 
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `string_1.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `string-1.c`with the source code below. 
 >
-> ~~~
-> #include<stdio.h> 
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=string-1.c"></script>
+>
+> - Compile and run `string-1.c`
 > 
-> int main(int argc, char *argv[]) {    
->   int i;
->   char str[] = "Hello, world!"; 
->   printf("%s\n",str);     
->   for (i = 0; i < 12; i++) {
->     printf("%c ", str[i]);
->   } 
->   printf("\n");
->   return 0; 
-> } 
-> ~~~
-> {: .language-c}
+> <img src="../fig/guide//19.png" alt="Compile and run string-1.c" style="height:150px">
 >
-> - Compile and run `string_1.c`
-> 
-> <img src="../assets/figure/guide/20.png" alt="Compile and run string_1.c" style="height:400px">
+> - In C, string is considered an array of characters.
 >
 {: .slide}
 
 
-> ## Hands-on 17: Array of strings
+> ## 38. Hands-on: Array of strings
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `string_2.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `string-2.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
-> #include <stdlib.h>
-> #include <string.h>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=string-2.c"></script>
 >
-> int main(int argc, char *argv[]){ 
->   int i, word_count;
->   int str_len[2] = {6, 4};
->   char **s_array;
->   word_count = 2;
->   s_array = (char**)calloc(word_count, sizeof(char *));
->   for (i = 0; i < word_count; i++){
->     s_array[i] = (char *)calloc(str_len[i], sizeof(char));
->   }
->   strcpy(s_array[0], "Golden");
->   strcpy(s_array[1], "Rams");
->   printf("%s %s\n", s_array[0], s_array[1]);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> - Compile and run `string_2.c`
+> - Compile and run `string-2.c`
 > 
-> <img src="../assets/figure/guide/21.png" alt="Compile and run string_2.c" style="height:400px">
+> <img src="../fig/guide//20.png" alt="Compile and run string-2.c" style="height:150px">
 >
 {: .slide}
 
 
-> ## Object in C
+> ## 39. Object in C
 >
 > - C has no classes or objects. 
 > - Instead, it has `struct` type (think ancestor of objects) .
 {: .slide}
 
 
-> ## Hands-on 18: Struct in C
+> ## 40. Hands-on: Struct in C
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `struct_1.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `struct-1.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=struct-1.c"></script>
+>
+> - Compile and run `struct-1.c`
 > 
-> struct point {
->   int x;
->   int y;
-> };
-> 
-> int main(int argc, char *argv[]){ 
->   struct point origin;
->   origin.x = 0;
->   origin.y = 0;
->
->   printf("The coordinates of the origin are: %d %d\n", origin.x, origin.y);
->   printf("The address of coordinates of the origin are: %p %p\n", &origin.x, &origin.y);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> - Compile and run `struct_1.c`
-> 
-> <img src="../assets/figure/guide/22.png" alt="Compile and run struct_1.c" style="height:400px">
+> <img src="../fig/guide//21.png" alt="Compile and run struct-1.c" style="height:150px">
 >
 {: .slide}
 
 
-> ## Hands-on 19: Struct of structs in C
+> ## 41. Hands-on: Struct of structs in C
 >
-> - In the **EXPLORER** window, right-click on `intro-c` and select `New File`.
-> - Type `struct_2.c` as the file name and hits Enter. 
-> - Enter the following source code in the editor windows:
+> - Inside the terminal, make suse that you are still inside
+> `intro-c`, then use `nano` to create `struct-2.c`with the source code below. 
 >
-> ~~~
-> #include <stdio.h>
-> 
-> struct point {
->   int x;
->   int y;
-> };
-> 
-> struct line {
->   struct point start;
->   struct point end;
-> };
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=struct-2.c"></script>
 >
-> int main(int argc, char *argv[]){ 
->   struct line l;
->   l.start.x = 0;
->   l.start.y = 0;
->   l.end.x = 1;
->   l.end.y = 2;
+> - Compile and run `struct-2.c`
 > 
->   printf("The coordinates of the lines are: %d %d %d %d\n", 
->           l.start.x, l.start.y, l.end.x, l.end.y);
->   printf("The address of coordinates of the origin are: %p %p %p %p\n", 
->           &l.start.x, &l.start.y, &l.end.x, &l.end.y);
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> - Compile and run `struct_1.c`
-> 
-> <img src="../assets/figure/guide/23.png" alt="Compile and run struct_1.c" style="height:400px">
+> <img src="../fig/guide//22.png" alt="Compile and run struct-2.c" style="height:150px">
 >
 {: .slide}
 
 
 
-> ## Function in C
+> ## 42. Function in C
 >
 > - Almost the same as methods in Java, except for one small difference. 
 > - They need to either be declared, or must be defined prior to being
@@ -775,75 +637,18 @@ title: "Introduction to C"
 {: .slide}
 
 
-> ## Hands-on 20: Functions in C - definition and declaration
+> ## 43. Hands-on: Functions in C - definition and declaration
 >
-> - Create three C files, `funcion_1.c`, `function_2.c`, and `function_3.c`,
+> - Create three C files, `function-1.c`, `function-2.c`, and `function-3.c`,
 > with the source codes below:
 >
-> ~~~
-> /* function_1.c */
-> #include <stdio.h>
-> 
-> int times2(int x) {
->   return x * 2;
-> }
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=function-1.c"></script>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=function-2.c"></script>
+> <script src="https://gist.github.com/linhbngo/d1e9336a82632c528ea797210ed0f553.js?file=function-3.c"></script>
 >
-> int times4(int x) {
->   return times2(x) * 2;
-> }
-> 
-> int main(int argc, char *argv[]) {
->   int x = 100;
->   printf("Result: %d\n", times4(x));
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> ~~~
-> /* function_2.c */
-> #include <stdio.h>
-> 
-> int times4(int x) {
->   return times2(x) * 2;
-> }
->
-> int times2(int x) {
->   return x * 2;
-> }
-> 
-> int main(int argc, char *argv[]) {
->   int x = 100;
->   printf("Result: %d\n", times4(x));
->   return 0;
-> }
-> ~~~
-> {: .language-c}
->
-> ~~~
-> /* function_3.c */
-> #include <stdio.h>
-> int times2(int x);
-> int times4(int x);
->
-> int times4(int x) {
->   return times2(x) * 2;
-> }
->
-> int times2(int x) {
->   return x * 2;
-> }
-> 
-> int main(int argc, char *argv[]) {
->   int x = 100;
->   printf("Result: %d\n", times4(x));
->   return 0;
-> }
-> ~~~
-> {: .language-c}
 > - Compile and run these files. 
 > 
-> <img src="../assets/figure/guide/24.png" alt="Compile and run funcion_1.c, funcion_2.c, and function_3.c" style="height:400px">
+> <img src="../fig/guide//23.png" alt="Compile and run function-1.c, function-2.c, and function-3.c" style="height:250px">
 >
 {: .slide}
 
@@ -851,3 +656,4 @@ title: "Introduction to C"
 
 
 {% include links.md %}
+

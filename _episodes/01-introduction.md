@@ -195,7 +195,7 @@ keypoints:
 {: .challenge}
 
 
-> ## The illusion of dedicated memory resources
+> ## 10. The illusion of dedicated memory resources
 >
 > - Many running program share the physical memory space. 
 > - Each runnning program is presented with the illusion that they have access to their own private
@@ -203,23 +203,15 @@ keypoints:
 > by the OS.  
 > - Making memory references within one running program (within one's own virtual address space) 
 > does not affect the private virtual address space of others. 
-> - Without **setarch `uname -m` -R /bin/bash**, the location of variable `p` will be 
+> - Without the `setarch` command, the location of variable `p` will be 
 > randomize within the virtual address space of a process. This is a security mechanism to 
 > prevent others from guessing and applying direct manipulation techniques to the physical 
 > memory location that acually contains `p`. 
 >
 {: .callout}
 
-> ## Hands-on 8: Memory Virtualization
-> 
-> - Go to the bash terminal where you executed the command to kill the running `cpu` processes
-> and repeat the procedure, this time to kill the running `mem` processes:
->
-> <img src="../fig/01-intro/vscode_09.png" alt="kill processes" style="height:300px">
->
-{: .slide}
 
-> ## Concurrency
+> ## 11. Concurrency
 > 
 > - As shown in **CPU Virtualization** and **Memory Virtualization** examples, the OS 
 > wants to manage many running programs at the same time.
@@ -228,100 +220,51 @@ keypoints:
 >
 {: .slide}
 
-> ## Hands-on 9: Concurrency
+> ## 12. Hands-on: Concurrency
 >
-> - Navigate to `ostep-code/intro`
-> - Click on `threads.c` to view the file. 
-> - *VSCode will recommend a C/C++ extension for this file type. You can select to 
-> install them or not*. 
+> - Run `clear` command on both panes to clear the screen. 
+> - On the right pane, run the followings:
 >
-> <img src="../fig/01-intro/vscode_10.png" alt="threads.c" style="height:500px">
+> ~~~
+> $ cat -n threads.c
+> ~~~
+> {: .language-bash}
 >
-{:.slide}
-
-
-> ## Hands-on 10: Concurrency
+> - On the left pane, run the following commands several times:
 >
+> ~~~
+> $ ./threads 50
+> $ ./threads 100
+> $ ./threads 200
+> ~~~
+> {: .language-bash}
+> 
 > - `threads.c` creates two functions running at the same time, within the same memory 
 > space of the  main program.
 > - A single global variable named counter is being increased by both functions, thus 
 > the final value of counter should be twice that of the command line argument.
-> - Compile and run this program several time with different values.
+> - Now run with bigger values.
 >
 > ~~~
-> $ sudo sysctl -w kernel.randomize_va_space=0
-> $ gcc -Wall -pthread -o threads threads.c
-> $ ./threads 200
-> $ ./threads 400
-> $ ./threads 600
-> $ ./threads 800
-> $ ./threads 1000
-> ~~~
-> {: .language-bash}
-> 
-> <img src="../fig/01-intro/vscode_11.png" alt="running threads" style="height:500px">
->
-{: .slide}
-
-
-> ## Hands-on 11: Concurrency
->
-> - We need to change the VM so that it uses 2 CPU. To do that, run the following in the terminal:
-> ~~~
-> $ sudo shutdown now
-> ~~~
-> {: .language-bash}
->
-> - The VM is powered-off in VirtualBox, and VSCode lost connection. 
->
-> <img src="../fig/01-intro/vscode_12.png" alt="VM shutdown" style="height:500px">
->
-{: .slide}
-
-> ## Hands-on 12: Concurrency
->
-> - Go to VirtualBox, select the csc331 image, go to **Settings**/**System**/**Processor** and
-> change the number of Processor(s) to `2`
-> - Restart the VM in headless mode again afterward. 
-> 
-> <img src="../fig/01-intro/virtualbox_02.png" alt="VM has two CPUs" style="height:500px">
->
-{: .slide}
-
-
-> ## Hands-on 13: Concurrency
->
-> - Reconnect VSCode to the VM. 
-> - Rerun the `threads` program:
-> 
-> ~~~
-> $ sudo sysctl -w kernel.randomize_va_space=0
-> $ cd ostep-code/intro
-> $ ./threads 200
-> $ ./threads 400
-> $ ./threads 600
-> $ ./threads 800
-> $ ./threads 1000
-> $ ./threads 10000
 > $ ./threads 20000
-> $ ./threads 50000
-> $ ./threads 60000
-> $ ./threads 80000
+> $ ./threads 30000
+> $ ./threads 30000
+> $ ./threads 30000
 > ~~~
 > {: .language-bash}
 >
-> <img src="../fig/01-intro/vscode_13.png" alt="multithreaded with errors" style="height:500px">
+> <img src="../fig/01-intro/07.png" alt="multithreaded with errors" style="height:700px">
 >
 {: .slide}
 
-> ## Observation
+> ## 13. Observation
 >
 > - Naive concurrency gives you wrong results.  
 > - Naive concurrency gives you wrong and inconsistent results. 
 > 
 {: .callout}
 
-> ## Why does this happen?
+> ## 14. Why does this happen?
 >
 >  - At machine level, incrementing counter involves three steps:
 >    - Load value of counter from memory into register,
@@ -337,9 +280,8 @@ keypoints:
 >
 {: .slide}
 
-# Persistency
 
-> ## Observation
+> ## 15. Persistency
 >
 > - When the programs stop, everything in memory goes away: counter, p, str.
 > - Physical components to store information persistently are needed.
@@ -348,17 +290,19 @@ keypoints:
 >   - Solid-state drives
 > - Software managing these storage devices is called the file system.
 > - Examples of system calls/standard libraries supporting the file system:
->   - open()
->   - write()
->   - close()
+>   - `open()`
+>   - `write()`
+>   - `close()`
+>
+{: .slide}
+
+> ## 16. A brief history of operating system research and development
+>
+> A good paper to read: [Hanser, Per Brinch. "The evolution of oeprating systems" 2001](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.1524&rep=rep1&type=pdf)
 >
 {: .callout}
 
-# A brief history of operating system research and development
-
-A good paper to read: [Hanser, Per Brinch. "The evolution of oeprating systems" 2001](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.1524&rep=rep1&type=pdf)
-
-> ## Early operating systems: just libraries
+> ## 17. Early operating systems: just libraries
 >
 > - Include only library for commonly used functions.
 > - One program runs at a time.
@@ -366,7 +310,7 @@ A good paper to read: [Hanser, Per Brinch. "The evolution of oeprating systems" 
 >
 {: .slide}
 
-> ## Beyond libraries: protection
+> ## 18. Beyond libraries: protection
 >
 > - System calls
 > - Hardware privilege level
@@ -376,7 +320,7 @@ A good paper to read: [Hanser, Per Brinch. "The evolution of oeprating systems" 
 {: .slide}
 
 
-> ## The era of multiprogramming
+> ## 19. The era of multiprogramming
 >
 > - Minicomputer
 > - **multiprogramming**: multiple programs being run with the OS switching among them. 
@@ -385,7 +329,7 @@ A good paper to read: [Hanser, Per Brinch. "The evolution of oeprating systems" 
 >
 {: .slide}
 
-> ## The modern era
+> ## 20. The modern era
 >
 > - Personal computer
 > - DOS: the Disk Operating System
