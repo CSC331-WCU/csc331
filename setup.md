@@ -148,7 +148,7 @@ command (`podman` versus `docker`). All subcommands for both engines are the sam
 > ~~~
 > $ podman image ls
 > $ mkdir /mnt/c/csc331
-> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /home/$USER/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
 > $ touch csc331/test
 > ~~~
 > {: .language-bash}

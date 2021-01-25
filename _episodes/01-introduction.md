@@ -49,14 +49,14 @@ keypoints:
 >  - This is called **concurrency**. 
 {: .slide}
 
-> ## 5. Hands-on 1: Getting started
+> ## 5. Hands-on: Getting started
 >
 > - Open a terminal (Windows Terminal or Mac Terminal). 
 > - Run the command to launch the image container for your platform:
 > - Windows:
 > 
 > ~~~
-> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /home/$USER/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -p 2222:22 -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
 > ~~~
 > {: .language-bash}
 >
@@ -78,11 +78,11 @@ keypoints:
 > ~~~
 > {: .language-bash}
 >
-> <img src="../fig/01-intro/02.png" alt="setup containers" style="height:700px">
+> <img src="../fig/01-intro/02.png" alt="setup containers" style="height:400px">
 > 
 {: .slide}
 
-> ## 6. Hands-on 2: CPU Virtualization 
+> ## 6. Hands-on: CPU Virtualization 
 > 
 > - Our workspace is limited within the scope of a single terminal (a single shell) 
 > to interact with the operating system. 
@@ -102,8 +102,10 @@ keypoints:
 >
 > <img src="../fig/01-intro/03.png" alt="tmux terminal" style="height:500px">
 >
-> - You can use `Ctrl-b` then the `left` and `right` arrows to move the active cursors between the two panes. 
-> - Move the cursor to the right channel and run the following commands to view the source code of `cpu.c`.
+> - You can use `Ctrl-b` then the `left` and `right` arrows to move the active cursors between 
+> the two panes. 
+> - Move the cursor to the right channel and run the following commands to view the source code 
+> of `cpu.c`.
 > - Also run `nproc` in the right pane to figure out how many CPUs your container has access to. 
 >
 > ~~~
@@ -112,32 +114,35 @@ keypoints:
 > ~~~
 > {: .language-bash} 
 >
-> - Run the following command on the left pane to execute `cpu` program accordingly. 
+> - Run the following command on the **left pane** to execute `cpu` program accordingly. 
+>   - *Reminder: use `Ctrl-b` then the `left` and `right` arrows to move the active cursors 
+>   between the two panes.* 
 > - In my case, I have 8 cores, so my commands will be extended for two more. 
 >
 > ~~~
-> $ (./cpu A &); (./cpu B &); (./cpu C &); (./cpu D &); (./cpu E &); (./cpu F &); (./cpu G &); (./cpu H); (./cpu I)
+> $ (./cpu A &); (./cpu B &); (./cpu C &); (./cpu D &); (./cpu E &); (./cpu F &); (./cpu G &); (./cpu H &); (./cpu I)
 > ~~~
 > {: .language-bash}
 >
-> <img src="../assets/figure/intro_to_os/vscode_04.png" alt="multiple runs of cpu" style="height:500px">
+> <img src="../fig/01-intro/04.png" alt="multiple runs of cpu" style="height:700px">
+>
+> - To stop the running processes on the left pane, move to the right pane and running the
+> following commands:
+>
+> ~~~
+> $ ps aux | grep cpu
+> ~~~
+> {: .language-bash}
+> 
+> - Identify the process ID (the second columns), then use the `kill` to kill all the process IDs 
+> (see figure below). 
+>
+> <img src="../fig/01-intro/05.png" alt="kill processes" style="height:700px">
 >
 {: .slide}
 
-> ## How many programs are trying to prin to the terminal *concurrently* and *continuously*?
->
-> - 1
-> - 2
-> - 3
-> - 4
->
-> > ## Answer     
-> >  - 4
-> >
-> {: .solution}
-{: .challenge}
 
-> ## The illusion of infinite CPU resources
+> ## 7. The illusion of infinite CPU resources
 >
 > - A limited number of physical CPUs can still be represented as infnite number of CPUs through 
 > **virtualization**.  
@@ -146,40 +151,42 @@ keypoints:
 {: .callout}
 
 
-> ## Hands-on 5: CPU Virtualization 
+> ## 8. Hands-on: Memory Virtualization
 > 
-> - To terminal the running programs, go to the top of the **TERMINAL** area and click the 
-> `+` sign (upper right corner). 
-> 
-> <img src="../assets/figure/intro_to_os/vscode_06.png" alt="adding more bash windows" style="height:100px">
-> 
-> - In this new bash terminal, type the following command:
+> - Type `exit` and hit `Enter` once to close one pane. 
+> - Type `exit` and hit `Enter` again to close tmux.  
+> - Run the following commands:
 > 
 > ~~~
-> $ ps aux | grep /cpu
+> $ setarch `uname -m` -R /bin/bash
+> $ tmux
 > ~~~
 > {: .language-bash}
 > 
-> - Remember the numbers in the second column for `./cpu A`, `./cpu B`, `./cpu C`, and `./cpu D`. 
-> - Use these numbers in the `kill` command as shown in the figure below. 
+> - Press `Ctrl-b` and then `Shift-%` to split the tmux screen into two 
+> vertical panes again. 
+> - In the right pane, run the following command:
 > 
-> <img src="../assets/figure/intro_to_os/vscode_05.png" alt="kill processes" style="height:300px">
+> ~~~
+> $ cat -n mem.c
+> ~~~
+> {: .language-bash}
+> 
+> - In the left pane, run the following command:
+>
+> ~~~
+> $ (./mem 100 &); (./mem 200)
+> ~~~
+> {: .language-bash}
+>
+> - When finished, kill the two memory processes using the `kill` command and the process ID 
+> shown in the parentheses. You should switch to the right pane for this task. 
+> 
+> <img src="../fig/01-intro/06.png" alt="mem.c" style="height:600px">
 >
 {: .slide}
 
-
-> ## Hands-on 6: Memory Virtualization
-> 
-> - Navigate to `ostep-code/intro`
-> - Click on `mem.c` to view the file. 
-> - *VSCode will recommend a C/C++ extension for this file type. You can select to install 
-> them or not*. 
->
-> <img src="../assets/figure/intro_to_os/vscode_07.png" alt="mem.c" style="height:500px">
->
-{: .slide}
-
-> ## Do programs running concurrently occupy the same memory locations (addresses)?
+> ## 9. Do programs running concurrently occupy the same memory locations (addresses)?
 >
 > > ## Answer     
 > >  - No
@@ -187,22 +194,6 @@ keypoints:
 > {: .solution}
 {: .challenge}
 
-> ## Hands-on 7: Memory Virtualization
-> 
-> - In the bash terminal that you run the muliple `cpu` instances, run `clear` and hit `Enter`
-> to clear the terminal from output lines. 
-> - Run the following commands:
-> 
-> ~~~
-> $ sudo sysctl -w kernel.randomize_va_space=0
-> $ gcc -Wall -o mem mem.c
-> $ (./mem 100 &); (./mem 200)
-> ~~~
-> {: .language-bash}
-> 
-> <img src="../assets/figure/intro_to_os/vscode_08.png" alt="mem.c" style="height:500px">
->
-{: .slide}
 
 > ## The illusion of dedicated memory resources
 >
@@ -212,10 +203,10 @@ keypoints:
 > by the OS.  
 > - Making memory references within one running program (within one's own virtual address space) 
 > does not affect the private virtual address space of others. 
-> - *Without `setting kernel.randomize_va_space=0`, the location of variable `p` will be 
+> - Without **setarch `uname -m` -R /bin/bash**, the location of variable `p` will be 
 > randomize within the virtual address space of a process. This is a security mechanism to 
 > prevent others from guessing and applying direct manipulation techniques to the physical 
-> memory location that acually contains `p`*. 
+> memory location that acually contains `p`. 
 >
 {: .callout}
 
@@ -224,7 +215,7 @@ keypoints:
 > - Go to the bash terminal where you executed the command to kill the running `cpu` processes
 > and repeat the procedure, this time to kill the running `mem` processes:
 >
-> <img src="../assets/figure/intro_to_os/vscode_09.png" alt="kill processes" style="height:300px">
+> <img src="../fig/01-intro/vscode_09.png" alt="kill processes" style="height:300px">
 >
 {: .slide}
 
@@ -244,7 +235,7 @@ keypoints:
 > - *VSCode will recommend a C/C++ extension for this file type. You can select to 
 > install them or not*. 
 >
-> <img src="../assets/figure/intro_to_os/vscode_10.png" alt="threads.c" style="height:500px">
+> <img src="../fig/01-intro/vscode_10.png" alt="threads.c" style="height:500px">
 >
 {:.slide}
 
@@ -268,7 +259,7 @@ keypoints:
 > ~~~
 > {: .language-bash}
 > 
-> <img src="../assets/figure/intro_to_os/vscode_11.png" alt="running threads" style="height:500px">
+> <img src="../fig/01-intro/vscode_11.png" alt="running threads" style="height:500px">
 >
 {: .slide}
 
@@ -283,7 +274,7 @@ keypoints:
 >
 > - The VM is powered-off in VirtualBox, and VSCode lost connection. 
 >
-> <img src="../assets/figure/intro_to_os/vscode_12.png" alt="VM shutdown" style="height:500px">
+> <img src="../fig/01-intro/vscode_12.png" alt="VM shutdown" style="height:500px">
 >
 {: .slide}
 
@@ -293,7 +284,7 @@ keypoints:
 > change the number of Processor(s) to `2`
 > - Restart the VM in headless mode again afterward. 
 > 
-> <img src="../assets/figure/intro_to_os/virtualbox_02.png" alt="VM has two CPUs" style="height:500px">
+> <img src="../fig/01-intro/virtualbox_02.png" alt="VM has two CPUs" style="height:500px">
 >
 {: .slide}
 
@@ -319,7 +310,7 @@ keypoints:
 > ~~~
 > {: .language-bash}
 >
-> <img src="../assets/figure/intro_to_os/vscode_13.png" alt="multithreaded with errors" style="height:500px">
+> <img src="../fig/01-intro/vscode_13.png" alt="multithreaded with errors" style="height:500px">
 >
 {: .slide}
 
