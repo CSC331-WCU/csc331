@@ -89,7 +89,7 @@ command (`podman` versus `docker`). All subcommands for both engines are the sam
 > ~~~
 > {: .language-bash}
 >
-> - Open the file `/ect/containers/containers.conf` using your favorite editor . You will need to run the command
+> - Open the file `/etc/containers/containers.conf` using your favorite editor . You will need to run the command
 > with `sudo`. 
 > - Find the options for `cgroup_manager` and `events_logger` (they will be commented out), uncomment, and change
 > them to the followings:
