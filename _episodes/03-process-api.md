@@ -11,7 +11,7 @@ keypoints:
 ---
 
 
-> ## Process API
+> ## 1. Process API
 >
 > Include three function calls:
 > - fork()
@@ -20,7 +20,7 @@ keypoints:
 {: .slide}
 
 
-> ## fork()
+> ## 2. fork()
 >
 > - ... is a system call. 
 > - ... is used to create a new process.   
@@ -50,7 +50,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 1: Getting started
+> ## 3. Hands-on: Getting started
 >
 > - Start the csc331 VM in headless mode. 
 > - Connect VSCode to csc331. 
@@ -58,7 +58,7 @@ keypoints:
 > 
 {: .slide}
 
-> ## Hands-on 2: process creation using fork() 
+> ## 4. Hands-on: process creation using fork() 
 > 
 > - Navigate to `ostep-code/cpu-api`
 > - Click on `p1.c` to view the file. 
@@ -83,7 +83,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 3: compile and run p1.c 
+> ## 5. Hands-on: compile and run p1.c 
 > 
 > - In the terminal, navigate to `ostep-code/cpu-api` using `cd`
 >   - Review hands-on from previous lessons on how. 
@@ -93,7 +93,7 @@ keypoints:
 {: .slide}
 
 
-> ## wait()/waitpid()/waitid()
+> ## 6. wait()/waitpid()/waitid()
 >
 > - ... belongs to a family of system calls. 
 > - ... are used to make a process to *wait* for its child process. 
@@ -107,7 +107,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 4: processes management using wait() 
+> ## 7. Hands-on: processes management using wait() 
 > 
 > - If not already done:
 >   - SSH into csc331
@@ -138,7 +138,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 5: compile and run p2.c 
+> ## 8. Hands-on: compile and run p2.c 
 > 
 > - If not already done:
 >   - SSH into csc331
@@ -156,7 +156,7 @@ keypoints:
 {: .slide}
 
 
-> ## exec()
+> ## 9. exec()
 >
 > - [Documentation for exec()](https://linux.die.net/man/3/exec)
 > - `fork()` lets you create and run a copy of the original process. 
@@ -164,7 +164,7 @@ keypoints:
 {: .slide}
 
 
-> ## Hands-on 6: processes management using exec() 
+> ## 10. Hands-on: processes management using exec() 
 > 
 > - If not already done:
 >   - SSH into csc331
@@ -196,14 +196,14 @@ keypoints:
 >     - Line 22: prints out the information of the parent process. 
 {: .slide}
 
-> ## Why fork(), wait(), and exec()?
+> ## 11. Why fork(), wait(), and exec()?
 >
 > - The separation of `fork()` and `exec()` is essential to the building of a Linux shell.  
 > - It lets the shell runs code after the call to `fork()`, but before the call to `exec()`.  
 > - This facilitates a number of interesting features in the UNIX shell. 
 {: .slide}
 
-> ## The Shell
+> ## 12. The Shell
 >
 > - What is the UNIX shell?.  
 > - In Unix, the shell is a program that interprets commands and acts as an intermediary between 
@@ -212,7 +212,7 @@ keypoints:
 > to graphical interfaces like Windows, Mac, and the X Window System. 
 {: .slide}
 
-> ## The Shell
+> ## 13. The Shell
 >
 > - What is the UNIX shell?.  
 > - **In Unix, the shell is a program ...** 
@@ -226,7 +226,7 @@ keypoints:
 > *asking a process (the running shell) to create and run another process*. 
 {: .slide}
 
-> ## When you run a program from the shell prompt ...
+> ## 14. When you run a program from the shell prompt ...
 >
 > The shell will  
 > - find out where the program is in the file system. 
@@ -237,7 +237,7 @@ keypoints:
 > giving user the **shell prompt** again. 
 {: .slide}
 
-> ## When you run a program from the shell prompt ...
+> ## 15. When you run a program from the shell prompt ...
 >
 > The shell will  
 > - find out where the program is in the file system. 
@@ -248,7 +248,7 @@ keypoints:
 > giving user the **shell prompt** again. 
 {: .slide}
 
-> ## Hands-on 7: redirection 
+> ## 16. Hands-on 7: redirection 
 > 
 > - If not already done:
 >   - SSH into csc331
@@ -275,7 +275,7 @@ keypoints:
 > - calls wait() to wait for the child process to finish before giving user the prompt again. 
 {: .slide}
 
-> ## Hands-on 8: more on file descriptors 
+> ## 17. Hands-on 8: more on file descriptors 
 > 
 > - If not already done:
 >   - SSH into csc331
