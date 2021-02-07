@@ -52,18 +52,43 @@ keypoints:
 
 > ## 3. Hands-on: Getting started
 >
-> - Start the csc331 VM in headless mode. 
-> - Connect VSCode to csc331. 
-> - Open a terminal
+> - Open a terminal (Windows Terminal or Mac Terminal). 
+> - Run the command to launch the image container for your platform:
+> - Windows:
+> 
+> ~~~
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Mac:
+>
+> ~~~
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Navigate to `/home/$USER/csc331`
+> - Change to directory `ostep-code/cpu-api`, then run `make` to build the programs. 
+>
+> ~~~
+> $ cd ~/csc331/ostep-code/cpu-api
+> $ make
+> ~~~
+> {: .language-bash}
+>
+> <img src="../fig/03-process-api/01.png" style="height:300px">
 > 
 {: .slide}
 
 > ## 4. Hands-on: process creation using fork() 
 > 
-> - Navigate to `ostep-code/cpu-api`
-> - Click on `p1.c` to view the file. 
-> - *VSCode will recommend a C/C++ extension for this file type. You can select to install them or not*. 
-> <img src="../assets/figure/process-api/01.png" alt="File p1.c" style="height:500px">
+> ~~~
+> $ cat -n p1.c
+> ~~~
+> {: .language-bash}
+>
+> <img src="../fig/03-process-api/02.png" alt="File p1.c" style="height:500px">
 >
 > - Line 5-6: No idea why the author sets up the source code that way ...
 > - Line 8: prints out hello world and the process identifier (pid) of the current process.
@@ -83,13 +108,13 @@ keypoints:
 {: .slide}
 
 
-> ## 5. Hands-on: compile and run p1.c 
+> ## 5. Hands-on: run p1 
 > 
-> - In the terminal, navigate to `ostep-code/cpu-api` using `cd`
->   - Review hands-on from previous lessons on how. 
-> - Compile and run `p1.c`.  
-> - *You will need to hit Enter to get a new clean prompt. Why?*. 
-> <img src="../assets/figure/process-api/02.png" alt="Compile and run p1.c" style="height:500px">
+> - Run `p1` several times. 
+> - *What do you notice? - also see my screenshot*
+>
+> <img src="../fig/03-process-api/03.png" alt="Compile and run p1.c" style="height:500px">
+>
 {: .slide}
 
 
@@ -109,17 +134,12 @@ keypoints:
 
 > ## 7. Hands-on: processes management using wait() 
 > 
-> - If not already done:
->   - SSH into csc331
->   - Run the following commands:
->
 > ~~~
-> $ cd ~/ostep-code/cpu-api
 > $ cat -n p2.c
 > ~~~
 > {: .language-bash}
 >
-> <img src="../assets/figure/process-api/03.png" alt="File p2.c" style="height:500px">
+> <img src="../fig/03-process-api/04.png" alt="File p2.c" style="height:500px">
 >
 > - Line 1-4: Pay attention to the libraries included. 
 > - Line 6-7: No idea why the author sets up the source code that way ...
@@ -138,20 +158,12 @@ keypoints:
 {: .slide}
 
 
-> ## 8. Hands-on: compile and run p2.c 
+> ## 8. Hands-on: run p2
 > 
-> - If not already done:
->   - SSH into csc331
->   - Run the following commands:
-> - Navigate to `~/ostep-code/cpu-api`
+> - Run p2 several times. 
+> - What do you notice about the runs?
 >
-> ~~~
-> $ gcc -o p2 p2.c
-> $ ./p2
-> ~~~
-> {: .language-bash}
->
-> <img src="../assets/figure/process-api/04.png" alt="Compile and run p2.c" style="height:200px">
+> <img src="../fig/03-process-api/05.png" alt="Compile and run p2.c" style="height:500px">
 >
 {: .slide}
 
@@ -165,20 +177,14 @@ keypoints:
 
 
 > ## 10. Hands-on: processes management using exec() 
-> 
-> - If not already done:
->   - SSH into csc331
->   - Run the following commands:
 >
 > ~~~
-> $ cd ~/ostep-code/cpu-api
-> $ gcc -o p3 p3.c
 > $ ./p3
 > $ cat -n p3.c
 > ~~~
 > {: .language-bash}
 >
-> <img src="../assets/figure/process-api/05.png" alt="File p3.c" style="height:500px">
+> <img src="../fig/03-process-api/06.png" alt="File p3.c" style="height:700px">
 >
 > - Line 1-5: Pay attention to the libraries included. 
 > - Line 7-8: `main`
@@ -190,10 +196,14 @@ keypoints:
 > - Line 16: If `rc` is equal to `0`.
 >   - The child process will execute the codes inside this conditional block. 
 >   - Line 18: prints out a statement and the child's `pid`. 
->   - Line 18: sleeps for one second. 
+>   - Line 19-22: sets up parameters for a shell command (`wc` in this case). 
+>   - Line 23: `exec` replaces the current child process with a completely new process to 
+>   execute the `wc` command. 
+>   - Line 24: This line's code is contained in the current child process, but was wiped 
+>   out when `exec` replaces the current child process with the new process for `wc`. 
 > - Line 25: This is the parent process (`rc` is non-negative and not equal to 0) 
->     - Line 21: calls the `wait()` function. 
->     - Line 22: prints out the information of the parent process. 
+>     - Line 27: calls the `wait()` function. 
+>     - Line 28: prints out the information of the parent process. 
 {: .slide}
 
 > ## 11. Why fork(), wait(), and exec()?
@@ -250,19 +260,14 @@ keypoints:
 
 > ## 16. Hands-on 7: redirection 
 > 
-> - If not already done:
->   - SSH into csc331
->   - Run the following commands:
->
 > ~~~
-> $ cd ~/ostep-code/cpu-api
 > $ wc p3.c
 > $ wc p3.c > newfile.txt
 > $ cat newfile.txt
 > ~~~
 > {: .language-bash}
 >
-> <img src="../assets/figure/process-api/06.png" alt="Redirection" style="height:200px">
+> <img src="../fig/03-process-api/07.png" alt="Redirection" style="height:250px">
 >
 > The shell ... 
 > - finds out where `wc` is in the file system. 
@@ -277,19 +282,16 @@ keypoints:
 
 > ## 17. Hands-on 8: more on file descriptors 
 > 
-> - If not already done:
->   - SSH into csc331
->   - Run the following commands:
-> *you don't have to do this if you have VSCode setup and you can see the lines count on
-> VSCode*.
->
 > ~~~
-> $ cd ~/ostep-code/cpu-api
-> $ nano -c p4.c
+> $ ls
+> $ ./p4
+> $ ls
+> $ cat p4.output
+> $ cat -n p4.c
 > ~~~
 > {: .language-bash}
 >
-> <img src="../assets/figure/process-api/07.png" alt="View p4.c" style="height:700px">
+> <img src="../fig/03-process-api/08.png" alt="View p4.c" style="height:700px">
 >
 > - `wc p4` should have printed out to terminal.
 > - `close(STDOUT_FILENO)` closes the file descriptor that writes to the terminal 
@@ -298,31 +300,18 @@ keypoints:
 > file descriptor ID for the terminal is now free, this file descriptor is assigned to p4.output.
 > - As `wc p4` is executed and attempts to write to terminal, it actually writes to p4.output instead.  
 >
-> Compile and run `p4.c`
->
-> ~~~
-> $ gcc -o p4 p4.c
-> $ ./p4
-> $ cat p4.output
-> ~~~
-> {: .language-bash}
->
-> <img src="../assets/figure/process-api/08.png" alt="View p4.c" style="height:200px">
 {: .slide}
 
 
 > ## Hands-on 9: piping 
 > 
-> - If not already done:
->   - SSH into csc331
->   - Run the following commands:
->
 > ~~~
-> $ ps aux
-> $ ps aux | grep student
-> $ ps aux | grep student | wc -l
+> $ ls -l
+> $ ls -l | grep p
 > ~~~
 > {: .language-bash}
+>
+> <img src="../fig/03-process-api/09.png" alt="Piping" style="height:500px">
 >
 {: .slide}
 
