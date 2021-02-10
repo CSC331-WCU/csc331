@@ -58,7 +58,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 >     <tr>
 >       <td> 1. Be able to create and manipulate processes, manage run-time memory, and read and write to file systems </td>
 >       <td> 1. Analyze a complex computing problem and to apply principles of computing and other relevant disciplines to identify solutions (ABET 1). </td>
->       <td rowspan="2"> 1. Be able to apply theory, techniques, and methodologies to create and/or maintain high quality computing systems that function effectively and reliably in the emerging and future information infrastructure.</td>
+>       <td rowspan="3"> 1. Be able to apply theory, techniques, and methodologies to create and/or maintain high quality computing systems that function effectively and reliably in the emerging and future information infrastructure.</td>
 >       <td> Assignment, Quiz, Exam </td>     
 >     </tr>
 >     <tr>
@@ -69,7 +69,6 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 >     <tr>
 >       <td> 3. Be able to implement architectural changes to an OS </td>
 >       <td> 3. Apply computer science theory and software development fundamentals to produce computing-based solutions (ABET 6). </td>
->       <td> 2. Be able to work in teams, demonstrate ethical professionalism in their work, and grow professionally while engaging in life-long learning. </td> 
 >       <td> Lab </td>
 >     </tr>
 >   </tbody>
