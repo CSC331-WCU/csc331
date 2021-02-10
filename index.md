@@ -68,7 +68,7 @@ permalink: index.html  # Is the only page that doesn't follow the pattern /:path
 >     </tr>
 >     <tr>
 >       <td> 3. Be able to implement architectural changes to an OS </td>
->       <td> 3. Function effectively as a member or leader of a team engaged in activities appropriate to the program’s discipline (ABET 5). </td>
+>       <td> 3. Apply computer science theory and software development fundamentals to produce computing-based solutions (ABET 6). </td>
 >       <td> 2. Be able to work in teams, demonstrate ethical professionalism in their work, and grow professionally while engaging in life-long learning. </td> 
 >       <td> Lab </td>
 >     </tr>
