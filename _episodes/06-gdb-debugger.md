@@ -156,45 +156,14 @@ keypoints:
 {: .slide}
 
 
-> ## 11. Challenge
-> 
-> Redo the hands-on activity of slide 8 so that all the panes are aesthetically 
-> proportional. 
->
-{: .challenge}
-
-> ## 12. Setup gdb
-> 
-> - Run `tmux ls` to check and `tmux kill-session` to clean up all existing 
-> tmux sessions. 
-> - Create a new session called `gdb`. 
-> - We are using an enhanced wrapper to the default gdb, called `gdb-peda`.
-> - Run the following commands in one of the tmux sessions.
->
-> ~~~
-> $ cd
-> $ sudo apt-get update
-> $ sudo apt-get install -y gdb
-> $ git clone https://github.com/longld/peda.git
-> $ echo "source ~/peda/peda.py" > ~/.gdbinit
-> $ gdb
-> ~~~
-> {: .language-bash}
->
->
-> <img src="../assets/figure/gdb/11.png" alt="setup gdb" style="height:800px">
->
-> - To exit from gdb type `quit` and hit `Enter`. 
-{: .slide}
-
-> ## 13. Setup an application with gdb
+> ## 12. Setup an application with gdb
 > 
 > - To use `gdb` to debug, we need to compile the program with a `-g` flag.
 > - Split the `gdb` session into two horizontal panes.
 > - In the top pane, run the followings command:
 >
 > ~~~
-> $ cd ~/intro-c
+> $ cd ~/csc331/intro-c
 > $ gcc -g -o hello hello.c
 > ~~~
 > {: .language-bash}
@@ -202,7 +171,7 @@ keypoints:
 > - In the bottom pane, run the followings command:
 >
 > ~~~
-> $ cd ~/intro-c
+> $ cd ~/csc331/intro-c
 > $ gdb hello
 > gdb-peda$ run
 > ~~~
@@ -213,7 +182,7 @@ keypoints:
 {: .slide}
 
 
-> ## 14. Debugging with gdb
+> ## 13. Debugging with gdb
 > 
 > - We need to set a `breakpoint`:
 >   - Could be a line number or
