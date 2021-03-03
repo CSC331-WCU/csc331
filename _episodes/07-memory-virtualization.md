@@ -14,11 +14,11 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 
 > ## 0. Midterm Exam...
 > 
-> - **Thursday, October 15, 2020**
-> - 24-hour windows range: 12:00AM - 11:59PM October 15, 2020. 
+> - **Wednesday, March 24 , 2021**
+> - 24-hour windows range: 12:00AM - 11:59PM March 24, 2021. 
 > - 75 minutes duration.
 > - 20 questions  (similar in format to the quizzes).
-> - Everything (including source codes) up to today (Thursday, October 8, 2020).
+> - Everything (including source codes) up to today (Wednesday, March 3, 2021).
 {: .slide}
 
 
