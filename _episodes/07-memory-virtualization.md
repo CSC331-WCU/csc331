@@ -109,7 +109,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 
 > ## 7. Hands on: what is in your binary?
 > 
-> - SSH into your `csc331` VM (command: `ssh -p 2222 student@127.0.0.1` password: `goldenram`). 
+> - Launch your container.  
 > - Launch a tmux session called `m1` with two vertical panels.  
 > - In the left panel, run the following commands:
 >
@@ -209,7 +209,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 > ## 10. Hands on: observing inner growth (of the stacks)?
 > 
 > - In the first or second panel (the one next to the result from running 
-> `simple4`, create a copy of `simple5.c` called `simple5.c`.
+> `simple4`, create a copy of `simple4.c` called `simple5.c`.
 > - Modify `simple5.c` to print out one or two additional variables in each 
 > of the functions `f1` and `f2`. 
 > - Compile and run `simple5.c` to observe how within each stack frame, 
