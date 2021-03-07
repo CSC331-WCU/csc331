@@ -107,9 +107,29 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 {: .slide}
 
 
+
+
 > ## 7. Hands on: what is in your binary?
+>
+> - Open a terminal (Windows Terminal or Mac Terminal). 
+> - Run the command to launch the image container for your platform:
+> - Windows:
 > 
-> - Launch your container.  
+> ~~~
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Mac:
+>
+> ~~~
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Navigate to `/home/$USER/csc331`
+> - Change to directory `ostep-code/cpu-api`, then run `make` to build the programs. 
+>
 > - Launch a tmux session called `m1` with two vertical panels.  
 > - In the left panel, run the following commands:
 >
@@ -189,7 +209,7 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 {: .slide}
 
 
-> ## 9. Hands on: where the stack grows?
+> ## 9. Hands on: where the stack grows?  
 > 
 > - Add one more vertical panel to your tmux session. 
 > - Adjust the panels' width (`resize-pane -L/-R`) so that they balance.

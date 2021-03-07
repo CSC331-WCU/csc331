@@ -43,9 +43,23 @@ keypoints:
 
 > ## 4. Hands on: revisiting where things are in memory
 > 
-> - Launch your `csc331` VM. 
-> - Connect to `csc331` from a terminal using the following command:
-> `ssh -p 2222 student@127.0.0.1`. Password: `goldenram`. 
+> - Open a terminal (Windows Terminal or Mac Terminal). 
+> - Run the command to launch the image container for your platform:
+> - Windows:
+> 
+> ~~~
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Mac:
+>
+> ~~~
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Navigate to `/home/$USER/csc331`
 > - Change into `memory` directory. 
 > - Create a file named `simple5.c` with the following contents:
 >
@@ -59,13 +73,13 @@ keypoints:
 > ~~~
 > {: .language-bash}
 >
-> <img src="../assets/figure/address-translation/01.png" alt="object dump" style="height:350px">
+> <img src="../fig/address-translation/01.png" alt="object dump" style="height:350px">
 >
 > - What is the decimal value of `0xbb8`?
 > - Compile with `-g` for `simple5.c`. 
 > - Execute `gdb simple5`, set breakpoint at `main`, and start running. 
 >
-> <img src="../assets/figure/address-translation/02.png" alt="gdb" style="height:800px">
+> <img src="../fig/address-translation/02.png" alt="gdb" style="height:800px">
 >
 > - Where is the variable `x` is? (run `p &x` to find out)
 > - What is the difference between the value contained in `%ebp` and the address of `x`?
@@ -81,7 +95,7 @@ keypoints:
 > - The size of the address space is **less than the size of physical memory**. 
 > - Each address space is **exactly the same size**.
 >
-> <img src="../assets/figure/address-translation/03.png" alt="early implementation" style="height:500px">
+> <img src="../fig/address-translation/03.png" alt="early implementation" style="height:500px">
 >
 {: .slide}
 
@@ -104,14 +118,14 @@ keypoints:
 
 > ## 7. Dynamic relocation: after boot
 > 
-> <img src="../assets/figure/address-translation/04.png" alt="dynamic relocation after boot" style="height:400px">
+> <img src="../fig/address-translation/04.png" alt="dynamic relocation after boot" style="height:400px">
 >
 {: .slide}
 
 
 > ## 8. Dynamic relocation: during process run
 > 
-> <img src="../assets/figure/address-translation/05.png" alt="dynamic relocation during process running" style="height:800px">
+> <img src="../fig/address-translation/05.png" alt="dynamic relocation during process running" style="height:800px">
 >
 {: .slide}
 
@@ -153,7 +167,7 @@ keypoints:
 
 > ## 12. Segmentation: generalized base/bounds
 > 
-> <img src="../assets/figure/address-translation/06.png" alt="mapping of virtual address space to physical memory in generalized base/bounds" style="height:800px">
+> <img src="../fig/address-translation/06.png" alt="mapping of virtual address space to physical memory in generalized base/bounds" style="height:800px">
 >
 {: .slide}
 
@@ -201,7 +215,7 @@ keypoints:
 > 
 > - Computationally expensive
 >
-> <img src="../assets/figure/address-translation/07.png" alt="Compacting fragmented memory" style="height:800px">
+> <img src="../fig/address-translation/07.png" alt="Compacting fragmented memory" style="height:800px">
 >
 {: .slide}
 
