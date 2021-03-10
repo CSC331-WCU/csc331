@@ -262,13 +262,23 @@ keypoints:
 
 > ## 21. Hands on: memory access
 > 
-> - SSH into `csc331` VM (command: `ssh -p 2222 student@127.0.0.1` password: `goldenram`).
-> - **Reminder**: The sequence to create/edit files using `nano` is as follows:
->   - Run `nano -c file_name`
->   - Type in the contents
->   - When done, press `Ctrl-X`
->   - Press `y` to confirm that you want to save modification
->   - Press `Enter` to confirm the file name to save to. 
+> - Open a terminal (Windows Terminal or Mac Terminal). 
+> - Run the command to launch the image container for your platform:
+> - Windows:
+> 
+> ~~~
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Mac:
+>
+> ~~~
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+>
 > - Launch a tmux session called `mem` with two vertical panels.  
 > - Create two vertical panels. 
 > - In the left panel, change to directory `memory` and create `memory_access_v1.c` with 
