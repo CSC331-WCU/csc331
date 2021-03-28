@@ -66,7 +66,7 @@ keypoints:
 >   - All threads of the same process share the same address space and thus can 
 >   access the same data. 
 >
-> <img src="../assets/figure/concurrency/01.png" alt="pages" style="height:350px">
+> <img src="../fig/10-concurrency/01.png" alt="pages" style="height:350px">
 {: .slide}
 
 
@@ -124,17 +124,31 @@ keypoints:
 > - Before turning on the VM, makes sure that you have two processors assigned
 > to your VM. 
 >
-> <img src="../assets/figure/concurrency/03.png" alt="setup two processors" style="height:250px">
+> - Open a terminal (Windows Terminal or Mac Terminal). 
+> - Run the command to launch the image container for your platform:
+> - Windows:
+> 
+> ~~~
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> ~~~
+> {: .language-bash}
 >
-> - SSH into `csc331` VM (command: `ssh -p 2222 student@127.0.0.1` password: `goldenram`).
-> - **Reminder**: The sequence to create/edit files using `nano` is as follows:
->   - Run `nano -c file_name`
->   - Type in the contents
->   - When done, press `Ctrl-X`
->   - Press `y` to confirm that you want to save modification
->   - Press `Enter` to confirm the file name to save to. 
-> - Create a directory named `concurrency`, change to this directory, and create `thread_hello.c` with 
-> the following contents:
+> - Mac:
+>
+> ~~~
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Create a directory named `concurrency` inside `~/csc331` and change to this directory
+>
+> ~~~
+> $ mkdir ~/csc331/concurrency
+> $ cd ~/csc331/concurrency
+> ~~~ 
+> {: .language-bash}
+>
+> - Create `thread_hello.c` with the following contents:
 >
 > <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=thread_hello.c"></script>
 >
@@ -148,15 +162,12 @@ keypoints:
 > ~~~ 
 > {: .language-bash}
 > 
-> <img src="../assets/figure/concurrency/04.png" alt="thread hello" style="height:300px">
+> <img src="../fig/10-concurrency/02.png" alt="thread hello" style="height:400px">
 {: .slide}
 
 
 
 > ## 9. Hands on: threads and gdb
->
-> - Before turning on the VM, makes sure that you have two processors assigned
-> to your VM. 
 >
 > - Recompile `thread_hello.c` with gdb support, then run `gdb`:
 > 
@@ -177,28 +188,21 @@ keypoints:
 >
 > - We are inside a thread
 >
-> <img src="../assets/figure/concurrency/05.png" alt="gdb thread hello" style="height:600px">
+> <img src="../fig/10-concurrency/03.png" alt="gdb thread hello" style="height:600px">
 >
 > - Run `i threads` to see how many threads there are in total.
+> - Then run `thread apply all bt` to learn more about the threads. 
+> - There are a total of three threads. Thread 1 comes from the main process. The other two 
+> threads (2 and 3) where created from the `pthread_create` function call. 
+> - The numbered sections under the threads represent the stack frames. 
 > 
 > ~~~
 > gdb-peda$ i threads
-> ~~~  
-> {: .language-bash}
-> 
-> <img src="../assets/figure/concurrency/06.png" alt="gdb thread list" style="height:100px"> 
-> 
-> - There are a total of three threads. Thread 1 comes from the main process. The other two 
-> threads (2 and 3) where created from the `pthread_create` function call. 
-> - Where are the threads in the stack?
->   - Run `thread apply all bt`, with `bt` stands for `backtrace`. 
->
-> ~~~
 > gdb-peda$ thread apply all bt
 > ~~~ 
 > {: .language-bash}
 > 
-> <img src="../assets/figure/concurrency/07.png" alt="gdb thread backtrace" style="height:250px">
+> <img src="../fig/10-concurrency/04.png" alt="gdb thread backtrace" style="height:600px">
 > 
 > - The outcomes of the previous command shows the stack frames of each thread. 
 > - We can use `thread i` to switch to thread `i`, then `frame j` to switch to the `j`<sup>th</sup>
@@ -211,10 +215,12 @@ keypoints:
 > gdb-peda$ i locals
 > gdb-peda$ frame 1
 > gdb-peda$ i locals
+> gdb-peda$ frame 3
+> gdp-peda$ i locals
 > ~~~ 
 > {: .language-bash}
 >
-> <img src="../assets/figure/concurrency/08.png" alt="gdb thread backtrace" style="height:500px">
+> <img src="../fig/10-concurrency/05.png" alt="gdb thread backtrace" style="height:600px">
 > 
 > - When a thread is created, the main process also turns into a management thread and holds to 
 > wait for the child threads to finish (`pthread_join`). Each thread (including the main thread)
@@ -231,12 +237,12 @@ keypoints:
 > 
 > - Scroll up a bit and observe. You will see a thread exited. Which thread is this?
 > 
-> <img src="../assets/figure/concurrency/09.png" alt="gdb thread" style="height:100px">
+> <img src="../fig/10-concurrency/06.png" alt="gdb thread" style="height:600px">
 >
 > - What happened?
 > - Switch back to thread 1, continue running `n` until you are back to the main process. 
 > 
-> <img src="../assets/figure/concurrency/10.png" alt="gdb thread" style="height:50px">
+> <img src="../fig/10-concurrency/07.png" alt="gdb thread" style="height:600px">
 > 
 > - Keep running `n` to finish the program. 
 > 
