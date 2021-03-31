@@ -15,7 +15,7 @@ keypoints:
 > 
 > <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=threads.c"></script>
 >
-> <img src="../assets/figure/lock/01.png" alt="thread problem" style="height:600px">
+> <img src="../fig/lock/01.png" alt="thread problem" style="height:600px">
 >
 > - Two concurrent threads manipulated a shared resource (the counter variable) 
 > without any synchronization.
@@ -30,7 +30,7 @@ keypoints:
 
 > ## 2. What is shared/not shared in a multithreaded program?
 > 
-> <img src="../assets/figure/lock/02.png" alt="shared and not shared" style="height:450px">
+> <img src="../fig/lock/02.png" alt="shared and not shared" style="height:450px">
 >
 {: .slide}
 
@@ -140,7 +140,7 @@ keypoints:
 > - Performance:
 >   - The waiting threads need to keep checking the condition of the flag (spin-waiting)
 >
-> <img src="../assets/figure/lock/03.png" alt="spin lock" style="height:350px">
+> <img src="../fig/lock/03.png" alt="spin lock" style="height:350px">
 {: .slide}
 
 
@@ -149,8 +149,8 @@ keypoints:
 > - Hardware support for locking begins in early 1960.
 > - TestAndSet can be performed atomically by hardware.
 >
-> <img src="../assets/figure/lock/04.png" alt="test and set" style="height:100px">
-> <img src="../assets/figure/lock/05.png" alt="test and set" style="height:400px">
+> <img src="../fig/lock/04.png" alt="test and set" style="height:100px">
+> <img src="../fig/lock/05.png" alt="test and set" style="height:400px">
 {: .slide}
 
 
@@ -165,7 +165,7 @@ keypoints:
 >   - TestAndSet keeps setting the lock but also spinning inside the while loop until the 
 >   lock is released. 
 >
-> <img src="../assets/figure/lock/06.png" alt="test and set" style="height:500px">
+> <img src="../fig/lock/06.png" alt="test and set" style="height:500px">
 {: .slide}
 
 
@@ -180,7 +180,7 @@ keypoints:
 
 > ## 14. Scenario: one thread waiting on another
 > 
-> <img src="../assets/figure/lock/07.png" alt="one thread waiting on another" style="height:350px">
+> <img src="../fig/lock/07.png" alt="one thread waiting on another" style="height:350px">
 {: .slide}
 
 
@@ -189,7 +189,7 @@ keypoints:
 > - How to implement a lock-based solution? 
 > - What is the issue?
 >
-> <img src="../assets/figure/lock/08.png" alt="lock-based solution" style="height:350px">
+> <img src="../fig/lock/08.png" alt="lock-based solution" style="height:350px">
 >
 {: .slide}
 
@@ -209,7 +209,7 @@ keypoints:
 
 > ## 17. Lock and conditional variable
 > 
-> <img src="../assets/figure/lock/09.png" alt="lock and cv" style="height:500px">
+> <img src="../fig/lock/09.png" alt="lock and cv" style="height:500px">
 >
 {: .slide}
 
@@ -219,7 +219,7 @@ keypoints:
 > - Infinite sleep for parent thread. 
 > - Why?
 >
-> <img src="../assets/figure/lock/10.png" alt="lock and cv" style="height:550px">
+> <img src="../fig/lock/10.png" alt="lock and cv" style="height:550px">
 >
 {: .slide}
 
@@ -245,7 +245,7 @@ keypoints:
 
 > ## 20. Vanilla: not thread-safe
 > 
-> <img src="../assets/figure/lock/11.png" alt="producer and consumer" style="height:550px">
+> <img src="../fig/lock/11.png" alt="producer and consumer" style="height:550px">
 >
 {: .slide}
 
@@ -256,14 +256,14 @@ keypoints:
 > - Work with 1 producer and 1 consumer. 
 > - What happens if we have more consumers?
 >
-> <img src="../assets/figure/lock/12.png" alt="producer and consumer" style="height:550px">
+> <img src="../fig/lock/12.png" alt="producer and consumer" style="height:550px">
 >
 {: .slide}
 
 
 > ## 22. First implementation: broken
 > 
-> <img src="../assets/figure/lock/13.png" alt="producer and consumer" style="height:500px">
+> <img src="../fig/lock/13.png" alt="producer and consumer" style="height:500px">
 >
 {: .slide}
 
@@ -288,7 +288,7 @@ keypoints:
 
 > ## 24. Second implementation: slightly less broken
 > 
-> <img src="../assets/figure/lock/14.png" alt="producer and consumer" style="height:500px">
+> <img src="../fig/lock/14.png" alt="producer and consumer" style="height:500px">
 >
 {: .slide}
 
@@ -299,14 +299,14 @@ keypoints:
 > - Two condition variables are needed. 
 > - Not yet generalized. 
 >
-> <img src="../assets/figure/lock/15.png" alt="producer and consumer" style="height:450px">
+> <img src="../fig/lock/15.png" alt="producer and consumer" style="height:450px">
 >
 {: .slide}
 
 
 > ## 26. A generalized solution
 > 
-> <img src="../assets/figure/lock/16.png" alt="producer and consumer" style="height:500px">
+> <img src="../fig/lock/16.png" alt="producer and consumer" style="height:500px">
 >
 {: .slide}
 
