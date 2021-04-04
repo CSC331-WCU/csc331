@@ -51,7 +51,7 @@ keypoints:
 >   - Reincarnation server polls all other server for health report and kill/respawn 
 >   faulty processes as needed.
 >
-> <img src="../assets/figure/minix/01.png" alt="MINIX" style="height:400px">
+> <img src="../fig/minix/01.png" alt="MINIX" style="height:400px">
 {: .slide}
 
 
@@ -85,7 +85,7 @@ keypoints:
 >   security levels. A poor communications implement would negatively impact on the 
 >   performance of the system.
 >
-> <img src="../assets/figure/minix/01.png" alt="MINIX" style="height:400px">
+> <img src="../fig/minix/01.png" alt="MINIX" style="height:400px">
 {: .slide}
 
 

@@ -27,7 +27,7 @@ keypoints:
 > - Hierarchical structure due to the relationship between physics and costs:
 >   - The faster the bus, the shorter it is. 
 >   - The faster the bus, the more complex it is to design and build (hence more costly). 
-> <img src="../assets/figure/io/01.png" alt="classical system" style="height:400px">
+> <img src="../fig/io/01.png" alt="classical system" style="height:400px">
 {: .slide}
 
 
@@ -35,7 +35,7 @@ keypoints:
 > 
 > - Specialized chipsets and faster point-to-point interconnects. 
 >
-> <img src="../assets/figure/io/02.png" alt="modern system" style="height:400px">
+> <img src="../fig/io/02.png" alt="modern system" style="height:400px">
 {: .slide}
 
 
@@ -50,7 +50,7 @@ keypoints:
 >   - eSATA: External Serial ATA
 >   - PCIe: Peripheral Component Interconnect Express
 >
-> <img src="../assets/figure/io/03.png" alt="canonical device" style="height:150px">
+> <img src="../fig/io/03.png" alt="canonical device" style="height:150px">
 {: .slide}
 
 
@@ -62,7 +62,7 @@ keypoints:
 > - Wait until the device is done.  
 > - What is a problem with this approach?
 >
-> <img src="../assets/figure/io/04.png" alt="canonical device" style="height:300px">
+> <img src="../fig/io/04.png" alt="canonical device" style="height:300px">
 {: .slide}
 
 
@@ -77,7 +77,7 @@ keypoints:
 >   - This allows overlap of computation and I/O (recall CPU scheduling slides)
 > - To avoid interrupts all the time, a hybrid model is employed (scheduling). 
 >
-> <img src="../assets/figure/io/05.png" alt="canonical device" style="height:200px">
+> <img src="../fig/io/05.png" alt="canonical device" style="height:200px">
 {: .slide}
 
 
@@ -99,7 +99,7 @@ keypoints:
 >     - In a virtualized system, each can be independently assigned to a VM. 
 > - Copying of data is handled by DMA controller. 
 >
-> <img src="../assets/figure/io/06.png" alt="canonical device" style="height:200px">
+> <img src="../fig/io/06.png" alt="canonical device" style="height:200px">
 {: .slide}
 
 
@@ -126,7 +126,7 @@ keypoints:
 >   - [AMD Device Driver for Vulkan](https://gpuopen.com/amd-open-source-driver-for-vulkan/)
 >   - [API guide for Linux driver implementation](https://www.kernel.org/doc/html/v4.11/driver-api/index.html)
 >
-> <img src="../assets/figure/io/07.png" alt="device driver" style="height:300px">
+> <img src="../fig/io/07.png" alt="device driver" style="height:300px">
 {: .slide}
 
 
@@ -138,7 +138,7 @@ keypoints:
 > - Multi-sector operations are possible (read or write 4K bytes at a time). 
 > - Only a single 512-byte write is guaranteed atomic.
 >
-> <img src="../assets/figure/io/08.png" alt="physical structure of hard drive" style="height:700px">
+> <img src="../fig/io/08.png" alt="physical structure of hard drive" style="height:700px">
 {: .slide}
 
 
@@ -173,19 +173,19 @@ keypoints:
 > - FCFS (do nothing)
 >   - reasonable when load is low, long waiting time when load is high
 >
-> <img src="../assets/figure/io/09.png" alt="FCFS" style="height:400px">
+> <img src="../fig/io/09.png" alt="FCFS" style="height:400px">
 >
 > - SSTF (shortest seek time first)
 >   - minimizes arm movement
 >   - favors blocks in middle tracks, because they have more blocks nearby.
 >
-> <img src="../assets/figure/io/10.png" alt="SSTF" style="height:400px">
+> <img src="../fig/io/10.png" alt="SSTF" style="height:400px">
 >
 > - SCAN (elevator)
 >   - serve request in one direction until done, then reverse
 >   - like an elevator, avoid going back and forth in the middle
 >
-> <img src="../assets/figure/io/11.png" alt="SCAN" style="height:400px">
+> <img src="../fig/io/11.png" alt="SCAN" style="height:400px">
 >
 > - C-SCAN (typewriter)
 >   - like SCAN, but only go in one direction (no reverse direction)
@@ -194,7 +194,7 @@ keypoints:
 >   - like SCAN/C-SCAN, but only go as far as last request in each direction, 
 >   instead of going full width of the disk. 
 >
-> <img src="../assets/figure/io/12.png" alt="LOOK" style="height:400px">
+> <img src="../fig/io/12.png" alt="LOOK" style="height:400px">
 >
 > - Disk scheduling is important only when disk requests queue up
 >   - important for servers

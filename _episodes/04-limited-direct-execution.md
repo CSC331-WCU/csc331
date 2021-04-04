@@ -38,7 +38,7 @@ modes, trap table, timer interrupt, and context switching."
 > 
 > - The most efficient way to execute a process is through direct execution. 
 >
-> <img src="../assets/figure/limited-direct-execution/limited_01.png" alt="Direct execution protocol without limits" style="height:250px">
+> <img src="../fig/limited-direct-execution/limited_01.png" alt="Direct execution protocol without limits" style="height:250px">
 >
 > > ## Problem!
 > > - Once the program begins to run, the OS becomes a complete outsider.
@@ -90,7 +90,7 @@ modes, trap table, timer interrupt, and context switching."
 >   - **trap**: go from user mode to kernel mode.
 >   - **return-from-trap**: go back from kernel mode to user mode.
 >
-> <img src="../assets/figure/limited-direct-execution/limited_02.png" alt="Limited direct execution protocol" style="height:450px">
+> <img src="../fig/limited-direct-execution/limited_02.png" alt="Limited direct execution protocol" style="height:450px">
 {: .slide}
 
 > ## 9. System calls versus normal C calls?
@@ -148,7 +148,7 @@ modes, trap table, timer interrupt, and context switching."
 >   - Save register values of the currently running process into its kernel stack.
 >   - Restore register values of the soon running process from its kernel stack.
 >
-> <img src="../assets/figure/limited-direct-execution/limited_03.png" alt="Limited direct execution protocol with timer interrupt" style="height:450px">
+> <img src="../fig/limited-direct-execution/limited_03.png" alt="Limited direct execution protocol with timer interrupt" style="height:450px">
 {: .slide}
 
 

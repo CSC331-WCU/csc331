@@ -26,7 +26,7 @@ keypoints:
 > - An additional 4KB is written to the file (one more data block added). 
 > - If everything went well:
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -43,7 +43,7 @@ keypoints:
 >   - Case 5: `inode` and `data block` updated, but not `data bitmap`
 >   - Case 6: `data bitmap` and `data block` updated, but not `inode`  
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -54,7 +54,7 @@ keypoints:
 > - The file system itself is still consistent, it is just like nothing happened
 > - No need to fix anything   
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -66,7 +66,7 @@ keypoints:
 >   - `inode` says that the `data block #5` is used, but `data bitmap` say it is not.
 >   - if not fixed, could allocate `block #5` again and overwrite its data by mistake  
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -77,7 +77,7 @@ keypoints:
 > - `data block #5` will never be used again
 > - This is called a **space leak**.  
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -87,7 +87,7 @@ keypoints:
 > - The file system doesn’t even realized anything wrong, because the inode and the 
 > data bitmap are consistent with each other.  
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -98,7 +98,7 @@ keypoints:
 >   - `inode` says that the data block #5 is used, but `data bitmap` say it is not
 >   - if not fixed, could allocate `block #5` again and overwrite its data by mistake
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -107,7 +107,7 @@ keypoints:
 > - Inconsistency between inode and data bitmap.
 > - We know `data block #5` is used, but will never know which file uses it
 >
-> <img src="../assets/figure/fsck/01.png" alt="a crash scenario" style="height:300px">
+> <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
 {: .slide}
 
 
@@ -125,7 +125,7 @@ keypoints:
 
 > ## 11. Solution 1: FSCK
 > 
-> <img src="../assets/figure/fsck/02.png" alt="FSCK" style="height:500px">
+> <img src="../fig/fsck/02.png" alt="FSCK" style="height:500px">
 >
 {: .slide}
 
@@ -163,7 +163,7 @@ keypoints:
 > 
 > - Additional space in the on-disk data structure
 > 
-> <img src="../assets/figure/fsck/03.png" alt="Journaling" style="height:350px">
+> <img src="../fig/fsck/03.png" alt="Journaling" style="height:350px">
 >
 {: .slide}
 
@@ -191,7 +191,7 @@ keypoints:
 >     - physical logging: putting exact physical content
 >     - logical logging: putting more compact logical representation
 >   - ends with a `transaction end` (TxE) block, containing the TID.
-> <img src="../assets/figure/fsck/04.png" alt="Journal transaction data structure" style="height:100px">
+> <img src="../fig/fsck/04.png" alt="Journal transaction data structure" style="height:100px">
 >
 {: .slide}
 
@@ -208,7 +208,7 @@ keypoints:
 >   - When having a batch of writes, the disk may perform some disk scheduling, so 
 >   the writes in the batch can happen in any order.
 >
-> <img src="../assets/figure/fsck/05.png" alt="Journal transaction data structure" style="height:100px">
+> <img src="../fig/fsck/05.png" alt="Journal transaction data structure" style="height:100px">
 {: .slide}
 
 
@@ -268,7 +268,7 @@ keypoints:
 > that we only write metadata (NOT data) to the journal.
 > - The journal looks like ...
 >
-> <img src="../assets/figure/fsck/06.png" alt="metadata journaling" style="height:100px">
+> <img src="../fig/fsck/06.png" alt="metadata journaling" style="height:100px">
 {: .slide}
 
 

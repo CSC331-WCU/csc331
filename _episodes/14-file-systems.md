@@ -49,7 +49,7 @@ keypoints:
 > - File system does NOT care about what type of file it is (C code, picture 
 > or video, it just makes sure to store all bytes in a file **persistently**.
 >
-> <img src="../assets/figure/file-system/01.png" alt="files and inodes" style="height:200px">
+> <img src="../fig/file-system/01.png" alt="files and inodes" style="height:200px">
 {: .slide}
 
 
@@ -62,7 +62,7 @@ keypoints:
 >   - which are the files and directories *under* this directory
 > - Directory tree / hierarchy
 >
-> <img src="../assets/figure/file-system/02.png" alt="files and directories" style="height:350px">
+> <img src="../fig/file-system/02.png" alt="files and directories" style="height:350px">
 {: .slide}
 
 
@@ -108,7 +108,7 @@ keypoints:
 > ~~~ 
 > {: .language-bash}
 > 
-> <img src="../assets/figure/file-system/03.png" alt="strace" style="height:1000px">
+> <img src="../fig/file-system/03.png" alt="strace" style="height:1000px">
 >
 > - Search the manual of the following functions: `openat`, `fstat`, `fadvise64`, 
 > and `mmap`. 
@@ -148,7 +148,7 @@ keypoints:
 > - We will study a very simple example file system named VSFS: Very Simple File System
 > - Analogy
 >
-> <img src="../assets/figure/file-system/04.png" alt="file system implementations" style="height:500px">
+> <img src="../fig/file-system/04.png" alt="file system implementations" style="height:500px">
 >
 {: .slide}
 
@@ -173,7 +173,7 @@ keypoints:
 >
 > > ## Unformatted raw disk
 > >
-> > <img src="../assets/figure/file-system/05.png" alt="raw disk" style="height:150px">
+> > <img src="../fig/file-system/05.png" alt="raw disk" style="height:150px">
 > {: .slide}
 >
 > > ## Overall organization
@@ -183,7 +183,7 @@ keypoints:
 > > - Number of blocks: 64
 > > - Total size: 256KB
 > >
-> > <img src="../assets/figure/file-system/06.png" alt="block divisions" style="height:150px">
+> > <img src="../fig/file-system/06.png" alt="block divisions" style="height:150px">
 > {: .slide}
 > 
 > > ## Data region
@@ -192,7 +192,7 @@ keypoints:
 > > other things like metadata
 > > - In VSFS, we reserve the last 56 blocks as data region.
 > >
-> > <img src="../assets/figure/file-system/07.png" alt="data region" style="height:150px">
+> > <img src="../fig/file-system/07.png" alt="data region" style="height:150px">
 > {: .slide}
 >
 > > ## Metadata: inode table
@@ -201,7 +201,7 @@ keypoints:
 > > - In VSFS, we keep the info of each file in a struct called inode. And we use 5 blocks for storing all the inodes.
 > > - Maximum number of inodes it can hold: 5 * 4KB / 128B = 160, i.e., this VSFS can store at most 160 files.
 > >
-> > <img src="../assets/figure/file-system/08.png" alt="inode table" style="height:150px">
+> > <img src="../fig/file-system/08.png" alt="inode table" style="height:150px">
 > {: .slide}
 > 
 > > ## Allocation structure
@@ -210,7 +210,7 @@ keypoints:
 > > - We use a data structure called bitmap for this purpose, which is just a sequence of bits, and each bit indicates whether one block is free (0) or in-use (1).
 > > - We have one bitmap for the data region and one bitmap for the inode region, and reserve one block for each bitmap. (4KB = 32K bits, can keep track of 32K blocks)
 > >
-> > <img src="../assets/figure/file-system/09.png" alt="allocation structure" style="height:150px">
+> > <img src="../fig/file-system/09.png" alt="allocation structure" style="height:150px">
 > {: .slide}
 >
 > > ## Superblock
@@ -223,7 +223,7 @@ keypoints:
 > > - When mounting a file system, the OS first reads the superblock, identify its type and other parameters, 
 > > then attach the volume to the file system tree with proper settings.
 > >
-> > <img src="../assets/figure/file-system/09.png" alt="Superblock" style="height:150px">
+> > <img src="../fig/file-system/09.png" alt="Superblock" style="height:150px">
 > {: .slide}
 {: .slide}
 
@@ -244,7 +244,7 @@ keypoints:
 >   - 12KB + 32 * 128B = 16K
 > So we have the inode, but which blocks have the data?
 >
-> <img src="../assets/figure/file-system/09.png" alt="allocation structure" style="height:200px">
+> <img src="../fig/file-system/09.png" alt="allocation structure" style="height:200px">
 > 
 {: .slide}
 
@@ -257,7 +257,7 @@ keypoints:
 >   - `blk = (inumber * sizeof(inode_t)) / blockSize` 
 >   - `sector = ((blk * blockSize) + inodeStartAddr) / sectorSize`
 >
-> <img src="../assets/figure/file-system/10.png" alt="allocation structure" style="height:200px">
+> <img src="../fig/file-system/10.png" alt="allocation structure" style="height:200px">
 > 
 {: .slide}
 
@@ -276,7 +276,7 @@ keypoints:
 >   - So total size supported: 4K * (14 + 1K) = 4152KB
 > - Bigger?
 >
-> <img src="../assets/figure/file-system/11.png" alt="multi-level indirect pointers" style="height:500px">
+> <img src="../fig/file-system/11.png" alt="multi-level indirect pointers" style="height:500px">
 >
 > - Why use an imbalanced tree like this? Why not a different approach? 
 > - Many researchers have studied file systems and how they are used, and virtually every 
@@ -286,7 +286,7 @@ keypoints:
 >   makes sense to optimize for this case.
 >   - [A five-year study of file system metadata, 2007](http://static.usenix.org/event/fast07/tech/full_papers/agrawal/agrawal.pdf)
 >
-> <img src="../assets/figure/file-system/12.png" alt="file system metadata study" style="height:300px">
+> <img src="../fig/file-system/12.png" alt="file system metadata study" style="height:300px">
 {: .slide}
 
 
@@ -311,7 +311,7 @@ keypoints:
 > allocation table which is indexed by address of data block, so finding a block can be faster.
 > - This is the FAT file system, used by Windows before NTFS.
 >
-> <img src="../assets/figure/file-system/13.png" alt="linked-based" style="height:300px">
+> <img src="../fig/file-system/13.png" alt="linked-based" style="height:300px">
 {: .slide}
 
 {% include links.md %}

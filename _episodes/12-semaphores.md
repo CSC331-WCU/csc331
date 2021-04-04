@@ -44,7 +44,7 @@ keypoints:
 > 
 > - More important, how do we use `sem_wait()` and `sem_post()` to facilitate 
 > synchronization for concurrency?
-> <img src="../assets/figure/semaphores/01.png" alt="wait and post" style="height:200px">
+> <img src="../fig/semaphores/01.png" alt="wait and post" style="height:200px">
 {: .slide}
 
 
@@ -60,14 +60,14 @@ keypoints:
 
 > ## 5. Semaphore as lock (binary semaphore)
 > 
-> <img src="../assets/figure/semaphores/02.png" alt="sem as lock" style="height:200px">
-> <img src="../assets/figure/semaphores/03.png" alt="sem as lock" style="height:500px">
+> <img src="../fig/semaphores/02.png" alt="sem as lock" style="height:200px">
+> <img src="../fig/semaphores/03.png" alt="sem as lock" style="height:500px">
 {: .slide}
 
 
 > ## 6. Semaphore as condition variable
 > 
-> <img src="../assets/figure/semaphores/04.png" alt="sem as cv" style="height:600px">
+> <img src="../fig/semaphores/04.png" alt="sem as cv" style="height:600px">
 {: .slide}
 
 
@@ -79,7 +79,7 @@ keypoints:
 > - What is currently missing from this implementation?
 >   - Mutual exclusion
 >
-> <img src="../assets/figure/semaphores/05.png" alt="wait and post" style="height:400px">
+> <img src="../fig/semaphores/05.png" alt="wait and post" style="height:400px">
 {: .slide}
 
 
@@ -89,7 +89,7 @@ keypoints:
 >   - Consumer runs first, then wait on `full` (but still holding `mutex`). 
 >   - Producer sees negative mutex, decreases it further, then goes to sleep. 
 >
-> <img src="../assets/figure/semaphores/06.png" alt="wait and post" style="height:600px">
+> <img src="../fig/semaphores/06.png" alt="wait and post" style="height:600px">
 {: .slide}
 
 
@@ -99,7 +99,7 @@ keypoints:
 >   - `full` and `empty` are for producers and consumers to wait on one another. 
 >   - `mutex` for producers and consumers to wait among each group. 
 >
-> <img src="../assets/figure/semaphores/07.png" alt="wait and post" style="height:600px">
+> <img src="../fig/semaphores/07.png" alt="wait and post" style="height:600px">
 {: .slide}
 
 
@@ -112,7 +112,7 @@ keypoints:
 >   - Two forks are needed to eat (one to the left and one to the right). 
 >   - How to schedule fork grabbing pattern so that no one starves?
 >
-> <img src="../assets/figure/semaphores/08.png" alt="dining philosophers" style="height:300px">
+> <img src="../fig/semaphores/08.png" alt="dining philosophers" style="height:300px">
 {: .slide}
 
 
@@ -120,7 +120,7 @@ keypoints:
 > 
 > - which one works?
 >
-> <img src="../assets/figure/semaphores/09.png" alt="dining philosopher solutions" style="height:300px">
+> <img src="../fig/semaphores/09.png" alt="dining philosopher solutions" style="height:300px">
 {: .slide}
 
 
