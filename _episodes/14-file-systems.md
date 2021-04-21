@@ -96,15 +96,32 @@ keypoints:
 
 > ## 6. Hands on: file operations
 >
-> - Start your `csc331` VM in headless mode. 
-> - SSH into the VM VM (command: `ssh -p 2222 student@127.0.0.1` password: `goldenram`).
-> - Run the following commands:
+> - Before turning on the VM, makes sure that you have two processors assigned
+> to your VM. 
+>
+> - Open a terminal (Windows Terminal or Mac Terminal). 
+> - Run the command to launch the image container for your platform:
+> - Windows:
 > 
+> ~~~
+> $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Mac:
+>
+> ~~~
+> $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+> ~~~
+> {: .language-bash}
+>
+> - Root password: `goldenrams`
+>
 > ~~~
 > $ sudo apt-get install -y strace
 > $ echo "Hello World" > hello.txt
 > $ strace -t -o cat_log cat hello.txt 
-> $ head cat_log
+> $ cat cat_log
 > ~~~ 
 > {: .language-bash}
 > 
