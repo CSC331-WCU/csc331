@@ -195,7 +195,7 @@ keypoints:
 >
 > > ## Overall organization
 > >
-> > - The whole disk is divided into **fixsed-sized blocks**.
+> > - The whole disk is divided into **fixed-sized blocks**.
 > > - Block size: 4KB
 > > - Number of blocks: 64
 > > - Total size: 256KB
