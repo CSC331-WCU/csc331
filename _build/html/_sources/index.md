@@ -217,4 +217,6 @@ Guidance on how to report incidents of discrimination and harassment is availabl
 All students are encouraged to sign up for the University’s free WCU ALERT service, which delivers official WCU emergency text messages directly to your cell phone.  For more information, visit www.wcupa.edu/wcualert. To report an emergency, call the Department of Public Safety at 610-436-3311.
 
 
+## First Day Task
 
+- [Setup Docker Desktop on your laptops](https://www.docker.com/products/docker-desktop/)
