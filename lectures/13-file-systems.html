@@ -1,0 +1,900 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to file systems” &#8212; Operating Systems</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Crash consistency: fsck and journaling”" href="14-crash-consistency-fsck-journaling.html" />
+    <link rel="prev" title="I/O and Disks: Disk Scheduling”" href="12-io-disk-scheduling.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Operating Systems</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CSC 331: Operating Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   Introduction to Operating Systems
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtualization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-process.html">
+   Abstraction: The process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-process-api.html">
+   Process API”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-limited-direct-execution.html">
+   Limited Direct Execution”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-cpu-scheduling.html">
+   CPU Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-memory-virtualization.html">
+   Memory virtualization”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-address-translation.html">
+   Memory virtualization mechanism: address translation”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-paging.html">
+   Memory virtualization mechanism: paging and tlb”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Concurrency
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-concurrency.html">
+   Introduction to concurrency using threads”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lock-condition-variables.html">
+   Lock and Condition Variables”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-semaphores.html">
+   Semaphores”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Persistence
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-io-disk-scheduling.html">
+   I/O and Disks: Disk Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Introduction to file systems”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
+   Crash consistency: fsck and journaling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-minix.html">
+   Micro versus monolithnic kernels: Minix and Linux”
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/13-file-systems.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-systems">
+   1. File systems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#abstraction-files-and-directories">
+   3. Abstraction: files and directories
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-operations-create">
+   5. File operations: create
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-sequential-read-write-lseek">
+   7. Non-sequential read/write: lseek
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-implement-a-simple-file-system">
+   9. How to implement a simple file system?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-implementations">
+   11. Example implementations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-structure-the-inode">
+   13. Data structure: the inode
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#another-approach-extent-based">
+   15. Another approach: extent-based
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction to file systems”</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-systems">
+   1. File systems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#abstraction-files-and-directories">
+   3. Abstraction: files and directories
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#file-operations-create">
+   5. File operations: create
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#non-sequential-read-write-lseek">
+   7. Non-sequential read/write: lseek
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-to-implement-a-simple-file-system">
+   9. How to implement a simple file system?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-implementations">
+   11. Example implementations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-structure-the-inode">
+   13. Data structure: the inode
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#another-approach-extent-based">
+   15. Another approach: extent-based
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-file-systems">
+<h1>Introduction to file systems”<a class="headerlink" href="#introduction-to-file-systems" title="Permalink to this headline">#</a></h1>
+<p>teaching: 0
+exercises: 0
+questions:</p>
+<ul class="simple">
+<li><p>“How to manage a persistent device?”</p></li>
+<li><p>“How to implement a simple file system?”
+objectives:</p></li>
+<li><p>“First learning objective. (FIXME)”
+keypoints:</p></li>
+<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
+</ul>
+<section id="file-systems">
+<h2>1. File systems<a class="headerlink" href="#file-systems" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Provide long-term information storage</p></li>
+<li><p>Challenges:</p>
+<ul>
+<li><p>Store very large amounts of information</p></li>
+<li><p>Multiple processes must be able to access ino concurrently</p></li>
+<li><p>Information must survive (persist)</p>
+<ul>
+<li><p>termination of process using it</p></li>
+<li><p>computer crashes</p></li>
+<li><p>disk failures</p></li>
+<li><p>power outage</p></li>
+<li><p>…</p></li>
+</ul>
+</li>
+<li><p>Easy-to-use user interface</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 2. Files and directories
+&gt;
+&gt; - It’s all illusion!
+&gt; - CPU virtualization: a **process** that has its own processor.
+&gt; - Memory virtualization: a big, contiguous, and private address space that 
+&gt; can easily be accessed through virtual addresses. 
+&gt; - Storage virtualization: a huge, persistent storage with files and directories 
+&gt; which can be accessed using some easy-to-use APIs (ls, rm, cp …).
+</pre></div>
+</div>
+<section id="abstraction-files-and-directories">
+<h2>3. Abstraction: files and directories<a class="headerlink" href="#abstraction-files-and-directories" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>File: a linear array of bytes, each of which you can read and write.</p></li>
+<li><p>A file has some high-level, user-readable name, e.g., <code class="docutils literal notranslate"><span class="pre">interceptor.c</span></code>.</p>
+<ul>
+<li><p>One file may have multiple user-readable names, as we will see.</p></li>
+</ul>
+</li>
+<li><p>Each file has a low-level name called the <code class="docutils literal notranslate"><span class="pre">inode</span></code> number.</p>
+<ul>
+<li><p>This is the real identifier of a file.</p></li>
+</ul>
+</li>
+<li><p>File system does NOT care about what type of file it is (C code, picture
+or video, it just makes sure to store all bytes in a file <strong>persistently</strong>.</p></li>
+</ul>
+<img src="../fig/file-system/01.png" alt="files and inodes" style="height:200px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 4. Abstraction: files and directories
+&gt;
+&gt; - Directory
+&gt;   - Each directory also has an `inode` number
+&gt; - Content of a directory:
+&gt;   - a list of (user-readable name, `inode` number) pairs
+&gt;   - which are the files and directories *under* this directory
+&gt; - Directory tree / hierarchy
+&gt;
+&gt; &lt;img src=&quot;../fig/file-system/02.png&quot; alt=&quot;files and directories&quot; style=&quot;height:350px&quot;&gt;
+</pre></div>
+</div>
+<section id="file-operations-create">
+<h2>5. File operations: create<a class="headerlink" href="#file-operations-create" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><strong>create</strong>: <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">fd</span> <span class="pre">=</span> <span class="pre">open(“foo”,</span> <span class="pre">O_CREAT</span> <span class="pre">|</span> <span class="pre">O_WRONLY</span> <span class="pre">|</span> <span class="pre">O_TRUNC,</span> <span class="pre">S_IRUSR</span> <span class="pre">|</span> <span class="pre">S_IWUSR)</span></code></p>
+<ul>
+<li><p><a class="reference external" href="http://man7.org/linux/man-pages/man2/open.2.html">open</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_CREAT</span></code>: creates the file if it does not exist.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_WRONLY</span></code>: the file can only be written to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">O_TRUNC</span></code>: if the file already exists, truncates it to zero bytes, removing
+any existing contents.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_IRUSR</span></code>: readable by the owner,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">S_IWUSR</span></code>: writable by the owner.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fd</span></code>: file descriptor, starts at 3 ( Reserved values: <code class="docutils literal notranslate"><span class="pre">0</span></code> for stdin, <code class="docutils literal notranslate"><span class="pre">1</span></code> for stdout,
+<code class="docutils literal notranslate"><span class="pre">2</span></code> for stderr)</p></li>
+</ul>
+</li>
+<li><p><strong>read</strong>: <code class="docutils literal notranslate"><span class="pre">ssize_t</span> <span class="pre">read(int</span> <span class="pre">fd,</span> <span class="pre">void</span> <span class="pre">*buf,</span> <span class="pre">size_t</span> <span class="pre">count)</span></code></p>
+<ul>
+<li><p><a class="reference external" href="https://man7.org/linux/man-pages/man2/read.2.html">read</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fd</span></code>: file descriptor value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*bf</span></code>: memory address to store data read from file represented by <code class="docutils literal notranslate"><span class="pre">fd</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span></code>: number of bytes to be read</p></li>
+<li><p>A successful read will return the number of bytes read or a <code class="docutils literal notranslate"><span class="pre">-1</span></code> if there
+is an error.</p></li>
+</ul>
+</li>
+<li><p><strong>write</strong>: <code class="docutils literal notranslate"><span class="pre">ssize_t</span> <span class="pre">write(int</span> <span class="pre">fd,</span> <span class="pre">const</span> <span class="pre">void</span> <span class="pre">*buf,</span> <span class="pre">size_t</span> <span class="pre">count)</span></code></p>
+<ul>
+<li><p><a class="reference external" href="https://man7.org/linux/man-pages/man2/write.2.html">write</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fd</span></code>: file descriptor value</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*bf</span></code>: memory address containing data to be written to the file represented by <code class="docutils literal notranslate"><span class="pre">fd</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">count</span></code>: number of bytes to be written.</p></li>
+<li><p>A successful write will return the number of bytes written or a <code class="docutils literal notranslate"><span class="pre">-1</span></code> if there
+is an error.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 6. Hands on: file operations
+&gt;
+&gt; - Before turning on the VM, makes sure that you have two processors assigned
+&gt; to your VM. 
+&gt;
+&gt; - Open a terminal (Windows Terminal or Mac Terminal). 
+&gt; - Run the command to launch the image container for your platform:
+&gt; - Windows:
+&gt; 
+&gt; ~~~
+&gt; $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+&gt; ~~~
+&gt; {: .language-bash}
+&gt;
+&gt; - Mac:
+&gt;
+&gt; ~~~
+&gt; $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+&gt; ~~~
+&gt; {: .language-bash}
+&gt;
+&gt; - Root password: `goldenrams`
+&gt;
+&gt; ~~~
+&gt; $ sudo apt-get install -y strace
+&gt; $ echo &quot;Hello World&quot; &gt; hello.txt
+&gt; $ strace -t -o cat_log cat hello.txt 
+&gt; $ cat cat_log
+&gt; ~~~ 
+&gt; {: .language-bash}
+&gt; 
+&gt; &lt;img src=&quot;../fig/file-system/03.png&quot; alt=&quot;strace&quot; style=&quot;height:1000px&quot;&gt;
+&gt;
+&gt; - Search the manual of the following functions: `openat`, `fstat`, `fadvise64`, 
+&gt; and `mmap`. 
+&gt; 
+</pre></div>
+</div>
+<section id="non-sequential-read-write-lseek">
+<h2>7. Non-sequential read/write: lseek<a class="headerlink" href="#non-sequential-read-write-lseek" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">read()</span></code> and <code class="docutils literal notranslate"><span class="pre">write()</span></code> only do sequential read/write, there is no way to specify a
+particular read/write position (offset).</p></li>
+<li><p>For each file opened by a process, the OS keeps track of a <em>current</em> offset, which
+determines where the next read/write happens, <code class="docutils literal notranslate"><span class="pre">read()</span></code> and <code class="docutils literal notranslate"><span class="pre">write()</span></code> updates <em>current</em>
+offset according to how many bytes are read/written</p>
+<ul>
+<li><p>cannot update current to wherever they want</p></li>
+</ul>
+</li>
+<li><p>If want to update <em>current</em> to wherever you want, use <code class="docutils literal notranslate"><span class="pre">lseek()</span></code>:  <code class="docutils literal notranslate"><span class="pre">off_t</span> <span class="pre">lseek(int</span> <span class="pre">fd,</span> <span class="pre">off_t</span> <span class="pre">offset,</span> <span class="pre">int</span> <span class="pre">whence)</span></code></p>
+<ul>
+<li><p><a class="reference external" href="https://man7.org/linux/man-pages/man2/lseek.2.html">lseek</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fd</span></code>: file descriptor valur</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code>: offset value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">whence</span></code>:</p>
+<ul>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">whence</span></code> is <code class="docutils literal notranslate"><span class="pre">SEEK_SET</span></code>, the current offset is set to <code class="docutils literal notranslate"><span class="pre">offset</span></code> bytes</p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">whence</span></code> is <code class="docutils literal notranslate"><span class="pre">SEEK_CUR</span></code>, the current offset is set to <code class="docutils literal notranslate"><span class="pre">current</span> <span class="pre">+</span> <span class="pre">offset</span></code> bytes</p></li>
+<li><p>if <code class="docutils literal notranslate"><span class="pre">whence</span></code> is <code class="docutils literal notranslate"><span class="pre">SEEK_END</span></code>, the current offset is set to <code class="docutils literal notranslate"><span class="pre">size_of_file</span> <span class="pre">+</span> <span class="pre">offset</span></code> bytes</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 8. Implementations of file systems
+&gt;
+&gt; - There exist many, many file system implementations, literally from `AFS` to `ZFS`.
+&gt; - [File system implementations](https://en.wikipedia.org/wiki/List_of_file_systems)
+&gt; - Some famous ones: 
+&gt;   - FAT32, NTFS used by Windows
+&gt;   - HFS+ used by Mac OS X
+&gt;   - UFS, ZFS used by BSD, Solaris
+&gt;   - ext2, ext3, ext4, ReiserFS, XFS, JFS used by Linux
+&gt; - We will study a very simple example file system named VSFS: Very Simple File System
+&gt; - Analogy
+&gt;
+&gt; &lt;img src=&quot;../fig/file-system/04.png&quot; alt=&quot;file system implementations&quot; style=&quot;height:500px&quot;&gt;
+&gt;
+</pre></div>
+</div>
+<section id="how-to-implement-a-simple-file-system">
+<h2>9. How to implement a simple file system?<a class="headerlink" href="#how-to-implement-a-simple-file-system" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>What structures are needed on the disk?</p></li>
+<li><p>What do they need to track?</p></li>
+<li><p>How are they accessed?</p></li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+&gt; ## 10. Mental model of a file system
+&gt;
+&gt; - What on-disk structures store the file system’s data and metadata? 
+&gt; - What happens when a process opens a file? 
+&gt; - Which on-disk structures are accessed during a read or write?   
+&gt; 
+&gt; By working on and improving your mental model, you develop an abstract understanding of what is going on, 
+&gt; instead of just trying to understand the specifics of some file-system code (though that is also useful, 
+&gt; of course!).
+&gt;
+&gt; &gt; ## Unformatted raw disk
+&gt; &gt;
+&gt; &gt; &lt;img src=&quot;../fig/file-system/05.png&quot; alt=&quot;raw disk&quot; style=&quot;height:150px&quot;&gt;
+&gt; ```
+&gt;
+&gt; &gt; ## Overall organization
+&gt; &gt;
+&gt; &gt; - The whole disk is divided into **fixed-sized blocks**.
+&gt; &gt; - Block size: 4KB
+&gt; &gt; - Number of blocks: 64
+&gt; &gt; - Total size: 256KB
+&gt; &gt;
+&gt; &gt; &lt;img src=&quot;../fig/file-system/06.png&quot; alt=&quot;block divisions&quot; style=&quot;height:150px&quot;&gt;
+&gt; ```
+&gt; 
+&gt; &gt; ## Data region
+&gt; &gt;
+&gt; &gt; - Most of the disk should be used to actually store user data, while leaving a little space for storing 
+&gt; &gt; other things like metadata
+&gt; &gt; - In VSFS, we reserve the last 56 blocks as data region.
+&gt; &gt;
+&gt; &gt; &lt;img src=&quot;../fig/file-system/07.png&quot; alt=&quot;data region&quot; style=&quot;height:150px&quot;&gt;
+&gt; ```
+&gt;
+&gt; &gt; ## Metadata: inode table
+&gt; &gt;
+&gt; &gt; - The FS need to track information about each file. 
+&gt; &gt; - In VSFS, we keep the info of each file in a struct called inode. And we use 5 blocks for storing all the inodes.
+&gt; &gt; - Maximum number of inodes it can hold: 5 * 4KB / 128B = 160, i.e., this VSFS can store at most 160 files.
+&gt; &gt;
+&gt; &gt; &lt;img src=&quot;../fig/file-system/08.png&quot; alt=&quot;inode table&quot; style=&quot;height:150px&quot;&gt;
+&gt; ```
+&gt; 
+&gt; &gt; ## Allocation structure
+&gt; &gt;
+&gt; &gt; - For both data region and inode region, we need to keep track of which blocks are being used and which blocks are free. 
+&gt; &gt; - We use a data structure called bitmap for this purpose, which is just a sequence of bits, and each bit indicates whether one block is free (0) or in-use (1).
+&gt; &gt; - We have one bitmap for the data region and one bitmap for the inode region, and reserve one block for each bitmap. (4KB = 32K bits, can keep track of 32K blocks)
+&gt; &gt;
+&gt; &gt; &lt;img src=&quot;../fig/file-system/09.png&quot; alt=&quot;allocation structure&quot; style=&quot;height:150px&quot;&gt;
+&gt; ```
+&gt;
+&gt; &gt; ## Superblock
+&gt; &gt;
+&gt; &gt; - Superblock contains information about this particular file system, e.g., 
+&gt; &gt;   - What type of file system it is (“VSFS” indicated by a magic number)
+&gt; &gt;   - how many inodes and data blocks are there (160 and 56) 
+&gt; &gt;   - Where the inode table begins (block 3)
+&gt; &gt;   - etc. 
+&gt; &gt; - When mounting a file system, the OS first reads the superblock, identify its type and other parameters, 
+&gt; &gt; then attach the volume to the file system tree with proper settings.
+&gt; &gt;
+&gt; &gt; &lt;img src=&quot;../fig/file-system/09.png&quot; alt=&quot;Superblock&quot; style=&quot;height:150px&quot;&gt;
+&gt; ```
+</pre></div>
+</div>
+<section id="example-implementations">
+<h2>11. Example implementations<a class="headerlink" href="#example-implementations" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/mit-pdos/xv6-public/blob/master/fs.h">xv6 file system</a></p></li>
+<li><p><a class="reference external" href="https://github.com/torvalds/linux/blob/master/fs/ext2/ext2.h">Linux ext2</a></p></li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 12. Example: reading a file with inode number 32
+&gt;
+&gt; - From superblock we know
+&gt;   - inode table begins at Block 3, i.e., 12KB
+&gt;   - inode size is 128B
+&gt; - Calculate the address of inode 32
+&gt;   - 12KB + 32 * 128B = 16K
+&gt; So we have the inode, but which blocks have the data?
+&gt;
+&gt; &lt;img src=&quot;../fig/file-system/09.png&quot; alt=&quot;allocation structure&quot; style=&quot;height:200px&quot;&gt;
+&gt; 
+</pre></div>
+</div>
+<section id="data-structure-the-inode">
+<h2>13. Data structure: the inode<a class="headerlink" href="#data-structure-the-inode" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Short for index node</p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">vsfs</span></code> (and other simple file systems), given an <code class="docutils literal notranslate"><span class="pre">i-number</span></code>, you should directly be able
+to calculate where on the disk the corresponding inode is located.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">blk</span> <span class="pre">=</span> <span class="pre">(inumber</span> <span class="pre">*</span> <span class="pre">sizeof(inode_t))</span> <span class="pre">/</span> <span class="pre">blockSize</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sector</span> <span class="pre">=</span> <span class="pre">((blk</span> <span class="pre">*</span> <span class="pre">blockSize)</span> <span class="pre">+</span> <span class="pre">inodeStartAddr)</span> <span class="pre">/</span> <span class="pre">sectorSize</span></code></p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/file-system/10.png" alt="allocation structure" style="height:200px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 14. Multi-level index with indirect pointers
+&gt;
+&gt; - Direct pointers to disk blocks do not support large files, so people came up with the 
+&gt; idea of indirect pointer. 
+&gt; - Instead of pointing to block of user data, it points to a block the contains more pointers.
+&gt; - For the 15 pointers we have in an inode, use the first 14 pointers as direct pointers and the 
+&gt; 15th pointer as an indirect pointer. 
+&gt; - How big a file can we support now?
+&gt;   - 14 direct pointers in total: 14 data blocks
+&gt;   - Indirect pointer points to a block (4KB) which can hold 1K pointers (each pointer is 4B), so 
+&gt;   1K data blocks in addition. 
+&gt;   - So total size supported: 4K * (14 + 1K) = 4152KB
+&gt; - Bigger?
+&gt;
+&gt; &lt;img src=&quot;../fig/file-system/11.png&quot; alt=&quot;multi-level indirect pointers&quot; style=&quot;height:500px&quot;&gt;
+&gt;
+&gt; - Why use an imbalanced tree like this? Why not a different approach? 
+&gt; - Many researchers have studied file systems and how they are used, and virtually every 
+&gt; time they find certain “truths” that hold across the decades. 
+&gt; - One such finding is that most files are small. 
+&gt;   - This imbalanced design reflects such a reality: if most files are indeed small, it 
+&gt;   makes sense to optimize for this case.
+&gt;   - [A five-year study of file system metadata, 2007](http://static.usenix.org/event/fast07/tech/full_papers/agrawal/agrawal.pdf)
+&gt;
+&gt; &lt;img src=&quot;../fig/file-system/12.png&quot; alt=&quot;file system metadata study&quot; style=&quot;height:300px&quot;&gt;
+</pre></div>
+</div>
+<section id="another-approach-extent-based">
+<h2>15. Another approach: extent-based<a class="headerlink" href="#another-approach-extent-based" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>An extent is a disk pointer plus a length (in blocks), i.e., it allocates a
+few blocks in a row.</p></li>
+<li><p>Instead of requiring a pointer to every block of a file, we just need a pointer to
+every several blocks (every extent).</p></li>
+<li><p>It is less flexible than the pointer-base approach, but uses smaller amount of metadata
+per file, and file allocation is more compact.</p></li>
+<li><p>Adopted by ext4, HFS+, NTFS, XFS.</p></li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+
+<span class="o">&gt;</span> <span class="c1">## 16. Yet anther approach: linked-based</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Instead</span> <span class="n">of</span> <span class="n">having</span> <span class="n">pointers</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">blocks</span><span class="p">,</span> <span class="n">the</span> <span class="n">inode</span> <span class="n">just</span> <span class="n">has</span> <span class="n">one</span> <span class="n">pointer</span> <span class="n">pointing</span> <span class="n">to</span> 
+<span class="o">&gt;</span> <span class="n">the</span> <span class="n">first</span> <span class="n">data</span> <span class="n">block</span> <span class="n">of</span> <span class="n">the</span> <span class="n">file</span><span class="p">,</span> <span class="n">then</span> <span class="n">the</span> <span class="n">first</span> <span class="n">block</span> <span class="n">points</span> <span class="n">to</span> <span class="n">the</span> <span class="n">second</span> <span class="n">block</span><span class="p">,</span> <span class="n">etc</span><span class="o">.</span> 
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Works</span> <span class="n">poorly</span> <span class="k">if</span> <span class="n">want</span> <span class="n">to</span> <span class="n">access</span> <span class="n">the</span> <span class="n">last</span> <span class="n">block</span> <span class="n">of</span> <span class="n">a</span> <span class="n">big</span> <span class="n">file</span><span class="o">.</span> <span class="n">To</span> <span class="n">help</span><span class="p">,</span> <span class="n">use</span> <span class="n">an</span> <span class="ow">in</span> <span class="n">memory</span> <span class="n">file</span> 
+<span class="o">&gt;</span> <span class="n">allocation</span> <span class="n">table</span> <span class="n">which</span> <span class="ow">is</span> <span class="n">indexed</span> <span class="n">by</span> <span class="n">address</span> <span class="n">of</span> <span class="n">data</span> <span class="n">block</span><span class="p">,</span> <span class="n">so</span> <span class="n">finding</span> <span class="n">a</span> <span class="n">block</span> <span class="n">can</span> <span class="n">be</span> <span class="n">faster</span><span class="o">.</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">FAT</span> <span class="n">file</span> <span class="n">system</span><span class="p">,</span> <span class="n">used</span> <span class="n">by</span> <span class="n">Windows</span> <span class="n">before</span> <span class="n">NTFS</span><span class="o">.</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/file-system/13.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;linked-based&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="12-io-disk-scheduling.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">I/O and Disks: Disk Scheduling”</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="14-crash-consistency-fsck-journaling.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Crash consistency: fsck and journaling”</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Linh Ngo<br/>
+  
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

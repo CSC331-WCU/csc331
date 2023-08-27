@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>I/O and Disks: Disk Scheduling” &#8212; Operating Systems</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Introduction to file systems”" href="13-file-systems.html" />
+    <link rel="prev" title="Semaphores”" href="11-semaphores.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Operating Systems</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CSC 331: Operating Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   Introduction to Operating Systems
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtualization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-process.html">
+   Abstraction: The process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-process-api.html">
+   Process API”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-limited-direct-execution.html">
+   Limited Direct Execution”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-cpu-scheduling.html">
+   CPU Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-memory-virtualization.html">
+   Memory virtualization”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-address-translation.html">
+   Memory virtualization mechanism: address translation”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-paging.html">
+   Memory virtualization mechanism: paging and tlb”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Concurrency
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-concurrency.html">
+   Introduction to concurrency using threads”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lock-condition-variables.html">
+   Lock and Condition Variables”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-semaphores.html">
+   Semaphores”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Persistence
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   I/O and Disks: Disk Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-file-systems.html">
+   Introduction to file systems”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
+   Crash consistency: fsck and journaling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-minix.html">
+   Micro versus monolithnic kernels: Minix and Linux”
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/12-io-disk-scheduling.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#input-output-devices">
+   1. Input/Output devices
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#modern-system-architecture">
+   3. Modern system architecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-canonical-protocol">
+   5. A simple canonical protocol
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#programmed-i-o-overheads">
+   7. Programmed I/O overheads
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#device-driver">
+   9. Device driver
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#seek-rotation-transfer">
+   11. Seek, rotation, transfer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#disk-scheduling-algorithms">
+   13. Disk scheduling algorithms
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>I/O and Disks: Disk Scheduling”</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#input-output-devices">
+   1. Input/Output devices
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#modern-system-architecture">
+   3. Modern system architecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-canonical-protocol">
+   5. A simple canonical protocol
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#programmed-i-o-overheads">
+   7. Programmed I/O overheads
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#device-driver">
+   9. Device driver
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#seek-rotation-transfer">
+   11. Seek, rotation, transfer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#disk-scheduling-algorithms">
+   13. Disk scheduling algorithms
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="i-o-and-disks-disk-scheduling">
+<h1>I/O and Disks: Disk Scheduling”<a class="headerlink" href="#i-o-and-disks-disk-scheduling" title="Permalink to this headline">#</a></h1>
+<p>teaching: 0
+exercises: 0
+questions:</p>
+<ul class="simple">
+<li><p>“How to access data on disk?”
+objectives:</p></li>
+<li><p>“First learning objective. (FIXME)”
+keypoints:</p></li>
+<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
+</ul>
+<section id="input-output-devices">
+<h2>1. Input/Output devices<a class="headerlink" href="#input-output-devices" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Critical to computer systems</p>
+<ul>
+<li><p>Without input: Same results every time.</p></li>
+<li><p>Without output: What’s the point?</p></li>
+</ul>
+</li>
+<li><p>How should I/O be integrated into systems?</p></li>
+<li><p>What are the general mechanisms?</p></li>
+<li><p>How can we make them efficient?</p></li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 2. Classical system architecture</span>
+<span class="o">&gt;</span> 
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Hierarchical</span> <span class="n">structure</span> <span class="n">due</span> <span class="n">to</span> <span class="n">the</span> <span class="n">relationship</span> <span class="n">between</span> <span class="n">physics</span> <span class="ow">and</span> <span class="n">costs</span><span class="p">:</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">The</span> <span class="n">faster</span> <span class="n">the</span> <span class="n">bus</span><span class="p">,</span> <span class="n">the</span> <span class="n">shorter</span> <span class="n">it</span> <span class="ow">is</span><span class="o">.</span> 
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">The</span> <span class="n">faster</span> <span class="n">the</span> <span class="n">bus</span><span class="p">,</span> <span class="n">the</span> <span class="n">more</span> <span class="nb">complex</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">to</span> <span class="n">design</span> <span class="ow">and</span> <span class="n">build</span> <span class="p">(</span><span class="n">hence</span> <span class="n">more</span> <span class="n">costly</span><span class="p">)</span><span class="o">.</span> 
+<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;classical system&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:400px&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="modern-system-architecture">
+<h2>3. Modern system architecture<a class="headerlink" href="#modern-system-architecture" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Specialized chipsets and faster point-to-point interconnects.</p></li>
+</ul>
+<img src="../fig/io/02.png" alt="modern system" style="height:400px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 4. Canonical device</span>
+<span class="o">&gt;</span> 
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Interface</span><span class="p">:</span> <span class="n">allowing</span> <span class="n">system</span> <span class="n">software</span> <span class="n">to</span> <span class="n">control</span> <span class="n">the</span> <span class="n">device</span><span class="s1">&#39;s operations</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Internal</span> <span class="n">structure</span><span class="p">:</span> <span class="n">implementing</span> <span class="n">the</span> <span class="n">abstraction</span> <span class="n">presented</span> <span class="n">to</span> <span class="n">the</span> <span class="n">system</span><span class="o">.</span>  
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Abbreviations</span><span class="p">:</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">DMI</span><span class="p">:</span> <span class="n">Direct</span> <span class="n">Memory</span> <span class="n">Interface</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">ATA</span><span class="p">:</span> <span class="n">IBM</span><span class="s1">&#39;s PC AT Attachment. </span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">SATA</span><span class="p">:</span> <span class="n">Serial</span> <span class="n">ATA</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">eSATA</span><span class="p">:</span> <span class="n">External</span> <span class="n">Serial</span> <span class="n">ATA</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">PCIe</span><span class="p">:</span> <span class="n">Peripheral</span> <span class="n">Component</span> <span class="n">Interconnect</span> <span class="n">Express</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;canonical device&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:150px&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="a-simple-canonical-protocol">
+<h2>5. A simple canonical protocol<a class="headerlink" href="#a-simple-canonical-protocol" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Repeatedly read the register for READY status.</p></li>
+<li><p>Send data to register (Programmed I/O - PIO).</p></li>
+<li><p>Write a command to the command register to initiate device execution.</p></li>
+<li><p>Wait until the device is done.</p></li>
+<li><p>What is a problem with this approach?</p></li>
+</ul>
+<img src="../fig/io/04.png" alt="canonical device" style="height:300px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 6. Hardware interrupts</span>
+<span class="o">&gt;</span> 
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Instead</span> <span class="n">of</span> <span class="n">polling</span> <span class="n">the</span> <span class="n">device</span><span class="p">,</span> <span class="n">the</span> <span class="n">OS</span> <span class="n">can</span><span class="p">:</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">After</span> <span class="n">issue</span> <span class="n">an</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">request</span><span class="p">,</span> <span class="n">put</span> <span class="n">the</span> <span class="n">calling</span> <span class="n">process</span> <span class="n">to</span> <span class="n">sleep</span> <span class="ow">and</span> <span class="n">context</span> <span class="n">switch</span> 
+<span class="o">&gt;</span>   <span class="n">to</span> <span class="n">another</span><span class="o">.</span>
+<span class="o">&gt;</span>   <span class="o">-</span>  <span class="n">When</span> <span class="n">the</span> <span class="n">request</span> <span class="ow">is</span> <span class="n">finished</span><span class="p">,</span> <span class="n">the</span> <span class="n">device</span> <span class="n">will</span> <span class="n">raised</span> <span class="n">a</span> <span class="n">hardware</span> <span class="n">interrupt</span> <span class="n">to</span> 
+<span class="o">&gt;</span>   <span class="k">return</span> <span class="n">CPU</span> <span class="n">to</span> <span class="n">the</span> <span class="n">OS</span><span class="o">.</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Predetermined</span> <span class="n">interrupt</span> <span class="n">service</span> <span class="n">routine</span> <span class="p">(</span><span class="n">ISR</span><span class="p">)</span> <span class="o">-</span> <span class="n">interrupt</span> <span class="n">handler</span><span class="o">.</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">This</span> <span class="n">allows</span> <span class="n">overlap</span> <span class="n">of</span> <span class="n">computation</span> <span class="ow">and</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="p">(</span><span class="n">recall</span> <span class="n">CPU</span> <span class="n">scheduling</span> <span class="n">slides</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">To</span> <span class="n">avoid</span> <span class="n">interrupts</span> <span class="nb">all</span> <span class="n">the</span> <span class="n">time</span><span class="p">,</span> <span class="n">a</span> <span class="n">hybrid</span> <span class="n">model</span> <span class="ow">is</span> <span class="n">employed</span> <span class="p">(</span><span class="n">scheduling</span><span class="p">)</span><span class="o">.</span> 
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/05.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;canonical device&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:200px&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="programmed-i-o-overheads">
+<h2>7. Programmed I/O overheads<a class="headerlink" href="#programmed-i-o-overheads" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Programmed I/O: I/O instructions that move data from storage into register
+for computation purposed. This requires the CPU’s involvement in every transactions.</p></li>
+<li><p>With programmed I/O, the CPU spends too much time moving data to and from devices.</p></li>
+<li><p>How do we offload this work: Direct Memory Access (DMA) device</p>
+<ul>
+<li><p>Orchestrate transfer between devices and main memory without much CPU intervention.</p></li>
+</ul>
+</li>
+<li><p>Example: Intel Broadwell Crystal Beach DMA Application</p>
+<ul>
+<li><p>Supports write operations from memory to I/O, but not from I/O to memory</p></li>
+<li><p>Instantiated as a root complex integrated PCIe end-point device</p></li>
+<li><p>Chipset DMA that is controllable by software executing on the processor</p></li>
+<li><p>A standardized software interface for controlling and accessing DMA features</p></li>
+<li><p>There are eight software visible CB DMA engines, visible as PCI functions.</p>
+<ul>
+<li><p>Each engine has one channel.</p></li>
+<li><p>Each can be independently operated.</p></li>
+<li><p>In a virtualized system, each can be independently assigned to a VM.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Copying of data is handled by DMA controller.</p></li>
+</ul>
+<img src="../fig/io/06.png" alt="canonical device" style="height:200px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 8. Method of device interaction</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">First</span> <span class="n">method</span> 
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Explicit</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">instructions</span> <span class="p">(</span><span class="n">privileged</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Second</span> <span class="n">method</span>
+<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Memory</span><span class="o">-</span><span class="n">mapped</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">hardware</span> <span class="n">makes</span> <span class="n">the</span> <span class="n">device</span> <span class="n">registers</span> <span class="n">available</span> <span class="k">as</span> <span class="k">if</span> <span class="n">they</span> <span class="n">were</span> <span class="n">memory</span> 
+<span class="o">&gt;</span> <span class="n">locations</span><span class="o">.</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">No</span> <span class="n">clear</span> <span class="n">advantages</span> <span class="n">on</span> <span class="n">either</span> <span class="n">method</span>
+</pre></div>
+</div>
+<section id="device-driver">
+<h2>9. Device driver<a class="headerlink" href="#device-driver" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>How to fit various I/O devices with different interfaces into the OS
+(which is supposed to be generic)?</p></li>
+<li><p>Abstraction, abstraction and abstraction: device driver</p></li>
+<li><p>70% of OS code is found in device drivers.</p></li>
+<li><p>Unofficial device drivers are often the cause for kernel crashes.</p></li>
+<li><p>Example:</p>
+<ul>
+<li><p><a class="reference external" href="https://gpuopen.com/amd-open-source-driver-for-vulkan/">AMD Device Driver for Vulkan</a></p></li>
+<li><p><a class="reference external" href="https://www.kernel.org/doc/html/v4.11/driver-api/index.html">API guide for Linux driver implementation</a></p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/io/07.png" alt="device driver" style="height:300px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 10. Disk Drive</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Large</span> <span class="n">number</span> <span class="n">of</span> <span class="n">sectors</span> <span class="p">(</span><span class="mi">512</span><span class="o">-</span><span class="n">byte</span> <span class="n">blocks</span><span class="p">)</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Sectors</span> <span class="n">are</span> <span class="n">numbered</span> <span class="mi">0</span> <span class="n">to</span> <span class="n">n</span><span class="o">-</span><span class="mi">1</span> <span class="n">on</span> <span class="n">disks</span> <span class="k">with</span> <span class="n">n</span> <span class="n">sectors</span><span class="o">.</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">the</span> <span class="n">address</span> <span class="n">space</span> <span class="n">of</span> 
+<span class="o">&gt;</span> <span class="n">the</span> <span class="n">drive</span><span class="o">.</span> 
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Multi</span><span class="o">-</span><span class="n">sector</span> <span class="n">operations</span> <span class="n">are</span> <span class="n">possible</span> <span class="p">(</span><span class="n">read</span> <span class="ow">or</span> <span class="n">write</span> <span class="mi">4</span><span class="n">K</span> <span class="nb">bytes</span> <span class="n">at</span> <span class="n">a</span> <span class="n">time</span><span class="p">)</span><span class="o">.</span> 
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Only</span> <span class="n">a</span> <span class="n">single</span> <span class="mi">512</span><span class="o">-</span><span class="n">byte</span> <span class="n">write</span> <span class="ow">is</span> <span class="n">guaranteed</span> <span class="n">atomic</span><span class="o">.</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/08.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;physical structure of hard drive&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:700px&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="seek-rotation-transfer">
+<h2>11. Seek, rotation, transfer<a class="headerlink" href="#seek-rotation-transfer" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Seek: move the disk arm to the correct cylinder</p>
+<ul>
+<li><p>depends on how fast disk arm can move</p></li>
+<li><p>typical time: 1-15ms, depending on distance (average 5-6ms)</p></li>
+<li><p>improving very slowly: 7-10% per year</p></li>
+</ul>
+</li>
+<li><p>Rotation: waiting for the sector to rotate under the head</p>
+<ul>
+<li><p>depend on the rotation rate of the disk (7200 RPM SATA, 15K RPM SCSI)</p></li>
+<li><p>average latency of ½ rotation (~4ms for 7200 RPM disk)</p></li>
+<li><p>has not changed in recent years</p></li>
+</ul>
+</li>
+<li><p>Transfer: transferring data from surface into disk controller
+electronics, or the other way around</p>
+<ul>
+<li><p>depends on density, higher density, higher transfer rate</p></li>
+<li><p>~100MB/s, average sector transfer time of ~5 microseconds</p></li>
+<li><p>improving rapidly (~40% per year)</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 12. Disk scheduling</span>
+<span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">OS</span> <span class="n">has</span> <span class="n">a</span> <span class="n">queue</span> <span class="n">of</span> <span class="n">disk</span> <span class="n">requests</span><span class="p">,</span> <span class="n">therefore</span> <span class="n">there</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">chance</span> 
+<span class="o">&gt;</span> <span class="n">to</span> <span class="n">schedule</span> <span class="n">these</span> <span class="n">requests</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">We</span> <span class="n">want</span> <span class="n">to</span> <span class="n">minimize</span> <span class="n">seeking</span>
+</pre></div>
+</div>
+<section id="disk-scheduling-algorithms">
+<h2>13. Disk scheduling algorithms<a class="headerlink" href="#disk-scheduling-algorithms" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>FCFS (do nothing)</p>
+<ul>
+<li><p>reasonable when load is low, long waiting time when load is high</p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/io/09.png" alt="FCFS" style="height:400px">
+<ul class="simple">
+<li><p>SSTF (shortest seek time first)</p>
+<ul>
+<li><p>minimizes arm movement</p></li>
+<li><p>favors blocks in middle tracks, because they have more blocks nearby.</p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/io/10.png" alt="SSTF" style="height:400px">
+<ul class="simple">
+<li><p>SCAN (elevator)</p>
+<ul>
+<li><p>serve request in one direction until done, then reverse</p></li>
+<li><p>like an elevator, avoid going back and forth in the middle</p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/io/11.png" alt="SCAN" style="height:400px">
+<ul class="simple">
+<li><p>C-SCAN (typewriter)</p>
+<ul>
+<li><p>like SCAN, but only go in one direction (no reverse direction)</p></li>
+</ul>
+</li>
+<li><p>LOOK / C-LOOK</p>
+<ul>
+<li><p>like SCAN/C-SCAN, but only go as far as last request in each direction,
+instead of going full width of the disk.</p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/io/12.png" alt="LOOK" style="height:400px">
+<ul class="simple">
+<li><p>Disk scheduling is important only when disk requests queue up</p>
+<ul>
+<li><p>important for servers</p></li>
+<li><p>not so much for PCs</p></li>
+</ul>
+</li>
+<li><p>Modern disks often do disk scheduling themselves</p>
+<ul>
+<li><p>Disks know their layout better than the OS, can optimize better</p></li>
+<li><p>on-disk scheduling ignores, undoes any scheduling done by the OS</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
+
+</pre></div>
+</div>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="11-semaphores.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Semaphores”</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="13-file-systems.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Introduction to file systems”</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Linh Ngo<br/>
+  
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

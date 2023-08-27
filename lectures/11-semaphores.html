@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Semaphores” &#8212; Operating Systems</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="I/O and Disks: Disk Scheduling”" href="12-io-disk-scheduling.html" />
+    <link rel="prev" title="Lock and Condition Variables”" href="10-lock-condition-variables.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Operating Systems</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CSC 331: Operating Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   Introduction to Operating Systems
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtualization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-process.html">
+   Abstraction: The process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-process-api.html">
+   Process API”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-limited-direct-execution.html">
+   Limited Direct Execution”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-cpu-scheduling.html">
+   CPU Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-memory-virtualization.html">
+   Memory virtualization”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-address-translation.html">
+   Memory virtualization mechanism: address translation”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-paging.html">
+   Memory virtualization mechanism: paging and tlb”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Concurrency
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-concurrency.html">
+   Introduction to concurrency using threads”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lock-condition-variables.html">
+   Lock and Condition Variables”
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Semaphores”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Persistence
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-io-disk-scheduling.html">
+   I/O and Disks: Disk Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-file-systems.html">
+   Introduction to file systems”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
+   Crash consistency: fsck and journaling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-minix.html">
+   Micro versus monolithnic kernels: Minix and Linux”
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/11-semaphores.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-have-we-learned-so-far">
+   1. What have we learned so far?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semaphore">
+   3. Semaphore
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aspects-of-sem-wait-and-sem-post">
+   4. Aspects of sem_wait() and sem_post()
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semaphore-as-condition-variable">
+   6. Semaphore as condition variable
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semaphore-producer-consumer-ii">
+   8. Semaphore: producer/consumer II
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-dining-philosophers">
+   10. The dining philosophers
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Semaphores”</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-have-we-learned-so-far">
+   1. What have we learned so far?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semaphore">
+   3. Semaphore
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aspects-of-sem-wait-and-sem-post">
+   4. Aspects of sem_wait() and sem_post()
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semaphore-as-condition-variable">
+   6. Semaphore as condition variable
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#semaphore-producer-consumer-ii">
+   8. Semaphore: producer/consumer II
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-dining-philosophers">
+   10. The dining philosophers
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="semaphores">
+<h1>Semaphores”<a class="headerlink" href="#semaphores" title="Permalink to this headline">#</a></h1>
+<p>teaching: 0
+exercises: 0
+questions:</p>
+<ul class="simple">
+<li><p>“How to support atomicity with semaphores?”
+objectives:</p></li>
+<li><p>“First learning objective. (FIXME)”
+keypoints:</p></li>
+<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
+</ul>
+<section id="what-have-we-learned-so-far">
+<h2>1. What have we learned so far?<a class="headerlink" href="#what-have-we-learned-so-far" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Both lock and condition variables are needed to solve more complex
+concurrency problems.</p></li>
+<li><p>Can we do better?</p></li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 2. Edsger Dijkstra</span>
+<span class="o">&gt;</span> 
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Dijkstra</span><span class="p">,</span> <span class="n">Edsger</span> <span class="n">W</span><span class="o">.</span> <span class="o">*</span><span class="s2">&quot;The structure of the &quot;</span><span class="n">THE</span><span class="s2">&quot; multiprogramming system.&quot;</span><span class="o">*</span> 
+<span class="o">&gt;</span> <span class="n">In</span> <span class="n">The</span> <span class="n">origin</span> <span class="n">of</span> <span class="n">concurrent</span> <span class="n">programming</span><span class="p">,</span> <span class="n">pp</span><span class="o">.</span> <span class="mi">139</span><span class="o">-</span><span class="mf">152.</span> <span class="n">Springer</span><span class="p">,</span> <span class="n">New</span> <span class="n">York</span><span class="p">,</span> <span class="n">NY</span><span class="p">,</span> <span class="mf">1968.</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Dijkstra</span><span class="p">,</span> <span class="n">Edsger</span> <span class="n">W</span><span class="o">.</span> <span class="o">*</span><span class="s2">&quot;Information streams sharing a finite buffer.&quot;</span><span class="o">*</span> <span class="n">In</span> <span class="n">Inf</span><span class="o">.</span> <span class="n">Proc</span><span class="o">.</span> 
+<span class="o">&gt;</span> <span class="n">Letters</span><span class="p">,</span> <span class="n">vol</span><span class="o">.</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pp</span><span class="o">.</span> <span class="mi">179</span><span class="o">-</span><span class="mf">180.</span> <span class="mf">1972.</span>
+<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Together</span> <span class="k">with</span> <span class="n">colleagues</span><span class="p">,</span> <span class="n">developed</span> <span class="n">semaphore</span> <span class="k">as</span> <span class="n">a</span> <span class="n">single</span> <span class="n">primitive</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">things</span> 
+<span class="o">&gt;</span> <span class="n">related</span> <span class="n">to</span> <span class="n">synchronization</span><span class="o">.</span> 
+</pre></div>
+</div>
+<section id="semaphore">
+<h2>3. Semaphore<a class="headerlink" href="#semaphore" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Is an object with an integer value that can be manipulated with two routines:</p>
+<ul>
+<li><p><a class="reference external" href="https://man7.org/linux/man-pages/man3/sem_wait.3.html">sem_wait()</a></p></li>
+<li><p><a class="reference external" href="https://www.man7.org/linux/man-pages/man3/sem_post.3.html">sem_post()</a></p></li>
+</ul>
+</li>
+<li><p>Needs to be initialized to some value.</p>
+<ul>
+<li><p><a class="reference external" href="http://man7.org/linux/man-pages/man3/sem_init.3.html">sem_init()</a></p></li>
+</ul>
+</li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 3. sem_wait() and sem_post()
+&gt; 
+&gt; - More important, how do we use `sem_wait()` and `sem_post()` to facilitate 
+&gt; synchronization for concurrency?
+&gt; &lt;img src=&quot;../fig/semaphores/01.png&quot; alt=&quot;wait and post&quot; style=&quot;height:200px&quot;&gt;
+</pre></div>
+</div>
+<section id="aspects-of-sem-wait-and-sem-post">
+<h2>4. Aspects of sem_wait() and sem_post()<a class="headerlink" href="#aspects-of-sem-wait-and-sem-post" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sem_wait()</span></code> and <code class="docutils literal notranslate"><span class="pre">sem_post()</span></code> are <strong>atomic operations</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sem_wait()</span></code> either return right away or it will cause the caller to wait.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sem_post()</span></code> simply increase the value of the semaphore and wakes one of the waiting
+thread up.</p></li>
+<li><p>The value of the semaphore, when negative, is equal to the number of waiting threads.</p></li>
+</ul>
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="o">&gt;</span> <span class="c1">## 5. Semaphore as lock (binary semaphore)</span>
+<span class="o">&gt;</span> 
+<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/semaphores/02.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;sem as lock&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:200px&quot;</span><span class="o">&gt;</span>
+<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/semaphores/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;sem as lock&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<section id="semaphore-as-condition-variable">
+<h2>6. Semaphore as condition variable<a class="headerlink" href="#semaphore-as-condition-variable" title="Permalink to this headline">#</a></h2>
+<img src="../fig/semaphores/04.png" alt="sem as cv" style="height:600px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 7. Semaphore: producer/consumer I
+&gt; 
+&gt; - What is the risk if MAX &gt; 1 and there are multiple producers/consumers?
+&gt;   - Race condition: two producers produce at the same time or two consumers
+&gt;   consume at the same time. 
+&gt; - What is currently missing from this implementation?
+&gt;   - Mutual exclusion
+&gt;
+&gt; &lt;img src=&quot;../fig/semaphores/05.png&quot; alt=&quot;wait and post&quot; style=&quot;height:400px&quot;&gt;
+</pre></div>
+</div>
+<section id="semaphore-producer-consumer-ii">
+<h2>8. Semaphore: producer/consumer II<a class="headerlink" href="#semaphore-producer-consumer-ii" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Mutual exclusion is added, incorrectly.</p>
+<ul>
+<li><p>Consumer runs first, then wait on <code class="docutils literal notranslate"><span class="pre">full</span></code> (but still holding <code class="docutils literal notranslate"><span class="pre">mutex</span></code>).</p></li>
+<li><p>Producer sees negative mutex, decreases it further, then goes to sleep.</p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/semaphores/06.png" alt="wait and post" style="height:600px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 9. Semaphore: producer/consumer III
+&gt; 
+&gt; - Mutual exclusion is added, correctly. 
+&gt;   - `full` and `empty` are for producers and consumers to wait on one another. 
+&gt;   - `mutex` for producers and consumers to wait among each group. 
+&gt;
+&gt; &lt;img src=&quot;../fig/semaphores/07.png&quot; alt=&quot;wait and post&quot; style=&quot;height:600px&quot;&gt;
+</pre></div>
+</div>
+<section id="the-dining-philosophers">
+<h2>10. The dining philosophers<a class="headerlink" href="#the-dining-philosophers" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>It’s Dijkstra again.</p>
+<ul>
+<li><p>There are five philosophers seating around a table.</p></li>
+<li><p>Between each pair of philosophers there is a single fork (five forks total).</p></li>
+<li><p>Philosophers alternate between thinking and eating (need fork).</p></li>
+<li><p>Two forks are needed to eat (one to the left and one to the right).</p></li>
+<li><p>How to schedule fork grabbing pattern so that no one starves?</p></li>
+</ul>
+</li>
+</ul>
+<img src="../fig/semaphores/08.png" alt="dining philosophers" style="height:300px">
+</section>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+&gt; ## 11. Solutions
+&gt; 
+&gt; - which one works?
+&gt;
+&gt; &lt;img src=&quot;../fig/semaphores/09.png&quot; alt=&quot;dining philosopher solutions&quot; style=&quot;height:300px&quot;&gt;
+</pre></div>
+</div>
+<p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="10-lock-condition-variables.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Lock and Condition Variables”</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="12-io-disk-scheduling.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">I/O and Disks: Disk Scheduling”</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Linh Ngo<br/>
+  
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
