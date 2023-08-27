@@ -1,0 +1,29 @@
+# Table of contents
+
+format: jb-book
+root: index
+
+parts:
+- caption: Introduction
+  chapters:
+    - file: lectures/01-introduction.md
+- caption: Virtualization
+  chapters:
+    - file: lectures/02-process.md
+    - file: lectures/03-process-api.md
+    - file: lectures/04-limited-direct-execution.md
+    - file: lectures/05-cpu-scheduling.md
+    - file: lectures/06-memory-virtualization.md
+    - file: lectures/07-address-translation.md
+    - file: lectures/08-paging.md
+- caption: Concurrency
+  chapters:
+    - file: lectures/09-concurrency.md
+    - file: lectures/10-lock-condition-variables.md
+    - file: lectures/11-semaphores.md  
+- caption: Persistence
+  chapters:
+    - file: lectures/12-io-disk-scheduling.md
+    - file: lectures/13-file-systems.md
+    - file: lectures/14-crash-consistency-fsck-journaling.md  
+    - file: lectures/15-minix.md

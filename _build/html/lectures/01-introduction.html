@@ -1,0 +1,877 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to Operating Systems &#8212; Operating Systems</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Abstraction: The process" href="02-process.html" />
+    <link rel="prev" title="CSC 331: Operating Systems" href="../index.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Operating Systems</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CSC 331: Operating Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Introduction to Operating Systems
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtualization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-process.html">
+   Abstraction: The process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-process-api.html">
+   Process API”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-limited-direct-execution.html">
+   Limited Direct Execution”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-cpu-scheduling.html">
+   CPU Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-memory-virtualization.html">
+   Memory virtualization”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-address-translation.html">
+   Memory virtualization mechanism: address translation”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-paging.html">
+   Memory virtualization mechanism: paging and tlb”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Concurrency
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-concurrency.html">
+   Introduction to concurrency using threads”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lock-condition-variables.html">
+   Lock and Condition Variables”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-semaphores.html">
+   Semaphores”
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Persistence
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-io-disk-scheduling.html">
+   I/O and Disks: Disk Scheduling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-file-systems.html">
+   Introduction to file systems”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
+   Crash consistency: fsck and journaling”
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-minix.html">
+   Micro versus monolithnic kernels: Minix and Linux”
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/01-introduction.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-happens-when-a-computer-program-run">
+   1. What happens when a computer program run?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-do-the-os-help-1">
+   3. How do the OS help (1)?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-getting-started">
+   5. Hands-on: Getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-illusion-of-infinite-cpu-resources">
+   7. The illusion of infinite CPU resources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-memory-virtualization">
+   8. Hands-on: Memory Virtualization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-concurrency">
+   12. Hands-on: Concurrency
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#persistency">
+   15. Persistency
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-libraries-protection">
+   18. Beyond libraries: protection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-modern-era">
+   20. The modern era
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction to Operating Systems</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-happens-when-a-computer-program-run">
+   1. What happens when a computer program run?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-do-the-os-help-1">
+   3. How do the OS help (1)?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-getting-started">
+   5. Hands-on: Getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-illusion-of-infinite-cpu-resources">
+   7. The illusion of infinite CPU resources
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-memory-virtualization">
+   8. Hands-on: Memory Virtualization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-concurrency">
+   12. Hands-on: Concurrency
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#persistency">
+   15. Persistency
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#beyond-libraries-protection">
+   18. Beyond libraries: protection
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-modern-era">
+   20. The modern era
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-operating-systems">
+<h1>Introduction to Operating Systems<a class="headerlink" href="#introduction-to-operating-systems" title="Permalink to this headline">#</a></h1>
+<section id="what-happens-when-a-computer-program-run">
+<h2>1. What happens when a computer program run?<a class="headerlink" href="#what-happens-when-a-computer-program-run" title="Permalink to this headline">#</a></h2>
+<p>The process</p>
+<ul class="simple">
+<li><p><strong>fetches</strong> an instruction from memory,</p></li>
+<li><p><strong>decodes</strong> the instruction, and</p></li>
+<li><p><strong>executes</strong> the instruction.
+This is the fundamental <strong>Von Neumann</strong> model of computing.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+## 2. Why do we need OS?
+&lt;img src=&quot;../fig/01-intro/01.png&quot; alt=&quot;Codes to hardware to screen&quot; style=&quot;height:400px&quot;&gt;
+
+ - What a programmer see is all code, lines of codes.
+ - Underneath, there is a complex ecosystem of hardware components. 
+ - How do we hide this complexity away from the programmers?
+
+</pre></div>
+</div>
+</section>
+<section id="how-do-the-os-help-1">
+<h2>3. How do the OS help (1)?<a class="headerlink" href="#how-do-the-os-help-1" title="Permalink to this headline">#</a></h2>
+<p>This is possible due to <strong>virtualization</strong>.</p>
+<ul class="simple">
+<li><p>Virtualization: presents general, powerful, and easy-to-use <strong>virtual</strong> forms of
+<strong>physical</strong> computing resources to users (<em>programmers</em>).</p></li>
+<li><p>The linkage between virtual interfaces and physical components are enabled through
+the OS’ <strong>system calls</strong> (or <strong>standard library</strong>).</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="c1">## 4. How do the OS help (2)?</span>
+
+ <span class="o">-</span> <span class="n">Each</span> <span class="n">physical</span> <span class="n">component</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">computing</span> <span class="n">system</span> <span class="ow">is</span> <span class="n">considered</span> <span class="n">a</span> <span class="n">resource</span><span class="o">.</span> 
+ <span class="o">-</span> <span class="n">The</span> <span class="n">OS</span> <span class="o">**</span><span class="n">manages</span><span class="o">**</span> <span class="n">these</span> <span class="n">resources</span> <span class="n">so</span> <span class="n">that</span> <span class="n">multiple</span> <span class="n">programs</span> <span class="n">can</span> <span class="n">access</span>
+ <span class="n">these</span> <span class="n">resources</span> <span class="p">(</span><span class="n">through</span> <span class="n">the</span> <span class="n">corresponding</span> <span class="n">virtual</span> <span class="n">interface</span><span class="p">)</span> <span class="n">at</span> <span class="n">the</span> <span class="n">same</span> <span class="n">time</span><span class="o">.</span>  
+ <span class="o">-</span> <span class="n">This</span> <span class="ow">is</span> <span class="n">called</span> <span class="o">**</span><span class="n">concurrency</span><span class="o">**.</span> 
+</pre></div>
+</div>
+</section>
+<section id="hands-on-getting-started">
+<h2>5. Hands-on: Getting started<a class="headerlink" href="#hands-on-getting-started" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Open a terminal (Windows Terminal or Mac Terminal).</p></li>
+<li><p>Run the command to launch the image container for your platform:</p></li>
+<li><p>Windows:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p>Mac:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">/home/$USER/csc331</span></code></p></li>
+<li><p>Clone the scripts <a class="reference external" href="https://github.com/remzi-arpacidusseau/ostep-code">Dr. Arpaci-Dusseau’s Git repo</a>.</p></li>
+<li><p>Change to directory <code class="docutils literal notranslate"><span class="pre">ostep-code/intro</span></code>, then run <code class="docutils literal notranslate"><span class="pre">make</span></code> to build the programs.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git clone https://github.com/remzi-arpacidusseau/ostep-code.git
+$ cd ostep-code/intro
+$ make
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<img src="../fig/01-intro/02.png" alt="setup containers" style="height:400px">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+## 6. Hands-on: CPU Virtualization 
+
+- Our workspace is limited within the scope of a single terminal (a single shell) 
+to interact with the operating system. 
+- `tmux`: *terminal multiplexer*. 
+- `tmux` allows user to open multiple terminals and organize split-views (panes) 
+within these terminals within a single original terminal. 
+- We can run/keep track off multiple programs within a single terminal. 
+
+~~~
+$ cd ~/csc331/ostep-code/intro
+$ tmux
+~~~
+{: .language-bash}
+
+- Splits the `tmux` terminal into vertical panes: first press the keys `Ctrl-b` then lift your fingers and press
+the keys `Shift-5` (technical documents &gt; often write this as `Ctrl-b` and `%`).
+
+&lt;img src=&quot;../fig/01-intro/03.png&quot; alt=&quot;tmux terminal&quot; style=&quot;height:500px&quot;&gt;
+
+- You can use `Ctrl-b` then the `left` and `right` arrows to move the active cursors between 
+the two panes. 
+- Move the cursor to the right channel and run the following commands to view the source code 
+of `cpu.c`.
+- Also run `nproc` in the right pane to figure out how many CPUs your container has access to. 
+
+~~~
+$ cat -n cpu.c
+$ nproc
+~~~
+{: .language-bash} 
+
+- Run the following command on the **left pane** to execute `cpu` program accordingly. 
+  - *Reminder: use `Ctrl-b` then the `left` and `right` arrows to move the active cursors 
+  between the two panes.* 
+- In my case, I have 8 cores, so my commands will be extended for two more. 
+
+~~~
+$ (./cpu A &amp;); (./cpu B &amp;); (./cpu C &amp;); (./cpu D &amp;); (./cpu E &amp;); (./cpu F &amp;); (./cpu G &amp;); (./cpu H &amp;); (./cpu I)
+~~~
+{: .language-bash}
+
+&lt;img src=&quot;../fig/01-intro/04.png&quot; alt=&quot;multiple runs of cpu&quot; style=&quot;height:700px&quot;&gt;
+
+- To stop the running processes on the left pane, move to the right pane and running the
+following commands:
+
+~~~
+$ ps aux | grep cpu
+~~~
+{: .language-bash}
+
+- Identify the process ID (the second columns), then use the `kill` to kill all the process IDs 
+(see figure below). 
+
+&lt;img src=&quot;../fig/01-intro/05.png&quot; alt=&quot;kill processes&quot; style=&quot;height:700px&quot;&gt;
+
+</pre></div>
+</div>
+</section>
+<section id="the-illusion-of-infinite-cpu-resources">
+<h2>7. The illusion of infinite CPU resources<a class="headerlink" href="#the-illusion-of-infinite-cpu-resources" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>A limited number of physical CPUs can still be represented as infnite number of CPUs through
+<strong>virtualization</strong>.</p></li>
+<li><p>The OS will <strong>manage</strong> the scheduling and allocation of the actual run on physical resources.</p></li>
+</ul>
+<p>{: .callout}</p>
+</section>
+<section id="hands-on-memory-virtualization">
+<h2>8. Hands-on: Memory Virtualization<a class="headerlink" href="#hands-on-memory-virtualization" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> once to close one pane.</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> again to close tmux.</p></li>
+<li><p>Run the following commands:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ setarch `uname -m` -R /bin/bash
+$ tmux
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">Ctrl-b</span></code> and then <code class="docutils literal notranslate"><span class="pre">Shift-%</span></code> to split the tmux screen into two
+vertical panes again.</p></li>
+<li><p>In the right pane, run the following command:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat -n mem.c
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p>In the left pane, run the following command:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ (./mem 100 &amp;); (./mem 200)
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p>When finished, kill the two memory processes using the <code class="docutils literal notranslate"><span class="pre">kill</span></code> command and the process ID
+shown in the parentheses. You should switch to the right pane for this task.</p></li>
+</ul>
+<img src="../fig/01-intro/06.png" alt="mem.c" style="height:600px">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+## 9. Do programs running concurrently occupy the same memory locations (addresses)?
+
+ ## Answer     
+  - No
+
+{: .solution}
+{: .challenge}
+
+
+## 10. The illusion of dedicated memory resources
+
+- Many running program share the physical memory space. 
+- Each runnning program is presented with the illusion that they have access to their own private
+memory. This is called **virtual address space**, which is mapped to physical memory space
+by the OS.  
+- Making memory references within one running program (within one&#39;s own virtual address space) 
+does not affect the private virtual address space of others. 
+- Without the `setarch` command, the location of variable `p` will be 
+randomize within the virtual address space of a process. This is a security mechanism to 
+prevent others from guessing and applying direct manipulation techniques to the physical 
+memory location that acually contains `p`. 
+
+{: .callout}
+
+
+## 11. Concurrency
+
+- As shown in **CPU Virtualization** and **Memory Virtualization** examples, the OS 
+wants to manage many running programs at the same time.
+- This is called **concurrency**, and it leads to a number of interesting challenges 
+in designing and implementing various management mechanisms within the OS.
+
+</pre></div>
+</div>
+</section>
+<section id="hands-on-concurrency">
+<h2>12. Hands-on: Concurrency<a class="headerlink" href="#hands-on-concurrency" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">clear</span></code> command on both panes to clear the screen.</p></li>
+<li><p>On the right pane, run the followings:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat -n threads.c
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p>On the left pane, run the following commands several times:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./threads 50
+$ ./threads 100
+$ ./threads 200
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">threads.c</span></code> creates two functions running at the same time, within the same memory
+space of the  main program.</p></li>
+<li><p>A single global variable named counter is being increased by both functions, thus
+the final value of counter should be twice that of the command line argument.</p></li>
+<li><p>Now run with bigger values.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./threads 20000
+$ ./threads 30000
+$ ./threads 30000
+$ ./threads 30000
+</pre></div>
+</div>
+<p>{: .language-bash}</p>
+<img src="../fig/01-intro/07.png" alt="multithreaded with errors" style="height:700px">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<span class="c1">## 13. Observation</span>
+
+<span class="o">-</span> <span class="n">Naive</span> <span class="n">concurrency</span> <span class="n">gives</span> <span class="n">you</span> <span class="n">wrong</span> <span class="n">results</span><span class="o">.</span>  
+<span class="o">-</span> <span class="n">Naive</span> <span class="n">concurrency</span> <span class="n">gives</span> <span class="n">you</span> <span class="n">wrong</span> <span class="ow">and</span> <span class="n">inconsistent</span> <span class="n">results</span><span class="o">.</span> 
+
+<span class="p">{:</span> <span class="o">.</span><span class="n">callout</span><span class="p">}</span>
+
+<span class="c1">## 14. Why does this happen?</span>
+
+ <span class="o">-</span> <span class="n">At</span> <span class="n">machine</span> <span class="n">level</span><span class="p">,</span> <span class="n">incrementing</span> <span class="n">counter</span> <span class="n">involves</span> <span class="n">three</span> <span class="n">steps</span><span class="p">:</span>
+   <span class="o">-</span> <span class="n">Load</span> <span class="n">value</span> <span class="n">of</span> <span class="n">counter</span> <span class="kn">from</span> <span class="nn">memory</span> <span class="n">into</span> <span class="n">register</span><span class="p">,</span>
+   <span class="o">-</span> <span class="n">Increment</span> <span class="n">this</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">register</span><span class="p">,</span> <span class="ow">and</span>
+   <span class="o">-</span> <span class="n">Write</span> <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">counter</span> <span class="n">back</span> <span class="n">to</span> <span class="n">memory</span><span class="o">.</span>
+ <span class="o">-</span> <span class="n">What</span> <span class="n">should</span> <span class="n">have</span> <span class="n">happened</span><span class="p">:</span>
+   <span class="o">-</span> <span class="n">One</span> <span class="n">thread</span> <span class="n">increments</span> <span class="n">counter</span> <span class="p">(</span><span class="nb">all</span> <span class="n">three</span> <span class="n">steps</span><span class="p">),</span> <span class="n">then</span> <span class="n">the</span> <span class="n">other</span> <span class="n">thread</span> <span class="n">increments</span>
+   <span class="n">counter</span><span class="p">,</span> <span class="n">now</span> <span class="k">with</span> <span class="n">the</span> <span class="n">updated</span> <span class="n">value</span><span class="o">.</span>
+ <span class="o">-</span> <span class="n">What</span> <span class="n">really</span> <span class="n">happened</span><span class="p">:</span>
+   <span class="o">-</span> <span class="n">One</span> <span class="n">thread</span> <span class="n">increments</span> <span class="n">counter</span><span class="o">.</span>
+   <span class="o">-</span> <span class="n">While</span> <span class="n">this</span> <span class="n">thread</span> <span class="n">has</span> <span class="ow">not</span> <span class="n">done</span> <span class="k">with</span> <span class="nb">all</span> <span class="n">three</span> <span class="n">steps</span><span class="p">,</span> <span class="n">the</span> <span class="n">other</span> <span class="n">thread</span> 
+   <span class="n">steps</span> <span class="ow">in</span> <span class="ow">and</span> <span class="n">attempts</span> <span class="n">to</span> <span class="n">increment</span> <span class="n">the</span> <span class="n">stale</span> <span class="n">content</span> <span class="n">of</span> <span class="n">counter</span> <span class="ow">in</span> <span class="n">memory</span><span class="o">.</span>
+
+</pre></div>
+</div>
+</section>
+<section id="persistency">
+<h2>15. Persistency<a class="headerlink" href="#persistency" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>When the programs stop, everything in memory goes away: counter, p, str.</p></li>
+<li><p>Physical components to store information persistently are needed.</p></li>
+<li><p>Input/output or I/O devices:</p>
+<ul>
+<li><p>Hard drives</p></li>
+<li><p>Solid-state drives</p></li>
+</ul>
+</li>
+<li><p>Software managing these storage devices is called the file system.</p></li>
+<li><p>Examples of system calls/standard libraries supporting the file system:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">open()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">write()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">close()</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+## 16. A brief history of operating system research and development
+
+A good paper to read: [Hanser, Per Brinch. &quot;The evolution of oeprating systems&quot; 2001](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.1524&amp;rep=rep1&amp;type=pdf)
+
+{: .callout}
+
+## 17. Early operating systems: just libraries
+
+- Include only library for commonly used functions.
+- One program runs at a time.
+- Manual loading of programs by human operator.
+
+</pre></div>
+</div>
+</section>
+<section id="beyond-libraries-protection">
+<h2>18. Beyond libraries: protection<a class="headerlink" href="#beyond-libraries-protection" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>System calls</p></li>
+<li><p>Hardware privilege level</p></li>
+<li><p>User mode/kernel mode</p></li>
+<li><p><strong>trap</strong>: the initiation of a system call to raise privilege from user mode to kernel mode.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+
+<span class="c1">## 19. The era of multiprogramming</span>
+
+<span class="o">-</span> <span class="n">Minicomputer</span>
+<span class="o">-</span> <span class="o">**</span><span class="n">multiprogramming</span><span class="o">**</span><span class="p">:</span> <span class="n">multiple</span> <span class="n">programs</span> <span class="n">being</span> <span class="n">run</span> <span class="k">with</span> <span class="n">the</span> <span class="n">OS</span> <span class="n">switching</span> <span class="n">among</span> <span class="n">them</span><span class="o">.</span> 
+<span class="o">-</span> <span class="n">Memory</span> <span class="n">protection</span>
+<span class="o">-</span> <span class="n">Concurrency</span>
+
+</pre></div>
+</div>
+</section>
+<section id="the-modern-era">
+<h2>20. The modern era<a class="headerlink" href="#the-modern-era" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Personal computer</p></li>
+<li><p>DOS: the Disk Operating System</p></li>
+<li><p>Mac OS</p></li>
+<li><p>Multics (MIT) -&gt; UNIX (Bell Labs) -&gt; BSD (Berkeley) -&gt; Sun OS/Linux</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">CSC 331: Operating Systems</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="02-process.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Abstraction: The process</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Linh Ngo<br/>
+  
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
