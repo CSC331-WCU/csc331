@@ -609,7 +609,17 @@ these resources (through the corresponding virtual interface) at the same time.<
 <section id="hands-on-getting-started">
 <h2>5. Hands-on: Getting started<a class="headerlink" href="#hands-on-getting-started" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
-<li><p>Connect to <strong>molly</strong></p></li>
+<li><p>If you are on a virtual machine (VirtualBox/VMWare/Hypervisor/WSL), launch a terminal</p></li>
+<li><p>If you are on Docker Dekstop, launch a container using the following command:</p>
+<ul>
+<li><p>Password of the account is <code class="docutils literal notranslate"><span class="pre">goldenrams</span></code></p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docker</span> <span class="n">run</span> <span class="o">--</span><span class="n">rm</span> <span class="o">--</span><span class="n">userns</span><span class="o">=</span><span class="n">host</span> <span class="o">--</span><span class="n">cap</span><span class="o">-</span><span class="n">add</span><span class="o">=</span><span class="n">SYS_PTRACE</span> <span class="o">--</span><span class="n">security</span><span class="o">-</span><span class="n">opt</span> <span class="n">seccomp</span><span class="o">=</span><span class="n">unconfined</span> <span class="o">-</span><span class="n">it</span> <span class="n">linhbngo</span><span class="o">/</span><span class="n">csc</span><span class="o">-</span><span class="n">container</span> <span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">bash</span>
+</pre></div>
+</div>
+<ul class="simple">
 <li><p>Create a directory called <strong>csc331</strong> and</p></li>
 <li><p>Navigate to <code class="docutils literal notranslate"><span class="pre">/home/$USER/csc331</span></code></p></li>
 <li><p>Clone the scripts <a class="reference external" href="https://github.com/remzi-arpacidusseau/ostep-code">Dr. Arpaci-Dusseau’s Git repo</a>.</p></li>
@@ -665,7 +675,7 @@ between the two panes.</em></p></li>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">A</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">B</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">C</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">D</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">E</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">F</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">G</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">H</span> <span class="o">&amp;</span><span class="p">);</span> <span class="p">(</span><span class="o">./</span><span class="n">cpu</span> <span class="n">I</span><span class="p">)</span>
 </pre></div>
 </div>
-<img src="../fig/01-intro/04.png" alt="multiple runs of cpu" style="height:700px">
+<p><img alt="Multiple runs of CPU" src="../_images/04.png" /></p>
 <ul class="simple">
 <li><p>To stop the running processes on the left pane, move to the right pane and running the
 following commands:</p></li>
@@ -677,7 +687,7 @@ following commands:</p></li>
 <li><p>Identify the process ID (the second columns), then use the <code class="docutils literal notranslate"><span class="pre">kill</span></code> to kill all the process IDs
 (see figure below).</p></li>
 </ul>
-<img src="../fig/01-intro/05.png" alt="kill processes" style="height:700px">
+<p><img alt="Kill processes" src="../_images/05.png" /></p>
 </section>
 <section id="the-illusion-of-infinite-cpu-resources">
 <h2>7. The illusion of infinite CPU resources<a class="headerlink" href="#the-illusion-of-infinite-cpu-resources" title="Permalink to this headline">#</a></h2>
@@ -717,7 +727,7 @@ vertical panes again.</p></li>
 <li><p>When finished, kill the two memory processes using the <code class="docutils literal notranslate"><span class="pre">kill</span></code> command and the process ID
 shown in the parentheses. You should switch to the right pane for this task.</p></li>
 </ul>
-<img src="../fig/01-intro/06.png" alt="mem.c" style="height:600px">
+<p><img alt="Virtual address space for memory" src="../_images/06.png" /></p>
 <ul class="simple">
 <li><p>Do programs running concurrently occupy the same memory locations (addresses)?</p></li>
 </ul>
@@ -777,7 +787,7 @@ argument.</p></li>
 <span class="o">./</span><span class="n">threads</span> <span class="mi">30000</span>
 </pre></div>
 </div>
-<img src="../fig/01-intro/07.png" alt="multithreaded with errors" style="height:700px">
+<p><img alt="Multithreaded with errors" src="../_images/07.png" /></p>
 </section>
 <section id="observation">
 <h2>13. Observation<a class="headerlink" href="#observation" title="Permalink to this headline">#</a></h2>

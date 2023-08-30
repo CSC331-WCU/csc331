@@ -349,17 +349,32 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#what-is-a-program">
-   What is a program?
+   1. What is a program?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-process">
+   2. What is a process?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#process-api">
-   Process API
+   3. Process API
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#process-creation">
+   4. Process creation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loading-from-program-to-process">
-   Loading: from program to process
+   5. Loading: from program to process
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#process-states">
+   Process states
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -368,8 +383,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Process: state transition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#process-data-structure">
    Process: data structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-xv6">
+   Example: xv6
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -398,17 +423,32 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#what-is-a-program">
-   What is a program?
+   1. What is a program?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-a-process">
+   2. What is a process?
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#process-api">
-   Process API
+   3. Process API
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#process-creation">
+   4. Process creation
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loading-from-program-to-process">
-   Loading: from program to process
+   5. Loading: from program to process
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#process-states">
+   Process states
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -417,8 +457,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Process: state transition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#process-data-structure">
    Process: data structure
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-xv6">
+   Example: xv6
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -438,44 +488,37 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="abstraction-the-process">
 <h1>Abstraction: The process<a class="headerlink" href="#abstraction-the-process" title="Permalink to this headline">#</a></h1>
-<p>teaching: 0
-exercises: 0
-questions:</p>
-<ul class="simple">
-<li><p>“What is a program and what is a process?”
-objectives:</p></li>
-<li><p>“Understand the differences between a program and a process.”</p></li>
-<li><p>“Know the possible states of a process.”
-keypoints:</p></li>
-<li><p>“A program is a static list of commands. When OS executes (runs) a program, the
-entire running operation is called a process.”</p></li>
-</ul>
 <section id="what-is-a-program">
-<h2>What is a program?<a class="headerlink" href="#what-is-a-program" title="Permalink to this headline">#</a></h2>
+<h2>1. What is a program?<a class="headerlink" href="#what-is-a-program" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>A program is a static list of intsructions and data.</p></li>
 <li><p>When a program runs, the OS takes this list and asks the CPU to execute them.</p></li>
 <li><p>If we only have one CPU, how can we run more than one program at a time.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## What is a process?
-&gt;
-&gt; - A process is a **running program**.
-&gt; - But the program itself is not running ...
-&gt;   - A process is an **abstraction** provided by the OS to describe the running of a program.   
-&gt; - What is a process made of?
-&gt;   - Memory that the process (running program) can address.
-&gt;   - Memory registers.
-&gt;   - Program counter. 
-&gt;   - Stack pointer.
-&gt;   - Frame pointer.
-&gt;   - I/O devices. 
-</pre></div>
-</div>
+<section id="what-is-a-process">
+<h2>2. What is a process?<a class="headerlink" href="#what-is-a-process" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>A process is a <strong>running program</strong>.</p></li>
+<li><p>But the program itself is not running …</p>
+<ul>
+<li><p>A process is an <strong>abstraction</strong> provided by the OS to describe the running of a program.</p></li>
+</ul>
+</li>
+<li><p>What is a process made of?</p>
+<ul>
+<li><p>Memory that the process (running program) can address.</p></li>
+<li><p>Memory registers.</p></li>
+<li><p>Program counter.</p></li>
+<li><p>Stack pointer.</p></li>
+<li><p>Frame pointer.</p></li>
+<li><p>I/O devices.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="process-api">
-<h2>Process API<a class="headerlink" href="#process-api" title="Permalink to this headline">#</a></h2>
+<h2>3. Process API<a class="headerlink" href="#process-api" title="Permalink to this headline">#</a></h2>
 <p>The operating system provides an API to help managing processes. Minimally, the followings
 are provided:</p>
 <ul class="simple">
@@ -493,59 +536,58 @@ are provided:</p>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## Process creation
-&gt;
-&gt; When a program is run, the OS performs the following steps: 
-&gt; - Load a program&#39;s code and static data into memory (the virtual address space
-&gt; of the process).
-&gt; - Allocate memory for run-time stack (for stack).     
-&gt; - Allocate memory for heap (used for dynamic memory allocation via `malloc` family).
-&gt; - Initialization: 
-&gt;   - File descriptor for standard input.
-&gt;   - File descriptor for standard output. 
-&gt;   - File descriptor for error. 
-&gt;   - *In Linux, everything is a file.*
-&gt; - Begin executing from **main()**. 
-</pre></div>
-</div>
-<section id="loading-from-program-to-process">
-<h2>Loading: from program to process<a class="headerlink" href="#loading-from-program-to-process" title="Permalink to this headline">#</a></h2>
-<img src="../assets/figure/process/01.png" alt="Process creation" style="height:500px">
+<section id="process-creation">
+<h2>4. Process creation<a class="headerlink" href="#process-creation" title="Permalink to this headline">#</a></h2>
+<p>When a program is run, the OS performs the following steps:</p>
+<ul class="simple">
+<li><p>Load a program’s code and static data into memory (the virtual address space
+of the process).</p></li>
+<li><p>Allocate memory for run-time stack (for stack).</p></li>
+<li><p>Allocate memory for heap (used for dynamic memory allocation via <code class="docutils literal notranslate"><span class="pre">malloc</span></code> family).</p></li>
+<li><p>Initialization:</p>
+<ul>
+<li><p>File descriptor for standard input.</p></li>
+<li><p>File descriptor for standard output.</p></li>
+<li><p>File descriptor for error.</p></li>
+<li><p><em>In Linux, everything is a file.</em></p></li>
+</ul>
+</li>
+<li><p>Begin executing from <strong>main()</strong>.</p></li>
+</ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## Process states</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="n">A</span> <span class="n">process</span> <span class="n">can</span> <span class="n">be</span> <span class="ow">in</span> <span class="n">one</span> <span class="n">of</span> <span class="n">the</span> <span class="n">three</span> <span class="n">states</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Running</span><span class="p">:</span> <span class="n">the</span> <span class="n">CPU</span> <span class="ow">is</span> <span class="n">executing</span> <span class="n">a</span> <span class="n">process</span><span class="s1">&#39; instructions.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Ready</span><span class="p">:</span> <span class="n">the</span> <span class="n">process</span> <span class="ow">is</span> <span class="n">ready</span> <span class="n">to</span> <span class="n">run</span><span class="p">,</span> <span class="n">but</span> <span class="n">the</span> <span class="n">OS</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">running</span> 
-<span class="o">&gt;</span> <span class="n">the</span> <span class="n">process</span> <span class="n">at</span> <span class="n">the</span> <span class="n">moment</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Blocked</span><span class="p">:</span> <span class="n">the</span> <span class="n">process</span> <span class="n">has</span> <span class="n">to</span> <span class="n">perform</span> <span class="n">some</span> <span class="n">operation</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span><span class="p">,</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">request</span>
-<span class="o">&gt;</span> <span class="n">to</span> <span class="n">disk</span><span class="p">)</span> <span class="n">that</span> <span class="n">makes</span> <span class="n">it</span> <span class="ow">not</span> <span class="n">ready</span> <span class="n">to</span> <span class="n">run</span><span class="o">.</span> 
-</pre></div>
-</div>
+<section id="loading-from-program-to-process">
+<h2>5. Loading: from program to process<a class="headerlink" href="#loading-from-program-to-process" title="Permalink to this headline">#</a></h2>
+<p><img alt="Process creation" src="../_images/011.png" /></p>
+</section>
+<section id="process-states">
+<h2>Process states<a class="headerlink" href="#process-states" title="Permalink to this headline">#</a></h2>
+<p>A process can be in one of the three states.</p>
+<ul class="simple">
+<li><p>Running: the CPU is executing a process’ instructions.</p></li>
+<li><p>Ready: the process is ready to run, but the OS is not running
+the process at the moment.</p></li>
+<li><p>Blocked: the process has to perform some operation (e.g., I/O request
+to disk) that makes it not ready to run.</p></li>
+</ul>
+</section>
 <section id="process-state-transition">
 <h2>Process: state transition<a class="headerlink" href="#process-state-transition" title="Permalink to this headline">#</a></h2>
-<img src="../assets/figure/process/02.png" alt="Process state transition" style="height:500px">
+<p><img alt="Process state transition" src="../_images/02.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## Process: state transition</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">When</span> <span class="n">a</span> <span class="n">process</span> <span class="n">moves</span> <span class="kn">from</span> <span class="o">**</span><span class="n">ready</span><span class="o">**</span> <span class="n">to</span> <span class="o">**</span><span class="n">running</span><span class="o">**</span><span class="p">,</span> <span class="n">this</span> <span class="n">means</span>
-<span class="o">&gt;</span> <span class="n">that</span> <span class="n">it</span> <span class="n">has</span> <span class="n">been</span> <span class="o">**</span><span class="n">scheduled</span><span class="o">**</span> <span class="n">by</span> <span class="n">the</span> <span class="n">OS</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">When</span> <span class="n">a</span> <span class="n">process</span> <span class="ow">is</span> <span class="n">moved</span> <span class="kn">from</span> <span class="o">**</span><span class="n">running</span><span class="o">**</span> <span class="n">to</span> <span class="o">**</span><span class="n">ready</span><span class="o">**</span><span class="p">,</span> <span class="n">this</span> <span class="n">means</span>
-<span class="o">&gt;</span> <span class="n">that</span> <span class="n">it</span> <span class="n">has</span> <span class="n">been</span> <span class="n">descheduled</span> <span class="n">by</span> <span class="n">the</span> <span class="n">OS</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">When</span> <span class="n">an</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">request</span> <span class="p">(</span><span class="n">within</span> <span class="n">the</span> <span class="n">process</span><span class="p">)</span> <span class="ow">is</span> <span class="n">initiated</span><span class="p">,</span> <span class="n">the</span> <span class="o">**</span><span class="n">running</span><span class="o">**</span> 
-<span class="o">&gt;</span> <span class="n">process</span> <span class="n">become</span> <span class="o">**</span><span class="n">blocked</span><span class="o">**</span> <span class="n">by</span> <span class="n">the</span> <span class="n">OS</span> <span class="n">until</span> <span class="n">the</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">request</span> <span class="ow">is</span> <span class="n">completed</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="n">Upon</span> <span class="n">receiving</span> <span class="n">the</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">completion</span> <span class="n">signal</span><span class="p">,</span> <span class="n">the</span> <span class="n">OS</span> <span class="n">moves</span> <span class="n">the</span> <span class="n">process</span><span class="s1">&#39; state</span>
-<span class="o">&gt;</span> <span class="kn">from</span> <span class="o">**</span><span class="n">blocked</span><span class="o">**</span> <span class="n">to</span> <span class="o">**</span><span class="n">ready</span><span class="o">**</span><span class="p">,</span> <span class="n">to</span> <span class="n">wait</span> <span class="n">to</span> <span class="n">be</span> <span class="n">scheduled</span> <span class="n">by</span> <span class="n">the</span> <span class="n">OS</span><span class="o">.</span> 
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/process/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;Process state transition example&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="id1">
+<h2>Process: state transition<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>When a process moves from <strong>ready</strong> to <strong>running</strong>, this means
+that it has been <strong>scheduled</strong> by the OS.</p></li>
+<li><p>When a process is moved from <strong>running</strong> to <strong>ready</strong>, this means
+that it has been descheduled by the OS.</p></li>
+<li><p>When an I/O request (within the process) is initiated, the <strong>running</strong>
+process become <strong>blocked</strong> by the OS until the I/O request is completed.
+Upon receiving the I/O completion signal, the OS moves the process’ state
+from <strong>blocked</strong> to <strong>ready</strong>, to wait to be scheduled by the OS.</p></li>
+</ul>
+<p><img alt="Process state transition example" src="../_images/03.png" /></p>
+</section>
 <section id="process-data-structure">
 <h2>Process: data structure<a class="headerlink" href="#process-data-structure" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -561,15 +603,14 @@ from <strong>blocked</strong> to <strong>ready</strong>, to wait to be scheduled
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## Example: xv6</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Educational</span> <span class="n">OS</span> <span class="n">developed</span> <span class="ow">and</span> <span class="n">maintained</span> <span class="n">by</span> <span class="n">MIT</span> <span class="n">since</span> <span class="mf">2006.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="p">[</span><span class="n">xv6</span> <span class="n">Git</span> <span class="n">repository</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">mit</span><span class="o">-</span><span class="n">pdos</span><span class="o">/</span><span class="n">xv6</span><span class="o">-</span><span class="n">public</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="p">[</span><span class="n">Register</span> <span class="n">contexts</span> <span class="ow">and</span> <span class="n">status</span> <span class="n">definition</span> <span class="k">for</span> <span class="n">a</span> <span class="n">process</span><span class="p">][</span><span class="n">xv6_process</span><span class="p">]</span>
-</pre></div>
-</div>
+<section id="example-xv6">
+<h2>Example: xv6<a class="headerlink" href="#example-xv6" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Educational OS developed and maintained by MIT since 2006.</p></li>
+<li><p><a class="reference external" href="https://github.com/mit-pdos/xv6-public">xv6 Git repository</a></p></li>
+<li><p>[Register contexts and status definition for a process][xv6_process]</p></li>
+</ul>
+</section>
 <section id="example-linux">
 <h2>Example: Linux<a class="headerlink" href="#example-linux" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -578,12 +619,6 @@ from <strong>blocked</strong> to <strong>ready</strong>, to wait to be scheduled
 <li><p>[x86 CPU architecture model][<a class="reference external" href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture">https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture</a>]</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
-
-</pre></div>
-</div>
 </section>
 
     <script type="text/x-thebe-config">
