@@ -90,8 +90,7 @@ nproc
 (./cpu A &); (./cpu B &); (./cpu C &); (./cpu D &); (./cpu E &); (./cpu F &); (./cpu G &); (./cpu H &); (./cpu I)
 ~~~
 
-
-<img src="../fig/01-intro/04.png" alt="multiple runs of cpu" style="height:700px">
+![Multiple runs of CPU](../fig/01-intro/04.png)
 
 - To stop the running processes on the left pane, move to the right pane and running the
 following commands:
@@ -104,9 +103,7 @@ ps aux | grep cpu
 - Identify the process ID (the second columns), then use the `kill` to kill all the process IDs 
 (see figure below). 
 
-<img src="../fig/01-intro/05.png" alt="kill processes" style="height:700px">
-
-
+![Kill processes](../fig/01-intro/05.png)
 
 
 ## 7. The illusion of infinite CPU resources
@@ -149,7 +146,7 @@ cat -n mem.c
 - When finished, kill the two memory processes using the `kill` command and the process ID 
 shown in the parentheses. You should switch to the right pane for this task. 
 
-<img src="../fig/01-intro/06.png" alt="mem.c" style="height:600px">
+![Virtual address space for memory](../fig/01-intro/06.png)
 
 - Do programs running concurrently occupy the same memory locations (addresses)?
 
@@ -207,9 +204,7 @@ argument.
 ./threads 30000
 ~~~
 
-
-<img src="../fig/01-intro/07.png" alt="multithreaded with errors" style="height:700px">
-
+![Multithreaded with errors](../fig/01-intro/07.png)
 
 
 ## 13. Observation
