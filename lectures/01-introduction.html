@@ -1,35 +1,44 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Introduction to Operating Systems &#8212; Operating Systems</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -37,12 +46,12 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,61 +59,93 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/01-introduction';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Abstraction: The process" href="02-process.html" />
     <link rel="prev" title="CSC 331: Operating Systems" href="../index.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Operating Systems</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -113,462 +154,211 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Introduction to Operating Systems
-  </a>
- </li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction to Operating Systems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Virtualization
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Virtualization</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="02-process.html">
-   Abstraction: The process
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03-process-api.html">
-   Process API”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04-limited-direct-execution.html">
-   Limited Direct Execution”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05-cpu-scheduling.html">
-   CPU Scheduling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06-memory-virtualization.html">
-   Memory virtualization”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07-address-translation.html">
-   Memory virtualization mechanism: address translation”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08-paging.html">
-   Memory virtualization mechanism: paging and tlb”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="02-process.html">Abstraction: The process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-process-api.html">Process API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-limited-direct-execution.html">Limited Direct Execution”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-cpu-scheduling.html">CPU Scheduling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-memory-virtualization.html">Memory virtualization”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-address-translation.html">Memory virtualization mechanism: address translation”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-paging.html">Memory virtualization mechanism: paging and tlb”</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Concurrency
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Concurrency</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="09-concurrency.html">
-   Introduction to concurrency using threads”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10-lock-condition-variables.html">
-   Lock and Condition Variables”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11-semaphores.html">
-   Semaphores”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="09-concurrency.html">Introduction to concurrency using threads”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-lock-condition-variables.html">Lock and Condition Variables”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-semaphores.html">Semaphores”</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Persistence
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="12-io-disk-scheduling.html">
-   I/O and Disks: Disk Scheduling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13-file-systems.html">
-   Introduction to file systems”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
-   Crash consistency: fsck and journaling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15-minix.html">
-   Micro versus monolithnic kernels: Minix and Linux”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="12-io-disk-scheduling.html">I/O and Disks: Disk Scheduling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-file-systems.html">Introduction to file systems”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-crash-consistency-fsck-journaling.html">Crash consistency: fsck and journaling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-minix.html">Micro versus monolithnic kernels: Minix and Linux”</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/01-introduction.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/lectures/01-introduction.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#what-happens-when-a-computer-program-run">
-   1. What happens when a computer program run?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-do-we-need-os">
-   2. Why do we need OS?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-do-the-os-help-1">
-   3. How do the OS help (1)?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-do-the-os-help-2">
-   4. How do the OS help (2)?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-getting-started">
-   5. Hands-on: Getting started
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-cpu-virtualization">
-   6. Hands-on: CPU Virtualization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-illusion-of-infinite-cpu-resources">
-   7. The illusion of infinite CPU resources
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-memory-virtualization">
-   8. Hands-on: Memory Virtualization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-illusion-of-dedicated-memory-resources">
-   10. The illusion of dedicated memory resources
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#concurrency">
-   11. Concurrency
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-concurrency">
-   12. Hands-on: Concurrency
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#observation">
-   13. Observation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-does-this-happen">
-   14. Why does this happen?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#persistency">
-   15. Persistency
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-brief-history-of-operating-system-research-and-development">
-   16. A brief history of operating system research and development
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#early-operating-systems-just-libraries">
-   17. Early operating systems: just libraries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#beyond-libraries-protection">
-   18. Beyond libraries: protection
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-era-of-multiprogramming">
-   19. The era of multiprogramming
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-modern-era">
-   20. The modern era
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Introduction to Operating Systems</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#what-happens-when-a-computer-program-run">
-   1. What happens when a computer program run?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-do-we-need-os">
-   2. Why do we need OS?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-do-the-os-help-1">
-   3. How do the OS help (1)?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-do-the-os-help-2">
-   4. How do the OS help (2)?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-getting-started">
-   5. Hands-on: Getting started
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-cpu-virtualization">
-   6. Hands-on: CPU Virtualization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-illusion-of-infinite-cpu-resources">
-   7. The illusion of infinite CPU resources
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-memory-virtualization">
-   8. Hands-on: Memory Virtualization
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-illusion-of-dedicated-memory-resources">
-   10. The illusion of dedicated memory resources
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#concurrency">
-   11. Concurrency
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-concurrency">
-   12. Hands-on: Concurrency
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#observation">
-   13. Observation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-does-this-happen">
-   14. Why does this happen?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#persistency">
-   15. Persistency
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-brief-history-of-operating-system-research-and-development">
-   16. A brief history of operating system research and development
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#early-operating-systems-just-libraries">
-   17. Early operating systems: just libraries
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#beyond-libraries-protection">
-   18. Beyond libraries: protection
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-era-of-multiprogramming">
-   19. The era of multiprogramming
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-modern-era">
-   20. The modern era
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Introduction to Operating Systems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-when-a-computer-program-run">1. What happens when a computer program run?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-os">2. Why do we need OS?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-the-os-help-1">3. How do the OS help (1)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-the-os-help-2">4. How do the OS help (2)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-getting-started">5. Hands-on: Getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-cpu-virtualization">6. Hands-on: CPU Virtualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-illusion-of-infinite-cpu-resources">7. The illusion of infinite CPU resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-memory-virtualization">8. Hands-on: Memory Virtualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-illusion-of-dedicated-memory-resources">10. The illusion of dedicated memory resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concurrency">11. Concurrency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-concurrency">12. Hands-on: Concurrency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observation">13. Observation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-happen">14. Why does this happen?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persistency">15. Persistency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-history-of-operating-system-research-and-development">16. A brief history of operating system research and development</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-operating-systems-just-libraries">17. Early operating systems: just libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-libraries-protection">18. Beyond libraries: protection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-era-of-multiprogramming">19. The era of multiprogramming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modern-era">20. The modern era</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-operating-systems">
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-operating-systems">
 <h1>Introduction to Operating Systems<a class="headerlink" href="#introduction-to-operating-systems" title="Permalink to this headline">#</a></h1>
-<section id="what-happens-when-a-computer-program-run">
+<div class="section" id="what-happens-when-a-computer-program-run">
 <h2>1. What happens when a computer program run?<a class="headerlink" href="#what-happens-when-a-computer-program-run" title="Permalink to this headline">#</a></h2>
 <p>The process</p>
 <ul class="simple">
@@ -577,8 +367,8 @@ title="Print to PDF"
 <li><p><strong>executes</strong> the instruction.
 This is the fundamental <strong>Von Neumann</strong> model of computing.</p></li>
 </ul>
-</section>
-<section id="why-do-we-need-os">
+</div>
+<div class="section" id="why-do-we-need-os">
 <h2>2. Why do we need OS?<a class="headerlink" href="#why-do-we-need-os" title="Permalink to this headline">#</a></h2>
 <p><img alt="Codes to hardware to screen" src="../_images/01.png" /></p>
 <ul class="simple">
@@ -586,8 +376,8 @@ This is the fundamental <strong>Von Neumann</strong> model of computing.</p></li
 <li><p>Underneath, there is a complex ecosystem of hardware components.</p></li>
 <li><p>How do we hide this complexity away from the programmers?</p></li>
 </ul>
-</section>
-<section id="how-do-the-os-help-1">
+</div>
+<div class="section" id="how-do-the-os-help-1">
 <h2>3. How do the OS help (1)?<a class="headerlink" href="#how-do-the-os-help-1" title="Permalink to this headline">#</a></h2>
 <p>This is possible due to <strong>virtualization</strong>.</p>
 <ul class="simple">
@@ -596,8 +386,8 @@ This is the fundamental <strong>Von Neumann</strong> model of computing.</p></li
 <li><p>The linkage between virtual interfaces and physical components are enabled through
 the OS’ <strong>system calls</strong> (or <strong>standard library</strong>).</p></li>
 </ul>
-</section>
-<section id="how-do-the-os-help-2">
+</div>
+<div class="section" id="how-do-the-os-help-2">
 <h2>4. How do the OS help (2)?<a class="headerlink" href="#how-do-the-os-help-2" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Each physical component in a computing system is considered a resource.</p></li>
@@ -605,8 +395,8 @@ the OS’ <strong>system calls</strong> (or <strong>standard library</strong>).<
 these resources (through the corresponding virtual interface) at the same time.</p></li>
 <li><p>This is called <strong>concurrency</strong>.</p></li>
 </ul>
-</section>
-<section id="hands-on-getting-started">
+</div>
+<div class="section" id="hands-on-getting-started">
 <h2>5. Hands-on: Getting started<a class="headerlink" href="#hands-on-getting-started" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>If you are on a virtual machine (VirtualBox/VMWare/Hypervisor/WSL), launch a terminal</p></li>
@@ -633,8 +423,8 @@ these resources (through the corresponding virtual interface) at the same time.<
 <span class="n">make</span>
 </pre></div>
 </div>
-</section>
-<section id="hands-on-cpu-virtualization">
+</div>
+<div class="section" id="hands-on-cpu-virtualization">
 <h2>6. Hands-on: CPU Virtualization<a class="headerlink" href="#hands-on-cpu-virtualization" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Our workspace is limited within the scope of a single terminal (a single shell)
@@ -688,8 +478,8 @@ following commands:</p></li>
 (see figure below).</p></li>
 </ul>
 <p><img alt="Kill processes" src="../_images/05.png" /></p>
-</section>
-<section id="the-illusion-of-infinite-cpu-resources">
+</div>
+<div class="section" id="the-illusion-of-infinite-cpu-resources">
 <h2>7. The illusion of infinite CPU resources<a class="headerlink" href="#the-illusion-of-infinite-cpu-resources" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>A limited number of physical CPUs can still be represented as infnite number of CPUs through
@@ -697,8 +487,8 @@ following commands:</p></li>
 <li><p>The OS will <strong>manage</strong> the scheduling and allocation of the actual run on physical resources.</p></li>
 </ul>
 <p>{: .callout}</p>
-</section>
-<section id="hands-on-memory-virtualization">
+</div>
+<div class="section" id="hands-on-memory-virtualization">
 <h2>8. Hands-on: Memory Virtualization<a class="headerlink" href="#hands-on-memory-virtualization" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> once to close one pane.</p></li>
@@ -731,8 +521,8 @@ shown in the parentheses. You should switch to the right pane for this task.</p>
 <ul class="simple">
 <li><p>Do programs running concurrently occupy the same memory locations (addresses)?</p></li>
 </ul>
-</section>
-<section id="the-illusion-of-dedicated-memory-resources">
+</div>
+<div class="section" id="the-illusion-of-dedicated-memory-resources">
 <h2>10. The illusion of dedicated memory resources<a class="headerlink" href="#the-illusion-of-dedicated-memory-resources" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Many running program share the physical memory space.</p></li>
@@ -746,8 +536,8 @@ randomize within the virtual address space of a process. This is a security mech
 prevent others from guessing and applying direct manipulation techniques to the physical
 memory location that acually contains <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p></li>
 </ul>
-</section>
-<section id="concurrency">
+</div>
+<div class="section" id="concurrency">
 <h2>11. Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>As shown in <strong>CPU Virtualization</strong> and <strong>Memory Virtualization</strong> examples, the OS
@@ -755,8 +545,8 @@ wants to manage many running programs at the same time.</p></li>
 <li><p>This is called <strong>concurrency</strong>, and it leads to a number of interesting challenges
 in designing and implementing various management mechanisms within the OS.</p></li>
 </ul>
-</section>
-<section id="hands-on-concurrency">
+</div>
+<div class="section" id="hands-on-concurrency">
 <h2>12. Hands-on: Concurrency<a class="headerlink" href="#hands-on-concurrency" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">clear</span></code> command on both panes to clear the screen.</p></li>
@@ -788,15 +578,15 @@ argument.</p></li>
 </pre></div>
 </div>
 <p><img alt="Multithreaded with errors" src="../_images/07.png" /></p>
-</section>
-<section id="observation">
+</div>
+<div class="section" id="observation">
 <h2>13. Observation<a class="headerlink" href="#observation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Naive concurrency gives you wrong results.</p></li>
 <li><p>Naive concurrency gives you wrong and inconsistent results.</p></li>
 </ul>
-</section>
-<section id="why-does-this-happen">
+</div>
+<div class="section" id="why-does-this-happen">
 <h2>14. Why does this happen?<a class="headerlink" href="#why-does-this-happen" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>At machine level, incrementing counter involves three steps:</p>
@@ -820,8 +610,8 @@ steps in and attempts to increment the stale content of counter in memory.</p></
 </ul>
 </li>
 </ul>
-</section>
-<section id="persistency">
+</div>
+<div class="section" id="persistency">
 <h2>15. Persistency<a class="headerlink" href="#persistency" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>When the programs stop, everything in memory goes away: counter, p, str.</p></li>
@@ -841,20 +631,20 @@ steps in and attempts to increment the stale content of counter in memory.</p></
 </ul>
 </li>
 </ul>
-</section>
-<section id="a-brief-history-of-operating-system-research-and-development">
+</div>
+<div class="section" id="a-brief-history-of-operating-system-research-and-development">
 <h2>16. A brief history of operating system research and development<a class="headerlink" href="#a-brief-history-of-operating-system-research-and-development" title="Permalink to this headline">#</a></h2>
 <p>A good paper to read: <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.1524&amp;rep=rep1&amp;type=pdf">Hanser, Per Brinch. “The evolution of operating systems” 2001</a></p>
-</section>
-<section id="early-operating-systems-just-libraries">
+</div>
+<div class="section" id="early-operating-systems-just-libraries">
 <h2>17. Early operating systems: just libraries<a class="headerlink" href="#early-operating-systems-just-libraries" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Include only library for commonly used functions.</p></li>
 <li><p>One program runs at a time.</p></li>
 <li><p>Manual loading of programs by human operator.</p></li>
 </ul>
-</section>
-<section id="beyond-libraries-protection">
+</div>
+<div class="section" id="beyond-libraries-protection">
 <h2>18. Beyond libraries: protection<a class="headerlink" href="#beyond-libraries-protection" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>System calls</p></li>
@@ -862,8 +652,8 @@ steps in and attempts to increment the stale content of counter in memory.</p></
 <li><p>User mode/kernel mode</p></li>
 <li><p><strong>trap</strong>: the initiation of a system call to raise privilege from user mode to kernel mode.</p></li>
 </ul>
-</section>
-<section id="the-era-of-multiprogramming">
+</div>
+<div class="section" id="the-era-of-multiprogramming">
 <h2>19. The era of multiprogramming<a class="headerlink" href="#the-era-of-multiprogramming" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Minicomputer</p></li>
@@ -871,8 +661,8 @@ steps in and attempts to increment the stale content of counter in memory.</p></
 <li><p>Memory protection</p></li>
 <li><p>Concurrency</p></li>
 </ul>
-</section>
-<section id="the-modern-era">
+</div>
+<div class="section" id="the-modern-era">
 <h2>20. The modern era<a class="headerlink" href="#the-modern-era" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Personal computer</p></li>
@@ -880,8 +670,8 @@ steps in and attempts to increment the stale content of counter in memory.</p></
 <li><p>Mac OS</p></li>
 <li><p>Multics (MIT) -&gt; UNIX (Bell Labs) -&gt; BSD (Berkeley) -&gt; Sun OS/Linux</p></li>
 </ul>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -895,7 +685,7 @@ steps in and attempts to increment the stale content of counter in memory.</p></
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./lectures"
         },
         predefinedOutput: true
@@ -903,52 +693,119 @@ steps in and attempts to increment the stale content of counter in memory.</p></
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="../index.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">CSC 331: Operating Systems</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">CSC 331: Operating Systems</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="02-process.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="02-process.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Abstraction: The process</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Linh Ngo<br/>
-  
-    <div class="extra_footer">
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
-    </div>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-when-a-computer-program-run">1. What happens when a computer program run?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-do-we-need-os">2. Why do we need OS?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-the-os-help-1">3. How do the OS help (1)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-the-os-help-2">4. How do the OS help (2)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-getting-started">5. Hands-on: Getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-cpu-virtualization">6. Hands-on: CPU Virtualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-illusion-of-infinite-cpu-resources">7. The illusion of infinite CPU resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-memory-virtualization">8. Hands-on: Memory Virtualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-illusion-of-dedicated-memory-resources">10. The illusion of dedicated memory resources</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concurrency">11. Concurrency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-concurrency">12. Hands-on: Concurrency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#observation">13. Observation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-does-this-happen">14. Why does this happen?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persistency">15. Persistency</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-brief-history-of-operating-system-research-and-development">16. A brief history of operating system research and development</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-operating-systems-just-libraries">17. Early operating systems: just libraries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#beyond-libraries-protection">18. Beyond libraries: protection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-era-of-multiprogramming">19. The era of multiprogramming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-modern-era">20. The modern era</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Linh Ngo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

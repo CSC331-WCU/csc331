@@ -1,35 +1,44 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
-    <title>Process API” &#8212; Operating Systems</title>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Process API &#8212; Operating Systems</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -37,12 +46,12 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,61 +59,93 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/03-process-api';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Limited Direct Execution”" href="04-limited-direct-execution.html" />
     <link rel="prev" title="Abstraction: The process" href="02-process.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Operating Systems</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -113,472 +154,212 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01-introduction.html">
-   Introduction to Operating Systems
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="01-introduction.html">Introduction to Operating Systems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Virtualization
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Virtualization</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="02-process.html">
-   Abstraction: The process
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Process API”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04-limited-direct-execution.html">
-   Limited Direct Execution”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05-cpu-scheduling.html">
-   CPU Scheduling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06-memory-virtualization.html">
-   Memory virtualization”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07-address-translation.html">
-   Memory virtualization mechanism: address translation”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08-paging.html">
-   Memory virtualization mechanism: paging and tlb”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="02-process.html">Abstraction: The process</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Process API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-limited-direct-execution.html">Limited Direct Execution”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-cpu-scheduling.html">CPU Scheduling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-memory-virtualization.html">Memory virtualization”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-address-translation.html">Memory virtualization mechanism: address translation”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-paging.html">Memory virtualization mechanism: paging and tlb”</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Concurrency
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Concurrency</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="09-concurrency.html">
-   Introduction to concurrency using threads”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="10-lock-condition-variables.html">
-   Lock and Condition Variables”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11-semaphores.html">
-   Semaphores”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="09-concurrency.html">Introduction to concurrency using threads”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="10-lock-condition-variables.html">Lock and Condition Variables”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-semaphores.html">Semaphores”</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Persistence
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="12-io-disk-scheduling.html">
-   I/O and Disks: Disk Scheduling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13-file-systems.html">
-   Introduction to file systems”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
-   Crash consistency: fsck and journaling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15-minix.html">
-   Micro versus monolithnic kernels: Minix and Linux”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="12-io-disk-scheduling.html">I/O and Disks: Disk Scheduling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-file-systems.html">Introduction to file systems”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-crash-consistency-fsck-journaling.html">Crash consistency: fsck and journaling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-minix.html">Micro versus monolithnic kernels: Minix and Linux”</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/03-process-api.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/lectures/03-process-api.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   1. Process API
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fork">
-   2. fork()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-getting-started">
-   3. Hands-on: Getting started
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-process-creation-using-fork">
-   4. Hands-on: process creation using fork()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-run-p1">
-   5. Hands-on: run p1
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wait-waitpid-waitid">
-   6. wait()/waitpid()/waitid()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-processes-management-using-wait">
-   7. Hands-on: processes management using wait()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-run-p2">
-   8. Hands-on: run p2
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exec">
-   9. exec()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-processes-management-using-exec">
-   10. Hands-on: processes management using exec()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-fork-wait-and-exec">
-   11. Why fork(), wait(), and exec()?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-shell">
-   12. The Shell
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   13. The Shell
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   The Shell
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#when-you-run-a-program-from-the-shell-prompt">
-   14. When you run a program from the shell prompt …
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   15. When you run a program from the shell prompt …
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-7-redirection">
-   16. Hands-on 7: redirection
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-8-more-on-file-descriptors">
-   17. Hands-on 8: more on file descriptors
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-9-piping">
-   Hands-on 9: piping
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#other-system-calls">
-   Other system calls …
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Process API”</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   1. Process API
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fork">
-   2. fork()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-getting-started">
-   3. Hands-on: Getting started
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-process-creation-using-fork">
-   4. Hands-on: process creation using fork()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-run-p1">
-   5. Hands-on: run p1
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#wait-waitpid-waitid">
-   6. wait()/waitpid()/waitid()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-processes-management-using-wait">
-   7. Hands-on: processes management using wait()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-run-p2">
-   8. Hands-on: run p2
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#exec">
-   9. exec()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-processes-management-using-exec">
-   10. Hands-on: processes management using exec()
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#why-fork-wait-and-exec">
-   11. Why fork(), wait(), and exec()?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-shell">
-   12. The Shell
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id2">
-   13. The Shell
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id3">
-   The Shell
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#when-you-run-a-program-from-the-shell-prompt">
-   14. When you run a program from the shell prompt …
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id4">
-   15. When you run a program from the shell prompt …
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-7-redirection">
-   16. Hands-on 7: redirection
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-8-more-on-file-descriptors">
-   17. Hands-on 8: more on file descriptors
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#hands-on-9-piping">
-   Hands-on 9: piping
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#other-system-calls">
-   Other system calls …
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Process API</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. Process API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fork">2. fork()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-getting-started">3. Hands-on: Getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-process-creation-using-fork">4. Hands-on: process creation using fork()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-run-p1">5. Hands-on: run p1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wait-waitpid-waitid">6. wait()/waitpid()/waitid()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-processes-management-using-wait">7. Hands-on: processes management using wait()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-run-p2">8. Hands-on: run p2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exec">9. exec()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-processes-management-using-exec">10. Hands-on: processes management using exec()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-fork-wait-and-exec">11. Why fork(), wait(), and exec()?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-shell">12. The Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">13. The Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">The Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-you-run-a-program-from-the-shell-prompt">14. When you run a program from the shell prompt …</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">15. When you run a program from the shell prompt …</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-7-redirection">16. Hands-on 7: redirection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-8-more-on-file-descriptors">17. Hands-on 8: more on file descriptors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-9-piping">Hands-on 9: piping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-system-calls">Other system calls …</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="process-api">
-<h1>Process API”<a class="headerlink" href="#process-api" title="Permalink to this headline">#</a></h1>
-<section id="id1">
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="process-api">
+<h1>Process API<a class="headerlink" href="#process-api" title="Permalink to this headline">#</a></h1>
+<div class="section" id="id1">
 <h2>1. Process API<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>Include three function calls:</p>
 <ul class="simple">
@@ -586,8 +367,8 @@ title="Print to PDF"
 <li><p>exec()</p></li>
 <li><p>wait()</p></li>
 </ul>
-</section>
-<section id="fork">
+</div>
+<div class="section" id="fork">
 <h2>2. fork()<a class="headerlink" href="#fork" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>… is a system call.</p></li>
@@ -622,21 +403,13 @@ signal-driven I/O attributes.</p></li>
 </ul>
 </li>
 </ul>
-</section>
-<section id="hands-on-getting-started">
+</div>
+<div class="section" id="hands-on-getting-started">
 <h2>3. Hands-on: Getting started<a class="headerlink" href="#hands-on-getting-started" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Open a terminal (Windows Terminal or Mac Terminal).</p></li>
-<li><p>Run the command to launch the image container for your platform:</p></li>
-<li><p>Windows:</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
-</pre></div>
-</div>
-<ul class="simple">
-<li><p>Mac:</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it linhbngo/csc-container /bin/bash
 </pre></div>
 </div>
 <ul class="simple">
@@ -648,13 +421,13 @@ $ make
 </pre></div>
 </div>
 <p><img alt="Process state transition example" src="../_images/012.png" /></p>
-</section>
-<section id="hands-on-process-creation-using-fork">
+</div>
+<div class="section" id="hands-on-process-creation-using-fork">
 <h2>4. Hands-on: process creation using fork()<a class="headerlink" href="#hands-on-process-creation-using-fork" title="Permalink to this headline">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat -n p1.c
 </pre></div>
 </div>
-<p>&lt;img src=”../fig/03-process-api/02.png” alt=”File p1.c” style=”height:500px”</p>
+<p><img alt="File p1.c" src="../_images/021.png" /></p>
 <ul class="simple">
 <li><p>Line 5-6: No idea why the author sets up the source code that way …</p></li>
 <li><p>Line 8: prints out hello world and the process identifier (pid) of the current process.</p></li>
@@ -681,16 +454,16 @@ This line is evaluated within the parent process (since the child process creati
 <li><p>Line 16 and line 19 confirms the above point by having the child process prints out its own
 process ID and the parent process prints out the <code class="docutils literal notranslate"><span class="pre">rc</span></code> value. These two values should be the same.</p></li>
 </ul>
-</section>
-<section id="hands-on-run-p1">
+</div>
+<div class="section" id="hands-on-run-p1">
 <h2>5. Hands-on: run p1<a class="headerlink" href="#hands-on-run-p1" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">p1</span></code> several times.</p></li>
 <li><p><em>What do you notice? - also see my screenshot</em></p></li>
 </ul>
-<p>&lt;img src=”../fig/03-process-api/03.png” alt=”Compile and run p1.c” style=”height:500px”</p>
-</section>
-<section id="wait-waitpid-waitid">
+<p><img alt="Compile and run p1.c" src="../_images/031.png" /></p>
+</div>
+<div class="section" id="wait-waitpid-waitid">
 <h2>6. wait()/waitpid()/waitid()<a class="headerlink" href="#wait-waitpid-waitid" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>… belongs to a family of system calls.</p></li>
@@ -709,13 +482,13 @@ process ID and the parent process prints out the <code class="docutils literal n
 </ul>
 </li>
 </ul>
-</section>
-<section id="hands-on-processes-management-using-wait">
+</div>
+<div class="section" id="hands-on-processes-management-using-wait">
 <h2>7. Hands-on: processes management using wait()<a class="headerlink" href="#hands-on-processes-management-using-wait" title="Permalink to this headline">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ cat -n p2.c
 </pre></div>
 </div>
-<p>&lt;img src=”../fig/03-process-api/04.png” alt=”File p2.c” style=”height:500px”</p>
+<p><img alt="Compile and run p1.c" src="../_images/041.png" /></p>
 <ul class="simple">
 <li><p>Line 1-4: Pay attention to the libraries included.</p></li>
 <li><p>Line 6-7: No idea why the author sets up the source code that way …</p></li>
@@ -738,30 +511,30 @@ This line is evaluated within the parent process (since the child process creati
 </ul>
 </li>
 </ul>
-</section>
-<section id="hands-on-run-p2">
+</div>
+<div class="section" id="hands-on-run-p2">
 <h2>8. Hands-on: run p2<a class="headerlink" href="#hands-on-run-p2" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Run p2 several times.</p></li>
 <li><p>What do you notice about the runs?</p></li>
 </ul>
-<p>&lt;img src=”../fig/03-process-api/05.png” alt=”Compile and run p2.c” style=”height:500px”</p>
-</section>
-<section id="exec">
+<p><img alt="Compile and run p1.c" src="../_images/051.png" /></p>
+</div>
+<div class="section" id="exec">
 <h2>9. exec()<a class="headerlink" href="#exec" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://linux.die.net/man/3/exec">Documentation for exec()</a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">fork()</span></code> lets you create and run a copy of the original process.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">exec()</span></code> lets you run a different process in place of <strong>the copy</strong> of the original process.</p></li>
 </ul>
-</section>
-<section id="hands-on-processes-management-using-exec">
+</div>
+<div class="section" id="hands-on-processes-management-using-exec">
 <h2>10. Hands-on: processes management using exec()<a class="headerlink" href="#hands-on-processes-management-using-exec" title="Permalink to this headline">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ./p3
 $ cat -n p3.c
 </pre></div>
 </div>
-<p>&lt;img src=”../fig/03-process-api/06.png” alt=”File p3.c” style=”height:700px”</p>
+<p><img alt="Compile and run p1.c" src="../_images/061.png" /></p>
 <ul class="simple">
 <li><p>Line 1-5: Pay attention to the libraries included.</p></li>
 <li><p>Line 7-8: <code class="docutils literal notranslate"><span class="pre">main</span></code></p></li>
@@ -788,16 +561,16 @@ out when <code class="docutils literal notranslate"><span class="pre">exec</span
 </ul>
 </li>
 </ul>
-</section>
-<section id="why-fork-wait-and-exec">
+</div>
+<div class="section" id="why-fork-wait-and-exec">
 <h2>11. Why fork(), wait(), and exec()?<a class="headerlink" href="#why-fork-wait-and-exec" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>The separation of <code class="docutils literal notranslate"><span class="pre">fork()</span></code> and <code class="docutils literal notranslate"><span class="pre">exec()</span></code> is essential to the building of a Linux shell.</p></li>
 <li><p>It lets the shell runs code after the call to <code class="docutils literal notranslate"><span class="pre">fork()</span></code>, but before the call to <code class="docutils literal notranslate"><span class="pre">exec()</span></code>.</p></li>
 <li><p>This facilitates a number of interesting features in the UNIX shell.</p></li>
 </ul>
-</section>
-<section id="the-shell">
+</div>
+<div class="section" id="the-shell">
 <h2>12. The Shell<a class="headerlink" href="#the-shell" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>What is the UNIX shell?.</p></li>
@@ -806,15 +579,15 @@ the user and the inner workings of the operating system. Providing a command-lin
 is, the shell prompt or command prompt), the shell is analogous to DOS and serves a purpose similar
 to graphical interfaces like Windows, Mac, and the X Window System.</p></li>
 </ul>
-</section>
-<section id="id2">
+</div>
+<div class="section" id="id2">
 <h2>13. The Shell<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>What is the UNIX shell?.</p></li>
 <li><p><strong>In Unix, the shell is a program …</strong></p></li>
 </ul>
-</section>
-<section id="id3">
+</div>
+<div class="section" id="id3">
 <h2>The Shell<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><strong>In Unix, the shell is a program …</strong></p></li>
@@ -822,8 +595,8 @@ to graphical interfaces like Windows, Mac, and the X Window System.</p></li>
 <li><p>In other words, inside a running shell, if we want to run another program, we are essentially
 <em>asking a process (the running shell) to create and run another process</em>.</p></li>
 </ul>
-</section>
-<section id="when-you-run-a-program-from-the-shell-prompt">
+</div>
+<div class="section" id="when-you-run-a-program-from-the-shell-prompt">
 <h2>14. When you run a program from the shell prompt …<a class="headerlink" href="#when-you-run-a-program-from-the-shell-prompt" title="Permalink to this headline">#</a></h2>
 <p>The shell will</p>
 <ul class="simple">
@@ -834,8 +607,8 @@ to actually load and run this program.</p></li>
 <li><p>call <code class="docutils literal notranslate"><span class="pre">wait()</span></code> to wait for the child process to finish (now with new process content) before
 giving user the <strong>shell prompt</strong> again.</p></li>
 </ul>
-</section>
-<section id="id4">
+</div>
+<div class="section" id="id4">
 <h2>15. When you run a program from the shell prompt …<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
 <p>The shell will</p>
 <ul class="simple">
@@ -846,15 +619,15 @@ to actually load and run this program.</p></li>
 <li><p>call <code class="docutils literal notranslate"><span class="pre">wait()</span></code> to wait for the child process to finish (now with new process content) before
 giving user the <strong>shell prompt</strong> again.</p></li>
 </ul>
-</section>
-<section id="hands-on-7-redirection">
+</div>
+<div class="section" id="hands-on-7-redirection">
 <h2>16. Hands-on 7: redirection<a class="headerlink" href="#hands-on-7-redirection" title="Permalink to this headline">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ wc p3.c
 $ wc p3.c newfile.txt
 $ cat newfile.txt
 </pre></div>
 </div>
-<p>&lt;img src=”../fig/03-process-api/07.png” alt=”Redirection” style=”height:250px”</p>
+<p><img alt="Compile and run p1.c" src="../_images/071.png" /></p>
 <p>The shell …</p>
 <ul class="simple">
 <li><p>finds out where <code class="docutils literal notranslate"><span class="pre">wc</span></code> is in the file system.</p></li>
@@ -869,8 +642,8 @@ standard output and replaces it with a file descriptor to newfile.txt.</p></li>
 </li>
 <li><p>calls wait() to wait for the child process to finish before giving user the prompt again.</p></li>
 </ul>
-</section>
-<section id="hands-on-8-more-on-file-descriptors">
+</div>
+<div class="section" id="hands-on-8-more-on-file-descriptors">
 <h2>17. Hands-on 8: more on file descriptors<a class="headerlink" href="#hands-on-8-more-on-file-descriptors" title="Permalink to this headline">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls
 $ ./p4
@@ -879,7 +652,7 @@ $ cat p4.output
 $ cat -n p4.c
 </pre></div>
 </div>
-<p>&lt;img src=”../fig/03-process-api/08.png” alt=”View p4.c” style=”height:700px”</p>
+<p><img alt="Compile and run p1.c" src="../_images/08.png" /></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">p4</span></code> should have printed out to terminal.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">close(STDOUT_FILENO)</span></code> closes the file descriptor that writes to the terminal
@@ -888,16 +661,16 @@ $ cat -n p4.c
 file descriptor ID for the terminal is now free, this file descriptor is assigned to p4.output.</p></li>
 <li><p>As <code class="docutils literal notranslate"><span class="pre">wc</span> <span class="pre">p4</span></code> is executed and attempts to write to terminal, it actually writes to p4.output instead.</p></li>
 </ul>
-</section>
-<section id="hands-on-9-piping">
+</div>
+<div class="section" id="hands-on-9-piping">
 <h2>Hands-on 9: piping<a class="headerlink" href="#hands-on-9-piping" title="Permalink to this headline">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ls -l
 $ ls -l | grep p
 </pre></div>
 </div>
-<p>&lt;img src=”../fig/03-process-api/09.png” alt=”Piping” style=”height:500px”</p>
-</section>
-<section id="other-system-calls">
+<p><img alt="Compile and run p1.c" src="../_images/09.png" /></p>
+</div>
+<div class="section" id="other-system-calls">
 <h2>Other system calls …<a class="headerlink" href="#other-system-calls" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">kill()</span></code>: send signals to a process, including directive to pause, die, and other imperatives.</p>
@@ -913,9 +686,8 @@ $ ls -l | grep p
 </ul>
 </li>
 </ul>
-<p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -929,7 +701,7 @@ $ ls -l | grep p
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./lectures"
         },
         predefinedOutput: true
@@ -937,52 +709,120 @@ $ ls -l | grep p
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="02-process.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Abstraction: The process</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02-process.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Abstraction: The process</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="04-limited-direct-execution.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="04-limited-direct-execution.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Limited Direct Execution”</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Linh Ngo<br/>
-  
-    <div class="extra_footer">
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
-    </div>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">1. Process API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fork">2. fork()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-getting-started">3. Hands-on: Getting started</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-process-creation-using-fork">4. Hands-on: process creation using fork()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-run-p1">5. Hands-on: run p1</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#wait-waitpid-waitid">6. wait()/waitpid()/waitid()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-processes-management-using-wait">7. Hands-on: processes management using wait()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-run-p2">8. Hands-on: run p2</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exec">9. exec()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-processes-management-using-exec">10. Hands-on: processes management using exec()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-fork-wait-and-exec">11. Why fork(), wait(), and exec()?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-shell">12. The Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">13. The Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">The Shell</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-you-run-a-program-from-the-shell-prompt">14. When you run a program from the shell prompt …</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">15. When you run a program from the shell prompt …</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-7-redirection">16. Hands-on 7: redirection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-8-more-on-file-descriptors">17. Hands-on 8: more on file descriptors</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-9-piping">Hands-on 9: piping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-system-calls">Other system calls …</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Linh Ngo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
