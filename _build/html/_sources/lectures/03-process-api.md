@@ -1,4 +1,4 @@
-# Process API"
+# Process API
 
 ## 1. Process API
 
@@ -41,17 +41,10 @@ Include three function calls:
 ## 3. Hands-on: Getting started
 
 - Open a terminal (Windows Terminal or Mac Terminal). 
-- Run the command to launch the image container for your platform:
-- Windows:
+
 
 ~~~
-$ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
-~~~
-
-- Mac:
-
-~~~
-$ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
+$ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it linhbngo/csc-container /bin/bash
 ~~~
 
 - Navigate to `/home/$USER/csc331`
@@ -71,8 +64,8 @@ $ make
 $ cat -n p1.c
 ~~~
 
+![File p1.c](../fig/03-process-api/02.png)
 
-<img src="../fig/03-process-api/02.png" alt="File p1.c" style="height:500px"
 
 - Line 5-6: No idea why the author sets up the source code that way ...
 - Line 8: prints out hello world and the process identifier (pid) of the current process.
@@ -97,7 +90,7 @@ process ID and the parent process prints out the `rc` value. These two values sh
 - Run `p1` several times. 
 - *What do you notice? - also see my screenshot*
 
-<img src="../fig/03-process-api/03.png" alt="Compile and run p1.c" style="height:500px"
+![Compile and run p1.c](../fig/03-process-api/03.png)
 
 
 
@@ -122,8 +115,8 @@ process ID and the parent process prints out the `rc` value. These two values sh
 $ cat -n p2.c
 ~~~
 
+![Compile and run p1.c](../fig/03-process-api/04.png)
 
-<img src="../fig/03-process-api/04.png" alt="File p2.c" style="height:500px"
 
 - Line 1-4: Pay attention to the libraries included. 
 - Line 6-7: No idea why the author sets up the source code that way ...
@@ -147,7 +140,8 @@ This line is evaluated within the parent process (since the child process creati
 - Run p2 several times. 
 - What do you notice about the runs?
 
-<img src="../fig/03-process-api/05.png" alt="Compile and run p2.c" style="height:500px"
+![Compile and run p1.c](../fig/03-process-api/05.png)
+
 
 
 
@@ -167,8 +161,7 @@ $ ./p3
 $ cat -n p3.c
 ~~~
 
-
-<img src="../fig/03-process-api/06.png" alt="File p3.c" style="height:700px"
+![Compile and run p1.c](../fig/03-process-api/06.png)
 
 - Line 1-5: Pay attention to the libraries included. 
 - Line 7-8: `main`
@@ -250,8 +243,8 @@ $ wc p3.c newfile.txt
 $ cat newfile.txt
 ~~~
 
+![Compile and run p1.c](../fig/03-process-api/07.png)
 
-<img src="../fig/03-process-api/07.png" alt="Redirection" style="height:250px"
 
 The shell ... 
 - finds out where `wc` is in the file system. 
@@ -274,8 +267,8 @@ $ cat p4.output
 $ cat -n p4.c
 ~~~
 
+![Compile and run p1.c](../fig/03-process-api/08.png)
 
-<img src="../fig/03-process-api/08.png" alt="View p4.c" style="height:700px"
 
 - `wc p4` should have printed out to terminal.
 - `close(STDOUT_FILENO)` closes the file descriptor that writes to the terminal 
@@ -294,8 +287,7 @@ $ ls -l
 $ ls -l | grep p
 ~~~
 
-
-<img src="../fig/03-process-api/09.png" alt="Piping" style="height:500px"
+![Compile and run p1.c](../fig/03-process-api/09.png)
 
 
 
@@ -307,7 +299,4 @@ $ ls -l | grep p
   - SIGTSTP: pause the process (can be resumed later).
 - `signal()`: to catch a signal.
   - http://man7.org/linux/man-pages/man7/signal.7.html 
-
-
-{% include links.md %}
 

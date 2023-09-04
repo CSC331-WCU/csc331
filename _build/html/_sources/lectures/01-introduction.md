@@ -33,7 +33,14 @@
 
 ## 5. Hands-on: Getting started
 
-- Connect to **molly**
+- If you are on a virtual machine (VirtualBox/VMWare/Hypervisor/WSL), launch a terminal
+- If you are on Docker Dekstop, launch a container using the following command:
+  - Password of the account is `goldenrams`
+
+~~~
+docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it linhbngo/csc-container /bin/bash
+~~~
+
 - Create a directory called **csc331** and
 - Navigate to `/home/$USER/csc331`
 - Clone the scripts [Dr. Arpaci-Dusseau's Git repo](https://github.com/remzi-arpacidusseau/ostep-code).

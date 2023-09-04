@@ -1,35 +1,44 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lock and Condition Variables” &#8212; Operating Systems</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
@@ -37,12 +46,12 @@
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,61 +59,93 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/10-lock-condition-variables';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Semaphores”" href="11-semaphores.html" />
     <link rel="prev" title="Introduction to concurrency using threads”" href="09-concurrency.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Operating Systems</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -113,400 +154,203 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Introduction
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="01-introduction.html">
-   Introduction to Operating Systems
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="01-introduction.html">Introduction to Operating Systems</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Virtualization
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Virtualization</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="02-process.html">
-   Abstraction: The process
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="03-process-api.html">
-   Process API”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="04-limited-direct-execution.html">
-   Limited Direct Execution”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="05-cpu-scheduling.html">
-   CPU Scheduling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="06-memory-virtualization.html">
-   Memory virtualization”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="07-address-translation.html">
-   Memory virtualization mechanism: address translation”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="08-paging.html">
-   Memory virtualization mechanism: paging and tlb”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="02-process.html">Abstraction: The process</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-process-api.html">Process API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-limited-direct-execution.html">Limited Direct Execution”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="05-cpu-scheduling.html">CPU Scheduling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="06-memory-virtualization.html">Memory virtualization”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="07-address-translation.html">Memory virtualization mechanism: address translation”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="08-paging.html">Memory virtualization mechanism: paging and tlb”</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Concurrency
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Concurrency</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="09-concurrency.html">
-   Introduction to concurrency using threads”
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Lock and Condition Variables”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="11-semaphores.html">
-   Semaphores”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="09-concurrency.html">Introduction to concurrency using threads”</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Lock and Condition Variables”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="11-semaphores.html">Semaphores”</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Persistence
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="12-io-disk-scheduling.html">
-   I/O and Disks: Disk Scheduling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="13-file-systems.html">
-   Introduction to file systems”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
-   Crash consistency: fsck and journaling”
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="15-minix.html">
-   Micro versus monolithnic kernels: Minix and Linux”
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="12-io-disk-scheduling.html">I/O and Disks: Disk Scheduling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-file-systems.html">Introduction to file systems”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-crash-consistency-fsck-journaling.html">Crash consistency: fsck and journaling”</a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-minix.html">Micro versus monolithnic kernels: Minix and Linux”</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lectures/10-lock-condition-variables.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
 
-          
 
 
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/lectures/10-lock-condition-variables.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#recall-the-problem-from-intro-to-os">
-   1. Recall the problem from intro-to-os
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#key-definitions">
-   3. Key definitions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lock-definition">
-   5. Lock: Definition
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-do-we-build-a-lock">
-   7. How do we build a lock?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#first-attempt-controlling-interrupts">
-   9. First attempt: controlling interrupts
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spin-lock-with-test-and-set">
-   11. Spin lock with Test-and-Set
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluating-the-basic-spin-lock">
-   13. Evaluating the basic spin lock
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-lock-based-solution">
-   15. A lock-based solution
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lock-and-conditional-variable">
-   17. Lock and conditional variable
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-producer-consumer-bounded-buffer-problem">
-   19. The producer/consumer (bounded buffer) problem
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#first-implementation">
-   21. First implementation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#first-implementation-why">
-   23. First implementation: why?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#third-implementation-finally-work">
-   25. Third implementation: finally work
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Lock and Condition Variables”</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#recall-the-problem-from-intro-to-os">
-   1. Recall the problem from intro-to-os
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#key-definitions">
-   3. Key definitions
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lock-definition">
-   5. Lock: Definition
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#how-do-we-build-a-lock">
-   7. How do we build a lock?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#first-attempt-controlling-interrupts">
-   9. First attempt: controlling interrupts
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spin-lock-with-test-and-set">
-   11. Spin lock with Test-and-Set
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#evaluating-the-basic-spin-lock">
-   13. Evaluating the basic spin lock
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#a-lock-based-solution">
-   15. A lock-based solution
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#lock-and-conditional-variable">
-   17. Lock and conditional variable
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-producer-consumer-bounded-buffer-problem">
-   19. The producer/consumer (bounded buffer) problem
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#first-implementation">
-   21. First implementation
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#first-implementation-why">
-   23. First implementation: why?
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#third-implementation-finally-work">
-   25. Third implementation: finally work
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Lock and Condition Variables”</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-the-problem-from-intro-to-os">1. Recall the problem from intro-to-os</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-definitions">3. Key definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-definition">5. Lock: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-build-a-lock">7. How do we build a lock?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-attempt-controlling-interrupts">9. First attempt: controlling interrupts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-lock-with-test-and-set">11. Spin lock with Test-and-Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-basic-spin-lock">13. Evaluating the basic spin lock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-lock-based-solution">15. A lock-based solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-and-conditional-variable">17. Lock and conditional variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-producer-consumer-bounded-buffer-problem">19. The producer/consumer (bounded buffer) problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation">21. First implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation-why">23. First implementation: why?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#third-implementation-finally-work">25. Third implementation: finally work</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
-  <section class="tex2jax_ignore mathjax_ignore" id="lock-and-condition-variables">
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="tex2jax_ignore mathjax_ignore section" id="lock-and-condition-variables">
 <h1>Lock and Condition Variables”<a class="headerlink" href="#lock-and-condition-variables" title="Permalink to this headline">#</a></h1>
 <p>teaching: 0
 exercises: 0
@@ -518,7 +362,7 @@ objectives:</p></li>
 keypoints:</p></li>
 <li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
 </ul>
-<section id="recall-the-problem-from-intro-to-os">
+<div class="section" id="recall-the-problem-from-intro-to-os">
 <h2>1. Recall the problem from intro-to-os<a class="headerlink" href="#recall-the-problem-from-intro-to-os" title="Permalink to this headline">#</a></h2>
 <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=threads.c"></script>
 <img src="../fig/lock/01.png" alt="thread problem" style="height:600px">
@@ -537,7 +381,7 @@ that we can reason about program behavior, in a sane way</p>
 </ul>
 </li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 2. What is shared/not shared in a multithreaded program?</span>
@@ -546,7 +390,7 @@ that we can reason about program behavior, in a sane way</p>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="key-definitions">
+<div class="section" id="key-definitions">
 <h2>3. Key definitions<a class="headerlink" href="#key-definitions" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>A <strong>critical section</strong> (CS) is a segment of code that accesses a shared resource,
@@ -560,7 +404,7 @@ is thus not deterministic.</p></li>
 Doing so guarantees that only a single thread ever enters a critical section, thus
 avoiding races and resulting in deterministic program outputs.</p></li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 
@@ -576,7 +420,7 @@ avoiding races and resulting in deterministic program outputs.</p></li>
 &gt;
 </pre></div>
 </div>
-<section id="lock-definition">
+<div class="section" id="lock-definition">
 <h2>5. Lock: Definition<a class="headerlink" href="#lock-definition" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Atomic</span> <span class="pre">instruction</span></code>: A machine instruction that can be executed in a single clock cycle.</p></li>
@@ -603,7 +447,7 @@ critical section.</p></li>
 </ul>
 </li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 6. Semantic of locking: lock() and unlock()
@@ -619,14 +463,14 @@ critical section.</p></li>
 &gt; - Lock in `pthread`: https://linux.die.net/man/3/pthread_mutex_lock 
 </pre></div>
 </div>
-<section id="how-do-we-build-a-lock">
+<div class="section" id="how-do-we-build-a-lock">
 <h2>7. How do we build a lock?<a class="headerlink" href="#how-do-we-build-a-lock" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>How do we build an efficient lock?</p></li>
 <li><p>What hardware support is needed?</p></li>
 <li><p>What OS support is needed?</p></li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 8. Criteria of a good lock</span>
@@ -636,7 +480,7 @@ critical section.</p></li>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">Performance</span>
 </pre></div>
 </div>
-<section id="first-attempt-controlling-interrupts">
+<div class="section" id="first-attempt-controlling-interrupts">
 <h2>9. First attempt: controlling interrupts<a class="headerlink" href="#first-attempt-controlling-interrupts" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>One of the earliest solutions for single processor systems.</p>
@@ -662,7 +506,7 @@ critical section via different computing core).</p></li>
 </ul>
 </li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 10. We need CPU hardware support</span>
@@ -676,7 +520,7 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;spin lock&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="spin-lock-with-test-and-set">
+<div class="section" id="spin-lock-with-test-and-set">
 <h2>11. Spin lock with Test-and-Set<a class="headerlink" href="#spin-lock-with-test-and-set" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Hardware support for locking begins in early 1960.</p></li>
@@ -684,7 +528,7 @@ critical section via different computing core).</p></li>
 </ul>
 <img src="../fig/lock/04.png" alt="test and set" style="height:100px">
 <img src="../fig/lock/05.png" alt="test and set" style="height:400px">
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 12. Spin lock with Test-and-Set: how does it work?</span>
@@ -701,7 +545,7 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/06.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;test and set&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="evaluating-the-basic-spin-lock">
+<div class="section" id="evaluating-the-basic-spin-lock">
 <h2>13. Evaluating the basic spin lock<a class="headerlink" href="#evaluating-the-basic-spin-lock" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Correctness: Yes</p></li>
@@ -712,7 +556,7 @@ critical section via different computing core).</p></li>
 </ul>
 </li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 14. Scenario: one thread waiting on another</span>
@@ -720,14 +564,14 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/07.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;one thread waiting on another&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="a-lock-based-solution">
+<div class="section" id="a-lock-based-solution">
 <h2>15. A lock-based solution<a class="headerlink" href="#a-lock-based-solution" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>How to implement a lock-based solution?</p></li>
 <li><p>What is the issue?</p></li>
 </ul>
 <img src="../fig/lock/08.png" alt="lock-based solution" style="height:350px">
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 16. How to wait for a condition?</span>
@@ -742,10 +586,10 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="lock-and-conditional-variable">
+<div class="section" id="lock-and-conditional-variable">
 <h2>17. Lock and conditional variable<a class="headerlink" href="#lock-and-conditional-variable" title="Permalink to this headline">#</a></h2>
 <img src="../fig/lock/09.png" alt="lock and cv" style="height:500px">
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 18. Do we really need both?
@@ -757,7 +601,7 @@ critical section via different computing core).</p></li>
 &gt;
 </pre></div>
 </div>
-<section id="the-producer-consumer-bounded-buffer-problem">
+<div class="section" id="the-producer-consumer-bounded-buffer-problem">
 <h2>19. The producer/consumer (bounded buffer) problem<a class="headerlink" href="#the-producer-consumer-bounded-buffer-problem" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Proposed in 1972 by Edsger W. Dijkstra</p></li>
@@ -783,7 +627,7 @@ in some way.</p></li>
 </ul>
 </li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 20. Vanilla: not thread-safe</span>
@@ -792,7 +636,7 @@ in some way.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="first-implementation">
+<div class="section" id="first-implementation">
 <h2>21. First implementation<a class="headerlink" href="#first-implementation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Start with 1 CV and 1 lock.</p></li>
@@ -800,7 +644,7 @@ in some way.</p></li>
 <li><p>What happens if we have more consumers?</p></li>
 </ul>
 <img src="../fig/lock/12.png" alt="producer and consumer" style="height:550px">
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 22. First implementation: broken</span>
@@ -809,7 +653,7 @@ in some way.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="first-implementation-why">
+<div class="section" id="first-implementation-why">
 <h2>23. First implementation: why?<a class="headerlink" href="#first-implementation-why" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>After the producer wakes  a consumer, the state of bound buffer
@@ -831,7 +675,7 @@ being woken.</p></li>
 </ul>
 </li>
 </ul>
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 24. Second implementation: slightly less broken</span>
@@ -840,7 +684,7 @@ being woken.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<section id="third-implementation-finally-work">
+<div class="section" id="third-implementation-finally-work">
 <h2>25. Third implementation: finally work<a class="headerlink" href="#third-implementation-finally-work" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Consumer only wake producer and vice versa</p></li>
@@ -848,7 +692,7 @@ being woken.</p></li>
 <li><p>Not yet generalized.</p></li>
 </ul>
 <img src="../fig/lock/15.png" alt="producer and consumer" style="height:450px">
-</section>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 26. A generalized solution</span>
@@ -858,7 +702,7 @@ being woken.</p></li>
 </pre></div>
 </div>
 <p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
-</section>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -872,7 +716,7 @@ being woken.</p></li>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./lectures"
         },
         predefinedOutput: true
@@ -880,52 +724,113 @@ being woken.</p></li>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="09-concurrency.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Introduction to concurrency using threads”</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="09-concurrency.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Introduction to concurrency using threads”</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="11-semaphores.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="11-semaphores.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Semaphores”</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Linh Ngo<br/>
-  
-    <div class="extra_footer">
-      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
-    </div>
-</p>
-        </footer>
-    </div>
-    
-</div>
-
-
       </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-the-problem-from-intro-to-os">1. Recall the problem from intro-to-os</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-definitions">3. Key definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-definition">5. Lock: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-build-a-lock">7. How do we build a lock?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-attempt-controlling-interrupts">9. First attempt: controlling interrupts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-lock-with-test-and-set">11. Spin lock with Test-and-Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-basic-spin-lock">13. Evaluating the basic spin lock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-lock-based-solution">15. A lock-based solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-and-conditional-variable">17. Lock and conditional variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-producer-consumer-bounded-buffer-problem">19. The producer/consumer (bounded buffer) problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation">21. First implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation-why">23. First implementation: why?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#third-implementation-finally-work">25. Third implementation: finally work</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Linh Ngo
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+<div class="extra_footer">
+  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+</div>
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
