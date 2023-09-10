@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Introduction to file systems” &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Crash consistency: fsck and journaling”" href="14-crash-consistency-fsck-journaling.html" />
     <link rel="prev" title="I/O and Disks: Disk Scheduling”" href="12-io-disk-scheduling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -345,8 +347,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-file-systems">
-<h1>Introduction to file systems”<a class="headerlink" href="#introduction-to-file-systems" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-file-systems">
+<h1>Introduction to file systems”<a class="headerlink" href="#introduction-to-file-systems" title="Permalink to this heading">#</a></h1>
 <p>teaching: 0
 exercises: 0
 questions:</p>
@@ -358,8 +360,8 @@ objectives:</p></li>
 keypoints:</p></li>
 <li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
 </ul>
-<div class="section" id="file-systems">
-<h2>1. File systems<a class="headerlink" href="#file-systems" title="Permalink to this headline">#</a></h2>
+<section id="file-systems">
+<h2>1. File systems<a class="headerlink" href="#file-systems" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Provide long-term information storage</p></li>
 <li><p>Challenges:</p>
@@ -379,7 +381,7 @@ keypoints:</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 2. Files and directories
@@ -392,8 +394,8 @@ keypoints:</p></li>
 &gt; which can be accessed using some easy-to-use APIs (ls, rm, cp …).
 </pre></div>
 </div>
-<div class="section" id="abstraction-files-and-directories">
-<h2>3. Abstraction: files and directories<a class="headerlink" href="#abstraction-files-and-directories" title="Permalink to this headline">#</a></h2>
+<section id="abstraction-files-and-directories">
+<h2>3. Abstraction: files and directories<a class="headerlink" href="#abstraction-files-and-directories" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>File: a linear array of bytes, each of which you can read and write.</p></li>
 <li><p>A file has some high-level, user-readable name, e.g., <code class="docutils literal notranslate"><span class="pre">interceptor.c</span></code>.</p>
@@ -410,7 +412,7 @@ keypoints:</p></li>
 or video, it just makes sure to store all bytes in a file <strong>persistently</strong>.</p></li>
 </ul>
 <img src="../fig/file-system/01.png" alt="files and inodes" style="height:200px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 4. Abstraction: files and directories
@@ -425,8 +427,8 @@ or video, it just makes sure to store all bytes in a file <strong>persistently</
 &gt; &lt;img src=&quot;../fig/file-system/02.png&quot; alt=&quot;files and directories&quot; style=&quot;height:350px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="file-operations-create">
-<h2>5. File operations: create<a class="headerlink" href="#file-operations-create" title="Permalink to this headline">#</a></h2>
+<section id="file-operations-create">
+<h2>5. File operations: create<a class="headerlink" href="#file-operations-create" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><strong>create</strong>: <code class="docutils literal notranslate"><span class="pre">int</span> <span class="pre">fd</span> <span class="pre">=</span> <span class="pre">open(“foo”,</span> <span class="pre">O_CREAT</span> <span class="pre">|</span> <span class="pre">O_WRONLY</span> <span class="pre">|</span> <span class="pre">O_TRUNC,</span> <span class="pre">S_IRUSR</span> <span class="pre">|</span> <span class="pre">S_IWUSR)</span></code></p>
 <ul>
@@ -462,7 +464,7 @@ is an error.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 6. Hands on: file operations
@@ -503,8 +505,8 @@ is an error.</p></li>
 &gt; 
 </pre></div>
 </div>
-<div class="section" id="non-sequential-read-write-lseek">
-<h2>7. Non-sequential read/write: lseek<a class="headerlink" href="#non-sequential-read-write-lseek" title="Permalink to this headline">#</a></h2>
+<section id="non-sequential-read-write-lseek">
+<h2>7. Non-sequential read/write: lseek<a class="headerlink" href="#non-sequential-read-write-lseek" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">read()</span></code> and <code class="docutils literal notranslate"><span class="pre">write()</span></code> only do sequential read/write, there is no way to specify a
 particular read/write position (offset).</p></li>
@@ -530,7 +532,7 @@ offset according to how many bytes are read/written</p>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 8. Implementations of file systems
@@ -549,14 +551,14 @@ offset according to how many bytes are read/written</p>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="how-to-implement-a-simple-file-system">
-<h2>9. How to implement a simple file system?<a class="headerlink" href="#how-to-implement-a-simple-file-system" title="Permalink to this headline">#</a></h2>
+<section id="how-to-implement-a-simple-file-system">
+<h2>9. How to implement a simple file system?<a class="headerlink" href="#how-to-implement-a-simple-file-system" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>What structures are needed on the disk?</p></li>
 <li><p>What do they need to track?</p></li>
 <li><p>How are they accessed?</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 10. Mental model of a file system
 &gt;
@@ -624,13 +626,13 @@ offset according to how many bytes are read/written</p>
 &gt; ```
 </pre></div>
 </div>
-<div class="section" id="example-implementations">
-<h2>11. Example implementations<a class="headerlink" href="#example-implementations" title="Permalink to this headline">#</a></h2>
+<section id="example-implementations">
+<h2>11. Example implementations<a class="headerlink" href="#example-implementations" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/mit-pdos/xv6-public/blob/master/fs.h">xv6 file system</a></p></li>
 <li><p><a class="reference external" href="https://github.com/torvalds/linux/blob/master/fs/ext2/ext2.h">Linux ext2</a></p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 12. Example: reading a file with inode number 32
@@ -646,8 +648,8 @@ offset according to how many bytes are read/written</p>
 &gt; 
 </pre></div>
 </div>
-<div class="section" id="data-structure-the-inode">
-<h2>13. Data structure: the inode<a class="headerlink" href="#data-structure-the-inode" title="Permalink to this headline">#</a></h2>
+<section id="data-structure-the-inode">
+<h2>13. Data structure: the inode<a class="headerlink" href="#data-structure-the-inode" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Short for index node</p></li>
 <li><p>In <code class="docutils literal notranslate"><span class="pre">vsfs</span></code> (and other simple file systems), given an <code class="docutils literal notranslate"><span class="pre">i-number</span></code>, you should directly be able
@@ -659,7 +661,7 @@ to calculate where on the disk the corresponding inode is located.</p>
 </li>
 </ul>
 <img src="../fig/file-system/10.png" alt="allocation structure" style="height:200px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 14. Multi-level index with indirect pointers
@@ -689,8 +691,8 @@ to calculate where on the disk the corresponding inode is located.</p>
 &gt; &lt;img src=&quot;../fig/file-system/12.png&quot; alt=&quot;file system metadata study&quot; style=&quot;height:300px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="another-approach-extent-based">
-<h2>15. Another approach: extent-based<a class="headerlink" href="#another-approach-extent-based" title="Permalink to this headline">#</a></h2>
+<section id="another-approach-extent-based">
+<h2>15. Another approach: extent-based<a class="headerlink" href="#another-approach-extent-based" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>An extent is a disk pointer plus a length (in blocks), i.e., it allocates a
 few blocks in a row.</p></li>
@@ -700,7 +702,7 @@ every several blocks (every extent).</p></li>
 per file, and file allocation is more compact.</p></li>
 <li><p>Adopted by ext4, HFS+, NTFS, XFS.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 
@@ -716,7 +718,7 @@ per file, and file allocation is more compact.</p></li>
 </pre></div>
 </div>
 <p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {

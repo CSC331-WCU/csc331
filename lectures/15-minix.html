@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Micro versus monolithnic kernels: Minix and Linux” &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -64,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Crash consistency: fsck and journaling”" href="14-crash-consistency-fsck-journaling.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -341,8 +343,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="micro-versus-monolithnic-kernels-minix-and-linux">
-<h1>Micro versus monolithnic kernels: Minix and Linux”<a class="headerlink" href="#micro-versus-monolithnic-kernels-minix-and-linux" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="micro-versus-monolithnic-kernels-minix-and-linux">
+<h1>Micro versus monolithnic kernels: Minix and Linux”<a class="headerlink" href="#micro-versus-monolithnic-kernels-minix-and-linux" title="Permalink to this heading">#</a></h1>
 <p>teaching: 0
 exercises: 0
 questions:</p>
@@ -353,8 +355,8 @@ objectives:</p></li>
 keypoints:</p></li>
 <li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
 </ul>
-<div class="section" id="minix-what-is-it">
-<h2>1. MINIX: what is it?<a class="headerlink" href="#minix-what-is-it" title="Permalink to this headline">#</a></h2>
+<section id="minix-what-is-it">
+<h2>1. MINIX: what is it?<a class="headerlink" href="#minix-what-is-it" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Developed by Dr. Andrew Tanenbaum in 1984.</p></li>
 <li><p>UNIX-compatible operating systems for students</p></li>
@@ -372,7 +374,7 @@ keypoints:</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 2. MINIX: architecture
@@ -401,8 +403,8 @@ keypoints:</p></li>
 &gt; &lt;img src=&quot;../fig/minix/01.png&quot; alt=&quot;MINIX&quot; style=&quot;height:400px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="minix-pros-and-cons">
-<h2>2. MINIX: pros and cons<a class="headerlink" href="#minix-pros-and-cons" title="Permalink to this headline">#</a></h2>
+<section id="minix-pros-and-cons">
+<h2>2. MINIX: pros and cons<a class="headerlink" href="#minix-pros-and-cons" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Advantages</p>
 <ul>
@@ -439,7 +441,7 @@ performance of the system.</p></li>
 </li>
 </ul>
 <img src="../fig/minix/01.png" alt="MINIX" style="height:400px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 3. Linux vs MINIX: the flame war of 1992
@@ -457,8 +459,8 @@ performance of the system.</p></li>
 &gt; - Linus Torvald (LT)
 </pre></div>
 </div>
-<div class="section" id="at">
-<h2>AT<a class="headerlink" href="#at" title="Permalink to this headline">#</a></h2>
+<section id="at">
+<h2>AT<a class="headerlink" href="#at" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Most older operating systems are monolithic, that is, the whole operating system
 is a single a.out file that runs in ‘kernel mode’ (UNIX, MS-DOS, VMS, MVS, OS/360,
@@ -477,7 +479,7 @@ MINIX was designed to be reasonably portable, and has been ported from the Intel
 to the 680x0 (Atari, Amiga, Macintosh), SPARC, and NS32016. LINUX is tied fairly
 closely to the 80x86.  Not the way to go.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## LT</span>
@@ -502,8 +504,8 @@ closely to the 80x86.  Not the way to go.</p></li>
 <span class="o">&gt;</span> 
 </pre></div>
 </div>
-<div class="section" id="id1">
-<h2>AT<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<section id="id1">
+<h2>AT<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A multithreaded file system is only a performance hack.  When there is only one
 job active, the normal case on a small PC, it buys you nothing and adds complexity to
@@ -524,7 +526,7 @@ When OS/360 was written in assembler for the IBM 360 25 years ago, they probably
 be excused.  When MS-DOS was written specifically for the 8088 ten years ago, this was
 less than brilliant, as IBM and Microsoft now only too painfully realize.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## LT
@@ -551,8 +553,8 @@ less than brilliant, as IBM and Microsoft now only too painfully realize.</p></l
 &gt; 
 </pre></div>
 </div>
-<div class="section" id="the-bigger-picture">
-<h2>The bigger picture<a class="headerlink" href="#the-bigger-picture" title="Permalink to this headline">#</a></h2>
+<section id="the-bigger-picture">
+<h2>The bigger picture<a class="headerlink" href="#the-bigger-picture" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>“The way the world was thinking about OS design at the time”.</p></li>
 <li><p>“UNIX: A history and memoir” by Brian Kernighan.</p>
@@ -569,7 +571,7 @@ resources available at that time.”</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 
@@ -578,7 +580,7 @@ resources available at that time.”</p></li>
 
 </pre></div>
 </div>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {

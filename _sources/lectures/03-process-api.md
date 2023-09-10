@@ -239,7 +239,7 @@ giving user the **shell prompt** again.
 
 ~~~
 $ wc p3.c
-$ wc p3.c newfile.txt
+$ wc p3.c > newfile.txt
 $ cat newfile.txt
 ~~~
 

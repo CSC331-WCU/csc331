@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Abstraction: The process &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Process API" href="03-process-api.html" />
     <link rel="prev" title="Introduction to Operating Systems" href="01-introduction.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -348,18 +350,18 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="abstraction-the-process">
-<h1>Abstraction: The process<a class="headerlink" href="#abstraction-the-process" title="Permalink to this headline">#</a></h1>
-<div class="section" id="what-is-a-program">
-<h2>1. What is a program?<a class="headerlink" href="#what-is-a-program" title="Permalink to this headline">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="abstraction-the-process">
+<h1>Abstraction: The process<a class="headerlink" href="#abstraction-the-process" title="Permalink to this heading">#</a></h1>
+<section id="what-is-a-program">
+<h2>1. What is a program?<a class="headerlink" href="#what-is-a-program" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A program is a static list of intsructions and data.</p></li>
 <li><p>When a program runs, the OS takes this list and asks the CPU to execute them.</p></li>
 <li><p>If we only have one CPU, how can we run more than one program at a time.</p></li>
 </ul>
-</div>
-<div class="section" id="what-is-a-process">
-<h2>2. What is a process?<a class="headerlink" href="#what-is-a-process" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="what-is-a-process">
+<h2>2. What is a process?<a class="headerlink" href="#what-is-a-process" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A process is a <strong>running program</strong>.</p></li>
 <li><p>But the program itself is not running …</p>
@@ -378,9 +380,9 @@ document.write(`
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="process-api">
-<h2>3. Process API<a class="headerlink" href="#process-api" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="process-api">
+<h2>3. Process API<a class="headerlink" href="#process-api" title="Permalink to this heading">#</a></h2>
 <p>The operating system provides an API to help managing processes. Minimally, the followings
 are provided:</p>
 <ul class="simple">
@@ -397,9 +399,9 @@ are provided:</p>
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="process-creation">
-<h2>4. Process creation<a class="headerlink" href="#process-creation" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="process-creation">
+<h2>4. Process creation<a class="headerlink" href="#process-creation" title="Permalink to this heading">#</a></h2>
 <p>When a program is run, the OS performs the following steps:</p>
 <ul class="simple">
 <li><p>Load a program’s code and static data into memory (the virtual address space
@@ -416,13 +418,13 @@ of the process).</p></li>
 </li>
 <li><p>Begin executing from <strong>main()</strong>.</p></li>
 </ul>
-</div>
-<div class="section" id="loading-from-program-to-process">
-<h2>5. Loading: from program to process<a class="headerlink" href="#loading-from-program-to-process" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="loading-from-program-to-process">
+<h2>5. Loading: from program to process<a class="headerlink" href="#loading-from-program-to-process" title="Permalink to this heading">#</a></h2>
 <p><img alt="Process creation" src="../_images/011.png" /></p>
-</div>
-<div class="section" id="process-states">
-<h2>Process states<a class="headerlink" href="#process-states" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="process-states">
+<h2>Process states<a class="headerlink" href="#process-states" title="Permalink to this heading">#</a></h2>
 <p>A process can be in one of the three states.</p>
 <ul class="simple">
 <li><p>Running: the CPU is executing a process’ instructions.</p></li>
@@ -431,13 +433,13 @@ the process at the moment.</p></li>
 <li><p>Blocked: the process has to perform some operation (e.g., I/O request
 to disk) that makes it not ready to run.</p></li>
 </ul>
-</div>
-<div class="section" id="process-state-transition">
-<h2>Process: state transition<a class="headerlink" href="#process-state-transition" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="process-state-transition">
+<h2>Process: state transition<a class="headerlink" href="#process-state-transition" title="Permalink to this heading">#</a></h2>
 <p><img alt="Process state transition" src="../_images/02.png" /></p>
-</div>
-<div class="section" id="id1">
-<h2>Process: state transition<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="id1">
+<h2>Process: state transition<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>When a process moves from <strong>ready</strong> to <strong>running</strong>, this means
 that it has been <strong>scheduled</strong> by the OS.</p></li>
@@ -449,9 +451,9 @@ Upon receiving the I/O completion signal, the OS moves the process’ state
 from <strong>blocked</strong> to <strong>ready</strong>, to wait to be scheduled by the OS.</p></li>
 </ul>
 <p><img alt="Process state transition example" src="../_images/03.png" /></p>
-</div>
-<div class="section" id="process-data-structure">
-<h2>Process: data structure<a class="headerlink" href="#process-data-structure" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="process-data-structure">
+<h2>Process: data structure<a class="headerlink" href="#process-data-structure" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The OS is a program, and will data structures to track different pieces of information.
 that it has been <strong>scheduled</strong> by the OS.</p></li>
@@ -464,24 +466,24 @@ from <strong>blocked</strong> to <strong>ready</strong>, to wait to be scheduled
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="example-xv6">
-<h2>Example: xv6<a class="headerlink" href="#example-xv6" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="example-xv6">
+<h2>Example: xv6<a class="headerlink" href="#example-xv6" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Educational OS developed and maintained by MIT since 2006.</p></li>
 <li><p><a class="reference external" href="https://github.com/mit-pdos/xv6-public">xv6 Git repository</a></p></li>
 <li><p>[Register contexts and status definition for a process][xv6_process]</p></li>
 </ul>
-</div>
-<div class="section" id="example-linux">
-<h2>Example: Linux<a class="headerlink" href="#example-linux" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="example-linux">
+<h2>Example: Linux<a class="headerlink" href="#example-linux" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>[Task struct in Linux][linux_task_struct]: Lines 631-1329</p></li>
 <li><p>[Register contexts defined for each process][linux_x86_tss]: Line 267-312</p></li>
 <li><p>[x86 CPU architecture model][<a class="reference external" href="https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture">https://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture</a>]</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

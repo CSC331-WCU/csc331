@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>I/O and Disks: Disk Scheduling” &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Introduction to file systems”" href="13-file-systems.html" />
     <link rel="prev" title="Semaphores”" href="11-semaphores.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -344,8 +346,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="i-o-and-disks-disk-scheduling">
-<h1>I/O and Disks: Disk Scheduling”<a class="headerlink" href="#i-o-and-disks-disk-scheduling" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="i-o-and-disks-disk-scheduling">
+<h1>I/O and Disks: Disk Scheduling”<a class="headerlink" href="#i-o-and-disks-disk-scheduling" title="Permalink to this heading">#</a></h1>
 <p>teaching: 0
 exercises: 0
 questions:</p>
@@ -356,8 +358,8 @@ objectives:</p></li>
 keypoints:</p></li>
 <li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
 </ul>
-<div class="section" id="input-output-devices">
-<h2>1. Input/Output devices<a class="headerlink" href="#input-output-devices" title="Permalink to this headline">#</a></h2>
+<section id="input-output-devices">
+<h2>1. Input/Output devices<a class="headerlink" href="#input-output-devices" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Critical to computer systems</p>
 <ul>
@@ -369,7 +371,7 @@ keypoints:</p></li>
 <li><p>What are the general mechanisms?</p></li>
 <li><p>How can we make them efficient?</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 2. Classical system architecture</span>
@@ -380,13 +382,13 @@ keypoints:</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;classical system&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:400px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="modern-system-architecture">
-<h2>3. Modern system architecture<a class="headerlink" href="#modern-system-architecture" title="Permalink to this headline">#</a></h2>
+<section id="modern-system-architecture">
+<h2>3. Modern system architecture<a class="headerlink" href="#modern-system-architecture" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Specialized chipsets and faster point-to-point interconnects.</p></li>
 </ul>
 <img src="../fig/io/02.png" alt="modern system" style="height:400px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 4. Canonical device</span>
@@ -403,8 +405,8 @@ keypoints:</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;canonical device&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:150px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="a-simple-canonical-protocol">
-<h2>5. A simple canonical protocol<a class="headerlink" href="#a-simple-canonical-protocol" title="Permalink to this headline">#</a></h2>
+<section id="a-simple-canonical-protocol">
+<h2>5. A simple canonical protocol<a class="headerlink" href="#a-simple-canonical-protocol" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Repeatedly read the register for READY status.</p></li>
 <li><p>Send data to register (Programmed I/O - PIO).</p></li>
@@ -413,7 +415,7 @@ keypoints:</p></li>
 <li><p>What is a problem with this approach?</p></li>
 </ul>
 <img src="../fig/io/04.png" alt="canonical device" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 6. Hardware interrupts</span>
@@ -430,8 +432,8 @@ keypoints:</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/05.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;canonical device&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:200px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="programmed-i-o-overheads">
-<h2>7. Programmed I/O overheads<a class="headerlink" href="#programmed-i-o-overheads" title="Permalink to this headline">#</a></h2>
+<section id="programmed-i-o-overheads">
+<h2>7. Programmed I/O overheads<a class="headerlink" href="#programmed-i-o-overheads" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Programmed I/O: I/O instructions that move data from storage into register
 for computation purposed. This requires the CPU’s involvement in every transactions.</p></li>
@@ -459,7 +461,7 @@ for computation purposed. This requires the CPU’s involvement in every transac
 <li><p>Copying of data is handled by DMA controller.</p></li>
 </ul>
 <img src="../fig/io/06.png" alt="canonical device" style="height:200px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 8. Method of device interaction</span>
@@ -473,8 +475,8 @@ for computation purposed. This requires the CPU’s involvement in every transac
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">No</span> <span class="n">clear</span> <span class="n">advantages</span> <span class="n">on</span> <span class="n">either</span> <span class="n">method</span>
 </pre></div>
 </div>
-<div class="section" id="device-driver">
-<h2>9. Device driver<a class="headerlink" href="#device-driver" title="Permalink to this headline">#</a></h2>
+<section id="device-driver">
+<h2>9. Device driver<a class="headerlink" href="#device-driver" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>How to fit various I/O devices with different interfaces into the OS
 (which is supposed to be generic)?</p></li>
@@ -489,7 +491,7 @@ for computation purposed. This requires the CPU’s involvement in every transac
 </li>
 </ul>
 <img src="../fig/io/07.png" alt="device driver" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 10. Disk Drive</span>
@@ -503,8 +505,8 @@ for computation purposed. This requires the CPU’s involvement in every transac
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/io/08.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;physical structure of hard drive&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:700px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="seek-rotation-transfer">
-<h2>11. Seek, rotation, transfer<a class="headerlink" href="#seek-rotation-transfer" title="Permalink to this headline">#</a></h2>
+<section id="seek-rotation-transfer">
+<h2>11. Seek, rotation, transfer<a class="headerlink" href="#seek-rotation-transfer" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Seek: move the disk arm to the correct cylinder</p>
 <ul>
@@ -529,7 +531,7 @@ electronics, or the other way around</p>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 12. Disk scheduling</span>
@@ -539,8 +541,8 @@ electronics, or the other way around</p>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">We</span> <span class="n">want</span> <span class="n">to</span> <span class="n">minimize</span> <span class="n">seeking</span>
 </pre></div>
 </div>
-<div class="section" id="disk-scheduling-algorithms">
-<h2>13. Disk scheduling algorithms<a class="headerlink" href="#disk-scheduling-algorithms" title="Permalink to this headline">#</a></h2>
+<section id="disk-scheduling-algorithms">
+<h2>13. Disk scheduling algorithms<a class="headerlink" href="#disk-scheduling-algorithms" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>FCFS (do nothing)</p>
 <ul>
@@ -595,14 +597,14 @@ instead of going full width of the disk.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
 
 </pre></div>
 </div>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {

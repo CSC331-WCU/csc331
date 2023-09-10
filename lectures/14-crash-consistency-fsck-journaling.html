@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Crash consistency: fsck and journaling” &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Micro versus monolithnic kernels: Minix and Linux”" href="15-minix.html" />
     <link rel="prev" title="Introduction to file systems”" href="13-file-systems.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -349,8 +351,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="crash-consistency-fsck-and-journaling">
-<h1>Crash consistency: fsck and journaling”<a class="headerlink" href="#crash-consistency-fsck-and-journaling" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="crash-consistency-fsck-and-journaling">
+<h1>Crash consistency: fsck and journaling”<a class="headerlink" href="#crash-consistency-fsck-and-journaling" title="Permalink to this heading">#</a></h1>
 <p>teaching: 0
 exercises: 0
 questions:</p>
@@ -361,8 +363,8 @@ objectives:</p></li>
 keypoints:</p></li>
 <li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
 </ul>
-<div class="section" id="persistence">
-<h2>1. Persistence<a class="headerlink" href="#persistence" title="Permalink to this headline">#</a></h2>
+<section id="persistence">
+<h2>1. Persistence<a class="headerlink" href="#persistence" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Data persists after the computer is powered off</p>
 <ul>
@@ -377,7 +379,7 @@ we guarantee that data on disk are still consistent?</p>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 2. A crash scenario</span>
 <span class="o">&gt;</span> 
@@ -388,8 +390,8 @@ we guarantee that data on disk are still consistent?</p>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/fsck/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;a crash scenario&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="if-the-computer-crashed-during-write">
-<h2>3. If the computer crashed during write<a class="headerlink" href="#if-the-computer-crashed-during-write" title="Permalink to this headline">#</a></h2>
+<section id="if-the-computer-crashed-during-write">
+<h2>3. If the computer crashed during write<a class="headerlink" href="#if-the-computer-crashed-during-write" title="Permalink to this heading">#</a></h2>
 <p>What are all the possible inconsistent states that the FS can be in after the crash?</p>
 <ul class="simple">
 <li><p>Only one thing updated</p>
@@ -408,7 +410,7 @@ we guarantee that data on disk are still consistent?</p>
 </li>
 </ul>
 <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 4. Case 1: only the data block is updated</span>
@@ -421,8 +423,8 @@ we guarantee that data on disk are still consistent?</p>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/fsck/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;a crash scenario&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="case-2-only-the-inode-is-updated">
-<h2>5. Case 2: only the inode is updated<a class="headerlink" href="#case-2-only-the-inode-is-updated" title="Permalink to this headline">#</a></h2>
+<section id="case-2-only-the-inode-is-updated">
+<h2>5. Case 2: only the inode is updated<a class="headerlink" href="#case-2-only-the-inode-is-updated" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">inode</span></code> has data block pointer pointing to an unwritten data block</p></li>
 <li><p>If we trust the <code class="docutils literal notranslate"><span class="pre">inode</span></code>, we will read garbage data</p></li>
@@ -434,7 +436,7 @@ we guarantee that data on disk are still consistent?</p>
 </li>
 </ul>
 <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 6. Case 3: only data bitmap is updated
@@ -447,15 +449,15 @@ we guarantee that data on disk are still consistent?</p>
 &gt; &lt;img src=&quot;../fig/fsck/01.png&quot; alt=&quot;a crash scenario&quot; style=&quot;height:300px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="case-4-only-inode-and-data-bitmap-updated">
-<h2>7. Case 4: Only inode and data bitmap updated<a class="headerlink" href="#case-4-only-inode-and-data-bitmap-updated" title="Permalink to this headline">#</a></h2>
+<section id="case-4-only-inode-and-data-bitmap-updated">
+<h2>7. Case 4: Only inode and data bitmap updated<a class="headerlink" href="#case-4-only-inode-and-data-bitmap-updated" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The file system will read garbage data from <code class="docutils literal notranslate"><span class="pre">block</span> <span class="pre">#5</span></code> again.</p></li>
 <li><p>The file system doesn’t even realized anything wrong, because the inode and the
 data bitmap are consistent with each other.</p></li>
 </ul>
 <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 8. Case 5: Only inode and data block updated
@@ -468,14 +470,14 @@ data bitmap are consistent with each other.</p></li>
 &gt; &lt;img src=&quot;../fig/fsck/01.png&quot; alt=&quot;a crash scenario&quot; style=&quot;height:300px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="case-6-only-data-bitmap-and-data-block-updated">
-<h2>9. Case 6: Only data bitmap and data block updated<a class="headerlink" href="#case-6-only-data-bitmap-and-data-block-updated" title="Permalink to this headline">#</a></h2>
+<section id="case-6-only-data-bitmap-and-data-block-updated">
+<h2>9. Case 6: Only data bitmap and data block updated<a class="headerlink" href="#case-6-only-data-bitmap-and-data-block-updated" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Inconsistency between inode and data bitmap.</p></li>
 <li><p>We know <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">block</span> <span class="pre">#5</span></code> is used, but will never know which file uses it</p></li>
 </ul>
 <img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 10. Problem!</span>
@@ -489,10 +491,10 @@ data bitmap are consistent with each other.</p></li>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">We</span> <span class="n">call</span> <span class="n">them</span> <span class="n">crash</span><span class="o">-</span><span class="n">consistency</span> <span class="n">problems</span>
 </pre></div>
 </div>
-<div class="section" id="solution-1-fsck">
-<h2>11. Solution 1: FSCK<a class="headerlink" href="#solution-1-fsck" title="Permalink to this headline">#</a></h2>
+<section id="solution-1-fsck">
+<h2>11. Solution 1: FSCK<a class="headerlink" href="#solution-1-fsck" title="Permalink to this heading">#</a></h2>
 <img src="../fig/fsck/02.png" alt="FSCK" style="height:500px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 12. FSCK (File System Check)
@@ -509,8 +511,8 @@ data bitmap are consistent with each other.</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="limitation-of-fsck">
-<h2>13. Limitation of FSCK<a class="headerlink" href="#limitation-of-fsck" title="Permalink to this headline">#</a></h2>
+<section id="limitation-of-fsck">
+<h2>13. Limitation of FSCK<a class="headerlink" href="#limitation-of-fsck" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A working FSCK requires very complicated and detailed knowledge of the
 file system, and is hard to be implemented correctly.</p></li>
@@ -524,7 +526,7 @@ inconsistency needs to be fixed.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 14. Solution 2: Journaling (write-ahead logging)</span>
@@ -535,8 +537,8 @@ inconsistency needs to be fixed.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="journaling-what-to-store">
-<h2>15. Journaling: what to store?<a class="headerlink" href="#journaling-what-to-store" title="Permalink to this headline">#</a></h2>
+<section id="journaling-what-to-store">
+<h2>15. Journaling: what to store?<a class="headerlink" href="#journaling-what-to-store" title="Permalink to this heading">#</a></h2>
 <p>When updating the disk, before making the actual writes to disk, the FS first writes
 a little <em>note</em> about what it is about to do, to the journal (or log, at well known
 location on disk).</p>
@@ -547,7 +549,7 @@ the journal and replay the actual writes hence recover the data.</p></li>
 <li><p>If crash happens even before journal write finishes, then it doesn’t matter since
 the actual write has NOT happened at all, nothing is inconsistent.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 16. Journaling: the structure to be written to the journal/log
@@ -562,8 +564,8 @@ the actual write has NOT happened at all, nothing is inconsistent.</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="journaling-sequence-of-operations">
-<h2>17. Journaling: sequence of operations<a class="headerlink" href="#journaling-sequence-of-operations" title="Permalink to this headline">#</a></h2>
+<section id="journaling-sequence-of-operations">
+<h2>17. Journaling: sequence of operations<a class="headerlink" href="#journaling-sequence-of-operations" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Journal write: write the transaction, including the TxB,
 all pending data and metadata updates, and the TxE, to the journal; wait for these
@@ -579,7 +581,7 @@ the writes in the batch can happen in any order.</p></li>
 </li>
 </ul>
 <img src="../fig/fsck/05.png" alt="Journal transaction data structure" style="height:100px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 18. Journaling: a better sequence of operations</span>
@@ -596,8 +598,8 @@ the writes in the batch can happen in any order.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="journaling-recover-from-a-crash">
-<h2>19. Journaling: recover from a crash<a class="headerlink" href="#journaling-recover-from-a-crash" title="Permalink to this headline">#</a></h2>
+<section id="journaling-recover-from-a-crash">
+<h2>19. Journaling: recover from a crash<a class="headerlink" href="#journaling-recover-from-a-crash" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>If crash happens before the transaction is committed to the journal/log
 simply skip the pending update.</p></li>
@@ -612,7 +614,7 @@ it and do other stuff.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 20. Journaling: space requirement
@@ -630,8 +632,8 @@ it and do other stuff.</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="metadata-journaling">
-<h2>21. Metadata Journaling<a class="headerlink" href="#metadata-journaling" title="Permalink to this headline">#</a></h2>
+<section id="metadata-journaling">
+<h2>21. Metadata Journaling<a class="headerlink" href="#metadata-journaling" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Recovery is fast with journaling, but the normal operations are slower,
 because for every update we need to write to the journal first then do the update.</p></li>
@@ -642,7 +644,7 @@ that we only write metadata (NOT data) to the journal.</p></li>
 <li><p>The journal looks like …</p></li>
 </ul>
 <img src="../fig/fsck/06.png" alt="metadata journaling" style="height:100px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 22. Metadata journaling
@@ -661,8 +663,8 @@ that we only write metadata (NOT data) to the journal.</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="journaling-summary">
-<h2>23. Journaling summary<a class="headerlink" href="#journaling-summary" title="Permalink to this headline">#</a></h2>
+<section id="journaling-summary">
+<h2>23. Journaling summary<a class="headerlink" href="#journaling-summary" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Journaling provides file system consistency</p></li>
 <li><p>Time complexity of recovery is <code class="docutils literal notranslate"><span class="pre">O(size_of_journal)</span></code>, instead of
@@ -672,13 +674,13 @@ IBM’s JFS, SGI’s XFS, and Windows’ NTFS.</p></li>
 <li><p>Metadata journaling is the most commonly used, since it reduces the amount of traffic
 to the journal while provide reasonable consistency guarantees.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
 
 </pre></div>
 </div>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {

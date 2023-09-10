@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Lock and Condition Variables” &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Semaphores”" href="11-semaphores.html" />
     <link rel="prev" title="Introduction to concurrency using threads”" href="09-concurrency.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -350,8 +352,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="lock-and-condition-variables">
-<h1>Lock and Condition Variables”<a class="headerlink" href="#lock-and-condition-variables" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="lock-and-condition-variables">
+<h1>Lock and Condition Variables”<a class="headerlink" href="#lock-and-condition-variables" title="Permalink to this heading">#</a></h1>
 <p>teaching: 0
 exercises: 0
 questions:</p>
@@ -362,8 +364,8 @@ objectives:</p></li>
 keypoints:</p></li>
 <li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
 </ul>
-<div class="section" id="recall-the-problem-from-intro-to-os">
-<h2>1. Recall the problem from intro-to-os<a class="headerlink" href="#recall-the-problem-from-intro-to-os" title="Permalink to this headline">#</a></h2>
+<section id="recall-the-problem-from-intro-to-os">
+<h2>1. Recall the problem from intro-to-os<a class="headerlink" href="#recall-the-problem-from-intro-to-os" title="Permalink to this heading">#</a></h2>
 <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=threads.c"></script>
 <img src="../fig/lock/01.png" alt="thread problem" style="height:600px">
 <ul class="simple">
@@ -381,7 +383,7 @@ that we can reason about program behavior, in a sane way</p>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 2. What is shared/not shared in a multithreaded program?</span>
@@ -390,8 +392,8 @@ that we can reason about program behavior, in a sane way</p>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="key-definitions">
-<h2>3. Key definitions<a class="headerlink" href="#key-definitions" title="Permalink to this headline">#</a></h2>
+<section id="key-definitions">
+<h2>3. Key definitions<a class="headerlink" href="#key-definitions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A <strong>critical section</strong> (CS) is a segment of code that accesses a shared resource,
 usually a variable or data structure.</p></li>
@@ -404,7 +406,7 @@ is thus not deterministic.</p></li>
 Doing so guarantees that only a single thread ever enters a critical section, thus
 avoiding races and resulting in deterministic program outputs.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 
@@ -420,8 +422,8 @@ avoiding races and resulting in deterministic program outputs.</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="lock-definition">
-<h2>5. Lock: Definition<a class="headerlink" href="#lock-definition" title="Permalink to this headline">#</a></h2>
+<section id="lock-definition">
+<h2>5. Lock: Definition<a class="headerlink" href="#lock-definition" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Atomic</span> <span class="pre">instruction</span></code>: A machine instruction that can be executed in a single clock cycle.</p></li>
 <li><p>Programmers annotate source code with <strong>locks</strong> around a critical section, ensuring that it
@@ -447,7 +449,7 @@ critical section.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 6. Semantic of locking: lock() and unlock()
@@ -463,14 +465,14 @@ critical section.</p></li>
 &gt; - Lock in `pthread`: https://linux.die.net/man/3/pthread_mutex_lock 
 </pre></div>
 </div>
-<div class="section" id="how-do-we-build-a-lock">
-<h2>7. How do we build a lock?<a class="headerlink" href="#how-do-we-build-a-lock" title="Permalink to this headline">#</a></h2>
+<section id="how-do-we-build-a-lock">
+<h2>7. How do we build a lock?<a class="headerlink" href="#how-do-we-build-a-lock" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>How do we build an efficient lock?</p></li>
 <li><p>What hardware support is needed?</p></li>
 <li><p>What OS support is needed?</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 8. Criteria of a good lock</span>
@@ -480,8 +482,8 @@ critical section.</p></li>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">Performance</span>
 </pre></div>
 </div>
-<div class="section" id="first-attempt-controlling-interrupts">
-<h2>9. First attempt: controlling interrupts<a class="headerlink" href="#first-attempt-controlling-interrupts" title="Permalink to this headline">#</a></h2>
+<section id="first-attempt-controlling-interrupts">
+<h2>9. First attempt: controlling interrupts<a class="headerlink" href="#first-attempt-controlling-interrupts" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>One of the earliest solutions for single processor systems.</p>
 <ul>
@@ -506,7 +508,7 @@ critical section via different computing core).</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 10. We need CPU hardware support</span>
@@ -520,15 +522,15 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;spin lock&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="spin-lock-with-test-and-set">
-<h2>11. Spin lock with Test-and-Set<a class="headerlink" href="#spin-lock-with-test-and-set" title="Permalink to this headline">#</a></h2>
+<section id="spin-lock-with-test-and-set">
+<h2>11. Spin lock with Test-and-Set<a class="headerlink" href="#spin-lock-with-test-and-set" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Hardware support for locking begins in early 1960.</p></li>
 <li><p>TestAndSet can be performed atomically by hardware.</p></li>
 </ul>
 <img src="../fig/lock/04.png" alt="test and set" style="height:100px">
 <img src="../fig/lock/05.png" alt="test and set" style="height:400px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 12. Spin lock with Test-and-Set: how does it work?</span>
@@ -545,8 +547,8 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/06.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;test and set&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="evaluating-the-basic-spin-lock">
-<h2>13. Evaluating the basic spin lock<a class="headerlink" href="#evaluating-the-basic-spin-lock" title="Permalink to this headline">#</a></h2>
+<section id="evaluating-the-basic-spin-lock">
+<h2>13. Evaluating the basic spin lock<a class="headerlink" href="#evaluating-the-basic-spin-lock" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Correctness: Yes</p></li>
 <li><p>Fairness: No - can lead to starvation</p></li>
@@ -556,7 +558,7 @@ critical section via different computing core).</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 14. Scenario: one thread waiting on another</span>
@@ -564,14 +566,14 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/07.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;one thread waiting on another&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="a-lock-based-solution">
-<h2>15. A lock-based solution<a class="headerlink" href="#a-lock-based-solution" title="Permalink to this headline">#</a></h2>
+<section id="a-lock-based-solution">
+<h2>15. A lock-based solution<a class="headerlink" href="#a-lock-based-solution" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>How to implement a lock-based solution?</p></li>
 <li><p>What is the issue?</p></li>
 </ul>
 <img src="../fig/lock/08.png" alt="lock-based solution" style="height:350px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 16. How to wait for a condition?</span>
@@ -586,10 +588,10 @@ critical section via different computing core).</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="lock-and-conditional-variable">
-<h2>17. Lock and conditional variable<a class="headerlink" href="#lock-and-conditional-variable" title="Permalink to this headline">#</a></h2>
+<section id="lock-and-conditional-variable">
+<h2>17. Lock and conditional variable<a class="headerlink" href="#lock-and-conditional-variable" title="Permalink to this heading">#</a></h2>
 <img src="../fig/lock/09.png" alt="lock and cv" style="height:500px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 18. Do we really need both?
@@ -601,8 +603,8 @@ critical section via different computing core).</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="the-producer-consumer-bounded-buffer-problem">
-<h2>19. The producer/consumer (bounded buffer) problem<a class="headerlink" href="#the-producer-consumer-bounded-buffer-problem" title="Permalink to this headline">#</a></h2>
+<section id="the-producer-consumer-bounded-buffer-problem">
+<h2>19. The producer/consumer (bounded buffer) problem<a class="headerlink" href="#the-producer-consumer-bounded-buffer-problem" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Proposed in 1972 by Edsger W. Dijkstra</p></li>
 <li><p>Imagine one or more producer threads and one or more consumer
@@ -627,7 +629,7 @@ in some way.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 20. Vanilla: not thread-safe</span>
@@ -636,15 +638,15 @@ in some way.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="first-implementation">
-<h2>21. First implementation<a class="headerlink" href="#first-implementation" title="Permalink to this headline">#</a></h2>
+<section id="first-implementation">
+<h2>21. First implementation<a class="headerlink" href="#first-implementation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Start with 1 CV and 1 lock.</p></li>
 <li><p>Work with 1 producer and 1 consumer.</p></li>
 <li><p>What happens if we have more consumers?</p></li>
 </ul>
 <img src="../fig/lock/12.png" alt="producer and consumer" style="height:550px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 22. First implementation: broken</span>
@@ -653,8 +655,8 @@ in some way.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="first-implementation-why">
-<h2>23. First implementation: why?<a class="headerlink" href="#first-implementation-why" title="Permalink to this headline">#</a></h2>
+<section id="first-implementation-why">
+<h2>23. First implementation: why?<a class="headerlink" href="#first-implementation-why" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>After the producer wakes  a consumer, the state of bound buffer
 changed for the consumer due to the other consumer.</p></li>
@@ -675,7 +677,7 @@ being woken.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 24. Second implementation: slightly less broken</span>
@@ -684,15 +686,15 @@ being woken.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="third-implementation-finally-work">
-<h2>25. Third implementation: finally work<a class="headerlink" href="#third-implementation-finally-work" title="Permalink to this headline">#</a></h2>
+<section id="third-implementation-finally-work">
+<h2>25. Third implementation: finally work<a class="headerlink" href="#third-implementation-finally-work" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Consumer only wake producer and vice versa</p></li>
 <li><p>Two condition variables are needed.</p></li>
 <li><p>Not yet generalized.</p></li>
 </ul>
 <img src="../fig/lock/15.png" alt="producer and consumer" style="height:450px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 26. A generalized solution</span>
@@ -702,7 +704,7 @@ being woken.</p></li>
 </pre></div>
 </div>
 <p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {

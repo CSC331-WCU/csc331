@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Introduction to Operating Systems &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Abstraction: The process" href="02-process.html" />
     <link rel="prev" title="CSC 331: Operating Systems" href="../index.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -356,10 +358,10 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-operating-systems">
-<h1>Introduction to Operating Systems<a class="headerlink" href="#introduction-to-operating-systems" title="Permalink to this headline">#</a></h1>
-<div class="section" id="what-happens-when-a-computer-program-run">
-<h2>1. What happens when a computer program run?<a class="headerlink" href="#what-happens-when-a-computer-program-run" title="Permalink to this headline">#</a></h2>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-operating-systems">
+<h1>Introduction to Operating Systems<a class="headerlink" href="#introduction-to-operating-systems" title="Permalink to this heading">#</a></h1>
+<section id="what-happens-when-a-computer-program-run">
+<h2>1. What happens when a computer program run?<a class="headerlink" href="#what-happens-when-a-computer-program-run" title="Permalink to this heading">#</a></h2>
 <p>The process</p>
 <ul class="simple">
 <li><p><strong>fetches</strong> an instruction from memory,</p></li>
@@ -367,18 +369,18 @@ document.write(`
 <li><p><strong>executes</strong> the instruction.
 This is the fundamental <strong>Von Neumann</strong> model of computing.</p></li>
 </ul>
-</div>
-<div class="section" id="why-do-we-need-os">
-<h2>2. Why do we need OS?<a class="headerlink" href="#why-do-we-need-os" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="why-do-we-need-os">
+<h2>2. Why do we need OS?<a class="headerlink" href="#why-do-we-need-os" title="Permalink to this heading">#</a></h2>
 <p><img alt="Codes to hardware to screen" src="../_images/01.png" /></p>
 <ul class="simple">
 <li><p>What a programmer see is all code, lines of codes.</p></li>
 <li><p>Underneath, there is a complex ecosystem of hardware components.</p></li>
 <li><p>How do we hide this complexity away from the programmers?</p></li>
 </ul>
-</div>
-<div class="section" id="how-do-the-os-help-1">
-<h2>3. How do the OS help (1)?<a class="headerlink" href="#how-do-the-os-help-1" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="how-do-the-os-help-1">
+<h2>3. How do the OS help (1)?<a class="headerlink" href="#how-do-the-os-help-1" title="Permalink to this heading">#</a></h2>
 <p>This is possible due to <strong>virtualization</strong>.</p>
 <ul class="simple">
 <li><p>Virtualization: presents general, powerful, and easy-to-use <strong>virtual</strong> forms of
@@ -386,18 +388,18 @@ This is the fundamental <strong>Von Neumann</strong> model of computing.</p></li
 <li><p>The linkage between virtual interfaces and physical components are enabled through
 the OS’ <strong>system calls</strong> (or <strong>standard library</strong>).</p></li>
 </ul>
-</div>
-<div class="section" id="how-do-the-os-help-2">
-<h2>4. How do the OS help (2)?<a class="headerlink" href="#how-do-the-os-help-2" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="how-do-the-os-help-2">
+<h2>4. How do the OS help (2)?<a class="headerlink" href="#how-do-the-os-help-2" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Each physical component in a computing system is considered a resource.</p></li>
 <li><p>The OS <strong>manages</strong> these resources so that multiple programs can access
 these resources (through the corresponding virtual interface) at the same time.</p></li>
 <li><p>This is called <strong>concurrency</strong>.</p></li>
 </ul>
-</div>
-<div class="section" id="hands-on-getting-started">
-<h2>5. Hands-on: Getting started<a class="headerlink" href="#hands-on-getting-started" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="hands-on-getting-started">
+<h2>5. Hands-on: Getting started<a class="headerlink" href="#hands-on-getting-started" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>If you are on a virtual machine (VirtualBox/VMWare/Hypervisor/WSL), launch a terminal</p></li>
 <li><p>If you are on Docker Dekstop, launch a container using the following command:</p>
@@ -423,9 +425,9 @@ these resources (through the corresponding virtual interface) at the same time.<
 <span class="n">make</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="hands-on-cpu-virtualization">
-<h2>6. Hands-on: CPU Virtualization<a class="headerlink" href="#hands-on-cpu-virtualization" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="hands-on-cpu-virtualization">
+<h2>6. Hands-on: CPU Virtualization<a class="headerlink" href="#hands-on-cpu-virtualization" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Our workspace is limited within the scope of a single terminal (a single shell)
 to interact with the operating system.</p></li>
@@ -478,18 +480,18 @@ following commands:</p></li>
 (see figure below).</p></li>
 </ul>
 <p><img alt="Kill processes" src="../_images/05.png" /></p>
-</div>
-<div class="section" id="the-illusion-of-infinite-cpu-resources">
-<h2>7. The illusion of infinite CPU resources<a class="headerlink" href="#the-illusion-of-infinite-cpu-resources" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="the-illusion-of-infinite-cpu-resources">
+<h2>7. The illusion of infinite CPU resources<a class="headerlink" href="#the-illusion-of-infinite-cpu-resources" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A limited number of physical CPUs can still be represented as infnite number of CPUs through
 <strong>virtualization</strong>.</p></li>
 <li><p>The OS will <strong>manage</strong> the scheduling and allocation of the actual run on physical resources.</p></li>
 </ul>
 <p>{: .callout}</p>
-</div>
-<div class="section" id="hands-on-memory-virtualization">
-<h2>8. Hands-on: Memory Virtualization<a class="headerlink" href="#hands-on-memory-virtualization" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="hands-on-memory-virtualization">
+<h2>8. Hands-on: Memory Virtualization<a class="headerlink" href="#hands-on-memory-virtualization" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> once to close one pane.</p></li>
 <li><p>Type <code class="docutils literal notranslate"><span class="pre">exit</span></code> and hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> again to close tmux.</p></li>
@@ -521,9 +523,9 @@ shown in the parentheses. You should switch to the right pane for this task.</p>
 <ul class="simple">
 <li><p>Do programs running concurrently occupy the same memory locations (addresses)?</p></li>
 </ul>
-</div>
-<div class="section" id="the-illusion-of-dedicated-memory-resources">
-<h2>10. The illusion of dedicated memory resources<a class="headerlink" href="#the-illusion-of-dedicated-memory-resources" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="the-illusion-of-dedicated-memory-resources">
+<h2>10. The illusion of dedicated memory resources<a class="headerlink" href="#the-illusion-of-dedicated-memory-resources" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Many running program share the physical memory space.</p></li>
 <li><p>Each runnning program is presented with the illusion that they have access to their own private
@@ -536,18 +538,18 @@ randomize within the virtual address space of a process. This is a security mech
 prevent others from guessing and applying direct manipulation techniques to the physical
 memory location that acually contains <code class="docutils literal notranslate"><span class="pre">p</span></code>.</p></li>
 </ul>
-</div>
-<div class="section" id="concurrency">
-<h2>11. Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="concurrency">
+<h2>11. Concurrency<a class="headerlink" href="#concurrency" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>As shown in <strong>CPU Virtualization</strong> and <strong>Memory Virtualization</strong> examples, the OS
 wants to manage many running programs at the same time.</p></li>
 <li><p>This is called <strong>concurrency</strong>, and it leads to a number of interesting challenges
 in designing and implementing various management mechanisms within the OS.</p></li>
 </ul>
-</div>
-<div class="section" id="hands-on-concurrency">
-<h2>12. Hands-on: Concurrency<a class="headerlink" href="#hands-on-concurrency" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="hands-on-concurrency">
+<h2>12. Hands-on: Concurrency<a class="headerlink" href="#hands-on-concurrency" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Run <code class="docutils literal notranslate"><span class="pre">clear</span></code> command on both panes to clear the screen.</p></li>
 <li><p>On the right pane, run the followings:</p></li>
@@ -578,16 +580,16 @@ argument.</p></li>
 </pre></div>
 </div>
 <p><img alt="Multithreaded with errors" src="../_images/07.png" /></p>
-</div>
-<div class="section" id="observation">
-<h2>13. Observation<a class="headerlink" href="#observation" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="observation">
+<h2>13. Observation<a class="headerlink" href="#observation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Naive concurrency gives you wrong results.</p></li>
 <li><p>Naive concurrency gives you wrong and inconsistent results.</p></li>
 </ul>
-</div>
-<div class="section" id="why-does-this-happen">
-<h2>14. Why does this happen?<a class="headerlink" href="#why-does-this-happen" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="why-does-this-happen">
+<h2>14. Why does this happen?<a class="headerlink" href="#why-does-this-happen" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>At machine level, incrementing counter involves three steps:</p>
 <ul>
@@ -610,9 +612,9 @@ steps in and attempts to increment the stale content of counter in memory.</p></
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="persistency">
-<h2>15. Persistency<a class="headerlink" href="#persistency" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="persistency">
+<h2>15. Persistency<a class="headerlink" href="#persistency" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>When the programs stop, everything in memory goes away: counter, p, str.</p></li>
 <li><p>Physical components to store information persistently are needed.</p></li>
@@ -631,47 +633,47 @@ steps in and attempts to increment the stale content of counter in memory.</p></
 </ul>
 </li>
 </ul>
-</div>
-<div class="section" id="a-brief-history-of-operating-system-research-and-development">
-<h2>16. A brief history of operating system research and development<a class="headerlink" href="#a-brief-history-of-operating-system-research-and-development" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="a-brief-history-of-operating-system-research-and-development">
+<h2>16. A brief history of operating system research and development<a class="headerlink" href="#a-brief-history-of-operating-system-research-and-development" title="Permalink to this heading">#</a></h2>
 <p>A good paper to read: <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.104.1524&amp;rep=rep1&amp;type=pdf">Hanser, Per Brinch. “The evolution of operating systems” 2001</a></p>
-</div>
-<div class="section" id="early-operating-systems-just-libraries">
-<h2>17. Early operating systems: just libraries<a class="headerlink" href="#early-operating-systems-just-libraries" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="early-operating-systems-just-libraries">
+<h2>17. Early operating systems: just libraries<a class="headerlink" href="#early-operating-systems-just-libraries" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Include only library for commonly used functions.</p></li>
 <li><p>One program runs at a time.</p></li>
 <li><p>Manual loading of programs by human operator.</p></li>
 </ul>
-</div>
-<div class="section" id="beyond-libraries-protection">
-<h2>18. Beyond libraries: protection<a class="headerlink" href="#beyond-libraries-protection" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="beyond-libraries-protection">
+<h2>18. Beyond libraries: protection<a class="headerlink" href="#beyond-libraries-protection" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>System calls</p></li>
 <li><p>Hardware privilege level</p></li>
 <li><p>User mode/kernel mode</p></li>
 <li><p><strong>trap</strong>: the initiation of a system call to raise privilege from user mode to kernel mode.</p></li>
 </ul>
-</div>
-<div class="section" id="the-era-of-multiprogramming">
-<h2>19. The era of multiprogramming<a class="headerlink" href="#the-era-of-multiprogramming" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="the-era-of-multiprogramming">
+<h2>19. The era of multiprogramming<a class="headerlink" href="#the-era-of-multiprogramming" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Minicomputer</p></li>
 <li><p><strong>multiprogramming</strong>: multiple programs being run with the OS switching among them.</p></li>
 <li><p>Memory protection</p></li>
 <li><p>Concurrency</p></li>
 </ul>
-</div>
-<div class="section" id="the-modern-era">
-<h2>20. The modern era<a class="headerlink" href="#the-modern-era" title="Permalink to this headline">#</a></h2>
+</section>
+<section id="the-modern-era">
+<h2>20. The modern era<a class="headerlink" href="#the-modern-era" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Personal computer</p></li>
 <li><p>DOS: the Disk Operating System</p></li>
 <li><p>Mac OS</p></li>
 <li><p>Multics (MIT) -&gt; UNIX (Bell Labs) -&gt; BSD (Berkeley) -&gt; Sun OS/Linux</p></li>
 </ul>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {

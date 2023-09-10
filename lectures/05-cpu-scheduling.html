@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>CPU Scheduling” &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Memory virtualization”" href="06-memory-virtualization.html" />
     <link rel="prev" title="Limited Direct Execution”" href="04-limited-direct-execution.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -360,8 +362,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="cpu-scheduling">
-<h1>CPU Scheduling”<a class="headerlink" href="#cpu-scheduling" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="cpu-scheduling">
+<h1>CPU Scheduling”<a class="headerlink" href="#cpu-scheduling" title="Permalink to this heading">#</a></h1>
 <p>teaching: 0
 exercises: 0
 questions:</p>
@@ -375,8 +377,8 @@ keypoints:</p></li>
 the real world.”</p></li>
 <li><p>“MLFQ rules provide an adaptive approach to adjust the scheduling as needed.”</p></li>
 </ul>
-<div class="section" id="what-is-cpu-scheduling">
-<h2>1. What is CPU scheduling?<a class="headerlink" href="#what-is-cpu-scheduling" title="Permalink to this headline">#</a></h2>
+<section id="what-is-cpu-scheduling">
+<h2>1. What is CPU scheduling?<a class="headerlink" href="#what-is-cpu-scheduling" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>The allocation of processors to processes over time</p></li>
 <li><p>Key to multiprogramming</p></li>
@@ -386,7 +388,7 @@ the real world.”</p></li>
 <li><p>Policies: Given more than one runnable processes, how do we choose which one to
 run next?</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 2. Initial set of simple assumptions</span>
 <span class="o">&gt;</span> 
@@ -400,11 +402,11 @@ run next?</p></li>
 <span class="o">&gt;</span> <span class="n">how</span> <span class="n">it</span> <span class="n">works</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">real</span> <span class="n">system</span><span class="o">.</span>
 </pre></div>
 </div>
-<div class="section" id="first-performance-metric">
-<h2>3. First performance metric<a class="headerlink" href="#first-performance-metric" title="Permalink to this headline">#</a></h2>
+<section id="first-performance-metric">
+<h2>3. First performance metric<a class="headerlink" href="#first-performance-metric" title="Permalink to this heading">#</a></h2>
 <p><strong>Average turn around time of all jobs</strong>.</p>
 <p>turn_around_time = job_completion_time - job_arrival_time</p>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 4. Algorithm 1: First Come First Server (FCFS/FIFO)</span>
 <span class="o">&gt;</span>
@@ -442,8 +444,8 @@ run next?</p></li>
 <span class="o">&gt;</span> <span class="n">ordering</span> <span class="n">based</span> <span class="n">on</span> <span class="n">jobs</span><span class="s1">&#39; names. </span>
 </pre></div>
 </div>
-<div class="section" id="fcfs-fifo-in-action">
-<h2>5. FCFS/FIFO in action<a class="headerlink" href="#fcfs-fifo-in-action" title="Permalink to this headline">#</a></h2>
+<section id="fcfs-fifo-in-action">
+<h2>5. FCFS/FIFO in action<a class="headerlink" href="#fcfs-fifo-in-action" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -509,7 +511,7 @@ run next?</p></li>
 <ul class="simple">
 <li><p>Average_turn_around_time = (3 + 6 + 9) / 3 = 6.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 6. Initial set of simple assumptions</span>
 <span class="o">&gt;</span> 
@@ -521,8 +523,8 @@ run next?</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="algorithm-1-first-come-first-server-fcfs-fifo">
-<h2>7. Algorithm 1: First Come First Server (FCFS/FIFO)<a class="headerlink" href="#algorithm-1-first-come-first-server-fcfs-fifo" title="Permalink to this headline">#</a></h2>
+<section id="algorithm-1-first-come-first-server-fcfs-fifo">
+<h2>7. Algorithm 1: First Come First Server (FCFS/FIFO)<a class="headerlink" href="#algorithm-1-first-come-first-server-fcfs-fifo" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -554,7 +556,7 @@ run next?</p></li>
 <li><p>When jobs with same arrival time arriva, let’s assume a simple alphabetic
 ordering based on jobs’ names.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 8. FCFS/FIFO in action</span>
 <span class="o">&gt;</span>
@@ -640,8 +642,8 @@ ordering based on jobs’ names.</p></li>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">Average_turn_around_time</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">11</span> <span class="o">+</span> <span class="mi">14</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">=</span> <span class="mf">11.</span> 
 </pre></div>
 </div>
-<div class="section" id="algorithm-2-shortest-job-first-sjf">
-<h2>9. Algorithm 2: Shortest Job First (SJF)<a class="headerlink" href="#algorithm-2-shortest-job-first-sjf" title="Permalink to this headline">#</a></h2>
+<section id="algorithm-2-shortest-job-first-sjf">
+<h2>9. Algorithm 2: Shortest Job First (SJF)<a class="headerlink" href="#algorithm-2-shortest-job-first-sjf" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -673,7 +675,7 @@ ordering based on jobs’ names.</p></li>
 <li><p>When jobs with same arrival time arriva, jobs with shorter service time
 are executed first.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 10. SJF in action</span>
 <span class="o">&gt;</span>
@@ -759,8 +761,8 @@ are executed first.</p></li>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">Average_turn_around_time</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">14</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">=</span> <span class="mf">7.67</span><span class="o">.</span> 
 </pre></div>
 </div>
-<div class="section" id="initial-set-of-simple-assumptions">
-<h2>11. Initial set of simple assumptions<a class="headerlink" href="#initial-set-of-simple-assumptions" title="Permalink to this headline">#</a></h2>
+<section id="initial-set-of-simple-assumptions">
+<h2>11. Initial set of simple assumptions<a class="headerlink" href="#initial-set-of-simple-assumptions" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>~~Each job (process/thread) runs the same amount of time.~~</p></li>
 <li><p>~~All jobs arrive at the same time.~~</p></li>
@@ -768,7 +770,7 @@ are executed first.</p></li>
 <li><p>All jobs only use the CPU (no I/O).</p></li>
 <li><p>The run time of each job is known.</p></li>
 </ol>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 12. Algorithm 1: FCFS/FIFO
 &gt;
@@ -804,8 +806,8 @@ are executed first.</p></li>
 &gt; alphabetic ordering based on jobs’ names. 
 </pre></div>
 </div>
-<div class="section" id="id1">
-<h2>13. FCFS/FIFO in action<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<section id="id1">
+<h2>13. FCFS/FIFO in action<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -888,7 +890,7 @@ are executed first.</p></li>
 <li><p>Average_turn_around_time = (8 + 9 + 12) / 3 = 9.67.</p></li>
 <li><p>B and C suffer from a long waiting time, but A already got the CPU.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 14. Initial set of simple assumptions</span>
 <span class="o">&gt;</span> 
@@ -900,8 +902,8 @@ are executed first.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="preemptive-vs-non-preemptive">
-<h2>15. Preemptive vs Non-preemptive<a class="headerlink" href="#preemptive-vs-non-preemptive" title="Permalink to this headline">#</a></h2>
+<section id="preemptive-vs-non-preemptive">
+<h2>15. Preemptive vs Non-preemptive<a class="headerlink" href="#preemptive-vs-non-preemptive" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Non-Preemptive Scheduling</p>
 <ul>
@@ -920,7 +922,7 @@ of each process matters.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 16. Algorithm 3: Shortest Time-to-Completion First (STCF)
 &gt;
@@ -958,8 +960,8 @@ of each process matters.</p></li>
 &gt; alphabetic ordering based on jobs’ names. 
 </pre></div>
 </div>
-<div class="section" id="stcf-psjf-in-action">
-<h2>17. STCF/PSJF in action<a class="headerlink" href="#stcf-psjf-in-action" title="Permalink to this headline">#</a></h2>
+<section id="stcf-psjf-in-action">
+<h2>17. STCF/PSJF in action<a class="headerlink" href="#stcf-psjf-in-action" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -1040,7 +1042,7 @@ of each process matters.</p></li>
 <ul class="simple">
 <li><p>Average_turn_around_time = (14 + 3 + 6) / 3 = 7.67.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 18. Second performance metric</span>
 <span class="o">&gt;</span> 
@@ -1052,8 +1054,8 @@ of each process matters.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="id2">
-<h2>19. STCF/PSJF in action<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<section id="id2">
+<h2>19. STCF/PSJF in action<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -1134,7 +1136,7 @@ of each process matters.</p></li>
 <ul class="simple">
 <li><p>Average_response_time = (0 + 0 + 3) / 3 = 1</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 20. Algorithm 4: Round Robin (RR)
 &gt;
@@ -1171,8 +1173,8 @@ of each process matters.</p></li>
 &gt; - Example: `q=1` 
 </pre></div>
 </div>
-<div class="section" id="rr-in-action">
-<h2>21. RR in action<a class="headerlink" href="#rr-in-action" title="Permalink to this headline">#</a></h2>
+<section id="rr-in-action">
+<h2>21. RR in action<a class="headerlink" href="#rr-in-action" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -1254,7 +1256,7 @@ of each process matters.</p></li>
 <ul class="simple">
 <li><p>Average_response_time = (0 + 0 + 1) / 3 = 0.33</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 22. Algorithm 4: Round Robin (RR)
 &gt; 
@@ -1267,8 +1269,8 @@ of each process matters.</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="id3">
-<h2>23. Initial set of simple assumptions<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<section id="id3">
+<h2>23. Initial set of simple assumptions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>~~Each job (process/thread) runs the same amount of time.~~</p></li>
 <li><p>~~All jobs arrive at the same time.~~</p></li>
@@ -1276,7 +1278,7 @@ of each process matters.</p></li>
 <li><p>~~All jobs only use the CPU (no I/O).~~</p></li>
 <li><p>The run time of each job is known.</p></li>
 </ol>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 24. (Almost) all processes perform I/O</span>
 <span class="o">&gt;</span> 
@@ -1286,8 +1288,8 @@ of each process matters.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="jobs-with-i-o">
-<h2>25. Jobs with I/O<a class="headerlink" href="#jobs-with-i-o" title="Permalink to this headline">#</a></h2>
+<section id="jobs-with-i-o">
+<h2>25. Jobs with I/O<a class="headerlink" href="#jobs-with-i-o" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -1312,7 +1314,7 @@ of each process matters.</p></li>
     </tr>
   </tbody>
 </table>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 26. Normal STCF treating A as a single job</span>
 <span class="o">&gt;</span>
@@ -1381,8 +1383,8 @@ of each process matters.</p></li>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">Average_response_time</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">=</span> <span class="mf">4.5</span>
 </pre></div>
 </div>
-<div class="section" id="stcf-treating-a-as-5-sub-jobs">
-<h2>27. STCF treating A as 5 sub-jobs<a class="headerlink" href="#stcf-treating-a-as-5-sub-jobs" title="Permalink to this headline">#</a></h2>
+<section id="stcf-treating-a-as-5-sub-jobs">
+<h2>27. STCF treating A as 5 sub-jobs<a class="headerlink" href="#stcf-treating-a-as-5-sub-jobs" title="Permalink to this heading">#</a></h2>
 <table>
   <thead>
     <tr>
@@ -1447,7 +1449,7 @@ of each process matters.</p></li>
 <li><p>Average_turn_around_time = (9 + 10) / 2 = 9.5</p></li>
 <li><p>Average_response_time = (0 + 1) / 2 = 0.5</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 28. Initial set of simple assumptions</span>
 <span class="o">&gt;</span> 
@@ -1462,12 +1464,12 @@ of each process matters.</p></li>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">Yet</span><span class="p">,</span> <span class="n">without</span> <span class="n">it</span><span class="p">,</span> <span class="n">SJF</span><span class="o">/</span><span class="n">STCF</span> <span class="n">becomes</span> <span class="n">invalid</span><span class="o">.</span> 
 </pre></div>
 </div>
-<div class="section" id="the-question">
-<h2>29. The question<a class="headerlink" href="#the-question" title="Permalink to this headline">#</a></h2>
+<section id="the-question">
+<h2>29. The question<a class="headerlink" href="#the-question" title="Permalink to this heading">#</a></h2>
 <p>How do we schedule jobs <strong>without knowing</strong> their run time
 duration so that we can minimize <strong>turn around time</strong> and
 also minimize <strong>response time</strong> for interactive jobs?</p>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 30. Multi-level Feedback Queue (MLFQ)</span>
 <span class="o">&gt;</span> 
@@ -1479,8 +1481,8 @@ also minimize <strong>response time</strong> for interactive jobs?</p>
 <span class="o">&gt;</span> <span class="o">-</span> <span class="n">Recipient</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">1990</span> <span class="n">Turing</span> <span class="n">Award</span> <span class="p">(</span><span class="n">The</span> <span class="n">Nobel</span> <span class="n">prize</span> <span class="ow">in</span> <span class="n">computing</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="section" id="multi-level-feedback-queue-mlfq">
-<h2>31. Multi-level Feedback Queue (MLFQ)<a class="headerlink" href="#multi-level-feedback-queue-mlfq" title="Permalink to this headline">#</a></h2>
+<section id="multi-level-feedback-queue-mlfq">
+<h2>31. Multi-level Feedback Queue (MLFQ)<a class="headerlink" href="#multi-level-feedback-queue-mlfq" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Learn from the past to predict the future</p>
 <ul>
@@ -1496,7 +1498,7 @@ hardware branch predictors and caching algorithms.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 32. Multi-level Feedback Queue (MLFQ)</span>
 <span class="o">&gt;</span> 
@@ -1510,15 +1512,15 @@ hardware branch predictors and caching algorithms.</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/cpu-scheduling/cpu-scheduling-01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;MLFQ&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="multi-level-feedback-queue-mlfq-feedback">
-<h2>32. Multi-level Feedback Queue (MLFQ): Feedback?<a class="headerlink" href="#multi-level-feedback-queue-mlfq-feedback" title="Permalink to this headline">#</a></h2>
+<section id="multi-level-feedback-queue-mlfq-feedback">
+<h2>32. Multi-level Feedback Queue (MLFQ): Feedback?<a class="headerlink" href="#multi-level-feedback-queue-mlfq-feedback" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Rule 1: If Priority(A) &gt; Priority(B), A runs and B doesn’t</p></li>
 <li><p>Rule 2: If Priority(A) == Priority(B), RR(A, B)</p></li>
 </ul>
 <p>Does it work <strong>well</strong>?</p>
 <img src="../assets/figure/cpu-scheduling/cpu-scheduling-01.png" alt="MLFQ" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 33. Multi-level Feedback Queue (MLFQ): Feedback?
 &gt; 
@@ -1534,8 +1536,8 @@ hardware branch predictors and caching algorithms.</p></li>
 &gt; &lt;img src=&quot;../assets/figure/cpu-scheduling/cpu-scheduling-01.png&quot; alt=&quot;MLFQ&quot; style=&quot;height:300px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="attempt-1-how-to-change-priority">
-<h2>34. Attempt 1: How to change priority?<a class="headerlink" href="#attempt-1-how-to-change-priority" title="Permalink to this headline">#</a></h2>
+<section id="attempt-1-how-to-change-priority">
+<h2>34. Attempt 1: How to change priority?<a class="headerlink" href="#attempt-1-how-to-change-priority" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Rule 3: When a job enter the system, it is placed at the
 highest priority (the top most queue).</p></li>
@@ -1544,7 +1546,7 @@ its priority is reduced (it moves down one queue).</p></li>
 <li><p>Rule 4b: If a job gives up the CPU (voluntarily) before the
 time slice is up, it stays at the same priority level.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 35. Example 1: A single long-running job</span>
 <span class="o">&gt;</span> 
@@ -1555,8 +1557,8 @@ time slice is up, it stays at the same priority level.</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/cpu-scheduling/cpu-scheduling-02.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;MLFQ&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="example-2-along-came-a-short-job">
-<h2>36. Example 2: Along came a short job<a class="headerlink" href="#example-2-along-came-a-short-job" title="Permalink to this headline">#</a></h2>
+<section id="example-2-along-came-a-short-job">
+<h2>36. Example 2: Along came a short job<a class="headerlink" href="#example-2-along-came-a-short-job" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Job A (Dark): long-running CPU intensive</p></li>
 <li><p>Job B (Gray): short-running interactive</p></li>
@@ -1566,7 +1568,7 @@ know about the job, it first assumes that is might be a short
 job (higher priority). If it is not a short job, it will
 gradually be moved down the queues.</p>
 <img src="../assets/figure/cpu-scheduling/cpu-scheduling-03.png" alt="MLFQ" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 36. Example 3: What about I/O?
 &gt; 
@@ -1578,14 +1580,14 @@ gradually be moved down the queues.</p>
 &gt; &lt;img src=&quot;../assets/figure/cpu-scheduling/cpu-scheduling-04.png&quot; alt=&quot;MLFQ&quot; style=&quot;height:300px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="problem-1-starvation">
-<h2>37. Problem 1: Starvation<a class="headerlink" href="#problem-1-starvation" title="Permalink to this headline">#</a></h2>
+<section id="problem-1-starvation">
+<h2>37. Problem 1: Starvation<a class="headerlink" href="#problem-1-starvation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>If new interactive jobs keep arriving, long running job will
 stay at the bottom queue and never get any work done.</p></li>
 </ul>
 <img src="../assets/figure/cpu-scheduling/cpu-scheduling-05.png" alt="MLFQ" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 <span class="o">&gt;</span> <span class="c1">## 38. Problem 2: Gaming the system</span>
 <span class="o">&gt;</span> 
@@ -1596,13 +1598,13 @@ stay at the bottom queue and never get any work done.</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/cpu-scheduling/cpu-scheduling-06.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;MLFQ&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="problem-3-what-if-a-program-changes-behavior">
-<h2>39. Problem 3: What if a program changes behavior?<a class="headerlink" href="#problem-3-what-if-a-program-changes-behavior" title="Permalink to this headline">#</a></h2>
+<section id="problem-3-what-if-a-program-changes-behavior">
+<h2>39. Problem 3: What if a program changes behavior?<a class="headerlink" href="#problem-3-what-if-a-program-changes-behavior" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Starting out as a long running job</p></li>
 <li><p>Turn into an interactive job</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 39. Attempt 2: Priority boost
 &gt; 
@@ -1611,12 +1613,12 @@ stay at the bottom queue and never get any work done.</p></li>
 &gt;
 </pre></div>
 </div>
-<div class="section" id="problem-starvation">
-<h2>40. Problem: Starvation<a class="headerlink" href="#problem-starvation" title="Permalink to this headline">#</a></h2>
+<section id="problem-starvation">
+<h2>40. Problem: Starvation<a class="headerlink" href="#problem-starvation" title="Permalink to this heading">#</a></h2>
 <p>Rule 5 help guaranteeing that processes will not be
 staved. It also helps with CPU-bound jobs that become interactive</p>
 <img src="../assets/figure/cpu-scheduling/cpu-scheduling-07.png" alt="MLFQ" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 41. What S should be set to?
 &gt; 
@@ -1627,8 +1629,8 @@ staved. It also helps with CPU-bound jobs that become interactive</p>
 &gt; ```
 </pre></div>
 </div>
-<div class="section" id="attempt-3-better-accounting">
-<h2>42. Attempt 3: Better accounting<a class="headerlink" href="#attempt-3-better-accounting" title="Permalink to this headline">#</a></h2>
+<section id="attempt-3-better-accounting">
+<h2>42. Attempt 3: Better accounting<a class="headerlink" href="#attempt-3-better-accounting" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Rewrite of Rule 4 to address the issue of gaming the system.</p></li>
 <li><p>Rule 5: Once a job uses up its time allotment at a given level
@@ -1636,7 +1638,7 @@ staved. It also helps with CPU-bound jobs that become interactive</p>
 is reduced.</p></li>
 </ul>
 <img src="../assets/figure/cpu-scheduling/cpu-scheduling-08.png" alt="MLFQ" style="height:300px">
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 &gt; ## 43. Summary
 &gt; 
@@ -1659,7 +1661,7 @@ is reduced.</p></li>
 </pre></div>
 </div>
 <p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {

@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 
 
-<html >
+<html lang="en" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Introduction to concurrency using threads” &#8212; Operating Systems</title>
   
   
@@ -43,6 +44,7 @@
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
@@ -65,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="next" title="Lock and Condition Variables”" href="10-lock-condition-variables.html" />
     <link rel="prev" title="Memory virtualization mechanism: paging and tlb”" href="08-paging.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="None"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
   
   
@@ -343,8 +345,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-concurrency-using-threads">
-<h1>Introduction to concurrency using threads”<a class="headerlink" href="#introduction-to-concurrency-using-threads" title="Permalink to this headline">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-concurrency-using-threads">
+<h1>Introduction to concurrency using threads”<a class="headerlink" href="#introduction-to-concurrency-using-threads" title="Permalink to this heading">#</a></h1>
 <p>teaching: 0
 exercises: 0
 questions:</p>
@@ -355,8 +357,8 @@ objectives:</p></li>
 keypoints:</p></li>
 <li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
 </ul>
-<div class="section" id="review-process-calls-fork">
-<h2>1. Review: process calls fork()<a class="headerlink" href="#review-process-calls-fork" title="Permalink to this headline">#</a></h2>
+<section id="review-process-calls-fork">
+<h2>1. Review: process calls fork()<a class="headerlink" href="#review-process-calls-fork" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>New PCB (process control block) and address space.</p></li>
 <li><p>New address space is a copy of the entire contents of the parent’s
@@ -364,7 +366,7 @@ address space (up to fork).</p></li>
 <li><p>Resources (file pointers) that point to parent’s resources.</p></li>
 <li><p><strong>In general, time consuming.</strong></p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 2. Review: process context switch</span>
@@ -378,8 +380,8 @@ address space (up to fork).</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="example-web-server">
-<h2>3. Example: web server<a class="headerlink" href="#example-web-server" title="Permalink to this headline">#</a></h2>
+<section id="example-web-server">
+<h2>3. Example: web server<a class="headerlink" href="#example-web-server" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A process listens to requests.</p></li>
 <li><p>When a new request comes in, a child process is created to
@@ -399,7 +401,7 @@ different child processes.</p></li>
 </pre></div>
 </div>
 <p>{: .language-c}</p>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 4. Thread: a new abstraction for running processes</span>
@@ -414,8 +416,8 @@ different child processes.</p></li>
 <span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/10-concurrency/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;pages&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="thread-state-of-a-single-thread">
-<h2>5. Thread: state of a single thread<a class="headerlink" href="#thread-state-of-a-single-thread" title="Permalink to this headline">#</a></h2>
+<section id="thread-state-of-a-single-thread">
+<h2>5. Thread: state of a single thread<a class="headerlink" href="#thread-state-of-a-single-thread" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Each thread has its own PC.</p></li>
 <li><p>Each thread has its own private set of registers for computation.</p></li>
@@ -427,7 +429,7 @@ different child processes.</p></li>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 <span class="o">&gt;</span> <span class="c1">## 6. Example: web server using thread</span>
@@ -451,8 +453,8 @@ different child processes.</p></li>
 <span class="o">&gt;</span>
 </pre></div>
 </div>
-<div class="section" id="api-posix-threads-pthreads">
-<h2>7. API: POSIX threads (pthreads)<a class="headerlink" href="#api-posix-threads-pthreads" title="Permalink to this headline">#</a></h2>
+<section id="api-posix-threads-pthreads">
+<h2>7. API: POSIX threads (pthreads)<a class="headerlink" href="#api-posix-threads-pthreads" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Standardized C language thread programming API.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">pthreads</span></code> specifies the interface of using threads, but not how threads
@@ -467,7 +469,7 @@ are implemented in OS.</p></li>
 <li><p><a class="reference external" href="http://man7.org/linux/man-pages/man3/pthread_create.3.html">pthread_create</a></p></li>
 <li><p><a class="reference external" href="http://man7.org/linux/man-pages/man3/pthread_join.3.html">pthread_join</a></p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 
@@ -517,8 +519,8 @@ are implemented in OS.</p></li>
 &gt; &lt;img src=&quot;../fig/10-concurrency/02.png&quot; alt=&quot;thread hello&quot; style=&quot;height:400px&quot;&gt;
 </pre></div>
 </div>
-<div class="section" id="hands-on-threads-and-gdb">
-<h2>9. Hands on: threads and gdb<a class="headerlink" href="#hands-on-threads-and-gdb" title="Permalink to this headline">#</a></h2>
+<section id="hands-on-threads-and-gdb">
+<h2>9. Hands on: threads and gdb<a class="headerlink" href="#hands-on-threads-and-gdb" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Recompile <code class="docutils literal notranslate"><span class="pre">thread_hello.c</span></code> with gdb support, then run <code class="docutils literal notranslate"><span class="pre">gdb</span></code>:</p></li>
 </ul>
@@ -595,7 +597,7 @@ gdb-peda$
 <ul class="simple">
 <li><p>Keep running <code class="docutils literal notranslate"><span class="pre">n</span></code> to finish the program.</p></li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 &gt; ## 10. The problem with threads
@@ -615,8 +617,8 @@ gdb-peda$
 &gt; 
 </pre></div>
 </div>
-<div class="section" id="challenge">
-<h2>11. Challenge<a class="headerlink" href="#challenge" title="Permalink to this headline">#</a></h2>
+<section id="challenge">
+<h2>11. Challenge<a class="headerlink" href="#challenge" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Inside <code class="docutils literal notranslate"><span class="pre">concurrency</span></code>, change to this directory, and create <code class="docutils literal notranslate"><span class="pre">thread_matrix.c</span></code> with
 the following contents:</p></li>
@@ -636,7 +638,7 @@ the breakpoint set to the <code class="docutils literal notranslate"><span class
 </ul>
 </li>
 </ul>
-</div>
+</section>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
 
 
@@ -646,7 +648,7 @@ the breakpoint set to the <code class="docutils literal notranslate"><span class
 
 </pre></div>
 </div>
-</div>
+</section>
 
     <script type="text/x-thebe-config">
     {
