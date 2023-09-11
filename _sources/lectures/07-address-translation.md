@@ -1,5 +1,5 @@
 
-# Memory virtualization mechanism: address translation"
+# Memory virtualization mechanism: address translation
 teaching: 0
 exercises: 0
 questions:

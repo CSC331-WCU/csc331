@@ -1,5 +1,5 @@
 
-# Lock and Condition Variables"
+# Lock and Condition Variables
 teaching: 0
 exercises: 0
 questions:

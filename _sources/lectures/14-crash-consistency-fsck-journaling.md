@@ -1,5 +1,5 @@
 
-# Crash consistency: fsck and journaling"
+# Crash consistency: fsck and journaling
 teaching: 0
 exercises: 0
 questions:

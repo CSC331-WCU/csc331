@@ -1,5 +1,5 @@
 
-# Introduction to concurrency using threads"
+# Introduction to concurrency using threads
 teaching: 0
 exercises: 0
 questions:

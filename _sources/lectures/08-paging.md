@@ -1,5 +1,5 @@
 
-# Memory virtualization mechanism: paging and tlb"
+# Memory virtualization mechanism: paging and tlb
 teaching: 0
 exercises: 0
 questions:
