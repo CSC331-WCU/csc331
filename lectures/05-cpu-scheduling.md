@@ -1,17 +1,18 @@
 
-# CPU Scheduling"
-teaching: 0
-exercises: 0
-questions:
-- "How can an illusion of infinite CPU be managed?"
-objectives:
-- "Understand the assumptions behind FCFS/SJF"
-- "Understand the reasoning behind MLFQ rules" 
-keypoints:
-- "FCFS/SJF operates based on a set of assumptions that are unrealistics in
-the real world."
-- "MLFQ rules provide an adaptive approach to adjust the scheduling as needed."
+# CPU Scheduling
 
+
+```{admonition} Key concept
+:class: tip
+- How can an illusion of infinite CPU be managed?
+- Objectives:
+  - Understand the assumptions behind FCFS/SJF
+  - Understand the reasoning behind MLFQ rules 
+- Keypoints:
+  - FCFS/SJF operates based on a set of assumptions that are unrealistics in
+the real world.
+  - MLFQ rules provide an adaptive approach to adjust the scheduling as needed.
+```
 
 > ## 1. What is CPU scheduling?
 > 

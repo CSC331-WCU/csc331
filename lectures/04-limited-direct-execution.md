@@ -1,5 +1,5 @@
 
-# Limited Direct Execution"
+# Limited Direct Execution
 
 ```{admonition} Key concept
 :class: tip

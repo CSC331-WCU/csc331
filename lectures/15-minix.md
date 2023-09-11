@@ -1,5 +1,5 @@
 
-# Micro versus monolithnic kernels: Minix and Linux"
+# Micro versus monolithnic kernels: Minix and Linux
 teaching: 0
 exercises: 0
 questions:
