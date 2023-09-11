@@ -1,5 +1,5 @@
 
-# I/O and Disks: Disk Scheduling"
+# I/O and Disks: Disk Scheduling
 teaching: 0
 exercises: 0
 questions:
