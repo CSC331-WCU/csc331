@@ -44,7 +44,7 @@ How to **efficiently** virtualize the CPU with **control**?
 - No control over the running program.
 - **Problem 1**: The program can access anything it wants to, including restricted operations 
 (direct access to hardware devices, especially I/O for unauthorized purposes).
-- **Problem 2**: The program may never switch to a different process without explicit. 
+- **Problem 2**: The program may never switch to a different process without explicit 
 instructions in main(), thus defeating the purposes of time-sharing.
 
 ## 5. Problem 1: working with restricted operations
