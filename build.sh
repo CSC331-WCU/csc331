@@ -12,7 +12,7 @@ fi
 if [[ $1 == "pages" ]]
 then
   git add .
-  git commit -m "$2"
+  git commit -m "update $(date)"
   git push
   ghp-import -n -p -f _build/html
 fi
