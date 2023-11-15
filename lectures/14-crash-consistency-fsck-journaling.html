@@ -329,17 +329,27 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persistence">1. Persistence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-crash-scenario">2. A crash scenario</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-the-computer-crashed-during-write">3. If the computer crashed during write</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-1-only-the-data-block-is-updated">4. Case 1: only the data block is updated</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-2-only-the-inode-is-updated">5. Case 2: only the inode is updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-3-only-data-bitmap-is-updated">6. Case 3: only data bitmap is updated</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-4-only-inode-and-data-bitmap-updated">7. Case 4: Only inode and data bitmap updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-5-only-inode-and-data-block-updated">8. Case 5: Only inode and data block updated</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-6-only-data-bitmap-and-data-block-updated">9. Case 6: Only data bitmap and data block updated</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-fsck">11. Solution 1: FSCK</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-of-fsck">13. Limitation of FSCK</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-what-to-store">15. Journaling: what to store?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-sequence-of-operations">17. Journaling: sequence of operations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-recover-from-a-crash">19. Journaling: recover from a crash</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata-journaling">21. Metadata Journaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-summary">23. Journaling summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">10. Problem!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-fsck-file-system-check">11. Solution 1: FSCK (File System Check)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-of-fsck">12. Limitation of FSCK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-2-journaling-write-ahead-logging">13. Solution 2: Journaling (write-ahead logging)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-what-to-store">14. Journaling: what to store?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-the-structure-to-be-written-to-the-journal-log">15. Journaling: the structure to be written to the journal/log</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-sequence-of-operations">16. Journaling: sequence of operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-a-better-sequence-of-operations">17. Journaling: a better sequence of operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-recover-from-a-crash">18. Journaling: recover from a crash</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-space-requirement">19. Journaling: space requirement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata-journaling">20. Metadata Journaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">21. Metadata journaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-summary">22. Journaling summary</a></li>
 </ul>
             </nav>
         </div>
@@ -380,16 +390,15 @@ we guarantee that data on disk are still consistent?</p>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 2. A crash scenario</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">A</span> <span class="mi">4</span><span class="n">KB</span> <span class="n">file</span> <span class="n">on</span> <span class="n">disk</span><span class="p">,</span> <span class="n">within</span> <span class="n">a</span> <span class="n">single</span> <span class="n">data</span> <span class="n">block</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">An</span> <span class="n">additional</span> <span class="mi">4</span><span class="n">KB</span> <span class="ow">is</span> <span class="n">written</span> <span class="n">to</span> <span class="n">the</span> <span class="n">file</span> <span class="p">(</span><span class="n">one</span> <span class="n">more</span> <span class="n">data</span> <span class="n">block</span> <span class="n">added</span><span class="p">)</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">If</span> <span class="n">everything</span> <span class="n">went</span> <span class="n">well</span><span class="p">:</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/fsck/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;a crash scenario&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="a-crash-scenario">
+<h2>2. A crash scenario<a class="headerlink" href="#a-crash-scenario" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A 4KB file on disk, within a single data block</p></li>
+<li><p>An additional 4KB is written to the file (one more data block added).</p></li>
+<li><p>If everything went well:</p></li>
+</ul>
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
+</section>
 <section id="if-the-computer-crashed-during-write">
 <h2>3. If the computer crashed during write<a class="headerlink" href="#if-the-computer-crashed-during-write" title="Permalink to this heading">#</a></h2>
 <p>What are all the possible inconsistent states that the FS can be in after the crash?</p>
@@ -409,20 +418,18 @@ we guarantee that data on disk are still consistent?</p>
 </ul>
 </li>
 </ul>
-<img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 4. Case 1: only the data block is updated</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">data</span> <span class="ow">is</span> <span class="n">on</span> <span class="n">disk</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Nobody</span> <span class="n">ever</span> <span class="n">knows</span><span class="p">,</span> <span class="n">because</span> <span class="n">inode</span> <span class="ow">and</span> <span class="n">data</span> <span class="n">bitmap</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">updated</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">file</span> <span class="n">system</span> <span class="n">itself</span> <span class="ow">is</span> <span class="n">still</span> <span class="n">consistent</span><span class="p">,</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">just</span> <span class="n">like</span> <span class="n">nothing</span> <span class="n">happened</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">No</span> <span class="n">need</span> <span class="n">to</span> <span class="n">fix</span> <span class="n">anything</span>   
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/fsck/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;a crash scenario&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="case-1-only-the-data-block-is-updated">
+<h2>4. Case 1: only the data block is updated<a class="headerlink" href="#case-1-only-the-data-block-is-updated" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The data is on disk</p></li>
+<li><p>Nobody ever knows, because inode and data bitmap are not updated</p></li>
+<li><p>The file system itself is still consistent, it is just like nothing happened</p></li>
+<li><p>No need to fix anything</p></li>
+</ul>
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
+</section>
 <section id="case-2-only-the-inode-is-updated">
 <h2>5. Case 2: only the inode is updated<a class="headerlink" href="#case-2-only-the-inode-is-updated" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -435,20 +442,18 @@ we guarantee that data on disk are still consistent?</p>
 </ul>
 </li>
 </ul>
-<img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 6. Case 3: only data bitmap is updated
-&gt; 
-&gt; - `inode` is not pointing `data block #5`, so no risk of reading garbage data
-&gt; - `data bitmap` says `data block #5` is used, but in fact it is not
-&gt; - `data block #5` will never be used again
-&gt; - This is called a **space leak**.  
-&gt;
-&gt; &lt;img src=&quot;../fig/fsck/01.png&quot; alt=&quot;a crash scenario&quot; style=&quot;height:300px&quot;&gt;
-</pre></div>
-</div>
+<section id="case-3-only-data-bitmap-is-updated">
+<h2>6. Case 3: only data bitmap is updated<a class="headerlink" href="#case-3-only-data-bitmap-is-updated" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">inode</span></code> is not pointing <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">block</span> <span class="pre">#5</span></code>, so no risk of reading garbage data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">bitmap</span></code> says <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">block</span> <span class="pre">#5</span></code> is used, but in fact it is not</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">block</span> <span class="pre">#5</span></code> will never be used again</p></li>
+<li><p>This is called a <strong>space leak</strong>.</p></li>
+</ul>
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
+</section>
 <section id="case-4-only-inode-and-data-bitmap-updated">
 <h2>7. Case 4: Only inode and data bitmap updated<a class="headerlink" href="#case-4-only-inode-and-data-bitmap-updated" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -456,63 +461,68 @@ we guarantee that data on disk are still consistent?</p>
 <li><p>The file system doesn’t even realized anything wrong, because the inode and the
 data bitmap are consistent with each other.</p></li>
 </ul>
-<img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 8. Case 5: Only inode and data block updated
-&gt; 
-&gt; - The file system will **NOT** read garbage data.
-&gt; - `Data bitmap` and `inode` are inconsistent between each other:
-&gt;   - `inode` says that the data block #5 is used, but `data bitmap` say it is not
-&gt;   - if not fixed, could allocate `block #5` again and overwrite its data by mistake
-&gt;
-&gt; &lt;img src=&quot;../fig/fsck/01.png&quot; alt=&quot;a crash scenario&quot; style=&quot;height:300px&quot;&gt;
-</pre></div>
-</div>
+<section id="case-5-only-inode-and-data-block-updated">
+<h2>8. Case 5: Only inode and data block updated<a class="headerlink" href="#case-5-only-inode-and-data-block-updated" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The file system will <strong>NOT</strong> read garbage data.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Data</span> <span class="pre">bitmap</span></code> and <code class="docutils literal notranslate"><span class="pre">inode</span></code> are inconsistent between each other:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">inode</span></code> says that the data block #5 is used, but <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">bitmap</span></code> say it is not</p></li>
+<li><p>if not fixed, could allocate <code class="docutils literal notranslate"><span class="pre">block</span> <span class="pre">#5</span></code> again and overwrite its data by mistake</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
+</section>
 <section id="case-6-only-data-bitmap-and-data-block-updated">
 <h2>9. Case 6: Only data bitmap and data block updated<a class="headerlink" href="#case-6-only-data-bitmap-and-data-block-updated" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Inconsistency between inode and data bitmap.</p></li>
 <li><p>We know <code class="docutils literal notranslate"><span class="pre">data</span> <span class="pre">block</span> <span class="pre">#5</span></code> is used, but will never know which file uses it</p></li>
 </ul>
-<img src="../fig/fsck/01.png" alt="a crash scenario" style="height:300px">
+<p><img alt="a crash scenario" src="../_images/013.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 10. Problem!</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">We</span> <span class="n">wish</span> <span class="n">file</span> <span class="n">system</span> <span class="n">updates</span> <span class="n">were</span> <span class="n">atomic</span><span class="p">,</span> <span class="n">but</span> <span class="n">they</span> <span class="n">are</span> <span class="ow">not</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">there</span> <span class="n">are</span> <span class="n">many</span> <span class="n">different</span> <span class="n">problems</span> <span class="n">that</span> <span class="n">can</span> <span class="n">occur</span> <span class="k">if</span> <span class="n">the</span> <span class="n">computer</span> <span class="n">crashes</span> <span class="n">during</span>
-<span class="o">&gt;</span> <span class="n">a</span> <span class="n">file</span> <span class="n">system</span> <span class="n">update</span><span class="o">.</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Inconsistency</span> <span class="ow">in</span> <span class="n">file</span> <span class="n">system</span> <span class="n">data</span> <span class="n">structure</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Reading</span> <span class="n">garbage</span> <span class="n">data</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Space</span> <span class="n">leak</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">We</span> <span class="n">call</span> <span class="n">them</span> <span class="n">crash</span><span class="o">-</span><span class="n">consistency</span> <span class="n">problems</span>
-</pre></div>
-</div>
-<section id="solution-1-fsck">
-<h2>11. Solution 1: FSCK<a class="headerlink" href="#solution-1-fsck" title="Permalink to this heading">#</a></h2>
-<img src="../fig/fsck/02.png" alt="FSCK" style="height:500px">
+<section id="problem">
+<h2>10. Problem!<a class="headerlink" href="#problem" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>We wish file system updates were atomic, but they are not.</p></li>
+<li><p>The there are many different problems that can occur if the computer crashes during
+a file system update.</p>
+<ul>
+<li><p>Inconsistency in file system data structure</p></li>
+<li><p>Reading garbage data</p></li>
+<li><p>Space leak</p></li>
+</ul>
+</li>
+<li><p>We call them crash-consistency problems</p></li>
+</ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 12. FSCK (File System Check)
-&gt; 
-&gt; - A UNIX tool that scans the whole disk, finds inconsistencies ands repair them.
-&gt;   - It runs before the file system is mounted, e.g., when booting
-&gt;   - when crash happens, let it be, and fix it later (when rebooting)
-&gt; - Typical checks performed
-&gt;   - all blocks pointed to by `inode` or indirect block must be marked *used* in `bitmap`
-&gt;   - all used `inodes` must be in some directory entry
-&gt;   - `inode` reference count (link count) must match
-&gt;   - no duplicate data pointers.
-&gt;   - etc.
-&gt;
-</pre></div>
-</div>
+<section id="solution-1-fsck-file-system-check">
+<h2>11. Solution 1: FSCK (File System Check)<a class="headerlink" href="#solution-1-fsck-file-system-check" title="Permalink to this heading">#</a></h2>
+<p><img alt="FSCK" src="../_images/022.png" />
+ß</p>
+<ul class="simple">
+<li><p>A UNIX tool that scans the whole disk, finds inconsistencies ands repair them.</p>
+<ul>
+<li><p>It runs before the file system is mounted, e.g., when booting</p></li>
+<li><p>when crash happens, let it be, and fix it later (when rebooting)</p></li>
+</ul>
+</li>
+<li><p>Typical checks performed</p>
+<ul>
+<li><p>all blocks pointed to by <code class="docutils literal notranslate"><span class="pre">inode</span></code> or indirect block must be marked <em>used</em> in <code class="docutils literal notranslate"><span class="pre">bitmap</span></code></p></li>
+<li><p>all used <code class="docutils literal notranslate"><span class="pre">inodes</span></code> must be in some directory entry</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inode</span></code> reference count (link count) must match</p></li>
+<li><p>no duplicate data pointers.</p></li>
+<li><p>etc.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="limitation-of-fsck">
-<h2>13. Limitation of FSCK<a class="headerlink" href="#limitation-of-fsck" title="Permalink to this heading">#</a></h2>
+<h2>12. Limitation of FSCK<a class="headerlink" href="#limitation-of-fsck" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>A working FSCK requires very complicated and detailed knowledge of the
 file system, and is hard to be implemented correctly.</p></li>
@@ -527,18 +537,15 @@ inconsistency needs to be fixed.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 14. Solution 2: Journaling (write-ahead logging)</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Additional</span> <span class="n">space</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">on</span><span class="o">-</span><span class="n">disk</span> <span class="n">data</span> <span class="n">structure</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/fsck/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;Journaling&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="solution-2-journaling-write-ahead-logging">
+<h2>13. Solution 2: Journaling (write-ahead logging)<a class="headerlink" href="#solution-2-journaling-write-ahead-logging" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Additional space in the on-disk data structure</p></li>
+</ul>
+<p><img alt="Journaling" src="../_images/032.png" /></p>
+</section>
 <section id="journaling-what-to-store">
-<h2>15. Journaling: what to store?<a class="headerlink" href="#journaling-what-to-store" title="Permalink to this heading">#</a></h2>
+<h2>14. Journaling: what to store?<a class="headerlink" href="#journaling-what-to-store" title="Permalink to this heading">#</a></h2>
 <p>When updating the disk, before making the actual writes to disk, the FS first writes
 a little <em>note</em> about what it is about to do, to the journal (or log, at well known
 location on disk).</p>
@@ -550,22 +557,26 @@ the journal and replay the actual writes hence recover the data.</p></li>
 the actual write has NOT happened at all, nothing is inconsistent.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 16. Journaling: the structure to be written to the journal/log
-&gt; 
-&gt; - Transaction:
-&gt;   - starts with a `transaction begin` (TxB) block, containing a `transaction id` (TID) 
-&gt;   followed by blocks with the exact content to be written.
-&gt;     - physical logging: putting exact physical content
-&gt;     - logical logging: putting more compact logical representation
-&gt;   - ends with a `transaction end` (TxE) block, containing the TID.
-&gt; &lt;img src=&quot;../fig/fsck/04.png&quot; alt=&quot;Journal transaction data structure&quot; style=&quot;height:100px&quot;&gt;
-&gt;
-</pre></div>
-</div>
+<section id="journaling-the-structure-to-be-written-to-the-journal-log">
+<h2>15. Journaling: the structure to be written to the journal/log<a class="headerlink" href="#journaling-the-structure-to-be-written-to-the-journal-log" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Transaction:</p>
+<ul>
+<li><p>starts with a <code class="docutils literal notranslate"><span class="pre">transaction</span> <span class="pre">begin</span></code> (TxB) block, containing a <code class="docutils literal notranslate"><span class="pre">transaction</span> <span class="pre">id</span></code> (TID)
+followed by blocks with the exact content to be written.</p>
+<ul>
+<li><p>physical logging: putting exact physical content</p></li>
+<li><p>logical logging: putting more compact logical representation</p></li>
+</ul>
+</li>
+<li><p>ends with a <code class="docutils literal notranslate"><span class="pre">transaction</span> <span class="pre">end</span></code> (TxE) block, containing the TID.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="Journal transaction data structure" src="../_images/042.png" /></p>
+</section>
 <section id="journaling-sequence-of-operations">
-<h2>17. Journaling: sequence of operations<a class="headerlink" href="#journaling-sequence-of-operations" title="Permalink to this heading">#</a></h2>
+<h2>16. Journaling: sequence of operations<a class="headerlink" href="#journaling-sequence-of-operations" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Journal write: write the transaction, including the TxB,
 all pending data and metadata updates, and the TxE, to the journal; wait for these
@@ -580,26 +591,24 @@ the writes in the batch can happen in any order.</p></li>
 </ul>
 </li>
 </ul>
-<img src="../fig/fsck/05.png" alt="Journal transaction data structure" style="height:100px">
+<p><img alt="Journal transaction data structure" src="../_images/052.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 18. Journaling: a better sequence of operations</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Journal</span> <span class="n">write</span><span class="p">:</span> <span class="n">write</span> <span class="n">the</span> <span class="n">transaction</span><span class="p">,</span> <span class="n">including</span> <span class="n">the</span> <span class="n">TxB</span><span class="p">,</span> <span class="nb">all</span> <span class="n">pending</span> <span class="n">data</span> <span class="ow">and</span> 
-<span class="o">&gt;</span> <span class="n">metadata</span> <span class="n">updates</span><span class="p">,</span> <span class="n">NOT</span> <span class="n">including</span> <span class="n">the</span> <span class="n">TxE</span><span class="p">,</span> <span class="n">to</span> <span class="n">the</span> <span class="n">journal</span><span class="p">;</span> <span class="n">wait</span> <span class="k">for</span> <span class="n">these</span> <span class="n">writes</span> <span class="n">to</span> 
-<span class="o">&gt;</span> <span class="n">complete</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Journal</span> <span class="n">commit</span><span class="p">:</span> <span class="n">write</span> <span class="n">the</span> <span class="n">TxE</span> <span class="n">block</span> <span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">k</span><span class="o">.</span><span class="n">a</span><span class="o">.</span> <span class="n">transaction</span> <span class="n">commit</span> <span class="n">block</span><span class="p">);</span> <span class="n">now</span> <span class="n">tractions</span> 
-<span class="o">&gt;</span> <span class="ow">is</span> <span class="n">said</span> <span class="n">to</span> <span class="n">be</span> <span class="n">committed</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Checkpoint</span><span class="p">:</span> <span class="n">actually</span> <span class="n">write</span> <span class="n">the</span> <span class="n">pending</span> <span class="n">data</span> <span class="ow">and</span> <span class="n">metadata</span> <span class="n">to</span> <span class="n">to</span> <span class="n">their</span> <span class="n">final</span> <span class="n">locations</span> 
-<span class="o">&gt;</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span> <span class="n">system</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Hard</span> <span class="n">disk</span> <span class="n">guarantees</span> <span class="n">atomic</span> <span class="n">write</span> <span class="n">of</span> <span class="n">a</span> <span class="mi">512</span><span class="o">-</span><span class="n">byte</span> <span class="n">sector</span><span class="p">,</span> <span class="n">the</span> <span class="n">TxE</span> <span class="n">block</span> <span class="n">should</span> <span class="n">fit</span> <span class="ow">in</span> 
-<span class="o">&gt;</span> <span class="n">a</span> <span class="mi">512</span><span class="o">-</span><span class="n">byte</span> <span class="n">sector</span><span class="p">,</span> <span class="n">so</span> <span class="n">the</span> <span class="n">commit</span> <span class="ow">is</span> <span class="n">either</span> <span class="n">fully</span> <span class="n">completed</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">completed</span> <span class="n">at</span> <span class="nb">all</span><span class="o">.</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="journaling-a-better-sequence-of-operations">
+<h2>17. Journaling: a better sequence of operations<a class="headerlink" href="#journaling-a-better-sequence-of-operations" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Journal write: write the transaction, including the TxB, all pending data and
+metadata updates, NOT including the TxE, to the journal; wait for these writes to
+complete.</p></li>
+<li><p>Journal commit: write the TxE block (a.k.a. transaction commit block); now tractions
+is said to be committed.</p></li>
+<li><p>Checkpoint: actually write the pending data and metadata to to their final locations
+in the file system.</p></li>
+<li><p>Hard disk guarantees atomic write of a 512-byte sector, the TxE block should fit in
+a 512-byte sector, so the commit is either fully completed or not completed at all.</p></li>
+</ul>
+</section>
 <section id="journaling-recover-from-a-crash">
-<h2>19. Journaling: recover from a crash<a class="headerlink" href="#journaling-recover-from-a-crash" title="Permalink to this heading">#</a></h2>
+<h2>18. Journaling: recover from a crash<a class="headerlink" href="#journaling-recover-from-a-crash" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>If crash happens before the transaction is committed to the journal/log
 simply skip the pending update.</p></li>
@@ -615,25 +624,26 @@ it and do other stuff.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 20. Journaling: space requirement
-&gt; 
-&gt; - If we need to write something to journal for every single disk update, 
-&gt; does the journal need to be huge?
-&gt; - Not really, after checkpoint the transaction in the journal is not useful anymore, 
-&gt; so the space can be freed.
-&gt; - So there are indeed 4 steps:
-&gt;   - journal write
-&gt;   - journal commit
-&gt;   - checkpoint
-&gt;   - free 
-&gt; - Typical data structure for the journal: circular log
-&gt;
-</pre></div>
-</div>
+<section id="journaling-space-requirement">
+<h2>19. Journaling: space requirement<a class="headerlink" href="#journaling-space-requirement" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>If we need to write something to journal for every single disk update,
+does the journal need to be huge?</p></li>
+<li><p>Not really, after checkpoint the transaction in the journal is not useful anymore,
+so the space can be freed.</p></li>
+<li><p>So there are indeed 4 steps:</p>
+<ul>
+<li><p>journal write</p></li>
+<li><p>journal commit</p></li>
+<li><p>checkpoint</p></li>
+<li><p>free</p></li>
+</ul>
+</li>
+<li><p>Typical data structure for the journal: circular log</p></li>
+</ul>
+</section>
 <section id="metadata-journaling">
-<h2>21. Metadata Journaling<a class="headerlink" href="#metadata-journaling" title="Permalink to this heading">#</a></h2>
+<h2>20. Metadata Journaling<a class="headerlink" href="#metadata-journaling" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Recovery is fast with journaling, but the normal operations are slower,
 because for every update we need to write to the journal first then do the update.</p></li>
@@ -643,28 +653,29 @@ writes and cause jump-back-and-forth between journal and data region.</p></li>
 that we only write metadata (NOT data) to the journal.</p></li>
 <li><p>The journal looks like …</p></li>
 </ul>
-<img src="../fig/fsck/06.png" alt="metadata journaling" style="height:100px">
+<p><img alt="metadata journaling" src="../_images/062.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 22. Metadata journaling
-&gt; 
-&gt; - If we write data after checkpointing metadata, then write data, if crash 
-&gt; occurs before all data is written, the `inodes` will point to garbage data.
-&gt; - How to solve this problem: Write data before writing metadata journal!
-&gt;   - write data, wait until it completes
-&gt;   - metadata journal write
-&gt;   - metadata journal commit
-&gt;   - checkpoint metadata
-&gt;   - free
-&gt; - If write data fails, then no metadata is written at all, like nothing happened. 
-&gt; - If data write succeed, but metadata write fails, still like nothing happened.
-&gt; - If metadata write succeeds, data must be available.
-&gt;
-</pre></div>
-</div>
+<section id="id1">
+<h2>21. Metadata journaling<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>If we write data after checkpointing metadata, then write data, if crash
+occurs before all data is written, the <code class="docutils literal notranslate"><span class="pre">inodes</span></code> will point to garbage data.</p></li>
+<li><p>How to solve this problem: Write data before writing metadata journal!</p>
+<ul>
+<li><p>write data, wait until it completes</p></li>
+<li><p>metadata journal write</p></li>
+<li><p>metadata journal commit</p></li>
+<li><p>checkpoint metadata</p></li>
+<li><p>free</p></li>
+</ul>
+</li>
+<li><p>If write data fails, then no metadata is written at all, like nothing happened.</p></li>
+<li><p>If data write succeed, but metadata write fails, still like nothing happened.</p></li>
+<li><p>If metadata write succeeds, data must be available.</p></li>
+</ul>
+</section>
 <section id="journaling-summary">
-<h2>23. Journaling summary<a class="headerlink" href="#journaling-summary" title="Permalink to this heading">#</a></h2>
+<h2>22. Journaling summary<a class="headerlink" href="#journaling-summary" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Journaling provides file system consistency</p></li>
 <li><p>Time complexity of recovery is <code class="docutils literal notranslate"><span class="pre">O(size_of_journal)</span></code>, instead of
@@ -675,11 +686,6 @@ IBM’s JFS, SGI’s XFS, and Windows’ NTFS.</p></li>
 to the journal while provide reasonable consistency guarantees.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
-
-</pre></div>
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -750,17 +756,27 @@ to the journal while provide reasonable consistency guarantees.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persistence">1. Persistence</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-crash-scenario">2. A crash scenario</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#if-the-computer-crashed-during-write">3. If the computer crashed during write</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-1-only-the-data-block-is-updated">4. Case 1: only the data block is updated</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-2-only-the-inode-is-updated">5. Case 2: only the inode is updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-3-only-data-bitmap-is-updated">6. Case 3: only data bitmap is updated</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-4-only-inode-and-data-bitmap-updated">7. Case 4: Only inode and data bitmap updated</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-5-only-inode-and-data-block-updated">8. Case 5: Only inode and data block updated</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#case-6-only-data-bitmap-and-data-block-updated">9. Case 6: Only data bitmap and data block updated</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-fsck">11. Solution 1: FSCK</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-of-fsck">13. Limitation of FSCK</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-what-to-store">15. Journaling: what to store?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-sequence-of-operations">17. Journaling: sequence of operations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-recover-from-a-crash">19. Journaling: recover from a crash</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata-journaling">21. Metadata Journaling</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-summary">23. Journaling summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem">10. Problem!</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-1-fsck-file-system-check">11. Solution 1: FSCK (File System Check)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitation-of-fsck">12. Limitation of FSCK</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solution-2-journaling-write-ahead-logging">13. Solution 2: Journaling (write-ahead logging)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-what-to-store">14. Journaling: what to store?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-the-structure-to-be-written-to-the-journal-log">15. Journaling: the structure to be written to the journal/log</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-sequence-of-operations">16. Journaling: sequence of operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-a-better-sequence-of-operations">17. Journaling: a better sequence of operations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-recover-from-a-crash">18. Journaling: recover from a crash</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-space-requirement">19. Journaling: space requirement</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metadata-journaling">20. Metadata Journaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">21. Metadata journaling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#journaling-summary">22. Journaling summary</a></li>
 </ul>
   </nav></div>
 
