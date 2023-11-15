@@ -329,11 +329,17 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-have-we-learned-so-far">1. What have we learned so far?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edsger-dijkstra">2. Edsger Dijkstra</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore">3. Semaphore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sem-wait-and-sem-post">3. sem_wait() and sem_post()</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aspects-of-sem-wait-and-sem-post">4. Aspects of sem_wait() and sem_post()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-as-lock-binary-semaphore">5. Semaphore as lock (binary semaphore)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-as-condition-variable">6. Semaphore as condition variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-producer-consumer-i">7. Semaphore: producer/consumer I</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-producer-consumer-ii">8. Semaphore: producer/consumer II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-producer-consumer-iii">9. Semaphore: producer/consumer III</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dining-philosophers">10. The dining philosophers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solutions">11. Solutions</a></li>
 </ul>
             </nav>
         </div>
@@ -347,16 +353,6 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="semaphores">
 <h1>Semaphores<a class="headerlink" href="#semaphores" title="Permalink to this heading">#</a></h1>
-<p>teaching: 0
-exercises: 0
-questions:</p>
-<ul class="simple">
-<li><p>“How to support atomicity with semaphores?”
-objectives:</p></li>
-<li><p>“First learning objective. (FIXME)”
-keypoints:</p></li>
-<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
-</ul>
 <section id="what-have-we-learned-so-far">
 <h2>1. What have we learned so far?<a class="headerlink" href="#what-have-we-learned-so-far" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -365,18 +361,17 @@ concurrency problems.</p></li>
 <li><p>Can we do better?</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 2. Edsger Dijkstra</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Dijkstra</span><span class="p">,</span> <span class="n">Edsger</span> <span class="n">W</span><span class="o">.</span> <span class="o">*</span><span class="s2">&quot;The structure of the &quot;</span><span class="n">THE</span><span class="s2">&quot; multiprogramming system.&quot;</span><span class="o">*</span> 
-<span class="o">&gt;</span> <span class="n">In</span> <span class="n">The</span> <span class="n">origin</span> <span class="n">of</span> <span class="n">concurrent</span> <span class="n">programming</span><span class="p">,</span> <span class="n">pp</span><span class="o">.</span> <span class="mi">139</span><span class="o">-</span><span class="mf">152.</span> <span class="n">Springer</span><span class="p">,</span> <span class="n">New</span> <span class="n">York</span><span class="p">,</span> <span class="n">NY</span><span class="p">,</span> <span class="mf">1968.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Dijkstra</span><span class="p">,</span> <span class="n">Edsger</span> <span class="n">W</span><span class="o">.</span> <span class="o">*</span><span class="s2">&quot;Information streams sharing a finite buffer.&quot;</span><span class="o">*</span> <span class="n">In</span> <span class="n">Inf</span><span class="o">.</span> <span class="n">Proc</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="n">Letters</span><span class="p">,</span> <span class="n">vol</span><span class="o">.</span> <span class="mi">1</span><span class="p">,</span> <span class="n">pp</span><span class="o">.</span> <span class="mi">179</span><span class="o">-</span><span class="mf">180.</span> <span class="mf">1972.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Together</span> <span class="k">with</span> <span class="n">colleagues</span><span class="p">,</span> <span class="n">developed</span> <span class="n">semaphore</span> <span class="k">as</span> <span class="n">a</span> <span class="n">single</span> <span class="n">primitive</span> <span class="k">for</span> <span class="nb">all</span> <span class="n">things</span> 
-<span class="o">&gt;</span> <span class="n">related</span> <span class="n">to</span> <span class="n">synchronization</span><span class="o">.</span> 
-</pre></div>
-</div>
+<section id="edsger-dijkstra">
+<h2>2. Edsger Dijkstra<a class="headerlink" href="#edsger-dijkstra" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Dijkstra, Edsger W. <em>“The structure of the “THE” multiprogramming system.”</em>
+In The origin of concurrent programming, pp. 139-152. Springer, New York, NY, 1968.</p></li>
+<li><p>Dijkstra, Edsger W. <em>“Information streams sharing a finite buffer.”</em> In Inf. Proc.
+Letters, vol. 1, pp. 179-180. 1972.</p></li>
+<li><p>Together with colleagues, developed semaphore as a single primitive for all things
+related to synchronization.</p></li>
+</ul>
+</section>
 <section id="semaphore">
 <h2>3. Semaphore<a class="headerlink" href="#semaphore" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -393,15 +388,14 @@ concurrency problems.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 3. sem_wait() and sem_post()
-&gt; 
-&gt; - More important, how do we use `sem_wait()` and `sem_post()` to facilitate 
-&gt; synchronization for concurrency?
-&gt; &lt;img src=&quot;../fig/semaphores/01.png&quot; alt=&quot;wait and post&quot; style=&quot;height:200px&quot;&gt;
-</pre></div>
-</div>
+<section id="sem-wait-and-sem-post">
+<h2>3. sem_wait() and sem_post()<a class="headerlink" href="#sem-wait-and-sem-post" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>More important, how do we use <code class="docutils literal notranslate"><span class="pre">sem_wait()</span></code> and <code class="docutils literal notranslate"><span class="pre">sem_post()</span></code> to facilitate
+synchronization for concurrency?</p></li>
+</ul>
+<p><img alt="wait and post" src="../_images/017.png" /></p>
+</section>
 <section id="aspects-of-sem-wait-and-sem-post">
 <h2>4. Aspects of sem_wait() and sem_post()<a class="headerlink" href="#aspects-of-sem-wait-and-sem-post" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -412,31 +406,32 @@ thread up.</p></li>
 <li><p>The value of the semaphore, when negative, is equal to the number of waiting threads.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 5. Semaphore as lock (binary semaphore)</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/semaphores/02.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;sem as lock&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:200px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/semaphores/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;sem as lock&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="semaphore-as-lock-binary-semaphore">
+<h2>5. Semaphore as lock (binary semaphore)<a class="headerlink" href="#semaphore-as-lock-binary-semaphore" title="Permalink to this heading">#</a></h2>
+<p><img alt="sem as lock" src="../_images/026.png" />
+<img alt="sem as lock" src="../_images/036.png" /></p>
+</section>
 <section id="semaphore-as-condition-variable">
 <h2>6. Semaphore as condition variable<a class="headerlink" href="#semaphore-as-condition-variable" title="Permalink to this heading">#</a></h2>
-<img src="../fig/semaphores/04.png" alt="sem as cv" style="height:600px">
+<p><img alt="sem as cv" src="../_images/046.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 7. Semaphore: producer/consumer I
-&gt; 
-&gt; - What is the risk if MAX &gt; 1 and there are multiple producers/consumers?
-&gt;   - Race condition: two producers produce at the same time or two consumers
-&gt;   consume at the same time. 
-&gt; - What is currently missing from this implementation?
-&gt;   - Mutual exclusion
-&gt;
-&gt; &lt;img src=&quot;../fig/semaphores/05.png&quot; alt=&quot;wait and post&quot; style=&quot;height:400px&quot;&gt;
-</pre></div>
-</div>
+<section id="semaphore-producer-consumer-i">
+<h2>7. Semaphore: producer/consumer I<a class="headerlink" href="#semaphore-producer-consumer-i" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>What is the risk if MAX &gt; 1 and there are multiple producers/consumers?</p>
+<ul>
+<li><p>Race condition: two producers produce at the same time or two consumers
+consume at the same time.</p></li>
+</ul>
+</li>
+<li><p>What is currently missing from this implementation?</p>
+<ul>
+<li><p>Mutual exclusion</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="wait and post" src="../_images/056.png" /></p>
+</section>
 <section id="semaphore-producer-consumer-ii">
 <h2>8. Semaphore: producer/consumer II<a class="headerlink" href="#semaphore-producer-consumer-ii" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -447,19 +442,20 @@ thread up.</p></li>
 </ul>
 </li>
 </ul>
-<img src="../fig/semaphores/06.png" alt="wait and post" style="height:600px">
+<p><img alt="wait and post" src="../_images/066.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 9. Semaphore: producer/consumer III
-&gt; 
-&gt; - Mutual exclusion is added, correctly. 
-&gt;   - `full` and `empty` are for producers and consumers to wait on one another. 
-&gt;   - `mutex` for producers and consumers to wait among each group. 
-&gt;
-&gt; &lt;img src=&quot;../fig/semaphores/07.png&quot; alt=&quot;wait and post&quot; style=&quot;height:600px&quot;&gt;
-</pre></div>
-</div>
+<section id="semaphore-producer-consumer-iii">
+<h2>9. Semaphore: producer/consumer III<a class="headerlink" href="#semaphore-producer-consumer-iii" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Mutual exclusion is added, correctly.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">full</span></code> and <code class="docutils literal notranslate"><span class="pre">empty</span></code> are for producers and consumers to wait on one another.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mutex</span></code> for producers and consumers to wait among each group.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="wait and post" src="../_images/076.png" /></p>
+</section>
 <section id="the-dining-philosophers">
 <h2>10. The dining philosophers<a class="headerlink" href="#the-dining-philosophers" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -473,18 +469,15 @@ thread up.</p></li>
 </ul>
 </li>
 </ul>
-<img src="../fig/semaphores/08.png" alt="dining philosophers" style="height:300px">
+<p><img alt="dining philosophers" src="../_images/084.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 11. Solutions
-&gt; 
-&gt; - which one works?
-&gt;
-&gt; &lt;img src=&quot;../fig/semaphores/09.png&quot; alt=&quot;dining philosopher solutions&quot; style=&quot;height:300px&quot;&gt;
-</pre></div>
-</div>
-<p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
+<section id="solutions">
+<h2>11. Solutions<a class="headerlink" href="#solutions" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>which one works?</p></li>
+</ul>
+<p><img alt="dining philosophers" src="../_images/094.png" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -555,11 +548,17 @@ thread up.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-have-we-learned-so-far">1. What have we learned so far?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#edsger-dijkstra">2. Edsger Dijkstra</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore">3. Semaphore</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sem-wait-and-sem-post">3. sem_wait() and sem_post()</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aspects-of-sem-wait-and-sem-post">4. Aspects of sem_wait() and sem_post()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-as-lock-binary-semaphore">5. Semaphore as lock (binary semaphore)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-as-condition-variable">6. Semaphore as condition variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-producer-consumer-i">7. Semaphore: producer/consumer I</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-producer-consumer-ii">8. Semaphore: producer/consumer II</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semaphore-producer-consumer-iii">9. Semaphore: producer/consumer III</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-dining-philosophers">10. The dining philosophers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solutions">11. Solutions</a></li>
 </ul>
   </nav></div>
 

@@ -329,10 +329,18 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-process-calls-fork">1. Review: process calls fork()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-process-context-switch">2. Review: process context switch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-web-server">3. Example: web server</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thread-a-new-abstraction-for-running-processes">4. Thread: a new abstraction for running processes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thread-state-of-a-single-thread">5. Thread: state of a single thread</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-web-server-using-thread">6. Example: web server using thread</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-posix-threads-pthreads">7. API: POSIX threads (pthreads)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-say-hello-to-my-little-threads">8. Hands on: say hello to my little threads …</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-threads-and-gdb">9. Hands on: threads and gdb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-threads">10. The problem with threads</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#edward-lee-2006-the-problem-with-threads-computer-39-5">Edward Lee (2006). “The Problem with Threads”.  Computer 39(5).</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge">11. Challenge</a></li>
 </ul>
             </nav>
@@ -347,16 +355,6 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-concurrency-using-threads">
 <h1>Introduction to concurrency using threads<a class="headerlink" href="#introduction-to-concurrency-using-threads" title="Permalink to this heading">#</a></h1>
-<p>teaching: 0
-exercises: 0
-questions:</p>
-<ul class="simple">
-<li><p>“How to support concurrency?”
-objectives:</p></li>
-<li><p>“First learning objective. (FIXME)”
-keypoints:</p></li>
-<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
-</ul>
 <section id="review-process-calls-fork">
 <h2>1. Review: process calls fork()<a class="headerlink" href="#review-process-calls-fork" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -367,19 +365,17 @@ address space (up to fork).</p></li>
 <li><p><strong>In general, time consuming.</strong></p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 2. Review: process context switch</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Save</span> <span class="n">A</span><span class="s1">&#39;s registers to A&#39;</span><span class="n">s</span> <span class="n">kernel</span> <span class="n">stack</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Save</span> <span class="n">A</span><span class="s1">&#39;s registers to A&#39;</span><span class="n">s</span> <span class="n">PCB</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Restore</span> <span class="sa">B</span><span class="s1">&#39;s registers from B&#39;</span><span class="n">s</span> <span class="n">PCB</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Switch</span> <span class="n">to</span> <span class="sa">B</span><span class="s1">&#39;s kernel stack.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Restore</span> <span class="sa">B</span><span class="s1">&#39;s registers from B&#39;</span><span class="n">s</span> <span class="n">kernel</span> <span class="n">stack</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="o">**</span><span class="n">In</span> <span class="n">general</span><span class="p">,</span> <span class="n">time</span> <span class="n">consuming</span><span class="o">.**</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="review-process-context-switch">
+<h2>2. Review: process context switch<a class="headerlink" href="#review-process-context-switch" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Save A’s registers to A’s kernel stack.</p></li>
+<li><p>Save A’s registers to A’s PCB.</p></li>
+<li><p>Restore B’s registers from B’s PCB.</p></li>
+<li><p>Switch to B’s kernel stack.</p></li>
+<li><p>Restore B’s registers from B’s kernel stack.</p></li>
+<li><p><strong>In general, time consuming.</strong></p></li>
+</ul>
+</section>
 <section id="example-web-server">
 <h2>3. Example: web server<a class="headerlink" href="#example-web-server" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -390,32 +386,32 @@ handle this request.</p></li>
 different child processes.</p></li>
 <li><p>What is the problem?</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-	  <span class="nb">int</span> <span class="n">sock</span> <span class="o">=</span> <span class="n">accept</span><span class="p">();</span>
-  <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">==</span> <span class="n">fork</span><span class="p">())</span> <span class="p">{</span>
-    <span class="n">handle_request</span><span class="p">();</span>
-    <span class="n">close</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span>
-    <span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-  <span class="p">}</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">	  </span><span class="kt">int</span><span class="w"> </span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accept</span><span class="p">();</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">fork</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">handle_request</span><span class="p">();</span>
+<span class="w">    </span><span class="n">close</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span>
+<span class="w">    </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>{: .language-c}</p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 4. Thread: a new abstraction for running processes</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">A</span> <span class="n">normal</span> <span class="n">process</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">running</span> <span class="n">program</span> <span class="k">with</span> <span class="n">a</span> <span class="n">single</span> <span class="n">point</span> <span class="n">of</span> <span class="n">execution</span><span class="p">,</span> 
-<span class="o">&gt;</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="p">,</span> <span class="n">a</span> <span class="n">single</span> <span class="n">PC</span> <span class="p">(</span><span class="n">program</span> <span class="n">counter</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">A</span> <span class="o">**</span><span class="n">multi</span><span class="o">-</span><span class="n">threaded</span><span class="o">**</span> <span class="n">program</span> <span class="n">has</span> <span class="o">**</span><span class="n">multiple</span> <span class="n">points</span> <span class="n">of</span> <span class="n">execution</span><span class="o">**</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">e</span><span class="o">.</span><span class="p">,</span> <span class="n">multiple</span> <span class="n">PCs</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Each</span> <span class="n">thread</span> <span class="ow">is</span> <span class="n">very</span> <span class="n">much</span> <span class="n">like</span> <span class="n">a</span> <span class="n">separate</span> <span class="n">process</span><span class="p">,</span> <span class="k">except</span> <span class="k">for</span> <span class="n">one</span> <span class="n">difference</span><span class="p">:</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">All</span> <span class="n">threads</span> <span class="n">of</span> <span class="n">the</span> <span class="n">same</span> <span class="n">process</span> <span class="n">share</span> <span class="n">the</span> <span class="n">same</span> <span class="n">address</span> <span class="n">space</span> <span class="ow">and</span> <span class="n">thus</span> <span class="n">can</span> 
-<span class="o">&gt;</span>   <span class="n">access</span> <span class="n">the</span> <span class="n">same</span> <span class="n">data</span><span class="o">.</span> 
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/10-concurrency/01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;pages&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="thread-a-new-abstraction-for-running-processes">
+<h2>4. Thread: a new abstraction for running processes<a class="headerlink" href="#thread-a-new-abstraction-for-running-processes" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A normal process is a running program with a single point of execution,
+i.e, a single PC (program counter).</p></li>
+<li><p>A <strong>multi-threaded</strong> program has <strong>multiple points of execution</strong>, i.e., multiple PCs.</p></li>
+<li><p>Each thread is very much like a separate process, except for one difference:</p>
+<ul>
+<li><p>All threads of the same process share the same address space and thus can
+access the same data.</p></li>
+</ul>
+</li>
+</ul>
+<p>&lt;img src=”../fig/10-concurrency/01.png” alt=”pages” style=”height:350px”</p>
+</section>
 <section id="thread-state-of-a-single-thread">
 <h2>5. Thread: state of a single thread<a class="headerlink" href="#thread-state-of-a-single-thread" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -430,29 +426,24 @@ different child processes.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+<section id="example-web-server-using-thread">
+<h2>6. Example: web server using thread<a class="headerlink" href="#example-web-server-using-thread" title="Permalink to this heading">#</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="n">global_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="n">web_server</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">sock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accept</span><span class="p">();</span>
+<span class="w">    </span><span class="n">thread_create</span><span class="p">(</span><span class="n">handle_request</span><span class="p">,</span><span class="w"> </span><span class="n">sock</span><span class="p">);</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
 
-<span class="o">&gt;</span> <span class="c1">## 6. Example: web server using thread</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">~~~</span>
-<span class="o">&gt;</span> <span class="nb">int</span> <span class="n">global_counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-<span class="o">&gt;</span> <span class="n">web_server</span><span class="p">()</span> <span class="p">{</span>
-<span class="o">&gt;</span>   <span class="k">while</span> <span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-<span class="o">&gt;</span>     <span class="nb">int</span> <span class="n">sock</span> <span class="o">=</span> <span class="n">accept</span><span class="p">();</span>
-<span class="o">&gt;</span>     <span class="n">thread_create</span><span class="p">(</span><span class="n">handle_request</span><span class="p">,</span> <span class="n">sock</span><span class="p">);</span>
-<span class="o">&gt;</span>   <span class="p">}</span>
-<span class="o">&gt;</span> <span class="p">}</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="n">handle_request</span><span class="p">(</span><span class="nb">int</span> <span class="n">sock</span><span class="p">)</span> <span class="p">{</span>
-<span class="o">&gt;</span>   <span class="n">process</span> <span class="n">request</span><span class="p">;</span>
-<span class="o">&gt;</span>   <span class="o">++</span><span class="n">global_counter</span><span class="p">;</span>
-<span class="o">&gt;</span>   <span class="n">close</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span>
-<span class="o">&gt;</span> <span class="p">}</span>
-<span class="o">&gt;</span> <span class="o">~~~</span>
-<span class="o">&gt;</span> <span class="p">{:</span> <span class="o">.</span><span class="n">language</span><span class="o">-</span><span class="n">c</span><span class="p">}</span>
-<span class="o">&gt;</span>
+<span class="n">handle_request</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">sock</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">process</span><span class="w"> </span><span class="n">request</span><span class="p">;</span>
+<span class="w">  </span><span class="o">++</span><span class="n">global_counter</span><span class="p">;</span>
+<span class="w">  </span><span class="n">close</span><span class="p">(</span><span class="n">sock</span><span class="p">);</span>
+<span class="p">}</span>
 </pre></div>
 </div>
+</section>
 <section id="api-posix-threads-pthreads">
 <h2>7. API: POSIX threads (pthreads)<a class="headerlink" href="#api-posix-threads-pthreads" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -470,74 +461,50 @@ are implemented in OS.</p></li>
 <li><p><a class="reference external" href="http://man7.org/linux/man-pages/man3/pthread_join.3.html">pthread_join</a></p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-
-&gt; ## 8. Hands on: say hello to my little threads ...
-&gt;
-&gt; - Before turning on the VM, makes sure that you have two processors assigned
-&gt; to your VM. 
-&gt;
-&gt; - Open a terminal (Windows Terminal or Mac Terminal). 
-&gt; - Run the command to launch the image container for your platform:
-&gt; - Windows:
-&gt; 
-&gt; ~~~
-&gt; $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
-&gt; ~~~
-&gt; {: .language-bash}
-&gt;
-&gt; - Mac:
-&gt;
-&gt; ~~~
-&gt; $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
-&gt; ~~~
-&gt; {: .language-bash}
-&gt;
-&gt; - Create a directory named `concurrency` inside `~/csc331` and change to this directory
-&gt;
-&gt; ~~~
-&gt; $ mkdir ~/csc331/concurrency
-&gt; $ cd ~/csc331/concurrency
-&gt; ~~~ 
-&gt; {: .language-bash}
-&gt;
-&gt; - Create `thread_hello.c` with the following contents:
-&gt;
-&gt; &lt;script src=&quot;https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=thread_hello.c&quot;&gt;&lt;/script&gt;
-&gt;
-&gt; - Compile and run `thread_hello.c`:
-&gt; 
-&gt; ~~~
-&gt; $ gcc -o thread_hello thread_hello.c -lpthread
-&gt; $ ./thread_hello 1
-&gt; $ ./thread_hello 2 
-&gt; $ ./thread_hello 4
-&gt; ~~~ 
-&gt; {: .language-bash}
-&gt; 
-&gt; &lt;img src=&quot;../fig/10-concurrency/02.png&quot; alt=&quot;thread hello&quot; style=&quot;height:400px&quot;&gt;
+<section id="hands-on-say-hello-to-my-little-threads">
+<h2>8. Hands on: say hello to my little threads …<a class="headerlink" href="#hands-on-say-hello-to-my-little-threads" title="Permalink to this heading">#</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">$</span><span class="w"> </span><span class="n">docker</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="o">--</span><span class="n">rm</span><span class="w"> </span><span class="o">--</span><span class="n">userns</span><span class="o">=</span><span class="n">host</span><span class="w"> </span><span class="o">--</span><span class="n">cap</span><span class="o">-</span><span class="n">add</span><span class="o">=</span><span class="n">SYS_PTRACE</span><span class="w"> </span><span class="o">--</span><span class="n">security</span><span class="o">-</span><span class="n">opt</span><span class="w"> </span><span class="n">seccomp</span><span class="o">=</span><span class="n">unconfined</span><span class="w"> </span><span class="o">-</span><span class="n">it</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="w"> </span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">$USER</span><span class="o">/</span><span class="n">csc331</span><span class="o">:/</span><span class="n">home</span><span class="o">/</span><span class="n">$USER</span><span class="o">/</span><span class="n">csc331</span><span class="o">:</span><span class="n">Z</span><span class="w"> </span><span class="n">csc</span><span class="o">-</span><span class="n">container</span><span class="w"> </span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">bash</span>
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>Create a directory named <code class="docutils literal notranslate"><span class="pre">concurrency</span></code> inside <code class="docutils literal notranslate"><span class="pre">~/csc331</span></code> and change to this directory</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/csc331/concurrency
+<span class="nb">cd</span><span class="w"> </span>~/csc331/concurrency
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">thread_hello.c</span></code> with the following contents:</p></li>
+</ul>
+<script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=thread_hello.c"></script>
+<ul class="simple">
+<li><p>Compile and run <code class="docutils literal notranslate"><span class="pre">thread_hello.c</span></code>:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-o<span class="w"> </span>thread_hello<span class="w"> </span>thread_hello.c<span class="w"> </span>-lpthread
+./thread_hello<span class="w"> </span><span class="m">1</span>
+./thread_hello<span class="w"> </span><span class="m">2</span><span class="w"> </span>
+./thread_hello<span class="w"> </span><span class="m">4</span>
+</pre></div>
+</div>
+<img src="../fig/10-concurrency/02.png" alt="thread hello" style="height:400px">
+</section>
 <section id="hands-on-threads-and-gdb">
 <h2>9. Hands on: threads and gdb<a class="headerlink" href="#hands-on-threads-and-gdb" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Recompile <code class="docutils literal notranslate"><span class="pre">thread_hello.c</span></code> with gdb support, then run <code class="docutils literal notranslate"><span class="pre">gdb</span></code>:</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ gcc -g -o thread_hello thread_hello.c -lpthread
-$ gdb thread_hello
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>thread_hello<span class="w"> </span>thread_hello.c<span class="w"> </span>-lpthread
+gdb<span class="w"> </span>thread_hello
 </pre></div>
 </div>
-<p>{: .language-bash}</p>
 <ul class="simple">
 <li><p>We will set the breakpoint to the thread function <code class="docutils literal notranslate"><span class="pre">myThreadFun</span></code>, then run the
 program with one command line argument.</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>gdb-peda$ b myThreadFun
-gdb-peda$ run 2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gdb-peda$<span class="w"> </span>b<span class="w"> </span>myThreadFun
+gdb-peda$<span class="w"> </span>run<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
-<p>{: .language-bash}</p>
 <ul class="simple">
 <li><p>We are inside a thread</p></li>
 </ul>
@@ -549,28 +516,26 @@ gdb-peda$ run 2
 threads (2 and 3) where created from the <code class="docutils literal notranslate"><span class="pre">pthread_create</span></code> function call.</p></li>
 <li><p>The numbered sections under the threads represent the stack frames.</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>gdb-peda$ i threads
-gdb-peda$ thread apply all bt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gdb-peda$<span class="w"> </span>i<span class="w"> </span>threads
+gdb-peda$<span class="w"> </span>thread<span class="w"> </span>apply<span class="w"> </span>all<span class="w"> </span>bt
 </pre></div>
 </div>
-<p>{: .language-bash}</p>
 <img src="../fig/10-concurrency/04.png" alt="gdb thread backtrace" style="height:600px">
 <ul class="simple">
 <li><p>The outcomes of the previous command shows the stack frames of each thread.</p></li>
-<li><p>We can use <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">i</span></code> to switch to thread <code class="docutils literal notranslate"><span class="pre">i</span></code>, then <code class="docutils literal notranslate"><span class="pre">frame</span> <span class="pre">j</span></code> to switch to the <code class="docutils literal notranslate"><span class="pre">j</span></code><sup>th</sup>
+<li><p>We can use <code class="docutils literal notranslate"><span class="pre">thread</span> <span class="pre">i</span></code> to switch to thread <code class="docutils literal notranslate"><span class="pre">i</span></code>, then <code class="docutils literal notranslate"><span class="pre">frame</span> <span class="pre">j</span></code> to switch to the <code class="docutils literal notranslate"><span class="pre">j</span></code>&lt;supth&lt;/sup
 of that thread.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">i</span> <span class="pre">locals</span></code> will print out all local variables of the current stack frame.</p></li>
 <li><p>Continue running the followings:</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>gdb-peda$ thread 1
-gdb-peda$ i locals
-gdb-peda$ frame 1
-gdb-peda$ i locals
-gdb-peda$ frame 3
-gdp-peda$ i locals
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gdb-peda$<span class="w"> </span>thread<span class="w"> </span><span class="m">1</span>
+gdb-peda$<span class="w"> </span>i<span class="w"> </span>locals
+gdb-peda$<span class="w"> </span>frame<span class="w"> </span><span class="m">1</span>
+gdb-peda$<span class="w"> </span>i<span class="w"> </span>locals
+gdb-peda$<span class="w"> </span>frame<span class="w"> </span><span class="m">3</span>
+gdp-peda$<span class="w"> </span>i<span class="w"> </span>locals
 </pre></div>
 </div>
-<p>{: .language-bash}</p>
 <img src="../fig/10-concurrency/05.png" alt="gdb thread backtrace" style="height:600px">
 <ul class="simple">
 <li><p>When a thread is created, the main process also turns into a management thread and holds to
@@ -584,7 +549,6 @@ gdb-peda$ thread apply 3 n
 gdb-peda$
 </pre></div>
 </div>
-<p>{: .language-bash}</p>
 <ul class="simple">
 <li><p>Scroll up a bit and observe. You will see a thread exited. Which thread is this?</p></li>
 </ul>
@@ -598,25 +562,22 @@ gdb-peda$
 <li><p>Keep running <code class="docutils literal notranslate"><span class="pre">n</span></code> to finish the program.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 10. The problem with threads
-&gt; 
-&gt; ### Edward Lee (2006). &quot;The Problem with Threads&quot;.  Computer 39(5).
-&gt; &gt; From a fundamental perspective, threads are seriously flawed 
-&gt; &gt; as a computation model because they are wildly nondeterministic... 
-&gt; &gt; The programmer’s job is to prune away that nondeterminism. We have 
-&gt; &gt; developed tools to assist in the pruning: semaphores, monitors, and 
-&gt; &gt; more modern overlays on threads offer the programmer ever more effective 
-&gt; &gt; pruning. But pruning a wild mass of brambles rarely yields a satisfactory 
-&gt; &gt; hedge. To offer another analogy, a folk definition of insanity is to do 
-&gt; &gt; the same thing over and over again and expect the results to be different. 
-&gt; &gt; By this definition, we in fact require that programmers of multithreaded 
-&gt; &gt; systems be insane. Were they sane, they could not understand their programs.`
-&gt; {: .callout}
-&gt; 
-</pre></div>
-</div>
+<section id="the-problem-with-threads">
+<h2>10. The problem with threads<a class="headerlink" href="#the-problem-with-threads" title="Permalink to this heading">#</a></h2>
+<section id="edward-lee-2006-the-problem-with-threads-computer-39-5">
+<h3>Edward Lee (2006). “The Problem with Threads”.  Computer 39(5).<a class="headerlink" href="#edward-lee-2006-the-problem-with-threads-computer-39-5" title="Permalink to this heading">#</a></h3>
+<p>From a fundamental perspective, threads are seriously flawed
+as a computation model because they are wildly nondeterministic…
+The programmer’s job is to prune away that nondeterminism. We have
+developed tools to assist in the pruning: semaphores, monitors, and
+more modern overlays on threads offer the programmer ever more effective
+pruning. But pruning a wild mass of brambles rarely yields a satisfactory
+hedge. To offer another analogy, a folk definition of insanity is to do
+the same thing over and over again and expect the results to be different.
+By this definition, we in fact require that programmers of multithreaded
+systems be insane. Were they sane, they could not understand their programs.`</p>
+</section>
+</section>
 <section id="challenge">
 <h2>11. Challenge<a class="headerlink" href="#challenge" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -639,15 +600,6 @@ the breakpoint set to the <code class="docutils literal notranslate"><span class
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-
-
-
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
-
-</pre></div>
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -718,10 +670,18 @@ the breakpoint set to the <code class="docutils literal notranslate"><span class
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-process-calls-fork">1. Review: process calls fork()</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#review-process-context-switch">2. Review: process context switch</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-web-server">3. Example: web server</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thread-a-new-abstraction-for-running-processes">4. Thread: a new abstraction for running processes</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#thread-state-of-a-single-thread">5. Thread: state of a single thread</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-web-server-using-thread">6. Example: web server using thread</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-posix-threads-pthreads">7. API: POSIX threads (pthreads)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-say-hello-to-my-little-threads">8. Hands on: say hello to my little threads …</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-threads-and-gdb">9. Hands on: threads and gdb</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-with-threads">10. The problem with threads</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#edward-lee-2006-the-problem-with-threads-computer-39-5">Edward Lee (2006). “The Problem with Threads”.  Computer 39(5).</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#challenge">11. Challenge</a></li>
 </ul>
   </nav></div>

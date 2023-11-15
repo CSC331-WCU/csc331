@@ -329,18 +329,31 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-the-problem-from-intro-to-os">1. Recall the problem from intro-to-os</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-shared-not-shared-in-a-multithreaded-program">2. What is shared/not shared in a multithreaded program?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-definitions">3. Key definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-critical-section-handling">4. Requirements for Critical Section Handling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-definition">5. Lock: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-of-locking-lock-and-unlock">6. Semantic of locking: lock() and unlock()</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-build-a-lock">7. How do we build a lock?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#criteria-of-a-good-lock">8. Criteria of a good lock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-attempt-controlling-interrupts">9. First attempt: controlling interrupts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-need-cpu-hardware-support">10. We need CPU hardware support</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-lock-with-test-and-set">11. Spin lock with Test-and-Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-lock-with-test-and-set-how-does-it-work">12. Spin lock with Test-and-Set: how does it work?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-basic-spin-lock">13. Evaluating the basic spin lock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-one-thread-waiting-on-another">14. Scenario: one thread waiting on another</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-lock-based-solution">15. A lock-based solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-wait-for-a-condition">16. How to wait for a condition?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-and-conditional-variable">17. Lock and conditional variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-we-really-need-both">18. Do we really need both?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-producer-consumer-bounded-buffer-problem">19. The producer/consumer (bounded buffer) problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-not-thread-safe">20. Vanilla: not thread-safe</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation">21. First implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation-broken">22. First implementation: broken</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation-why">23. First implementation: why?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-implementation-slightly-less-broken">24. Second implementation: slightly less broken</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#third-implementation-finally-work">25. Third implementation: finally work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-generalized-solution">26. A generalized solution</a></li>
 </ul>
             </nav>
         </div>
@@ -354,20 +367,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="lock-and-condition-variables">
 <h1>Lock and Condition Variables<a class="headerlink" href="#lock-and-condition-variables" title="Permalink to this heading">#</a></h1>
-<p>teaching: 0
-exercises: 0
-questions:</p>
-<ul class="simple">
-<li><p>“How to support atomicity with locks and condition variables?”
-objectives:</p></li>
-<li><p>“First learning objective. (FIXME)”
-keypoints:</p></li>
-<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
-</ul>
 <section id="recall-the-problem-from-intro-to-os">
 <h2>1. Recall the problem from intro-to-os<a class="headerlink" href="#recall-the-problem-from-intro-to-os" title="Permalink to this heading">#</a></h2>
 <script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=threads.c"></script>
-<img src="../fig/lock/01.png" alt="thread problem" style="height:600px">
+<p><img alt="thread problem" src="../_images/016.png" /></p>
 <ul class="simple">
 <li><p>Two concurrent threads manipulated a shared resource (the counter variable)
 without any synchronization.</p>
@@ -384,14 +387,10 @@ that we can reason about program behavior, in a sane way</p>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 2. What is shared/not shared in a multithreaded program?</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/02.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;shared and not shared&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:450px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="what-is-shared-not-shared-in-a-multithreaded-program">
+<h2>2. What is shared/not shared in a multithreaded program?<a class="headerlink" href="#what-is-shared-not-shared-in-a-multithreaded-program" title="Permalink to this heading">#</a></h2>
+<p><img alt="shared and not shared" src="../_images/025.png" /></p>
+</section>
 <section id="key-definitions">
 <h2>3. Key definitions<a class="headerlink" href="#key-definitions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -407,21 +406,18 @@ Doing so guarantees that only a single thread ever enters a critical section, th
 avoiding races and resulting in deterministic program outputs.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-
-&gt; ## 4. Requirements for Critical Section Handling
-&gt; 
-&gt; - `Mutual Exclusion`: if one thread is in the CS, then no other is
-&gt; - `Progress`: threads waiting for access to CS are not prevented from entering by 
-&gt; threads not in the CS; threads do not wait indefinitely.
-&gt; - `Bounded Waiting` (no starvation): all waiting threads are guaranteed to eventually 
-&gt; get access to the CS.
-&gt; - `Performance`: The overhead of entering and exiting the CS is small compared to the work 
-&gt; done within it.
-&gt;
-</pre></div>
-</div>
+<section id="requirements-for-critical-section-handling">
+<h2>4. Requirements for Critical Section Handling<a class="headerlink" href="#requirements-for-critical-section-handling" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Mutual</span> <span class="pre">Exclusion</span></code>: if one thread is in the CS, then no other is</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Progress</span></code>: threads waiting for access to CS are not prevented from entering by
+threads not in the CS; threads do not wait indefinitely.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Bounded</span> <span class="pre">Waiting</span></code> (no starvation): all waiting threads are guaranteed to eventually
+get access to the CS.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Performance</span></code>: The overhead of entering and exiting the CS is small compared to the work
+done within it.</p></li>
+</ul>
+</section>
 <section id="lock-definition">
 <h2>5. Lock: Definition<a class="headerlink" href="#lock-definition" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -450,21 +446,26 @@ critical section.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 6. Semantic of locking: lock() and unlock()
-&gt; 
-&gt; - A thread calls `lock()` when it tries to acquire the lock:
-&gt;   - If no other thread is holding the lock, the thread will acquire the lock and enter the 
-&gt;   critical section (becomes owner of the lock).
-&gt;   - If another thread is holding the lock, the call will not return. 
-&gt; - Once the lock owner is finished, it calls unlock() and the lock becomes available. 
-&gt;   - If there is no waiting thread, the lock becomes free.
-&gt;   - If there are some waiting threads, one of them will acquire the lock and enter the critical 
-&gt;   section. 
-&gt; - Lock in `pthread`: https://linux.die.net/man/3/pthread_mutex_lock 
-</pre></div>
-</div>
+<section id="semantic-of-locking-lock-and-unlock">
+<h2>6. Semantic of locking: lock() and unlock()<a class="headerlink" href="#semantic-of-locking-lock-and-unlock" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A thread calls <code class="docutils literal notranslate"><span class="pre">lock()</span></code> when it tries to acquire the lock:</p>
+<ul>
+<li><p>If no other thread is holding the lock, the thread will acquire the lock and enter the
+critical section (becomes owner of the lock).</p></li>
+<li><p>If another thread is holding the lock, the call will not return.</p></li>
+</ul>
+</li>
+<li><p>Once the lock owner is finished, it calls unlock() and the lock becomes available.</p>
+<ul>
+<li><p>If there is no waiting thread, the lock becomes free.</p></li>
+<li><p>If there are some waiting threads, one of them will acquire the lock and enter the critical
+section.</p></li>
+</ul>
+</li>
+<li><p>Lock in <code class="docutils literal notranslate"><span class="pre">pthread</span></code>: <a class="reference external" href="https://linux.die.net/man/3/pthread_mutex_lock">https://linux.die.net/man/3/pthread_mutex_lock</a></p></li>
+</ul>
+</section>
 <section id="how-do-we-build-a-lock">
 <h2>7. How do we build a lock?<a class="headerlink" href="#how-do-we-build-a-lock" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -473,15 +474,14 @@ critical section.</p></li>
 <li><p>What OS support is needed?</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 8. Criteria of a good lock</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Mutual</span> <span class="n">exclusion</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Fairness</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Performance</span>
-</pre></div>
-</div>
+<section id="criteria-of-a-good-lock">
+<h2>8. Criteria of a good lock<a class="headerlink" href="#criteria-of-a-good-lock" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Mutual exclusion</p></li>
+<li><p>Fairness</p></li>
+<li><p>Performance</p></li>
+</ul>
+</section>
 <section id="first-attempt-controlling-interrupts">
 <h2>9. First attempt: controlling interrupts<a class="headerlink" href="#first-attempt-controlling-interrupts" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -509,44 +509,52 @@ critical section via different computing core).</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 10. We need CPU hardware support</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Simple</span> <span class="n">principle</span><span class="p">:</span> <span class="n">Load</span> <span class="ow">and</span> <span class="n">Store</span> <span class="n">a</span> <span class="o">**</span><span class="n">lock</span><span class="o">**</span> <span class="n">flag</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Correctness</span><span class="p">:</span> 
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Interrupts</span> <span class="n">can</span> <span class="n">still</span> <span class="n">lead</span> <span class="n">to</span> <span class="n">inconsistency</span> <span class="n">issues</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Performance</span><span class="p">:</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">The</span> <span class="n">waiting</span> <span class="n">threads</span> <span class="n">need</span> <span class="n">to</span> <span class="n">keep</span> <span class="n">checking</span> <span class="n">the</span> <span class="n">condition</span> <span class="n">of</span> <span class="n">the</span> <span class="n">flag</span> <span class="p">(</span><span class="n">spin</span><span class="o">-</span><span class="n">waiting</span><span class="p">)</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/03.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;spin lock&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="we-need-cpu-hardware-support">
+<h2>10. We need CPU hardware support<a class="headerlink" href="#we-need-cpu-hardware-support" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Simple principle: Load and Store a <strong>lock</strong> flag</p></li>
+<li><p>Correctness:</p>
+<ul>
+<li><p>Interrupts can still lead to inconsistency issues</p></li>
+</ul>
+</li>
+<li><p>Performance:</p>
+<ul>
+<li><p>The waiting threads need to keep checking the condition of the flag (spin-waiting)</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="spin lock" src="../_images/035.png" /></p>
+</section>
 <section id="spin-lock-with-test-and-set">
 <h2>11. Spin lock with Test-and-Set<a class="headerlink" href="#spin-lock-with-test-and-set" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Hardware support for locking begins in early 1960.</p></li>
 <li><p>TestAndSet can be performed atomically by hardware.</p></li>
 </ul>
-<img src="../fig/lock/04.png" alt="test and set" style="height:100px">
-<img src="../fig/lock/05.png" alt="test and set" style="height:400px">
+<p><img alt="test and set" src="../_images/045.png" />
+<img alt="test and set" src="../_images/055.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 12. Spin lock with Test-and-Set: how does it work?</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Lock</span> <span class="ow">is</span> <span class="n">free</span><span class="p">:</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">flag</span> <span class="ow">is</span> <span class="mi">0</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">TestAndSet</span> <span class="n">returns</span> <span class="n">the</span> <span class="n">old</span> <span class="n">value</span> <span class="n">of</span> <span class="n">flag</span> <span class="p">(</span><span class="k">break</span> <span class="n">the</span> <span class="n">loop</span><span class="p">)</span> <span class="n">but</span> <span class="n">also</span> <span class="nb">set</span> 
-<span class="o">&gt;</span>   <span class="n">the</span> <span class="n">value</span> <span class="n">of</span> <span class="n">the</span> <span class="n">flag</span> <span class="p">(</span><span class="n">acquire</span> <span class="n">the</span> <span class="n">lock</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Lock</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">free</span><span class="p">:</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">flag</span> <span class="ow">is</span> <span class="mi">1</span> 
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">TestAndSet</span> <span class="n">keeps</span> <span class="n">setting</span> <span class="n">the</span> <span class="n">lock</span> <span class="n">but</span> <span class="n">also</span> <span class="n">spinning</span> <span class="n">inside</span> <span class="n">the</span> <span class="k">while</span> <span class="n">loop</span> <span class="n">until</span> <span class="n">the</span> 
-<span class="o">&gt;</span>   <span class="n">lock</span> <span class="ow">is</span> <span class="n">released</span><span class="o">.</span> 
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/06.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;test and set&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="spin-lock-with-test-and-set-how-does-it-work">
+<h2>12. Spin lock with Test-and-Set: how does it work?<a class="headerlink" href="#spin-lock-with-test-and-set-how-does-it-work" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Lock is free:</p>
+<ul>
+<li><p>flag is 0</p></li>
+<li><p>TestAndSet returns the old value of flag (break the loop) but also set
+the value of the flag (acquire the lock).</p></li>
+</ul>
+</li>
+<li><p>Lock is not free:</p>
+<ul>
+<li><p>flag is 1</p></li>
+<li><p>TestAndSet keeps setting the lock but also spinning inside the while loop until the
+lock is released.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="test and set" src="../_images/065.png" /></p>
+</section>
 <section id="evaluating-the-basic-spin-lock">
 <h2>13. Evaluating the basic spin lock<a class="headerlink" href="#evaluating-the-basic-spin-lock" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -559,50 +567,42 @@ critical section via different computing core).</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 14. Scenario: one thread waiting on another</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/07.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;one thread waiting on another&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:350px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="scenario-one-thread-waiting-on-another">
+<h2>14. Scenario: one thread waiting on another<a class="headerlink" href="#scenario-one-thread-waiting-on-another" title="Permalink to this heading">#</a></h2>
+<p><img alt="one thread waiting on another" src="../_images/075.png" /></p>
+</section>
 <section id="a-lock-based-solution">
 <h2>15. A lock-based solution<a class="headerlink" href="#a-lock-based-solution" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>How to implement a lock-based solution?</p></li>
 <li><p>What is the issue?</p></li>
 </ul>
-<img src="../fig/lock/08.png" alt="lock-based solution" style="height:350px">
+<p><img alt="lock-based solution" src="../_images/083.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 16. How to wait for a condition?</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Condition</span> <span class="n">Variable</span><span class="p">:</span> <span class="n">an</span> <span class="n">explicit</span> <span class="n">queue</span> <span class="n">that</span> <span class="n">threads</span> <span class="n">can</span> <span class="n">put</span> <span class="n">themselves</span> 
-<span class="o">&gt;</span> <span class="n">on</span> <span class="n">when</span> <span class="n">some</span> <span class="n">state</span> <span class="n">of</span> <span class="n">execution</span> <span class="p">(</span><span class="n">condition</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="k">as</span> <span class="n">desired</span> <span class="p">(</span><span class="n">waiting</span> 
-<span class="o">&gt;</span> <span class="n">on</span> <span class="n">the</span> <span class="n">condition</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">When</span> <span class="n">the</span> <span class="n">state</span> <span class="ow">is</span> <span class="n">changed</span><span class="p">,</span> <span class="n">the</span> <span class="n">condition</span> <span class="n">variable</span> <span class="n">can</span> <span class="n">wake</span> <span class="n">up</span> <span class="n">one</span> <span class="p">(</span><span class="ow">or</span> 
-<span class="o">&gt;</span> <span class="n">more</span><span class="p">)</span> <span class="n">of</span> <span class="n">the</span> <span class="n">waiting</span> <span class="n">threads</span> <span class="n">to</span> <span class="k">continue</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="p">[</span><span class="n">pthread_cond_wait</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">linux</span><span class="o">.</span><span class="n">die</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">pthread_cond_wait</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="p">[</span><span class="n">pthread_cond_signal</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">linux</span><span class="o">.</span><span class="n">die</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">man</span><span class="o">/</span><span class="mi">3</span><span class="o">/</span><span class="n">pthread_cond_signal</span><span class="p">)</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="how-to-wait-for-a-condition">
+<h2>16. How to wait for a condition?<a class="headerlink" href="#how-to-wait-for-a-condition" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Condition Variable: an explicit queue that threads can put themselves
+on when some state of execution (condition) is not as desired (waiting
+on the condition).</p></li>
+<li><p>When the state is changed, the condition variable can wake up one (or
+more) of the waiting threads to continue.</p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/3/pthread_cond_wait">pthread_cond_wait</a></p></li>
+<li><p><a class="reference external" href="https://linux.die.net/man/3/pthread_cond_signal">pthread_cond_signal</a></p></li>
+</ul>
+</section>
 <section id="lock-and-conditional-variable">
 <h2>17. Lock and conditional variable<a class="headerlink" href="#lock-and-conditional-variable" title="Permalink to this heading">#</a></h2>
-<img src="../fig/lock/09.png" alt="lock and cv" style="height:500px">
+<p><img alt="lock and cv" src="../_images/093.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 18. Do we really need both?
-&gt; 
-&gt; - Infinite sleep for parent thread. 
-&gt; - Why?
-&gt;
-&gt; &lt;img src=&quot;../fig/lock/10.png&quot; alt=&quot;lock and cv&quot; style=&quot;height:550px&quot;&gt;
-&gt;
-</pre></div>
-</div>
+<section id="do-we-really-need-both">
+<h2>18. Do we really need both?<a class="headerlink" href="#do-we-really-need-both" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Infinite sleep for parent thread.</p></li>
+<li><p>Why?</p></li>
+</ul>
+<p><img alt="lock and cv" src="../_images/101.png" /></p>
+</section>
 <section id="the-producer-consumer-bounded-buffer-problem">
 <h2>19. The producer/consumer (bounded buffer) problem<a class="headerlink" href="#the-producer-consumer-bounded-buffer-problem" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -630,14 +630,10 @@ in some way.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 20. Vanilla: not thread-safe</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/11.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;producer and consumer&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:550px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="vanilla-not-thread-safe">
+<h2>20. Vanilla: not thread-safe<a class="headerlink" href="#vanilla-not-thread-safe" title="Permalink to this heading">#</a></h2>
+<p><img alt="producer and consumer" src="../_images/111.png" /></p>
+</section>
 <section id="first-implementation">
 <h2>21. First implementation<a class="headerlink" href="#first-implementation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -645,16 +641,12 @@ in some way.</p></li>
 <li><p>Work with 1 producer and 1 consumer.</p></li>
 <li><p>What happens if we have more consumers?</p></li>
 </ul>
-<img src="../fig/lock/12.png" alt="producer and consumer" style="height:550px">
+<p><img alt="producer and consumer" src="../_images/12.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 22. First implementation: broken</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/13.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;producer and consumer&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="first-implementation-broken">
+<h2>22. First implementation: broken<a class="headerlink" href="#first-implementation-broken" title="Permalink to this heading">#</a></h2>
+<p><img alt="producer and consumer" src="../_images/13.png" /></p>
+</section>
 <section id="first-implementation-why">
 <h2>23. First implementation: why?<a class="headerlink" href="#first-implementation-why" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -678,14 +670,10 @@ being woken.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 24. Second implementation: slightly less broken</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/14.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;producer and consumer&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="second-implementation-slightly-less-broken">
+<h2>24. Second implementation: slightly less broken<a class="headerlink" href="#second-implementation-slightly-less-broken" title="Permalink to this heading">#</a></h2>
+<p><img alt="producer and consumer" src="../_images/14.png" /></p>
+</section>
 <section id="third-implementation-finally-work">
 <h2>25. Third implementation: finally work<a class="headerlink" href="#third-implementation-finally-work" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -693,17 +681,12 @@ being woken.</p></li>
 <li><p>Two condition variables are needed.</p></li>
 <li><p>Not yet generalized.</p></li>
 </ul>
-<img src="../fig/lock/15.png" alt="producer and consumer" style="height:450px">
+<p><img alt="producer and consumer" src="../_images/15.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 26. A generalized solution</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/lock/16.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;producer and consumer&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
-<p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
+<section id="a-generalized-solution">
+<h2>26. A generalized solution<a class="headerlink" href="#a-generalized-solution" title="Permalink to this heading">#</a></h2>
+<p><img alt="producer and consumer" src="../_images/16.png" /></p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -774,18 +757,31 @@ being woken.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recall-the-problem-from-intro-to-os">1. Recall the problem from intro-to-os</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-shared-not-shared-in-a-multithreaded-program">2. What is shared/not shared in a multithreaded program?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#key-definitions">3. Key definitions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements-for-critical-section-handling">4. Requirements for Critical Section Handling</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-definition">5. Lock: Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semantic-of-locking-lock-and-unlock">6. Semantic of locking: lock() and unlock()</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-do-we-build-a-lock">7. How do we build a lock?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#criteria-of-a-good-lock">8. Criteria of a good lock</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-attempt-controlling-interrupts">9. First attempt: controlling interrupts</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-need-cpu-hardware-support">10. We need CPU hardware support</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-lock-with-test-and-set">11. Spin lock with Test-and-Set</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spin-lock-with-test-and-set-how-does-it-work">12. Spin lock with Test-and-Set: how does it work?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluating-the-basic-spin-lock">13. Evaluating the basic spin lock</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scenario-one-thread-waiting-on-another">14. Scenario: one thread waiting on another</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-lock-based-solution">15. A lock-based solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-to-wait-for-a-condition">16. How to wait for a condition?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lock-and-conditional-variable">17. Lock and conditional variable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#do-we-really-need-both">18. Do we really need both?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-producer-consumer-bounded-buffer-problem">19. The producer/consumer (bounded buffer) problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vanilla-not-thread-safe">20. Vanilla: not thread-safe</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation">21. First implementation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation-broken">22. First implementation: broken</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-implementation-why">23. First implementation: why?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-implementation-slightly-less-broken">24. Second implementation: slightly less broken</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#third-implementation-finally-work">25. Third implementation: finally work</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-generalized-solution">26. A generalized solution</a></li>
 </ul>
   </nav></div>
 

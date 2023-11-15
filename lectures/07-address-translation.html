@@ -329,13 +329,21 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-questions">1. The questions?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-technique">2. General technique</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-assumptions">3. Initial assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-revisiting-where-things-are-in-memory">4. Hands on: revisiting where things are in memory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5. Initial assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-attempt-dynamic-relocation">6. Early attempt: dynamic relocation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-after-boot">7. Dynamic relocation: after boot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-during-process-run">8. Dynamic relocation: during process run</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-summary">9. Dynamic relocation: Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10. Initial assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-generalized-base-bounds">11. Segmentation: generalized base/bounds</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">12. Segmentation: generalized base/bounds</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">13. Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-with-generalized-base-bounds-summary">14. Segmentation with generalized base/bounds: Summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-compacting">15. External fragmentation: compacting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-algorithmic-allocation">16. External fragmentation: algorithmic allocation</a></li>
 </ul>
             </nav>
         </div>
@@ -349,18 +357,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="memory-virtualization-mechanism-address-translation">
 <h1>Memory virtualization mechanism: address translation<a class="headerlink" href="#memory-virtualization-mechanism-address-translation" title="Permalink to this heading">#</a></h1>
-<p>teaching: 0
-exercises: 0
-questions:</p>
+<div class="tip admonition">
+<p class="admonition-title">Key concept</p>
 <ul class="simple">
-<li><p>“How to efficiently and flexibly virtualize memory”
-objectives:</p></li>
-<li><p>“Understand the design principles behind an efficient memory virtualization implementation.”</p></li>
-<li><p>“Understand the required flexibility for applications.”</p></li>
-<li><p>“Understand how to maintain control over memory location accessibility.”
-keypoints:</p></li>
-<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
+<li><p>Understand the design principles behind an efficient memory virtualization implementation.</p></li>
+<li><p>Understand the required flexibility for applications.</p></li>
+<li><p>Understand how to maintain control over memory location accessibility.</p></li>
 </ul>
+</div>
 <section id="the-questions">
 <h2>1. The questions?<a class="headerlink" href="#the-questions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -370,17 +374,18 @@ keypoints:</p></li>
 application can access?</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 2. General technique</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Hardware</span><span class="o">-</span><span class="n">based</span> <span class="n">address</span> <span class="n">translation</span> <span class="p">(</span><span class="n">address</span> <span class="n">translation</span><span class="p">)</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">HW</span> <span class="n">transforms</span> <span class="o">**</span><span class="n">virtual</span> <span class="n">address</span><span class="o">**</span> <span class="kn">from</span> <span class="nn">memory</span> <span class="n">access</span> <span class="n">into</span> <span class="o">**</span><span class="n">physical</span> <span class="n">address</span><span class="o">**.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">OS</span> <span class="n">gets</span> <span class="n">involved</span> <span class="n">to</span> <span class="n">ensure</span> <span class="n">correct</span> <span class="n">translations</span> <span class="n">take</span> <span class="n">place</span> <span class="ow">and</span> <span class="n">manage</span> <span class="n">memory</span> 
-<span class="o">&gt;</span> <span class="n">to</span> <span class="n">keep</span> <span class="n">track</span> <span class="n">of</span> <span class="ow">and</span> <span class="n">maintain</span> <span class="n">control</span> <span class="n">over</span> <span class="n">free</span> <span class="ow">and</span> <span class="n">used</span> <span class="n">memory</span> <span class="n">locations</span><span class="o">.</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="general-technique">
+<h2>2. General technique<a class="headerlink" href="#general-technique" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Hardware-based address translation (address translation)</p>
+<ul>
+<li><p>HW transforms <strong>virtual address</strong> from memory access into <strong>physical address</strong>.</p></li>
+</ul>
+</li>
+<li><p>The OS gets involved to ensure correct translations take place and manage memory
+to keep track of and maintain control over free and used memory locations.</p></li>
+</ul>
+</section>
 <section id="initial-assumptions">
 <h2>3. Initial assumptions<a class="headerlink" href="#initial-assumptions" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -389,55 +394,39 @@ application can access?</p></li>
 <li><p>Each address space is <strong>exactly the same size</strong>.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 4. Hands on: revisiting where things are in memory
-&gt; 
-&gt; - Open a terminal (Windows Terminal or Mac Terminal). 
-&gt; - Run the command to launch the image container for your platform:
-&gt; - Windows:
-&gt; 
-&gt; ~~~
-&gt; $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
-&gt; ~~~
-&gt; {: .language-bash}
-&gt;
-&gt; - Mac:
-&gt;
-&gt; ~~~
-&gt; $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
-&gt; ~~~
-&gt; {: .language-bash}
-&gt;
-&gt; - Navigate to `/home/$USER/csc331`
-&gt; - Change into `memory` directory. 
-&gt; - Create a file named `simple5.c` with the following contents:
-&gt;
-&gt; &lt;script src=&quot;https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=simple5.c&quot;&gt;&lt;/script&gt;
-&gt;
-&gt; - Compile and view `simple5.c` object file
-&gt;
-&gt; ~~~
-&gt; $ gcc -c simple5.c
-&gt; $ objdump -d simple5.o
-&gt; ~~~
-&gt; {: .language-bash}
-&gt;
-&gt; &lt;img src=&quot;../fig/address-translation/01.png&quot; alt=&quot;object dump&quot; style=&quot;height:350px&quot;&gt;
-&gt;
-&gt; - What is the decimal value of `0xbb8`?
-&gt; - Compile with `-g` for `simple5.c`. 
-&gt; - Execute `gdb simple5`, set breakpoint at `main`, and start running. 
-&gt;
-&gt; &lt;img src=&quot;../fig/address-translation/02.png&quot; alt=&quot;gdb&quot; style=&quot;height:800px&quot;&gt;
-&gt;
-&gt; - Where is the variable `x` is? (run `p &amp;x` to find out)
-&gt; - What is the difference between the value contained in `%ebp` and the address of `x`?
-&gt; - Where is the machine instruction? (code)
-&gt; - Where are their location in address space?
-&gt;
+<section id="hands-on-revisiting-where-things-are-in-memory">
+<h2>4. Hands on: revisiting where things are in memory<a class="headerlink" href="#hands-on-revisiting-where-things-are-in-memory" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Launch your container/Linux interface</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--userns<span class="o">=</span>host<span class="w"> </span>--cap-add<span class="o">=</span>SYS_PTRACE<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>unconfined<span class="w"> </span>-it<span class="w"> </span>linhbngo/csc-container<span class="w"> </span>/bin/bash
 </pre></div>
 </div>
+<ul class="simple">
+<li><p>Create a file named <code class="docutils literal notranslate"><span class="pre">simple5.c</span></code> with the following contents:</p></li>
+</ul>
+<script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=simple5.c"></script>
+<ul class="simple">
+<li><p>Compile and view <code class="docutils literal notranslate"><span class="pre">simple5.c</span></code> object file</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-c<span class="w"> </span>simple5.c
+objdump<span class="w"> </span>-d<span class="w"> </span>simple5.o
+</pre></div>
+</div>
+<p><img alt="Object dump" src="../_images/014.png" /></p>
+<ul class="simple">
+<li><p>What is the decimal value of <code class="docutils literal notranslate"><span class="pre">0xbb8</span></code>?</p></li>
+<li><p>Compile with <code class="docutils literal notranslate"><span class="pre">-g</span></code> for <code class="docutils literal notranslate"><span class="pre">simple5.c</span></code>.</p></li>
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">gdb</span> <span class="pre">simple5</span></code>, set breakpoint at <code class="docutils literal notranslate"><span class="pre">main</span></code>, and start running.</p></li>
+</ul>
+<p><img alt="gdb" src="../_images/023.png" /></p>
+<ul class="simple">
+<li><p>Where is the variable <code class="docutils literal notranslate"><span class="pre">x</span></code> is? (run <code class="docutils literal notranslate"><span class="pre">p</span> <span class="pre">&amp;x</span></code> to find out)</p></li>
+<li><p>What is the difference between the value contained in <code class="docutils literal notranslate"><span class="pre">%ebp</span></code> and the address of <code class="docutils literal notranslate"><span class="pre">x</span></code>?</p></li>
+<li><p>Where is the machine instruction? (code)</p></li>
+<li><p>Where are their location in address space?</p></li>
+</ul>
+</section>
 <section id="id1">
 <h2>5. Initial assumptions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -445,37 +434,33 @@ application can access?</p></li>
 <li><p>The size of the address space is <strong>less than the size of physical memory</strong>.</p></li>
 <li><p>Each address space is <strong>exactly the same size</strong>.</p></li>
 </ul>
-<img src="../fig/address-translation/03.png" alt="early implementation" style="height:500px">
+<p><img alt="Early implementation" src="../_images/033.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 6. Early attempt: dynamic relocation</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Hardware</span><span class="o">-</span><span class="n">based</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Aka</span> <span class="n">base</span> <span class="ow">and</span> <span class="n">bounds</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Two</span> <span class="n">hw</span> <span class="n">registers</span> <span class="n">within</span> <span class="n">each</span> <span class="n">CPU</span><span class="p">:</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Base</span> <span class="n">register</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Bounds</span> <span class="p">(</span><span class="n">Limit</span><span class="p">)</span> <span class="n">register</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">~~~</span>
-<span class="o">&gt;</span> <span class="n">physical</span> <span class="n">address</span> <span class="o">=</span> <span class="n">virtual</span> <span class="n">address</span> <span class="o">+</span> <span class="n">base</span>
-<span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">virtual</span> <span class="n">address</span> <span class="o">&lt;=</span> <span class="n">bound</span>
-<span class="o">&gt;</span> <span class="o">~~~</span>
-<span class="o">&gt;</span>
+<section id="early-attempt-dynamic-relocation">
+<h2>6. Early attempt: dynamic relocation<a class="headerlink" href="#early-attempt-dynamic-relocation" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Hardware-based</p></li>
+<li><p>Aka base and bounds</p></li>
+<li><p>Two hw registers within each CPU:</p>
+<ul>
+<li><p>Base register</p></li>
+<li><p>Bounds (Limit) register</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">physical</span> <span class="n">address</span> <span class="o">=</span> <span class="n">virtual</span> <span class="n">address</span> <span class="o">+</span> <span class="n">base</span>
+<span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">virtual</span> <span class="n">address</span> <span class="o">&lt;=</span> <span class="n">bound</span>
 </pre></div>
 </div>
+</section>
 <section id="dynamic-relocation-after-boot">
 <h2>7. Dynamic relocation: after boot<a class="headerlink" href="#dynamic-relocation-after-boot" title="Permalink to this heading">#</a></h2>
-<img src="../fig/address-translation/04.png" alt="dynamic relocation after boot" style="height:400px">
+<p><img alt="Dynamic relocation after boot" src="../_images/043.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 8. Dynamic relocation: during process run</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/address-translation/05.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;dynamic relocation during process running&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:800px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="dynamic-relocation-during-process-run">
+<h2>8. Dynamic relocation: during process run<a class="headerlink" href="#dynamic-relocation-during-process-run" title="Permalink to this heading">#</a></h2>
+<p><img alt="Dynamic relocation during process running" src="../_images/053.png" /></p>
+</section>
 <section id="dynamic-relocation-summary">
 <h2>9. Dynamic relocation: Summary<a class="headerlink" href="#dynamic-relocation-summary" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -493,19 +478,16 @@ the allocated (contiguous) memory units are not fully utilized.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-
-&gt; ## 10. Initial assumptions
-&gt; 
-&gt; - ~~~User’s address space must be place **contiguously in physical memory**.~~~
-&gt; - ~~~The size of the address space is **less than the size of physical memory**.~~~ 
-&gt; - ~~~Each address space is **exactly the same size**.~~~
-&gt;
-&gt; *How do we support a large address space with (potentially) a lot of free space
-&gt; between the stack and the heap?*
-</pre></div>
-</div>
+<section id="id2">
+<h2>10. Initial assumptions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>~~User’s address space must be place <strong>contiguously in physical memory</strong>.~~</p></li>
+<li><p>~~The size of the address space is <strong>less than the size of physical memory</strong>.~~</p></li>
+<li><p>~~Each address space is <strong>exactly the same size</strong>.~~</p></li>
+</ul>
+<p><em>How do we support a large address space with (potentially) a lot of free space
+between the stack and the heap?</em></p>
+</section>
 <section id="segmentation-generalized-base-bounds">
 <h2>11. Segmentation: generalized base/bounds<a class="headerlink" href="#segmentation-generalized-base-bounds" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -519,14 +501,10 @@ the allocated (contiguous) memory units are not fully utilized.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 12. Segmentation: generalized base/bounds</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../fig/address-translation/06.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;mapping of virtual address space to physical memory in generalized base/bounds&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:800px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="id3">
+<h2>12. Segmentation: generalized base/bounds<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<p><img alt="Mapping of virtual address space to physical memory in generalized base/bounds" src="../_images/063.png" /></p>
+</section>
 <section id="example">
 <h2>13. Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -584,7 +562,7 @@ the allocated (contiguous) memory units are not fully utilized.</p></li>
 <ul>
 <li><p>Look likes heap segment</p></li>
 <li><p>Is it heap segment?</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> = <code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">address</span></code> - <code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">segment</span> <span class="pre">base</span></code> = 4200 - 4096 = 2904</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">offset</span></code> = <code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">address</span></code> - <code class="docutils literal notranslate"><span class="pre">virtual</span> <span class="pre">segment</span> <span class="pre">base</span></code> = 7000 - 4096 = 2904</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">physical</span> <span class="pre">address</span></code> = <code class="docutils literal notranslate"><span class="pre">physical</span> <span class="pre">segment</span> <span class="pre">base</span></code> + <code class="docutils literal notranslate"><span class="pre">offset</span></code> = 34K (34816) + 2904 = 37720</p></li>
 <li><p>This falls into physical addresses that are markedas <strong>not in use</strong>.</p></li>
 <li><p><strong>Segmentation Fault</strong>: AKA segmentation violation</p></li>
@@ -593,40 +571,44 @@ the allocated (contiguous) memory units are not fully utilized.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 14. Segmentation with generalized base/bounds: Summary</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Pros</span><span class="p">:</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Efficient</span> <span class="n">saving</span> <span class="n">of</span> <span class="n">physical</span> <span class="n">memory</span> <span class="p">(</span><span class="n">avoid</span> <span class="n">internal</span> <span class="n">fragmentation</span><span class="p">)</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Enable</span> <span class="n">the</span> <span class="n">creation</span> <span class="n">of</span> <span class="n">segments</span> <span class="k">with</span> <span class="n">various</span> <span class="n">sizes</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Cons</span><span class="p">:</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="o">**</span><span class="n">External</span> <span class="n">fragmentation</span><span class="o">**</span> 
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="segmentation-with-generalized-base-bounds-summary">
+<h2>14. Segmentation with generalized base/bounds: Summary<a class="headerlink" href="#segmentation-with-generalized-base-bounds-summary" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Pros:</p>
+<ul>
+<li><p>Efficient saving of physical memory (avoid internal fragmentation)</p></li>
+<li><p>Enable the creation of segments with various sizes</p></li>
+</ul>
+</li>
+<li><p>Cons:</p>
+<ul>
+<li><p><strong>External fragmentation</strong></p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="external-fragmentation-compacting">
 <h2>15. External fragmentation: compacting<a class="headerlink" href="#external-fragmentation-compacting" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Computationally expensive</p></li>
 </ul>
-<img src="../fig/address-translation/07.png" alt="Compacting fragmented memory" style="height:800px">
+<p><img alt="Compacting fragmented memory" src="../_images/073.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 16. External fragmentation: algorithmic allocation
-&gt; 
-&gt; - A data structure that keeps track of free memory regions:
-&gt;   - Best-fit
-&gt;   - Worst-fit
-&gt;   - First-fit
-&gt;   - Next-fit
-&gt;   - Buddy algorithm
-&gt; - Does not address the core of the issue, only minimize it as much as possible. New solution is needed!
-&gt;
-</pre></div>
-</div>
-<p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
+<section id="external-fragmentation-algorithmic-allocation">
+<h2>16. External fragmentation: algorithmic allocation<a class="headerlink" href="#external-fragmentation-algorithmic-allocation" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>A data structure that keeps track of free memory regions:</p>
+<ul>
+<li><p>Best-fit</p></li>
+<li><p>Worst-fit</p></li>
+<li><p>First-fit</p></li>
+<li><p>Next-fit</p></li>
+<li><p>Buddy algorithm</p></li>
+</ul>
+</li>
+<li><p>Does not address the core of the issue, only minimize it as much as possible. New solution is needed!</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -697,13 +679,21 @@ the allocated (contiguous) memory units are not fully utilized.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-questions">1. The questions?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-technique">2. General technique</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-assumptions">3. Initial assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-revisiting-where-things-are-in-memory">4. Hands on: revisiting where things are in memory</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5. Initial assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-attempt-dynamic-relocation">6. Early attempt: dynamic relocation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-after-boot">7. Dynamic relocation: after boot</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-during-process-run">8. Dynamic relocation: during process run</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-summary">9. Dynamic relocation: Summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10. Initial assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-generalized-base-bounds">11. Segmentation: generalized base/bounds</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">12. Segmentation: generalized base/bounds</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">13. Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-with-generalized-base-bounds-summary">14. Segmentation with generalized base/bounds: Summary</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-compacting">15. External fragmentation: compacting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-algorithmic-allocation">16. External fragmentation: algorithmic allocation</a></li>
 </ul>
   </nav></div>
 

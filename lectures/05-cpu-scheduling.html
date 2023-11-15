@@ -329,28 +329,54 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-cpu-scheduling">1. What is CPU scheduling?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-set-of-simple-assumptions">2. Initial set of simple assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-performance-metric">3. First performance metric</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-first-come-first-server-fcfs-fifo">4. Algorithm 1: First Come First Server (FCFS/FIFO)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fcfs-fifo-in-action">5. FCFS/FIFO in action</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-first-come-first-server-fcfs-fifo">7. Algorithm 1: First Come First Server (FCFS/FIFO)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7. Algorithm 1: First Come First Server (FCFS/FIFO)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8. FCFS/FIFO in action</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-shortest-job-first-sjf">9. Algorithm 2: Shortest Job First (SJF)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-set-of-simple-assumptions">11. Initial set of simple assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13. FCFS/FIFO in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sjf-in-action">10. SJF in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-fcfs-fifo">12. Algorithm 1: FCFS/FIFO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">13. FCFS/FIFO in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">14. Initial set of simple assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preemptive-vs-non-preemptive">15. Preemptive vs Non-preemptive</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-shortest-time-to-completion-first-stcf">16. Algorithm 3: Shortest Time-to-Completion First (STCF)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stcf-psjf-in-action">17. STCF/PSJF in action</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">19. STCF/PSJF in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-performance-metric">18. Second performance metric</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">19. STCF/PSJF in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-4-round-robin-rr">20. Algorithm 4: Round Robin (RR)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rr-in-action">21. RR in action</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">23. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">22. Algorithm 4: Round Robin (RR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">23. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#almost-all-processes-perform-i-o">24. (Almost) all processes perform I/O</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs-with-i-o">25. Jobs with I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-stcf-treating-a-as-a-single-job">26. Normal STCF treating A as a single job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stcf-treating-a-as-5-sub-jobs">27. STCF treating A as 5 sub-jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">28. Initial set of simple assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-question">29. The question</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-feedback-queue-mlfq">31. Multi-level Feedback Queue (MLFQ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-feedback-queue-mlfq">30. Multi-level Feedback Queue (MLFQ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">31. Multi-level Feedback Queue (MLFQ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">32. Multi-level Feedback Queue (MLFQ)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-feedback-queue-mlfq-feedback">32. Multi-level Feedback Queue (MLFQ): Feedback?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">33. Multi-level Feedback Queue (MLFQ): Feedback?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-1-how-to-change-priority">34. Attempt 1: How to change priority?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-a-single-long-running-job">35. Example 1: A single long-running job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-along-came-a-short-job">36. Example 2: Along came a short job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-what-about-i-o">36. Example 3: What about I/O?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-starvation">37. Problem 1: Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-gaming-the-system">38. Problem 2: Gaming the system</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-what-if-a-program-changes-behavior">39. Problem 3: What if a program changes behavior?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-2-priority-boost">39. Attempt 2: Priority boost</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-starvation">40. Problem: Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-should-be-set-to">41. What S should be set to?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#voodoo-constants-john-ousterhout">Voodoo constants (John Ousterhout)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-3-better-accounting">42. Attempt 3: Better accounting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">43. Summary</a></li>
 </ul>
             </nav>
         </div>
@@ -395,167 +421,151 @@ the real world.</p></li>
 run next?</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 2. Initial set of simple assumptions</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="mf">1.</span> <span class="n">Each</span> <span class="n">job</span> <span class="p">(</span><span class="n">process</span><span class="o">/</span><span class="n">thread</span><span class="p">)</span> <span class="n">runs</span> <span class="n">the</span> <span class="n">same</span> <span class="n">amount</span> <span class="n">of</span> <span class="n">time</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">2.</span> <span class="n">All</span> <span class="n">jobs</span> <span class="n">arrive</span> <span class="n">at</span> <span class="n">the</span> <span class="n">same</span> <span class="n">time</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">3.</span> <span class="n">Once</span> <span class="n">started</span><span class="p">,</span> <span class="n">each</span> <span class="n">job</span> <span class="n">runs</span> <span class="n">to</span> <span class="n">completion</span> <span class="p">(</span><span class="n">no</span> <span class="n">interruption</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">middle</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">4.</span> <span class="n">All</span> <span class="n">jobs</span> <span class="n">only</span> <span class="n">use</span> <span class="n">the</span> <span class="n">CPU</span> <span class="p">(</span><span class="n">no</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">5.</span> <span class="n">The</span> <span class="n">run</span> <span class="n">time</span> <span class="n">of</span> <span class="n">each</span> <span class="n">job</span> <span class="ow">is</span> <span class="n">known</span><span class="o">.</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="n">These</span> <span class="n">are</span> <span class="n">unrealistic</span> <span class="n">assumptions</span><span class="p">,</span> <span class="ow">and</span> <span class="n">we</span> <span class="n">will</span> <span class="n">relax</span> <span class="n">them</span> <span class="n">gradually</span> <span class="n">to</span> <span class="n">see</span> 
-<span class="o">&gt;</span> <span class="n">how</span> <span class="n">it</span> <span class="n">works</span> <span class="ow">in</span> <span class="n">a</span> <span class="n">real</span> <span class="n">system</span><span class="o">.</span>
-</pre></div>
-</div>
+<section id="initial-set-of-simple-assumptions">
+<h2>2. Initial set of simple assumptions<a class="headerlink" href="#initial-set-of-simple-assumptions" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>Each job (process/thread) runs the same amount of time.</p></li>
+<li><p>All jobs arrive at the same time.</p></li>
+<li><p>Once started, each job runs to completion (no interruption in the middle).</p></li>
+<li><p>All jobs only use the CPU (no I/O).</p></li>
+<li><p>The run time of each job is known.</p></li>
+</ol>
+<p>These are unrealistic assumptions, and we will relax them gradually to see
+how it works in a real system.</p>
+</section>
 <section id="first-performance-metric">
 <h2>3. First performance metric<a class="headerlink" href="#first-performance-metric" title="Permalink to this heading">#</a></h2>
 <p><strong>Average turn around time of all jobs</strong>.</p>
 <p>turn_around_time = job_completion_time - job_arrival_time</p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 4. Algorithm 1: First Come First Server (FCFS/FIFO)</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">**</span><span class="n">First</span> <span class="n">Come</span> <span class="n">First</span> <span class="n">Server</span> <span class="p">(</span><span class="n">FCFS</span><span class="p">)</span><span class="o">/</span> <span class="n">First</span> <span class="n">In</span> <span class="n">First</span> <span class="n">Out</span> <span class="p">(</span><span class="n">FIFO</span><span class="p">)</span><span class="o">**</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="n">Job</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="n">Arrival</span> <span class="n">Time</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="n">Service</span> <span class="n">Time</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>    
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span> 
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="n">C</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span> 
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">For</span> <span class="n">FCFS</span><span class="p">,</span> <span class="n">jobs</span> <span class="n">are</span> <span class="n">executed</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">order</span> <span class="n">of</span> <span class="n">their</span> <span class="n">arrival</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">When</span> <span class="n">jobs</span> <span class="k">with</span> <span class="n">same</span> <span class="n">arrival</span> <span class="n">time</span> <span class="n">arriva</span><span class="p">,</span> <span class="n">let</span><span class="s1">&#39;s assume a simple alphabetic</span>
-<span class="o">&gt;</span> <span class="n">ordering</span> <span class="n">based</span> <span class="n">on</span> <span class="n">jobs</span><span class="s1">&#39; names. </span>
-</pre></div>
-</div>
+<section id="algorithm-1-first-come-first-server-fcfs-fifo">
+<h2>4. Algorithm 1: First Come First Server (FCFS/FIFO)<a class="headerlink" href="#algorithm-1-first-come-first-server-fcfs-fifo" title="Permalink to this heading">#</a></h2>
+<p><strong>First Come First Server (FCFS)/ First In First Out (FIFO)</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Job</p></th>
+<th class="head"><p>Arrival Time</p></th>
+<th class="head"><p>Service Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>For FCFS, jobs are executed in the order of their arrival.</p></li>
+<li><p>When jobs with same arrival time arriva, let’s assume a simple alphabetic
+ordering based on jobs’ names.</p></li>
+</ul>
+</section>
 <section id="fcfs-fifo-in-action">
 <h2>5. FCFS/FIFO in action<a class="headerlink" href="#fcfs-fifo-in-action" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> 0 </th>
-      <th> 1 </th>
-      <th> 2 </th>
-      <th> 3 </th>
-      <th> 4 </th>
-      <th> 5 </th>
-      <th> 6 </th>
-      <th> 7 </th>
-      <th> 8 </th>
-      <th> 9 </th>
-      <th> 10 </th>
-      <th> 11 </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-  </tbody>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>Average_turn_around_time = (3 + 6 + 9) / 3 = 6.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 6. Initial set of simple assumptions</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="mf">1.</span> <span class="o">~~</span><span class="n">Each</span> <span class="n">job</span> <span class="p">(</span><span class="n">process</span><span class="o">/</span><span class="n">thread</span><span class="p">)</span> <span class="n">runs</span> <span class="n">the</span> <span class="n">same</span> <span class="n">amount</span> <span class="n">of</span> <span class="n">time</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">2.</span> <span class="n">All</span> <span class="n">jobs</span> <span class="n">arrive</span> <span class="n">at</span> <span class="n">the</span> <span class="n">same</span> <span class="n">time</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">3.</span> <span class="n">Once</span> <span class="n">started</span><span class="p">,</span> <span class="n">each</span> <span class="n">job</span> <span class="n">runs</span> <span class="n">to</span> <span class="n">completion</span> <span class="p">(</span><span class="n">no</span> <span class="n">interruption</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">middle</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">4.</span> <span class="n">All</span> <span class="n">jobs</span> <span class="n">only</span> <span class="n">use</span> <span class="n">the</span> <span class="n">CPU</span> <span class="p">(</span><span class="n">no</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">5.</span> <span class="n">The</span> <span class="n">run</span> <span class="n">time</span> <span class="n">of</span> <span class="n">each</span> <span class="n">job</span> <span class="ow">is</span> <span class="n">known</span><span class="o">.</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
-<section id="algorithm-1-first-come-first-server-fcfs-fifo">
-<h2>7. Algorithm 1: First Come First Server (FCFS/FIFO)<a class="headerlink" href="#algorithm-1-first-come-first-server-fcfs-fifo" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> Job </th>
-      <th> Arrival Time </th>
-      <th> Service Time </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> A </td>
-      <td> 0 </td>
-      <td> <b>8</b> </td>
-    </tr>
-    <tr>
-      <td> B </td>
-      <td> 0 </td>    
-      <td> 3 </td> 
-    </tr>
-    <tr>
-      <td> C </td>
-      <td> 0 </td>
-      <td> 3 </td> 
-    </tr>
-  </tbody>
+<section id="id1">
+<h2>6. Initial set of simple assumptions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>~~Each job (process/thread) runs the same amount of time.~~</p></li>
+<li><p>All jobs arrive at the same time.</p></li>
+<li><p>Once started, each job runs to completion (no interruption in the middle).</p></li>
+<li><p>All jobs only use the CPU (no I/O).</p></li>
+<li><p>The run time of each job is known.</p></li>
+</ol>
+</section>
+<section id="id2">
+<h2>7. Algorithm 1: First Come First Server (FCFS/FIFO)<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Job</p></th>
+<th class="head"><p>Arrival Time</p></th>
+<th class="head"><p>Service Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>For first come first server, jobs are executed in the order of their arrival.</p></li>
@@ -563,118 +573,109 @@ run next?</p></li>
 ordering based on jobs’ names.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 8. FCFS/FIFO in action</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">2</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">4</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">6</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">7</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">8</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">9</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">10</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">11</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">12</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">13</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">14</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">15</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c484ae&quot;</span><span class="o">&gt;</span> <span class="n">C</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c484ae&quot;</span><span class="o">&gt;</span> <span class="n">C</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c484ae&quot;</span><span class="o">&gt;</span> <span class="n">C</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Average_turn_around_time</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span> <span class="o">+</span> <span class="mi">11</span> <span class="o">+</span> <span class="mi">14</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">=</span> <span class="mf">11.</span> 
-</pre></div>
-</div>
+<section id="id3">
+<h2>8. FCFS/FIFO in action<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Average_turn_around_time = (8 + 11 + 14) / 3 = 11.</p></li>
+</ul>
+</section>
 <section id="algorithm-2-shortest-job-first-sjf">
 <h2>9. Algorithm 2: Shortest Job First (SJF)<a class="headerlink" href="#algorithm-2-shortest-job-first-sjf" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> Job </th>
-      <th> Arrival Time </th>
-      <th> Service Time </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> A </td>
-      <td> 0 </td>
-      <td> <b>8</b> </td>
-    </tr>
-    <tr>
-      <td> B </td>
-      <td> 0 </td>    
-      <td> 3 </td> 
-    </tr>
-    <tr>
-      <td> C </td>
-      <td> 0 </td>
-      <td> 3 </td> 
-    </tr>
-  </tbody>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Job</p></th>
+<th class="head"><p>Arrival Time</p></th>
+<th class="head"><p>Service Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>0</p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>For SJF, jobs are executed in the order of their arrival.</p></li>
@@ -682,93 +683,88 @@ ordering based on jobs’ names.</p></li>
 are executed first.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 10. SJF in action</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">2</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">4</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">6</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">7</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">8</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">9</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">10</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">11</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">12</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">13</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">14</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">15</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c484ae&quot;</span><span class="o">&gt;</span> <span class="n">C</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c484ae&quot;</span><span class="o">&gt;</span> <span class="n">C</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c484ae&quot;</span><span class="o">&gt;</span> <span class="n">C</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Average_turn_around_time</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">6</span> <span class="o">+</span> <span class="mi">14</span><span class="p">)</span> <span class="o">/</span> <span class="mi">3</span> <span class="o">=</span> <span class="mf">7.67</span><span class="o">.</span> 
-</pre></div>
-</div>
-<section id="initial-set-of-simple-assumptions">
-<h2>11. Initial set of simple assumptions<a class="headerlink" href="#initial-set-of-simple-assumptions" title="Permalink to this heading">#</a></h2>
+<section id="sjf-in-action">
+<h2>10. SJF in action<a class="headerlink" href="#sjf-in-action" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Average_turn_around_time = (3 + 6 + 14) / 3 = 7.67.</p></li>
+</ul>
+</section>
+<section id="id4">
+<h2>11. Initial set of simple assumptions<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>~~Each job (process/thread) runs the same amount of time.~~</p></li>
 <li><p>~~All jobs arrive at the same time.~~</p></li>
@@ -777,137 +773,127 @@ are executed first.</p></li>
 <li><p>The run time of each job is known.</p></li>
 </ol>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 12. Algorithm 1: FCFS/FIFO
-&gt;
-&gt; &lt;table&gt;
-&gt;   &lt;thead&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;th&gt; Job &lt;/th&gt;
-&gt;       &lt;th&gt; Arrival Time &lt;/th&gt;
-&gt;       &lt;th&gt; Service Time &lt;/th&gt;
-&gt;     &lt;/tr&gt;
-&gt;   &lt;/thead&gt;
-&gt;   &lt;tbody&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; A &lt;/td&gt;
-&gt;       &lt;td&gt; 0 &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;8&lt;/b&gt; &lt;/td&gt;
-&gt;     &lt;/tr&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; B &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;2&lt;/b&gt; &lt;/td&gt;    
-&gt;       &lt;td&gt; 3 &lt;/td&gt; 
-&gt;     &lt;/tr&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; C &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;2&lt;/b&gt; &lt;/td&gt;
-&gt;       &lt;td&gt; 3 &lt;/td&gt; 
-&gt;     &lt;/tr&gt;
-&gt;   &lt;/tbody&gt;
-&gt; &lt;/table&gt;
-&gt;
-&gt; - For FCFS, jobs are executed in the order of their arrival time.
-&gt; - When jobs with same arrival time arrive, let’s assume a simple 
-&gt; alphabetic ordering based on jobs’ names. 
-</pre></div>
-</div>
-<section id="id1">
-<h2>13. FCFS/FIFO in action<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> 0 </th>
-      <th> 1 </th>
-      <th> 2 </th>
-      <th> 3 </th>
-      <th> 4 </th>
-      <th> 5 </th>
-      <th> 6 </th>
-      <th> 7 </th>
-      <th> 8 </th>
-      <th> 9 </th>
-      <th> 10 </th>
-      <th> 11 </th>
-      <th> 12 </th>
-      <th> 13 </th>
-      <th> 14 </th>
-      <th> 15 </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-  </tbody>
+<section id="algorithm-1-fcfs-fifo">
+<h2>12. Algorithm 1: FCFS/FIFO<a class="headerlink" href="#algorithm-1-fcfs-fifo" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Job</p></th>
+<th class="head"><p>Arrival Time</p></th>
+<th class="head"><p>Service Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p><strong>2</strong></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p><strong>2</strong></p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>For FCFS, jobs are executed in the order of their arrival time.</p></li>
+<li><p>When jobs with same arrival time arrive, let’s assume a simple
+alphabetic ordering based on jobs’ names.</p></li>
+</ul>
+</section>
+<section id="id5">
+<h2>13. FCFS/FIFO in action<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>-</p></td>
+<td><p>-</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>-</p></td>
+<td><p>-</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>Average_turn_around_time = (8 + 9 + 12) / 3 = 9.67.</p></li>
 <li><p>B and C suffer from a long waiting time, but A already got the CPU.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 14. Initial set of simple assumptions</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="mf">1.</span> <span class="o">~~</span><span class="n">Each</span> <span class="n">job</span> <span class="p">(</span><span class="n">process</span><span class="o">/</span><span class="n">thread</span><span class="p">)</span> <span class="n">runs</span> <span class="n">the</span> <span class="n">same</span> <span class="n">amount</span> <span class="n">of</span> <span class="n">time</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">2.</span> <span class="o">~~</span><span class="n">All</span> <span class="n">jobs</span> <span class="n">arrive</span> <span class="n">at</span> <span class="n">the</span> <span class="n">same</span> <span class="n">time</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">3.</span> <span class="o">~~</span><span class="n">Once</span> <span class="n">started</span><span class="p">,</span> <span class="n">each</span> <span class="n">job</span> <span class="n">runs</span> <span class="n">to</span> <span class="n">completion</span> <span class="p">(</span><span class="n">no</span> <span class="n">interruption</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">middle</span><span class="p">)</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">4.</span> <span class="n">All</span> <span class="n">jobs</span> <span class="n">only</span> <span class="n">use</span> <span class="n">the</span> <span class="n">CPU</span> <span class="p">(</span><span class="n">no</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="mf">5.</span> <span class="n">The</span> <span class="n">run</span> <span class="n">time</span> <span class="n">of</span> <span class="n">each</span> <span class="n">job</span> <span class="ow">is</span> <span class="n">known</span><span class="o">.</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="id6">
+<h2>14. Initial set of simple assumptions<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>~~Each job (process/thread) runs the same amount of time.~~</p></li>
+<li><p>~~All jobs arrive at the same time.~~</p></li>
+<li><p>~~Once started, each job runs to completion (no interruption in the middle).~~</p></li>
+<li><p>All jobs only use the CPU (no I/O).</p></li>
+<li><p>The run time of each job is known.</p></li>
+</ol>
+</section>
 <section id="preemptive-vs-non-preemptive">
 <h2>15. Preemptive vs Non-preemptive<a class="headerlink" href="#preemptive-vs-non-preemptive" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -929,354 +915,326 @@ of each process matters.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 16. Algorithm 3: Shortest Time-to-Completion First (STCF)
-&gt;
-&gt; Also known as **Preemptive Shortest Job First (PSJF)**
-&gt;
-&gt; &lt;table&gt;
-&gt;   &lt;thead&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;th&gt; Job &lt;/th&gt;
-&gt;       &lt;th&gt; Arrival Time &lt;/th&gt;
-&gt;       &lt;th&gt; Service Time &lt;/th&gt;
-&gt;     &lt;/tr&gt;
-&gt;   &lt;/thead&gt;
-&gt;   &lt;tbody&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; A &lt;/td&gt;
-&gt;       &lt;td&gt; 0 &lt;/td&gt;
-&gt;       &lt;td&gt; 8 &lt;/td&gt;
-&gt;     &lt;/tr&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; B &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;2&lt;/b&gt; &lt;/td&gt;    
-&gt;       &lt;td&gt; 3 &lt;/td&gt; 
-&gt;     &lt;/tr&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; C &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;2&lt;/b&gt; &lt;/td&gt;
-&gt;       &lt;td&gt; 3 &lt;/td&gt; 
-&gt;     &lt;/tr&gt;
-&gt;   &lt;/tbody&gt;
-&gt; &lt;/table&gt;
-&gt;
-&gt; - For FCFS, jobs are executed in the order of their arrival time.
-&gt; - When jobs with same arrival time arrive, let’s assume a simple 
-&gt; alphabetic ordering based on jobs’ names. 
-</pre></div>
-</div>
+<section id="algorithm-3-shortest-time-to-completion-first-stcf">
+<h2>16. Algorithm 3: Shortest Time-to-Completion First (STCF)<a class="headerlink" href="#algorithm-3-shortest-time-to-completion-first-stcf" title="Permalink to this heading">#</a></h2>
+<p>Also known as <strong>Preemptive Shortest Job First (PSJF)</strong></p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Job</p></th>
+<th class="head"><p>Arrival Time</p></th>
+<th class="head"><p>Service Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p><strong>2</strong></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p><strong>2</strong></p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>For FCFS, jobs are executed in the order of their arrival time.</p></li>
+<li><p>When jobs with same arrival time arrive, let’s assume a simple
+alphabetic ordering based on jobs’ names.</p></li>
+</ul>
+</section>
 <section id="stcf-psjf-in-action">
 <h2>17. STCF/PSJF in action<a class="headerlink" href="#stcf-psjf-in-action" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> 0 </th>
-      <th> 1 </th>
-      <th> 2 </th>
-      <th> 3 </th>
-      <th> 4 </th>
-      <th> 5 </th>
-      <th> 6 </th>
-      <th> 7 </th>
-      <th> 8 </th>
-      <th> 9 </th>
-      <th> 10 </th>
-      <th> 11 </th>
-      <th> 12 </th>
-      <th> 13 </th>
-      <th> 14 </th>
-      <th> 15 </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-  </tbody>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>Average_turn_around_time = (14 + 3 + 6) / 3 = 7.67.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 18. Second performance metric</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">**</span><span class="n">Average</span> <span class="n">response</span> <span class="n">time</span> <span class="n">of</span> <span class="nb">all</span> <span class="n">jobs</span><span class="o">**.</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="n">The</span> <span class="n">time</span> <span class="kn">from</span> <span class="nn">when</span> <span class="n">the</span> <span class="n">job</span> <span class="n">arrives</span> <span class="n">to</span> <span class="n">when</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">first</span> <span class="n">scheduled</span><span class="o">.</span> 
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="n">response_time</span> <span class="o">=</span> <span class="n">first_scheduled_time</span> <span class="o">-</span> <span class="n">job_arrival_time</span>
-<span class="o">&gt;</span>
-</pre></div>
-</div>
-<section id="id2">
-<h2>19. STCF/PSJF in action<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> 0 </th>
-      <th> 1 </th>
-      <th> 2 </th>
-      <th> 3 </th>
-      <th> 4 </th>
-      <th> 5 </th>
-      <th> 6 </th>
-      <th> 7 </th>
-      <th> 8 </th>
-      <th> 9 </th>
-      <th> 10 </th>
-      <th> 11 </th>
-      <th> 12 </th>
-      <th> 13 </th>
-      <th> 14 </th>
-      <th> 15 </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-  </tbody>
+<section id="second-performance-metric">
+<h2>18. Second performance metric<a class="headerlink" href="#second-performance-metric" title="Permalink to this heading">#</a></h2>
+<p><strong>Average response time of all jobs</strong>.</p>
+<p>The time from when the job arrives to when it is first scheduled.</p>
+<p>response_time = first_scheduled_time - job_arrival_time</p>
+</section>
+<section id="id7">
+<h2>19. STCF/PSJF in action<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>Average_response_time = (0 + 0 + 3) / 3 = 1</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 20. Algorithm 4: Round Robin (RR)
-&gt;
-&gt; &lt;table&gt;
-&gt;   &lt;thead&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;th&gt; Job &lt;/th&gt;
-&gt;       &lt;th&gt; Arrival Time &lt;/th&gt;
-&gt;       &lt;th&gt; Service Time &lt;/th&gt;
-&gt;     &lt;/tr&gt;
-&gt;   &lt;/thead&gt;
-&gt;   &lt;tbody&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; A &lt;/td&gt;
-&gt;       &lt;td&gt; 0 &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;8&lt;/b&gt; &lt;/td&gt;
-&gt;     &lt;/tr&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; B &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;2&lt;/b&gt; &lt;/td&gt;    
-&gt;       &lt;td&gt; 3 &lt;/td&gt; 
-&gt;     &lt;/tr&gt;
-&gt;     &lt;tr&gt;
-&gt;       &lt;td&gt; C &lt;/td&gt;
-&gt;       &lt;td&gt; &lt;b&gt;2&lt;/b&gt; &lt;/td&gt;
-&gt;       &lt;td&gt; 3 &lt;/td&gt; 
-&gt;     &lt;/tr&gt;
-&gt;   &lt;/tbody&gt;
-&gt; &lt;/table&gt;
-&gt;
-&gt; - All jobs are placed into a circular run queue.
-&gt; - Each job is allowed to run for a time quantum `q` before
-&gt; being preempted and put back on the queue. 
-&gt; - Example: `q=1` 
-</pre></div>
-</div>
+<section id="algorithm-4-round-robin-rr">
+<h2>20. Algorithm 4: Round Robin (RR)<a class="headerlink" href="#algorithm-4-round-robin-rr" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Job</p></th>
+<th class="head"><p>Arrival Time</p></th>
+<th class="head"><p>Service Time</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0</p></td>
+<td><p><strong>8</strong></p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p><strong>2</strong></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p><strong>2</strong></p></td>
+<td><p>3</p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>All jobs are placed into a circular run queue.</p></li>
+<li><p>Each job is allowed to run for a time quantum <code class="docutils literal notranslate"><span class="pre">q</span></code> before
+being preempted and put back on the queue.</p></li>
+<li><p>Example: <code class="docutils literal notranslate"><span class="pre">q=1</span></code></p></li>
+</ul>
+</section>
 <section id="rr-in-action">
 <h2>21. RR in action<a class="headerlink" href="#rr-in-action" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> 0 </th>
-      <th> 1 </th>
-      <th> 2 </th>
-      <th> 3 </th>
-      <th> 4 </th>
-      <th> 5 </th>
-      <th> 6 </th>
-      <th> 7 </th>
-      <th> 8 </th>
-      <th> 9 </th>
-      <th> 10 </th>
-      <th> 11 </th>
-      <th> 12 </th>
-      <th> 13 </th>
-      <th> 14 </th>
-      <th> 15 </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td>  </td>
-      <td>  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#c484ae"> C </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-  </tbody>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>C</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>Average_response_time = (0 + 0 + 1) / 3 = 0.33</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 22. Algorithm 4: Round Robin (RR)
-&gt; 
-&gt; The choice of `q` is important. 
-&gt;
-&gt; - If `q` becomes infinite, RR becomes non-preemptive FCFS.
-&gt; - If `q` becomes 0, RR becomes simultaneously sharing of 
-&gt; process (not possible due to context switching).
-&gt; - `q` should be a multiple of the timer interrupt interval
-&gt;
-</pre></div>
-</div>
-<section id="id3">
-<h2>23. Initial set of simple assumptions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<section id="id8">
+<h2>22. Algorithm 4: Round Robin (RR)<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h2>
+<p>The choice of <code class="docutils literal notranslate"><span class="pre">q</span></code> is important.</p>
+<ul class="simple">
+<li><p>If <code class="docutils literal notranslate"><span class="pre">q</span></code> becomes infinite, RR becomes non-preemptive FCFS.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">q</span></code> becomes 0, RR becomes simultaneously sharing of
+process (not possible due to context switching).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">q</span></code> should be a multiple of the timer interrupt interval</p></li>
+</ul>
+</section>
+<section id="id9">
+<h2>23. Initial set of simple assumptions<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
 <li><p>~~Each job (process/thread) runs the same amount of time.~~</p></li>
 <li><p>~~All jobs arrive at the same time.~~</p></li>
@@ -1285,210 +1243,185 @@ of each process matters.</p></li>
 <li><p>The run time of each job is known.</p></li>
 </ol>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 24. (Almost) all processes perform I/O</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">When</span> <span class="n">a</span> <span class="n">job</span> <span class="ow">is</span> <span class="n">performing</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">,</span> <span class="n">it</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">using</span> <span class="n">the</span> <span class="n">CPU</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="n">In</span> <span class="n">other</span> <span class="n">words</span><span class="p">,</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">blocked</span> <span class="n">waiting</span> <span class="k">for</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="n">to</span> <span class="n">complete</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">It</span> <span class="n">makes</span> <span class="n">sense</span> <span class="n">to</span> <span class="n">use</span> <span class="n">this</span> <span class="n">time</span> <span class="n">to</span> <span class="n">run</span> <span class="n">some</span> <span class="n">other</span> <span class="n">jobs</span><span class="o">.</span> 
-<span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="almost-all-processes-perform-i-o">
+<h2>24. (Almost) all processes perform I/O<a class="headerlink" href="#almost-all-processes-perform-i-o" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>When a job is performing I/O, it is not using the CPU.
+In other words, it is blocked waiting for I/O to complete.</p></li>
+<li><p>It makes sense to use this time to run some other jobs.</p></li>
+</ul>
+</section>
 <section id="jobs-with-i-o">
 <h2>25. Jobs with I/O<a class="headerlink" href="#jobs-with-i-o" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> Job </th>
-      <th> Arrival Time </th>
-      <th> CPU Time </th>
-      <th> I/O </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td> A </td>
-      <td> 0 </td>
-      <td> 5 </td>
-      <td> One per 1 sec </td>
-    </tr>
-    <tr>
-      <td> B </td>
-      <td> 0 </td>    
-      <td> 5 </td> 
-      <td> none </td>
-    </tr>
-  </tbody>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Job</p></th>
+<th class="head"><p>Arrival Time</p></th>
+<th class="head"><p>CPU Time</p></th>
+<th class="head"><p>I/O</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>0</p></td>
+<td><p>5</p></td>
+<td><p>1 per 1 sec</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>0</p></td>
+<td><p>5</p></td>
+<td><p>none</p></td>
+</tr>
+</tbody>
 </table>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 26. Normal STCF treating A as a single job</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">1</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">2</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">3</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">4</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">5</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">6</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">7</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">8</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">9</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">10</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">11</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">12</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">13</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">14</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">th</span><span class="o">&gt;</span> <span class="mi">15</span> <span class="o">&lt;/</span><span class="n">th</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">thead</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#db9ec9&quot;</span><span class="o">&gt;</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#db9ec9&quot;</span><span class="o">&gt;</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#db9ec9&quot;</span><span class="o">&gt;</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#db9ec9&quot;</span><span class="o">&gt;</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#c6c787&quot;</span><span class="o">&gt;</span> <span class="n">A</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#dbdbd3&quot;</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;#8bb3cc&quot;</span><span class="o">&gt;</span> <span class="n">B</span> <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>       <span class="o">&lt;</span><span class="n">td</span><span class="o">&gt;</span>  <span class="o">&lt;/</span><span class="n">td</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>     <span class="o">&lt;/</span><span class="n">tr</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>   <span class="o">&lt;/</span><span class="n">tbody</span><span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;/</span><span class="n">table</span><span class="o">&gt;</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Average_turn_around_time</span> <span class="o">=</span> <span class="p">(</span><span class="mi">9</span> <span class="o">+</span> <span class="mi">14</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">=</span> <span class="mf">11.5</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Average_response_time</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span> <span class="o">+</span> <span class="mi">9</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">=</span> <span class="mf">4.5</span>
-</pre></div>
-</div>
+<section id="normal-stcf-treating-a-as-a-single-job">
+<h2>26. Normal STCF treating A as a single job<a class="headerlink" href="#normal-stcf-treating-a-as-a-single-job" title="Permalink to this heading">#</a></h2>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+<th class="head"><p>10</p></th>
+<th class="head"><p>11</p></th>
+<th class="head"><p>12</p></th>
+<th class="head"><p>13</p></th>
+<th class="head"><p>14</p></th>
+<th class="head"><p>15</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li><p>Average_turn_around_time = (9 + 14) / 2 = 11.5</p></li>
+<li><p>Average_response_time = (0 + 9) / 2 = 4.5</p></li>
+</ul>
+</section>
 <section id="stcf-treating-a-as-5-sub-jobs">
 <h2>27. STCF treating A as 5 sub-jobs<a class="headerlink" href="#stcf-treating-a-as-5-sub-jobs" title="Permalink to this heading">#</a></h2>
-<table>
-  <thead>
-    <tr>
-      <th> 0 </th>
-      <th> 1 </th>
-      <th> 2 </th>
-      <th> 3 </th>
-      <th> 4 </th>
-      <th> 5 </th>
-      <th> 6 </th>
-      <th> 7 </th>
-      <th> 8 </th>
-      <th> 9 </th>
-      <th> 10 </th>
-      <th> 11 </th>
-      <th> 12 </th>
-      <th> 13 </th>
-      <th> 14 </th>
-      <th> 15 </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#db9ec9"> I/O </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#db9ec9"> I/O </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#db9ec9"> I/O </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td bgcolor="#db9ec9"> I/O </td>
-      <td bgcolor="#c6c787"> A </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-    <tr>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td bgcolor="#dbdbd3">  </td>
-      <td bgcolor="#8bb3cc"> B </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-      <td>  </td>
-    </tr>
-  </tbody>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>0</p></th>
+<th class="head"><p>1</p></th>
+<th class="head"><p>2</p></th>
+<th class="head"><p>3</p></th>
+<th class="head"><p>4</p></th>
+<th class="head"><p>5</p></th>
+<th class="head"><p>6</p></th>
+<th class="head"><p>7</p></th>
+<th class="head"><p>8</p></th>
+<th class="head"><p>9</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p>I/O</p></td>
+<td><p>A</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+<td><p></p></td>
+<td><p>B</p></td>
+</tr>
+</tbody>
 </table>
 <ul class="simple">
 <li><p>Average_turn_around_time = (9 + 10) / 2 = 9.5</p></li>
 <li><p>Average_response_time = (0 + 1) / 2 = 0.5</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 28. Initial set of simple assumptions</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="mf">1.</span> <span class="o">~~</span><span class="n">Each</span> <span class="n">job</span> <span class="p">(</span><span class="n">process</span><span class="o">/</span><span class="n">thread</span><span class="p">)</span> <span class="n">runs</span> <span class="n">the</span> <span class="n">same</span> <span class="n">amount</span> <span class="n">of</span> <span class="n">time</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">2.</span> <span class="o">~~</span><span class="n">All</span> <span class="n">jobs</span> <span class="n">arrive</span> <span class="n">at</span> <span class="n">the</span> <span class="n">same</span> <span class="n">time</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">3.</span> <span class="o">~~</span><span class="n">Once</span> <span class="n">started</span><span class="p">,</span> <span class="n">each</span> <span class="n">job</span> <span class="n">runs</span> <span class="n">to</span> <span class="n">completion</span> <span class="p">(</span><span class="n">no</span> <span class="n">interruption</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">middle</span><span class="p">)</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">4.</span> <span class="o">~~</span><span class="n">All</span> <span class="n">jobs</span> <span class="n">only</span> <span class="n">use</span> <span class="n">the</span> <span class="n">CPU</span> <span class="p">(</span><span class="n">no</span> <span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="p">)</span><span class="o">.~~</span>
-<span class="o">&gt;</span> <span class="mf">5.</span> <span class="o">~~**</span><span class="n">The</span> <span class="n">run</span> <span class="n">time</span> <span class="n">of</span> <span class="n">each</span> <span class="n">job</span> <span class="ow">is</span> <span class="n">known</span><span class="o">.**~~</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="n">The</span> <span class="n">worst</span> <span class="n">assumption</span><span class="p">:</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Most</span> <span class="n">likely</span> <span class="n">never</span> <span class="n">happen</span> <span class="ow">in</span> <span class="n">real</span> <span class="n">life</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Yet</span><span class="p">,</span> <span class="n">without</span> <span class="n">it</span><span class="p">,</span> <span class="n">SJF</span><span class="o">/</span><span class="n">STCF</span> <span class="n">becomes</span> <span class="n">invalid</span><span class="o">.</span> 
-</pre></div>
-</div>
+<section id="id10">
+<h2>28. Initial set of simple assumptions<a class="headerlink" href="#id10" title="Permalink to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>~~Each job (process/thread) runs the same amount of time.~~</p></li>
+<li><p>~~All jobs arrive at the same time.~~</p></li>
+<li><p>~~Once started, each job runs to completion (no interruption in the middle).~~</p></li>
+<li><p>~~All jobs only use the CPU (no I/O).~~</p></li>
+<li><p>~~<strong>The run time of each job is known.</strong>~~</p></li>
+</ol>
+<p>The worst assumption:</p>
+<ul class="simple">
+<li><p>Most likely never happen in real life</p></li>
+<li><p>Yet, without it, SJF/STCF becomes invalid.</p></li>
+</ul>
+</section>
 <section id="the-question">
 <h2>29. The question<a class="headerlink" href="#the-question" title="Permalink to this heading">#</a></h2>
 <p>How do we schedule jobs <strong>without knowing</strong> their run time
 duration so that we can minimize <strong>turn around time</strong> and
 also minimize <strong>response time</strong> for interactive jobs?</p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 30. Multi-level Feedback Queue (MLFQ)</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Invented</span> <span class="n">by</span> <span class="n">Fernando</span> <span class="n">Jose</span> <span class="n">Corbato</span> <span class="p">(</span><span class="mi">1926</span> <span class="o">-</span> <span class="p">)</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Ph</span><span class="o">.</span><span class="n">D</span><span class="o">.</span> <span class="ow">in</span> <span class="n">Physics</span> <span class="p">(</span><span class="n">CalTech</span><span class="p">)</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">MIT</span> <span class="n">Professor</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">One</span> <span class="n">of</span> <span class="n">the</span> <span class="n">original</span> <span class="n">developers</span> <span class="n">of</span> <span class="n">Multics</span> <span class="p">(</span><span class="n">Predecessor</span> <span class="n">of</span> <span class="n">UNIX</span><span class="p">)</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">First</span> <span class="n">use</span> <span class="n">of</span> <span class="n">password</span> <span class="n">to</span> <span class="n">secure</span> <span class="n">file</span> <span class="n">access</span> <span class="n">on</span> <span class="n">computers</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Recipient</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">1990</span> <span class="n">Turing</span> <span class="n">Award</span> <span class="p">(</span><span class="n">The</span> <span class="n">Nobel</span> <span class="n">prize</span> <span class="ow">in</span> <span class="n">computing</span><span class="p">)</span>
-</pre></div>
-</div>
 <section id="multi-level-feedback-queue-mlfq">
-<h2>31. Multi-level Feedback Queue (MLFQ)<a class="headerlink" href="#multi-level-feedback-queue-mlfq" title="Permalink to this heading">#</a></h2>
+<h2>30. Multi-level Feedback Queue (MLFQ)<a class="headerlink" href="#multi-level-feedback-queue-mlfq" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Invented by Fernando Jose Corbato (1926 - )</p>
+<ul>
+<li><p>Ph.D. in Physics (CalTech)</p></li>
+<li><p>MIT Professor</p></li>
+</ul>
+</li>
+<li><p>One of the original developers of Multics (Predecessor of UNIX)</p></li>
+<li><p>First use of password to secure file access on computers.</p></li>
+<li><p>Recipient of the 1990 Turing Award (The Nobel prize in computing)</p></li>
+</ul>
+</section>
+<section id="id11">
+<h2>31. Multi-level Feedback Queue (MLFQ)<a class="headerlink" href="#id11" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Learn from the past to predict the future</p>
 <ul>
@@ -1505,43 +1438,41 @@ hardware branch predictors and caching algorithms.</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 32. Multi-level Feedback Queue (MLFQ)</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Consists</span> <span class="n">of</span> <span class="n">a</span> <span class="n">number</span> <span class="n">of</span> <span class="n">distinct</span> <span class="o">**</span><span class="n">queues</span><span class="o">**</span><span class="p">,</span> <span class="n">each</span> <span class="n">assigned</span> <span class="n">a</span> 
-<span class="o">&gt;</span> <span class="n">different</span> <span class="o">**</span><span class="n">priority</span> <span class="n">level</span><span class="o">**.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Each</span> <span class="n">queue</span> <span class="n">has</span> <span class="o">**</span><span class="n">multiple</span><span class="o">**</span> <span class="n">ready</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">run</span> <span class="n">jobs</span> <span class="k">with</span> <span class="n">the</span> <span class="o">**</span><span class="n">same</span><span class="o">**</span> <span class="n">priority</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">At</span> <span class="nb">any</span> <span class="n">given</span> <span class="n">time</span><span class="p">,</span> <span class="n">the</span> <span class="n">scheduler</span> <span class="n">choose</span> <span class="n">to</span> <span class="n">run</span> <span class="n">the</span> <span class="n">jobs</span> <span class="ow">in</span> <span class="n">the</span> <span class="o">**</span><span class="n">queue</span><span class="o">**</span> 
-<span class="o">&gt;</span> <span class="k">with</span> <span class="n">the</span> <span class="n">highest</span> <span class="n">priority</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">If</span> <span class="o">**</span><span class="n">multiple</span><span class="o">**</span> <span class="n">jobs</span> <span class="n">are</span> <span class="n">chosen</span><span class="p">,</span> <span class="n">run</span> <span class="n">them</span> <span class="ow">in</span> <span class="o">**</span><span class="n">Round</span><span class="o">-</span><span class="n">Robin</span><span class="o">**</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/cpu-scheduling/cpu-scheduling-01.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;MLFQ&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="id12">
+<h2>32. Multi-level Feedback Queue (MLFQ)<a class="headerlink" href="#id12" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Consists of a number of distinct <strong>queues</strong>, each assigned a
+different <strong>priority level</strong>.</p></li>
+<li><p>Each queue has <strong>multiple</strong> ready-to-run jobs with the <strong>same</strong> priority.</p></li>
+<li><p>At any given time, the scheduler choose to run the jobs in the <strong>queue</strong>
+with the highest priority</p></li>
+<li><p>If <strong>multiple</strong> jobs are chosen, run them in <strong>Round-Robin</strong></p></li>
+</ul>
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-01.png" /></p>
+</section>
 <section id="multi-level-feedback-queue-mlfq-feedback">
 <h2>32. Multi-level Feedback Queue (MLFQ): Feedback?<a class="headerlink" href="#multi-level-feedback-queue-mlfq-feedback" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Rule 1: If Priority(A) &gt; Priority(B), A runs and B doesn’t</p></li>
+<li><p>Rule 1: If Priority(A) Priority(B), A runs and B doesn’t</p></li>
 <li><p>Rule 2: If Priority(A) == Priority(B), RR(A, B)</p></li>
 </ul>
 <p>Does it work <strong>well</strong>?</p>
-<img src="../assets/figure/cpu-scheduling/cpu-scheduling-01.png" alt="MLFQ" style="height:300px">
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-01.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 33. Multi-level Feedback Queue (MLFQ): Feedback?
-&gt; 
-&gt; - Rule 1: If Priority(A) &gt; Priority(B), A runs and B doesn&#39;t
-&gt; - Rule 2: If Priority(A) == Priority(B), RR(A, B)
-&gt; 
-&gt; With only these two rules, A and B will keep alternating via RR, 
-&gt; and C and D will never get to run.  
-&gt;
-&gt; What other rule(s) do we need to add?  
-&gt; - We need to understand how job **priority** changes over time.
-&gt;
-&gt; &lt;img src=&quot;../assets/figure/cpu-scheduling/cpu-scheduling-01.png&quot; alt=&quot;MLFQ&quot; style=&quot;height:300px&quot;&gt;
-</pre></div>
-</div>
+<section id="id13">
+<h2>33. Multi-level Feedback Queue (MLFQ): Feedback?<a class="headerlink" href="#id13" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Rule 1: If Priority(A) Priority(B), A runs and B doesn’t</p></li>
+<li><p>Rule 2: If Priority(A) == Priority(B), RR(A, B)</p></li>
+</ul>
+<p>With only these two rules, A and B will keep alternating via RR,
+and C and D will never get to run.</p>
+<p>What other rule(s) do we need to add?</p>
+<ul class="simple">
+<li><p>We need to understand how job <strong>priority</strong> changes over time.</p></li>
+</ul>
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-01.png" /></p>
+</section>
 <section id="attempt-1-how-to-change-priority">
 <h2>34. Attempt 1: How to change priority?<a class="headerlink" href="#attempt-1-how-to-change-priority" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -1553,16 +1484,15 @@ its priority is reduced (it moves down one queue).</p></li>
 time slice is up, it stays at the same priority level.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 35. Example 1: A single long-running job</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">System</span> <span class="n">maintains</span> <span class="n">three</span> <span class="n">queues</span><span class="p">,</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">order</span> <span class="n">of</span> 
-<span class="o">&gt;</span> <span class="n">priority</span> <span class="kn">from</span> <span class="nn">high</span> <span class="n">to</span> <span class="n">low</span><span class="p">:</span> <span class="n">Q2</span><span class="p">,</span> <span class="n">Q1</span><span class="p">,</span> <span class="ow">and</span> <span class="n">Q0</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Time</span><span class="o">-</span><span class="nb">slice</span> <span class="n">of</span> <span class="mi">10</span> <span class="n">ms</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/cpu-scheduling/cpu-scheduling-02.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;MLFQ&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="example-1-a-single-long-running-job">
+<h2>35. Example 1: A single long-running job<a class="headerlink" href="#example-1-a-single-long-running-job" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>System maintains three queues, in the order of
+priority from high to low: Q2, Q1, and Q0.</p></li>
+<li><p>Time-slice of 10 ms</p></li>
+</ul>
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-02.png" /></p>
+</section>
 <section id="example-2-along-came-a-short-job">
 <h2>36. Example 2: Along came a short job<a class="headerlink" href="#example-2-along-came-a-short-job" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -1573,37 +1503,35 @@ time slice is up, it stays at the same priority level.</p></li>
 know about the job, it first assumes that is might be a short
 job (higher priority). If it is not a short job, it will
 gradually be moved down the queues.</p>
-<img src="../assets/figure/cpu-scheduling/cpu-scheduling-03.png" alt="MLFQ" style="height:300px">
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-03.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 36. Example 3: What about I/O?
-&gt; 
-&gt; - The interactive job (gray) only needs the CPU for 1 ms before 
-&gt; performing an I/O. MLFQ keeps B at the highest priority before 
-&gt; B keep releasing the CPU.
-&gt; - What are potentially problems?
-&gt;
-&gt; &lt;img src=&quot;../assets/figure/cpu-scheduling/cpu-scheduling-04.png&quot; alt=&quot;MLFQ&quot; style=&quot;height:300px&quot;&gt;
-</pre></div>
-</div>
+<section id="example-3-what-about-i-o">
+<h2>36. Example 3: What about I/O?<a class="headerlink" href="#example-3-what-about-i-o" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The interactive job (gray) only needs the CPU for 1 ms before
+performing an I/O. MLFQ keeps B at the highest priority before
+B keep releasing the CPU.</p></li>
+<li><p>What are potentially problems?</p></li>
+</ul>
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-04.png" /></p>
+</section>
 <section id="problem-1-starvation">
 <h2>37. Problem 1: Starvation<a class="headerlink" href="#problem-1-starvation" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>If new interactive jobs keep arriving, long running job will
 stay at the bottom queue and never get any work done.</p></li>
 </ul>
-<img src="../assets/figure/cpu-scheduling/cpu-scheduling-05.png" alt="MLFQ" style="height:300px">
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-05.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 38. Problem 2: Gaming the system</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">What</span> <span class="k">if</span> <span class="n">some</span> <span class="n">industrious</span> <span class="n">programmers</span> <span class="n">intentionally</span> <span class="n">write</span> <span class="n">a</span> 
-<span class="o">&gt;</span> <span class="n">long</span> <span class="n">running</span> <span class="n">program</span> <span class="n">that</span> <span class="n">relinquishes</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">just</span> <span class="n">before</span> <span class="n">the</span> 
-<span class="o">&gt;</span> <span class="n">time</span><span class="o">-</span><span class="nb">slice</span> <span class="ow">is</span> <span class="n">up</span> <span class="p">(</span><span class="n">Job</span> <span class="n">B</span><span class="p">)</span><span class="o">.</span> 
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/cpu-scheduling/cpu-scheduling-06.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;MLFQ&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:300px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="problem-2-gaming-the-system">
+<h2>38. Problem 2: Gaming the system<a class="headerlink" href="#problem-2-gaming-the-system" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>What if some industrious programmers intentionally write a
+long running program that relinquishes the CPU just before the
+time-slice is up (Job B).</p></li>
+</ul>
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-06.png" /></p>
+</section>
 <section id="problem-3-what-if-a-program-changes-behavior">
 <h2>39. Problem 3: What if a program changes behavior?<a class="headerlink" href="#problem-3-what-if-a-program-changes-behavior" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -1611,30 +1539,28 @@ stay at the bottom queue and never get any work done.</p></li>
 <li><p>Turn into an interactive job</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 39. Attempt 2: Priority boost
-&gt; 
-&gt; Rule 5: After some time period `S`, move all the jobs in the system to 
-&gt; the topmost queue.
-&gt;
-</pre></div>
-</div>
+<section id="attempt-2-priority-boost">
+<h2>39. Attempt 2: Priority boost<a class="headerlink" href="#attempt-2-priority-boost" title="Permalink to this heading">#</a></h2>
+<p>Rule 5: After some time period <code class="docutils literal notranslate"><span class="pre">S</span></code>, move all the jobs in the system to
+the topmost queue.</p>
+</section>
 <section id="problem-starvation">
 <h2>40. Problem: Starvation<a class="headerlink" href="#problem-starvation" title="Permalink to this heading">#</a></h2>
 <p>Rule 5 help guaranteeing that processes will not be
 staved. It also helps with CPU-bound jobs that become interactive</p>
-<img src="../assets/figure/cpu-scheduling/cpu-scheduling-07.png" alt="MLFQ" style="height:300px">
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-07.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 41. What S should be set to?
-&gt; 
-&gt; &gt; ## Voodoo constants (John Ousterhout)
-&gt; &gt; S requires some form of magic to set them correctly. 
-&gt; &gt; - Too high: long running jobs will starve
-&gt; &gt; - Too low: interactive jobs will not get a proper share of the CPU. 
-&gt; ```
-</pre></div>
-</div>
+<section id="what-s-should-be-set-to">
+<h2>41. What S should be set to?<a class="headerlink" href="#what-s-should-be-set-to" title="Permalink to this heading">#</a></h2>
+<section id="voodoo-constants-john-ousterhout">
+<h3>Voodoo constants (John Ousterhout)<a class="headerlink" href="#voodoo-constants-john-ousterhout" title="Permalink to this heading">#</a></h3>
+<p>S requires some form of magic to set them correctly.</p>
+<ul class="simple">
+<li><p>Too high: long running jobs will starve</p></li>
+<li><p>Too low: interactive jobs will not get a proper share of the CPU.</p></li>
+</ul>
+</section>
+</section>
 <section id="attempt-3-better-accounting">
 <h2>42. Attempt 3: Better accounting<a class="headerlink" href="#attempt-3-better-accounting" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -1643,30 +1569,29 @@ staved. It also helps with CPU-bound jobs that become interactive</p>
 (regardless of how many time it has given up the CPU), its priority
 is reduced.</p></li>
 </ul>
-<img src="../assets/figure/cpu-scheduling/cpu-scheduling-08.png" alt="MLFQ" style="height:300px">
+<p><img alt="MLFQ" src="../_images/cpu-scheduling-08.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-&gt; ## 43. Summary
-&gt; 
-&gt; - Rule 1: If Priority(A) &gt; Priority(B), A runs (B doesn’t)
-&gt; - Rule 2: If Priority(A) = Priority(B), RR(A, B)
-&gt; - Rule 3: When a job enter the system, it is placed at the highest priority 
-&gt; (the top most queue).
-&gt; - Rule 4: Once a job uses up its time allotment at a given level 
-&gt; (regardless of how many time it has given up the CPU), its priority 
-&gt; is reduced. 
-&gt; - Rule 5: After some time period S, move all the jobs in the system to 
-&gt; the topmost queue.
-&gt;
-&gt; MLFQ observes the execution of a  job and gradually learns what type of job 
-&gt; it is, and prioritize it accordingly. 
-&gt; - Excellent performance for interactive I/O bound jobs: good response time.
-&gt; - Fair for long-running CPU-bound jobs: good turnaround time without starvation.
-&gt;
-&gt; Used by many systems, including FreeBSD, MacOS X, Solaris, Linux 2.6, and Windows NT
-</pre></div>
-</div>
-<p>{% include <a class="reference external" href="http://links.md">links.md</a> %}</p>
+<section id="summary">
+<h2>43. Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Rule 1: If Priority(A) Priority(B), A runs (B doesn’t)</p></li>
+<li><p>Rule 2: If Priority(A) = Priority(B), RR(A, B)</p></li>
+<li><p>Rule 3: When a job enter the system, it is placed at the highest priority
+(the top most queue).</p></li>
+<li><p>Rule 4: Once a job uses up its time allotment at a given level
+(regardless of how many time it has given up the CPU), its priority
+is reduced.</p></li>
+<li><p>Rule 5: After some time period S, move all the jobs in the system to
+the topmost queue.</p></li>
+</ul>
+<p>MLFQ observes the execution of a  job and gradually learns what type of job
+it is, and prioritize it accordingly.</p>
+<ul class="simple">
+<li><p>Excellent performance for interactive I/O bound jobs: good response time.</p></li>
+<li><p>Fair for long-running CPU-bound jobs: good turnaround time without starvation.</p></li>
+</ul>
+<p>Used by many systems, including FreeBSD, MacOS X, Solaris, Linux 2.6, and Windows NT</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -1737,28 +1662,54 @@ is reduced.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-cpu-scheduling">1. What is CPU scheduling?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-set-of-simple-assumptions">2. Initial set of simple assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-performance-metric">3. First performance metric</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-first-come-first-server-fcfs-fifo">4. Algorithm 1: First Come First Server (FCFS/FIFO)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fcfs-fifo-in-action">5. FCFS/FIFO in action</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-first-come-first-server-fcfs-fifo">7. Algorithm 1: First Come First Server (FCFS/FIFO)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">6. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">7. Algorithm 1: First Come First Server (FCFS/FIFO)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8. FCFS/FIFO in action</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-2-shortest-job-first-sjf">9. Algorithm 2: Shortest Job First (SJF)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-set-of-simple-assumptions">11. Initial set of simple assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">13. FCFS/FIFO in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sjf-in-action">10. SJF in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">11. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-1-fcfs-fifo">12. Algorithm 1: FCFS/FIFO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">13. FCFS/FIFO in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">14. Initial set of simple assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#preemptive-vs-non-preemptive">15. Preemptive vs Non-preemptive</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-3-shortest-time-to-completion-first-stcf">16. Algorithm 3: Shortest Time-to-Completion First (STCF)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stcf-psjf-in-action">17. STCF/PSJF in action</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">19. STCF/PSJF in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-performance-metric">18. Second performance metric</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">19. STCF/PSJF in action</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algorithm-4-round-robin-rr">20. Algorithm 4: Round Robin (RR)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rr-in-action">21. RR in action</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">23. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">22. Algorithm 4: Round Robin (RR)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">23. Initial set of simple assumptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#almost-all-processes-perform-i-o">24. (Almost) all processes perform I/O</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs-with-i-o">25. Jobs with I/O</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#normal-stcf-treating-a-as-a-single-job">26. Normal STCF treating A as a single job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stcf-treating-a-as-5-sub-jobs">27. STCF treating A as 5 sub-jobs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id10">28. Initial set of simple assumptions</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-question">29. The question</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-feedback-queue-mlfq">31. Multi-level Feedback Queue (MLFQ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-feedback-queue-mlfq">30. Multi-level Feedback Queue (MLFQ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id11">31. Multi-level Feedback Queue (MLFQ)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id12">32. Multi-level Feedback Queue (MLFQ)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-feedback-queue-mlfq-feedback">32. Multi-level Feedback Queue (MLFQ): Feedback?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id13">33. Multi-level Feedback Queue (MLFQ): Feedback?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-1-how-to-change-priority">34. Attempt 1: How to change priority?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1-a-single-long-running-job">35. Example 1: A single long-running job</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2-along-came-a-short-job">36. Example 2: Along came a short job</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-what-about-i-o">36. Example 3: What about I/O?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-1-starvation">37. Problem 1: Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-2-gaming-the-system">38. Problem 2: Gaming the system</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-3-what-if-a-program-changes-behavior">39. Problem 3: What if a program changes behavior?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-2-priority-boost">39. Attempt 2: Priority boost</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-starvation">40. Problem: Starvation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-should-be-set-to">41. What S should be set to?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#voodoo-constants-john-ousterhout">Voodoo constants (John Ousterhout)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attempt-3-better-accounting">42. Attempt 3: Better accounting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">43. Summary</a></li>
 </ul>
   </nav></div>
 

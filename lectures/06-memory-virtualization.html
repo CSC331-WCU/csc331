@@ -329,13 +329,19 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midterm-exam">0. Midterm Exam…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-the-beginning">1. In the beginning …</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-systems">2. Early systems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiprogramming-and-time-sharing">4. Multiprogramming and time sharing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiprogramming-and-time-sharing">3. Multiprogramming and time sharing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4. Multiprogramming and time sharing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5. Multiprogramming and time sharing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#address-space">6. Address space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-visual-representation-of-address-space">One visual representation of address space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-what-is-in-your-binary">8. Hands on: what is in your binary?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-what-is-in-your-binary">7. Hands on: what is in your binary?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8. Hands on: what is in your binary?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-where-the-stack-grows">9. Hands on: where the stack grows?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-observing-inner-growth-of-the-stacks">10. Hands on: observing inner growth (of the stacks)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-address-space-really">11. What is address space, really?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-memory-virtualization">12. Goals of memory virtualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dr-ngo-loves-his-analogies">13. Dr. Ngo loves his analogies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-is-memory-unlimited">14. Hands on: is memory unlimited?</a></li>
 </ul>
             </nav>
@@ -350,36 +356,44 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="memory-virtualization">
 <h1>Memory virtualization<a class="headerlink" href="#memory-virtualization" title="Permalink to this heading">#</a></h1>
-<p>teaching: 0
-exercises: 0
-questions:</p>
+<div class="tip admonition">
+<p class="admonition-title">Key concept</p>
 <ul class="simple">
-<li><p>“How can an illusion of infinite and isolated memory space be managed?”
-objectives:</p></li>
-<li><p>“Understand how a process’ components are organized in memory.”</p></li>
-<li><p>“Understand the idea of address space and memory virtualization.”
-keypoints:</p></li>
-<li><p>“Memory virtualization is how the OS provides an abstraction of physical
-memory to process in order to facilitate transparency, efficiency, and protection.”</p></li>
+<li><p>Question:</p>
+<ul>
+<li><p>How can an illusion of infinite and isolated memory space be managed?</p></li>
 </ul>
+</li>
+<li><p>Objectives:</p>
+<ul>
+<li><p>Understand how a process’ components are organized in memory.</p></li>
+<li><p>Understand the idea of address space and memory virtualization.</p></li>
+</ul>
+</li>
+<li><p>Keypoints:</p>
+<ul>
+<li><p>Memory virtualization is how the OS provides an abstraction of physical
+memory to process in order to facilitate transparency, efficiency, and protection.</p></li>
+</ul>
+</li>
+</ul>
+</div>
 <section id="midterm-exam">
 <h2>0. Midterm Exam…<a class="headerlink" href="#midterm-exam" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Wednesday, March 24 , 2021</strong></p></li>
-<li><p>24-hour windows range: 12:00AM - 11:59PM March 24, 2021.</p></li>
-<li><p>75 minutes duration.</p></li>
+<li><p><strong>Friday, October 6, 2023</strong></p></li>
+<li><p>In class, 50 minutes duration.</p></li>
 <li><p>20 questions  (similar in format to the quizzes).</p></li>
-<li><p>Everything (including source codes) up to today (Wednesday, March 3, 2021).</p></li>
+<li><p>Everything (including source codes) up to memory virtualization.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 1. In the beginning ...</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Users</span> <span class="n">didn</span><span class="s1">&#39;t expect much. </span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">To</span> <span class="n">be</span> <span class="n">honest</span><span class="p">,</span> <span class="n">most</span><span class="p">,</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">,</span> <span class="n">users</span> <span class="n">are</span> <span class="n">also</span> <span class="n">developers</span> <span class="o">...</span>
-</pre></div>
-</div>
+<section id="in-the-beginning">
+<h2>1. In the beginning …<a class="headerlink" href="#in-the-beginning" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Users didn’t expect much.</p></li>
+<li><p>To be honest, most, if not all, users are also developers …</p></li>
+</ul>
+</section>
 <section id="early-systems">
 <h2>2. Early systems<a class="headerlink" href="#early-systems" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -387,25 +401,27 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 <li><p>The OS was preloaded into memory and consisted of a set of routines.</p></li>
 <li><p>There was one running program that uses the rest of memory.</p></li>
 </ul>
-<img src="../assets/figure/memory-virtualization/01.png" alt="Early systems" style="height:500px">
+<p><img alt="Early systems" src="../_images/013.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## 3. Multiprogramming and time sharing</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Demands</span> <span class="k">for</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Utilization</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Efficiency</span>
-<span class="o">&gt;</span>   <span class="o">-</span> <span class="n">Interactivity</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Multiple</span> <span class="n">processes</span> <span class="n">ready</span> <span class="n">to</span> <span class="n">run</span> <span class="n">at</span> <span class="n">a</span> <span class="n">given</span> <span class="n">time</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">OS</span> <span class="n">switches</span> <span class="n">between</span> <span class="n">them</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">One</span> <span class="n">approach</span> <span class="ow">is</span> <span class="n">to</span> <span class="n">run</span> <span class="n">one</span> <span class="n">process</span> <span class="n">at</span> <span class="n">a</span> <span class="n">time</span> <span class="ow">and</span> <span class="n">still</span> <span class="n">give</span> <span class="n">it</span> <span class="n">full</span> <span class="n">access</span> <span class="n">to</span> <span class="nb">all</span> <span class="n">memory</span> 
-<span class="o">&gt;</span> <span class="p">(</span><span class="n">just</span> <span class="n">like</span> <span class="n">the</span> <span class="n">early</span> <span class="n">days</span> <span class="o">...</span><span class="p">)</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">This</span> <span class="n">requires</span> <span class="n">switch</span> <span class="n">processes</span> <span class="kn">from</span> <span class="nn">memory.</span>
-</pre></div>
-</div>
 <section id="multiprogramming-and-time-sharing">
-<h2>4. Multiprogramming and time sharing<a class="headerlink" href="#multiprogramming-and-time-sharing" title="Permalink to this heading">#</a></h2>
+<h2>3. Multiprogramming and time sharing<a class="headerlink" href="#multiprogramming-and-time-sharing" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Demands for</p>
+<ul>
+<li><p>Utilization</p></li>
+<li><p>Efficiency</p></li>
+<li><p>Interactivity</p></li>
+</ul>
+</li>
+<li><p>Multiple processes ready to run at a given time.</p></li>
+<li><p>The OS switches between them.</p></li>
+<li><p>One approach is to run one process at a time and still give it full access to all memory
+(just like the early days …).</p></li>
+<li><p>This requires switch processes from memory.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2>4. Multiprogramming and time sharing<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>This solution does not scale as memory grows.</p></li>
 </ul>
@@ -440,18 +456,16 @@ memory to process in order to facilitate transparency, efficiency, and protectio
 </tbody>
 </table>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## 5. Multiprogramming and time sharing</span>
-<span class="o">&gt;</span> 
-<span class="o">&gt;</span> <span class="n">What</span> <span class="n">we</span> <span class="n">want</span> <span class="n">to</span> <span class="n">do</span>  
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">Leave</span> <span class="n">processes</span> <span class="ow">in</span> <span class="n">memory</span> <span class="ow">and</span> <span class="n">let</span> <span class="n">OS</span> <span class="n">implement</span> <span class="n">an</span> <span class="n">efficient</span> <span class="n">time</span> <span class="n">sharing</span><span class="o">/</span><span class="n">switching</span> 
-<span class="o">&gt;</span> <span class="n">mechanism</span><span class="o">.</span> 
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">A</span> <span class="n">new</span> <span class="n">demand</span><span class="p">:</span> <span class="o">**</span><span class="n">protection</span><span class="o">**</span> <span class="p">(</span><span class="n">through</span> <span class="n">isolation</span><span class="p">)</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/memory-virtualization/02.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;multiprogramming&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-</pre></div>
-</div>
+<section id="id2">
+<h2>5. Multiprogramming and time sharing<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<p>What we want to do</p>
+<ul class="simple">
+<li><p>Leave processes in memory and let OS implement an efficient time sharing/switching
+mechanism.</p></li>
+<li><p>A new demand: <strong>protection</strong> (through isolation)</p></li>
+</ul>
+<p><img alt="Multiprogramming" src="../_images/022.png" /></p>
+</section>
 <section id="address-space">
 <h2>6. Address space<a class="headerlink" href="#address-space" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -473,105 +487,90 @@ by the programmer.</p></li>
 </ul>
 </li>
 </ul>
-<blockquote>
-<div></div></blockquote>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-<span class="o">&gt;</span> <span class="c1">## Another visual representation of address space</span>
-<span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">img</span> <span class="n">src</span><span class="o">=</span><span class="s2">&quot;../assets/figure/memory-virtualization/04.png&quot;</span> <span class="n">alt</span><span class="o">=</span><span class="s2">&quot;address space 2&quot;</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;height:500px&quot;</span><span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">*</span><span class="n">Image</span> <span class="n">taken</span> <span class="kn">from</span> <span class="p">[</span><span class="n">Geeksforgeeks</span><span class="p">](</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">geeksforgeeks</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">memory</span><span class="o">-</span><span class="n">layout</span><span class="o">-</span><span class="n">of</span><span class="o">-</span><span class="n">c</span><span class="o">-</span><span class="n">program</span><span class="o">/</span><span class="p">)</span><span class="o">*</span>
-</pre></div>
-</div>
+<p><img alt="Address space" src="../_images/032.png" />
+<img alt="Address space" src="../_images/042.png" /></p>
+<p><em>Image taken from <a class="reference external" href="https://www.geeksforgeeks.org/memory-layout-of-c-program/">Geeksforgeeks</a></em></p>
 </section>
-<section id="one-visual-representation-of-address-space">
-<h2>One visual representation of address space<a class="headerlink" href="#one-visual-representation-of-address-space" title="Permalink to this heading">#</a></h2>
-<img src="../assets/figure/memory-virtualization/03.png" alt="address space 1" style="height:500px">
-</section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-
-
-&gt; ## 7. Hands on: what is in your binary?
-&gt;
-&gt; - Open a terminal (Windows Terminal or Mac Terminal). 
-&gt; - Run the command to launch the image container for your platform:
-&gt; - Windows:
-&gt; 
-&gt; ~~~
-&gt; $ podman run --rm --userns keep-id --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /mnt/c/csc331:/home/$USER/csc331:Z localhost/csc-container /bin/bash
-&gt; ~~~
-&gt; {: .language-bash}
-&gt;
-&gt; - Mac:
-&gt;
-&gt; ~~~
-&gt; $ docker run --rm --userns=host --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -it -v /Users/$USER/csc331:/home/$USER/csc331:Z csc-container /bin/bash
-&gt; ~~~
-&gt; {: .language-bash}
-&gt;
-&gt; - Navigate to `/home/$USER/csc331`
-&gt; - Change to directory `ostep-code/cpu-api`, then run `make` to build the programs. 
-&gt;
-&gt; - Launch a tmux session called `m1` with two vertical panels.  
-&gt; - In the left panel, run the following commands:
-&gt;
-&gt; ~~~
-&gt; $ mkdir ~/memory 
-&gt; $ cd ~/memory 
-&gt; ~~~ 
-&gt; {: .language-bash}
-&gt;   
-&gt; - Create a C program named `simple.c` inside directory `memory`. 
-&gt; - **Reminder**: The sequence to create/edit files using `nano` is as follows:
-&gt;   - Run `nano -c ile_name`
-&gt;   - Type in the contents
-&gt;   - When done, press `Ctrl-X`
-&gt;   - Press `y` to confirm that you want to save modification
-&gt;   - Press `Enter` to confirm the file name to save to. 
-&gt; - Create `simple.c` with the following contents:
-&gt;   
-&gt; &gt; &lt;script src=&quot;https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=simple.c&quot;&gt;&lt;/script&gt;
-&gt; 
-&gt; - In the left panel, run the followings:
-&gt;
-&gt; ~~~
-&gt; $ gcc -g -o simple simple.c 
-&gt; $ gdb simple 
-&gt; gdb-peda$ info files
-&gt; ~~~ 
-&gt; {: .language-bash}
-&gt;
-&gt; - In the right panel, run the followings:
-&gt;
-&gt; ~~~
-&gt; $ cd ~/memory 
-&gt; $ gdb simple
-&gt; gdb-peda$ b main
-&gt; gdb-peda$ run
-&gt; gdb-peda$ info files
-&gt; ~~~ 
-&gt; {: .language-bash}
-&gt; 
-&gt;
-&gt; - The left panel shows the binary file, which is basically a packing list. 
-&gt; - The right panel shows how the contents are loaded from static libraries (with memory changed)
-&gt; 
-&gt; &lt;img src=&quot;../assets/figure/memory-virtualization/05.png&quot; alt=&quot;view binary contents&quot; style=&quot;height:800px&quot;&gt;
-&gt;
-&gt; - Move to the right panel and press `Enter` to continue going through the list.
-&gt; - Go through the remaining steps (using `n`) of the debugging process until finish. 
-&gt; - Quit `gdb` instances in both panels.  
-</pre></div>
-</div>
 <section id="hands-on-what-is-in-your-binary">
-<h2>8. Hands on: what is in your binary?<a class="headerlink" href="#hands-on-what-is-in-your-binary" title="Permalink to this heading">#</a></h2>
+<h2>7. Hands on: what is in your binary?<a class="headerlink" href="#hands-on-what-is-in-your-binary" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p>Disable address randomization (permanently).</p></li>
-<li><p>You only need to do this once using either tmux panels.</p></li>
+<li><p>Open a terminal (Windows Terminal or Mac Terminal).</p></li>
+<li><p>Run the command to launch the image container for your platform:</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--userns<span class="o">=</span>host<span class="w"> </span>--cap-add<span class="o">=</span>SYS_PTRACE<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>unconfined<span class="w"> </span>-it<span class="w"> </span>linhbngo/csc-container<span class="w"> </span>/bin/bash
 </pre></div>
 </div>
-<p>{: .language-bash}</p>
+<ul class="simple">
+<li><p>If you don’t have persistent storage, run the following</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
+mkdir<span class="w"> </span>csc331
+<span class="nb">cd</span><span class="w"> </span>csc331
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/remzi-arpacidusseau/ostep-code.git
+<span class="nb">cd</span><span class="w"> </span>ostep-code/cpu-api
+make
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Launch a tmux session called <code class="docutils literal notranslate"><span class="pre">m1</span></code> with two vertical panels.</p></li>
+<li><p>In the left panel, run the following commands:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>~/memory<span class="w"> </span>
+<span class="nb">cd</span><span class="w"> </span>~/memory<span class="w"> </span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Create a C program named <code class="docutils literal notranslate"><span class="pre">simple.c</span></code> inside directory <code class="docutils literal notranslate"><span class="pre">memory</span></code>.</p></li>
+<li><p><strong>Reminder</strong>: The sequence to create/edit files using <code class="docutils literal notranslate"><span class="pre">nano</span></code> is as follows:</p>
+<ul>
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">nano</span> <span class="pre">-c</span> <span class="pre">file_name</span></code></p></li>
+<li><p>Type in the contents</p></li>
+<li><p>When done, press <code class="docutils literal notranslate"><span class="pre">Ctrl-X</span></code></p></li>
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">y</span></code> to confirm that you want to save modification</p></li>
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to confirm the file name to save to.</p></li>
+</ul>
+</li>
+<li><p>Create <code class="docutils literal notranslate"><span class="pre">simple.c</span></code> with the following contents:</p></li>
+</ul>
+<script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=simple.c"></script>
+<ul class="simple">
+<li><p>In the left panel, run the followings:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-g<span class="w"> </span>-o<span class="w"> </span>simple<span class="w"> </span>simple.c<span class="w"> </span>
+gdb<span class="w"> </span>simple<span class="w"> </span>
+gdb-peda$<span class="w"> </span>info<span class="w"> </span>files
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>In the right panel, run the followings:</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>~/memory<span class="w"> </span>
+gdb<span class="w"> </span>simple
+gdb-peda$<span class="w"> </span>b<span class="w"> </span>main
+gdb-peda$<span class="w"> </span>run
+gdb-peda$<span class="w"> </span>info<span class="w"> </span>files
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The left panel shows the binary file, which is basically a packing list.</p></li>
+<li><p>The right panel shows how the contents are loaded from static libraries (with memory changed)</p></li>
+</ul>
+<p><img alt="View binary contents" src="../_images/052.png" /></p>
+<ul class="simple">
+<li><p>Move to the right panel and press <code class="docutils literal notranslate"><span class="pre">Enter</span></code> to continue going through the list.</p></li>
+<li><p>Go through the remaining steps (using <code class="docutils literal notranslate"><span class="pre">n</span></code>) of the debugging process until finish.</p></li>
+<li><p>Quit <code class="docutils literal notranslate"><span class="pre">gdb</span></code> instances in both panels.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>8. Hands on: what is in your binary?<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Disable address randomization.</p></li>
+<li><p>You only need to do this using either tmux panels.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/proc/sys/kernel/randomize_va_space
+</pre></div>
+</div>
 <ul class="simple">
 <li><p>In the left panel, create <code class="docutils literal notranslate"><span class="pre">simple2.c</span></code> inside <code class="docutils literal notranslate"><span class="pre">memory</span></code> with the following contents:</p></li>
 </ul>
@@ -584,29 +583,26 @@ by the programmer.</p></li>
 <li><p>Compile and run <code class="docutils literal notranslate"><span class="pre">simple2.c</span></code> and <code class="docutils literal notranslate"><span class="pre">simple3.c</span></code> normally.</p></li>
 <li><p>Compare the output.</p></li>
 </ul>
-<img src="../assets/figure/memory-virtualization/06.png" alt="view binary contents" style="height:250px">
+<p><img alt="View binary contents" src="../_images/062.png" /></p>
 <ul class="simple">
 <li><p>But Dr. Ngo just said the stack grows downward …?</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 9. Hands on: where the stack grows?  
-&gt; 
-&gt; - Add one more vertical panel to your tmux session. 
-&gt; - Adjust the panels&#39; width (`resize-pane -L/-R`) so that they balance.
-&gt; - In the new panel, create `simple4.c` inside `memory` with the following contents:
-&gt;   
-&gt; &lt;script src=&quot;https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=simple4.c&quot;&gt;&lt;/script&gt;
-&gt; 
-&gt; - Stack grows downward (high to low) relative to stack frames …
-&gt; - Within a stack frame, memory reserved for data are 
-&gt; allocated in order of declaration from low to high
-&gt; 
-&gt; &lt;img src=&quot;../assets/figure/memory-virtualization/07.png&quot; alt=&quot;where the stack grows&quot; style=&quot;height:250px&quot;&gt;
-&gt;
-</pre></div>
-</div>
+<section id="hands-on-where-the-stack-grows">
+<h2>9. Hands on: where the stack grows?<a class="headerlink" href="#hands-on-where-the-stack-grows" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Add one more vertical panel to your tmux session.</p></li>
+<li><p>Adjust the panels’ width (<code class="docutils literal notranslate"><span class="pre">resize-pane</span> <span class="pre">-L/-R</span></code>) so that they balance.</p></li>
+<li><p>In the new panel, create <code class="docutils literal notranslate"><span class="pre">simple4.c</span></code> inside <code class="docutils literal notranslate"><span class="pre">memory</span></code> with the following contents:</p></li>
+</ul>
+<script src="https://gist.github.com/linhbngo/d2f3a0b28b73a3f48c751410c6c91fd6.js?file=simple4.c"></script>
+<ul class="simple">
+<li><p>Stack grows downward (high to low) relative to stack frames …</p></li>
+<li><p>Within a stack frame, memory reserved for data are
+allocated in order of declaration from low to high</p></li>
+</ul>
+<p><img alt="Where the stacks grow" src="../_images/072.png" /></p>
+</section>
 <section id="hands-on-observing-inner-growth-of-the-stacks">
 <h2>10. Hands on: observing inner growth (of the stacks)?<a class="headerlink" href="#hands-on-observing-inner-growth-of-the-stacks" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -619,18 +615,19 @@ memory are allocated in the order from low to high.</p></li>
 <li><p>In the new panel, create <code class="docutils literal notranslate"><span class="pre">simple4.c</span></code> inside <code class="docutils literal notranslate"><span class="pre">memory</span></code> with the following contents:</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 11. What is address space, really?
-&gt; 
-&gt; - The **abstraction of physical memory** that the OS is providing to the 
-&gt; running program. 
-&gt; - How can the OS build this abstraction of a private, potentially large 
-&gt; address space for multiple running processes on top of a single physical memory?
-&gt;   - This is called **memory virtualization**.
-&gt;
-</pre></div>
-</div>
+<section id="what-is-address-space-really">
+<h2>11. What is address space, really?<a class="headerlink" href="#what-is-address-space-really" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The <strong>abstraction of physical memory</strong> that the OS is providing to the
+running program.</p></li>
+<li><p>How can the OS build this abstraction of a private, potentially large
+address space for multiple running processes on top of a single physical memory?</p>
+<ul>
+<li><p>This is called <strong>memory virtualization</strong>.</p></li>
+</ul>
+</li>
+</ul>
+</section>
 <section id="goals-of-memory-virtualization">
 <h2>12. Goals of memory virtualization<a class="headerlink" href="#goals-of-memory-virtualization" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -647,16 +644,13 @@ the memory space as its own private physical memory.</p></li>
 in its own isolated memory space, safe against other processes.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 13. Dr. Ngo loves his analogies
-&gt; 
-&gt; - In the firgure to the right, what represents the heap?
-&gt; 
-&gt; &lt;img src=&quot;../assets/figure/memory-virtualization/08.png&quot; alt=&quot;foods&quot; style=&quot;height:250px&quot;&gt;
-&gt;
-</pre></div>
-</div>
+<section id="dr-ngo-loves-his-analogies">
+<h2>13. Dr. Ngo loves his analogies<a class="headerlink" href="#dr-ngo-loves-his-analogies" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In the firgure to the right, what represents the heap?</p></li>
+</ul>
+<p><img alt="Foods" src="../_images/081.png" /></p>
+</section>
 <section id="hands-on-is-memory-unlimited">
 <h2>14. Hands on: is memory unlimited?<a class="headerlink" href="#hands-on-is-memory-unlimited" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
@@ -677,15 +671,8 @@ argument of <code class="docutils literal notranslate"><span class="pre">200</sp
 such that you run into a segmentation fault in the last panel.</p></li>
 <li><p>This is the impact of memory allocation (reservation).</p></li>
 </ul>
-<img src="../assets/figure/memory-virtualization/09.png" alt="foods" style="height:800px">
+<p><img alt="Memory consumption" src="../_images/091.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
-
-</pre></div>
-</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -756,13 +743,19 @@ such that you run into a segmentation fault in the last panel.</p></li>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#midterm-exam">0. Midterm Exam…</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#in-the-beginning">1. In the beginning …</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-systems">2. Early systems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiprogramming-and-time-sharing">4. Multiprogramming and time sharing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiprogramming-and-time-sharing">3. Multiprogramming and time sharing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4. Multiprogramming and time sharing</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">5. Multiprogramming and time sharing</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#address-space">6. Address space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#one-visual-representation-of-address-space">One visual representation of address space</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-what-is-in-your-binary">8. Hands on: what is in your binary?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-what-is-in-your-binary">7. Hands on: what is in your binary?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">8. Hands on: what is in your binary?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-where-the-stack-grows">9. Hands on: where the stack grows?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-observing-inner-growth-of-the-stacks">10. Hands on: observing inner growth (of the stacks)?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-address-space-really">11. What is address space, really?</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#goals-of-memory-virtualization">12. Goals of memory virtualization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dr-ngo-loves-his-analogies">13. Dr. Ngo loves his analogies</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-is-memory-unlimited">14. Hands on: is memory unlimited?</a></li>
 </ul>
   </nav></div>
