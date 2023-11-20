@@ -365,8 +365,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#minix-architecture">
+   2. MINIX: architecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#minix-pros-and-cons">
    2. MINIX: pros and cons
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linux-vs-minix-the-flame-war-of-1992">
+   3. Linux vs MINIX: the flame war of 1992
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -375,8 +385,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lt">
+   LT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
    AT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   LT
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -409,8 +429,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#minix-architecture">
+   2. MINIX: architecture
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#minix-pros-and-cons">
    2. MINIX: pros and cons
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linux-vs-minix-the-flame-war-of-1992">
+   3. Linux vs MINIX: the flame war of 1992
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -419,8 +449,18 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#lt">
+   LT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
    AT
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   LT
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -440,16 +480,6 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="micro-versus-monolithnic-kernels-minix-and-linux">
 <h1>Micro versus monolithnic kernels: Minix and Linux<a class="headerlink" href="#micro-versus-monolithnic-kernels-minix-and-linux" title="Permalink to this headline">#</a></h1>
-<p>teaching: 0
-exercises: 0
-questions:</p>
-<ul class="simple">
-<li><p>“The argument of the ages”
-objectives:</p></li>
-<li><p>“First learning objective. (FIXME)”
-keypoints:</p></li>
-<li><p>“First key point. Brief Answer to questions. (FIXME)”</p></li>
-</ul>
 <section id="minix-what-is-it">
 <h2>1. MINIX: what is it?<a class="headerlink" href="#minix-what-is-it" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -470,34 +500,44 @@ keypoints:</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 2. MINIX: architecture
-&gt;
-&gt; - Microkernel
-&gt;   - Small
-&gt;   - Handles interrupts, scheduling, and message passing. 
-&gt;   - Support API for kernel call.
-&gt;   - User programs access kernel calls through system calls.
-&gt; - Device drivers
-&gt;   - **Runs in user space.**
-&gt;   - Each controls an I/O device.
-&gt;   - Cannot issue I/O instructions directly. 
-&gt;   - Have to issue instructions via kernel call.
-&gt;     - Additional overhead (~500ns)
-&gt;     - Enable authorization. 
-&gt; - Server processes
-&gt;   - Most traditional system calls are located here. 
-&gt;   - User process send message to servers to request service (i.e., open, read, 
-&gt;   write, and close files …).
-&gt;   - Servers in turn send messages to the corresponding device processes to have 
-&gt;   these requests performed. 
-&gt;   - Reincarnation server polls all other server for health report and kill/respawn 
-&gt;   faulty processes as needed.
-&gt;
-&gt; &lt;img src=&quot;../fig/minix/01.png&quot; alt=&quot;MINIX&quot; style=&quot;height:400px&quot;&gt;
-</pre></div>
-</div>
+<section id="minix-architecture">
+<h2>2. MINIX: architecture<a class="headerlink" href="#minix-architecture" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Microkernel</p>
+<ul>
+<li><p>Small</p></li>
+<li><p>Handles interrupts, scheduling, and message passing.</p></li>
+<li><p>Support API for kernel call.</p></li>
+<li><p>User programs access kernel calls through system calls.</p></li>
+</ul>
+</li>
+<li><p>Device drivers</p>
+<ul>
+<li><p><strong>Runs in user space.</strong></p></li>
+<li><p>Each controls an I/O device.</p></li>
+<li><p>Cannot issue I/O instructions directly.</p></li>
+<li><p>Have to issue instructions via kernel call.</p>
+<ul>
+<li><p>Additional overhead (~500ns)</p></li>
+<li><p>Enable authorization.</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Server processes</p>
+<ul>
+<li><p>Most traditional system calls are located here.</p></li>
+<li><p>User process send message to servers to request service (i.e., open, read,
+write, and close files …).</p></li>
+<li><p>Servers in turn send messages to the corresponding device processes to have
+these requests performed.</p></li>
+<li><p>Reincarnation server polls all other server for health report and kill/respawn
+faulty processes as needed.</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="MINIX" src="../_images/0110.png" /></p>
+</section>
 <section id="minix-pros-and-cons">
 <h2>2. MINIX: pros and cons<a class="headerlink" href="#minix-pros-and-cons" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -535,25 +575,27 @@ performance of the system.</p></li>
 </ul>
 </li>
 </ul>
-<img src="../fig/minix/01.png" alt="MINIX" style="height:400px">
+<p><img alt="MINIX" src="../_images/0110.png" /></p>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## 3. Linux vs MINIX: the flame war of 1992
-&gt;
-&gt; - Dr. Tanenbaum started it!
-&gt; - [Linux is obsolete](https://groups.google.com/g/comp.os.minix/c/wlhw16QWltI)
-&gt; - It has its [own wiki page!](https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate).
-&gt; - Dr. Ngo was in 7th grade.   
-&gt; - At that time, Linux:
-&gt;   - was designed by Linus Torvald, an undergraduate student in Finland. 
-&gt;   - was inspired by Minix
-&gt;   - Linux’s kernel is monolithic
-&gt;   - Minux uses microkernel
-&gt; - Andrew Tanenbaum (AT)
-&gt; - Linus Torvald (LT)
-</pre></div>
-</div>
+<section id="linux-vs-minix-the-flame-war-of-1992">
+<h2>3. Linux vs MINIX: the flame war of 1992<a class="headerlink" href="#linux-vs-minix-the-flame-war-of-1992" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Dr. Tanenbaum started it!</p></li>
+<li><p><a class="reference external" href="https://groups.google.com/g/comp.os.minix/c/wlhw16QWltI">Linux is obsolete</a></p></li>
+<li><p>It has its <a class="reference external" href="https://en.wikipedia.org/wiki/Tanenbaum%E2%80%93Torvalds_debate">own wiki page!</a>.</p></li>
+<li><p>Dr. Ngo was in 7th grade.</p></li>
+<li><p>At that time, Linux:</p>
+<ul>
+<li><p>was designed by Linus Torvald, an undergraduate student in Finland.</p></li>
+<li><p>was inspired by Minix</p></li>
+<li><p>Linux’s kernel is monolithic</p></li>
+<li><p>Minux uses microkernel</p></li>
+</ul>
+</li>
+<li><p>Andrew Tanenbaum (AT)</p></li>
+<li><p>Linus Torvald (LT)</p></li>
+</ul>
+</section>
 <section id="at">
 <h2>AT<a class="headerlink" href="#at" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -575,30 +617,28 @@ to the 680x0 (Atari, Amiga, Macintosh), SPARC, and NS32016. LINUX is tied fairly
 closely to the 80x86.  Not the way to go.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-<span class="o">&gt;</span> <span class="c1">## LT</span>
-<span class="o">&gt;</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="o">**</span><span class="n">Well</span><span class="p">,</span> <span class="k">with</span> <span class="n">a</span> <span class="n">subject</span> <span class="n">like</span> <span class="n">this</span><span class="p">,</span> <span class="n">I</span><span class="s1">&#39;m afraid I&#39;</span><span class="n">ll</span> <span class="n">have</span> <span class="n">to</span> <span class="n">reply</span><span class="o">.**</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="kc">True</span><span class="p">,</span> <span class="n">linux</span> <span class="ow">is</span> <span class="n">monolithic</span><span class="p">,</span> <span class="ow">and</span> <span class="n">I</span> <span class="n">agree</span> <span class="n">that</span> <span class="n">microkernels</span> <span class="n">are</span> <span class="n">nicer</span><span class="o">.</span> <span class="n">From</span> <span class="n">a</span> 
-<span class="o">&gt;</span> <span class="n">theoretical</span> <span class="p">(</span><span class="ow">and</span> <span class="n">aesthetical</span><span class="p">)</span> <span class="n">standpoint</span> <span class="n">Linux</span> <span class="n">looses</span><span class="o">.</span> <span class="n">What</span> <span class="n">you</span> <span class="p">(</span><span class="n">AT</span><span class="p">)</span> <span class="n">don</span><span class="s1">&#39;t mention is </span>
-<span class="o">&gt;</span> <span class="n">that</span> <span class="n">minix</span> <span class="n">doesn</span><span class="s1">&#39;t do the micro-kernel thing very well, and has problems with real </span>
-<span class="o">&gt;</span> <span class="n">multitasking</span> <span class="p">(</span><span class="ow">in</span> <span class="n">the</span> <span class="n">kernel</span><span class="p">)</span><span class="o">.</span>  
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">The</span> <span class="n">fact</span> <span class="ow">is</span> <span class="n">that</span> <span class="n">linux</span> <span class="ow">is</span> <span class="n">more</span> <span class="n">portable</span> <span class="n">than</span> <span class="n">minix</span><span class="o">.</span>  <span class="n">It</span><span class="s1">&#39;s true - but not in the sense </span>
-<span class="o">&gt;</span> <span class="n">that</span> <span class="n">ast</span> <span class="p">(</span><span class="n">AT</span><span class="p">)</span> <span class="n">means</span><span class="p">:</span> <span class="n">I</span> <span class="n">made</span> <span class="n">linux</span> <span class="k">as</span> <span class="n">conformant</span> <span class="n">to</span> <span class="n">standards</span> <span class="k">as</span> <span class="n">I</span> <span class="n">knew</span> <span class="n">how</span> <span class="p">(</span><span class="n">without</span> 
-<span class="o">&gt;</span> <span class="n">having</span> <span class="nb">any</span> <span class="n">POSIX</span> <span class="n">standard</span> <span class="ow">in</span> <span class="n">front</span> <span class="n">of</span> <span class="n">me</span><span class="p">)</span><span class="o">.</span>  <span class="n">Porting</span> <span class="n">things</span> <span class="n">to</span> <span class="n">linux</span> <span class="ow">is</span> <span class="n">generally</span> <span class="o">/</span><span class="n">much</span><span class="o">/</span> 
-<span class="o">&gt;</span> <span class="n">easier</span> <span class="n">than</span> <span class="n">porting</span> <span class="n">them</span> <span class="n">to</span> <span class="n">minix</span><span class="o">.</span>
-<span class="o">&gt;</span> <span class="o">-</span> <span class="n">I</span> <span class="n">agree</span> <span class="n">that</span> <span class="n">portability</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">good</span> <span class="n">thing</span><span class="p">:</span> <span class="n">but</span> <span class="n">only</span> <span class="n">where</span> <span class="n">it</span> <span class="n">actually</span> <span class="n">has</span> <span class="n">some</span> 
-<span class="o">&gt;</span> <span class="n">meaning</span><span class="o">.</span>  <span class="n">There</span> <span class="ow">is</span> <span class="n">no</span> <span class="n">idea</span> <span class="ow">in</span> <span class="n">trying</span> <span class="n">to</span> <span class="n">make</span> <span class="n">an</span> <span class="n">operating</span> <span class="n">system</span> <span class="n">overly</span> <span class="n">portable</span><span class="p">:</span> 
-<span class="o">&gt;</span> <span class="n">adhering</span> <span class="n">to</span> <span class="n">a</span> <span class="n">portable</span> <span class="n">API</span> <span class="ow">is</span> <span class="n">good</span> <span class="n">enough</span><span class="o">.</span>  <span class="n">The</span> <span class="n">very</span> <span class="o">/</span><span class="n">idea</span><span class="o">/</span> <span class="n">of</span> <span class="n">an</span> <span class="n">operating</span> <span class="n">system</span> <span class="ow">is</span> 
-<span class="o">&gt;</span> <span class="n">to</span> <span class="n">use</span> <span class="n">the</span> <span class="n">hardware</span> <span class="n">features</span><span class="p">,</span> <span class="ow">and</span> <span class="n">hide</span> <span class="n">them</span> <span class="n">behind</span> <span class="n">a</span> <span class="n">layer</span> <span class="n">of</span> <span class="n">high</span><span class="o">-</span><span class="n">level</span> <span class="n">calls</span><span class="o">.</span>  <span class="n">That</span> 
-<span class="o">&gt;</span> <span class="ow">is</span> <span class="n">exactly</span> <span class="n">what</span> <span class="n">linux</span> <span class="n">does</span><span class="p">:</span> <span class="n">it</span> <span class="n">just</span> <span class="n">uses</span> <span class="n">a</span> <span class="n">bigger</span> <span class="n">subset</span> <span class="n">of</span> <span class="n">the</span> <span class="mi">386</span> <span class="n">features</span> <span class="n">than</span> <span class="n">other</span> 
-<span class="o">&gt;</span> <span class="n">kernels</span> <span class="n">seem</span> <span class="n">to</span> <span class="n">do</span><span class="o">.</span>  <span class="n">Of</span> <span class="n">course</span> <span class="n">this</span> <span class="n">makes</span> <span class="n">the</span> <span class="n">kernel</span> <span class="n">proper</span> <span class="n">unportable</span><span class="p">,</span> <span class="n">but</span> <span class="n">it</span> <span class="n">also</span> 
-<span class="o">&gt;</span> <span class="n">makes</span> <span class="k">for</span> <span class="n">a</span> <span class="o">/</span><span class="n">much</span><span class="o">/</span> <span class="n">simpler</span> <span class="n">design</span><span class="o">.</span>  <span class="n">An</span> <span class="n">acceptable</span> <span class="n">trade</span><span class="o">-</span><span class="n">off</span><span class="p">,</span> <span class="ow">and</span> <span class="n">one</span> <span class="n">that</span> <span class="n">made</span> <span class="n">linux</span> 
-<span class="o">&gt;</span> <span class="n">possible</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">first</span> <span class="n">place</span><span class="o">.</span>
-<span class="o">&gt;</span> 
-</pre></div>
-</div>
+<section id="lt">
+<h2>LT<a class="headerlink" href="#lt" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><strong>Well, with a subject like this, I’m afraid I’ll have to reply.</strong></p></li>
+<li><p>True, linux is monolithic, and I agree that microkernels are nicer. From a
+theoretical (and aesthetical) standpoint Linux looses. What you (AT) don’t mention is
+that minix doesn’t do the micro-kernel thing very well, and has problems with real
+multitasking (in the kernel).</p></li>
+<li><p>The fact is that linux is more portable than minix.  It’s true - but not in the sense
+that ast (AT) means: I made linux as conformant to standards as I knew how (without
+having any POSIX standard in front of me).  Porting things to linux is generally /much/
+easier than porting them to minix.</p></li>
+<li><p>I agree that portability is a good thing: but only where it actually has some
+meaning.  There is no idea in trying to make an operating system overly portable:
+adhering to a portable API is good enough.  The very /idea/ of an operating system is
+to use the hardware features, and hide them behind a layer of high-level calls.  That
+is exactly what linux does: it just uses a bigger subset of the 386 features than other
+kernels seem to do.  Of course this makes the kernel proper unportable, but it also
+makes for a /much/ simpler design.  An acceptable trade-off, and one that made linux
+possible in the first place.</p></li>
+</ul>
+</section>
 <section id="id1">
 <h2>AT<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -622,32 +662,30 @@ be excused.  When MS-DOS was written specifically for the 8088 ten years ago, th
 less than brilliant, as IBM and Microsoft now only too painfully realize.</p></li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-&gt; ## LT
-&gt;
-&gt; - You (AT) admit that some of the errors of minix were that it was too portable: 
-&gt; including machines that weren&#39;t really designed to run unix. That assumption lead to 
-&gt; the fact that minix now cannot easily be extended to have things like paging, even for 
-&gt; machines that would support it.  **Yes, minix is portable, but you can rewrite that as 
-&gt; doesn&#39;t use any features&quot;, and still be right**.
-&gt; - `A multithreaded file system is only a performance hack`. Not true.  It&#39;s a 
-&gt; performance hack /on a microkernel/, but it&#39;s an automatic feature when you write a 
-&gt; monolithic kernel - one area where microkernels don&#39;t work too well.  When writing a 
-&gt; unix the &quot;obsolete&quot; way, you automatically get a multithreaded kernel: every process 
-&gt; does it&#39;s own job, and you don&#39;t have to make ugly things like message queues to make 
-&gt; it work efficiently. 
-&gt; - The operating system /isn&#39;t/ tied to any processor line: UNIX runs on most real 
-&gt; processors in existence.  Yes, the /implementation/ is hardware-specific, but there&#39;s a 
-&gt; HUGE difference.  You mention OS/360 and MS-DOG as examples of bad designs as they were 
-&gt; hardware-dependent, and I agree.  But there&#39;s a big difference between these and linux: 
-&gt; linux API is portable (not due to my clever design, but due to the fact that I decided 
-&gt; to go for a fairly-well-thought-out and tested OS: unix.) If you write programs for 
-&gt; linux today, you shouldn&#39;t have too many surprises when you just recompile them for 
-&gt; Hurd in the 21st century.  
-&gt; 
-</pre></div>
-</div>
+<section id="id2">
+<h2>LT<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>You (AT) admit that some of the errors of minix were that it was too portable:
+including machines that weren’t really designed to run unix. That assumption lead to
+the fact that minix now cannot easily be extended to have things like paging, even for
+machines that would support it.  <strong>Yes, minix is portable, but you can rewrite that as
+doesn’t use any features”, and still be right</strong>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">multithreaded</span> <span class="pre">file</span> <span class="pre">system</span> <span class="pre">is</span> <span class="pre">only</span> <span class="pre">a</span> <span class="pre">performance</span> <span class="pre">hack</span></code>. Not true.  It’s a
+performance hack /on a microkernel/, but it’s an automatic feature when you write a
+monolithic kernel - one area where microkernels don’t work too well.  When writing a
+unix the “obsolete” way, you automatically get a multithreaded kernel: every process
+does it’s own job, and you don’t have to make ugly things like message queues to make
+it work efficiently.</p></li>
+<li><p>The operating system /isn’t/ tied to any processor line: UNIX runs on most real
+processors in existence.  Yes, the /implementation/ is hardware-specific, but there’s a
+HUGE difference.  You mention OS/360 and MS-DOG as examples of bad designs as they were
+hardware-dependent, and I agree.  But there’s a big difference between these and linux:
+linux API is portable (not due to my clever design, but due to the fact that I decided
+to go for a fairly-well-thought-out and tested OS: unix.) If you write programs for
+linux today, you shouldn’t have too many surprises when you just recompile them for
+Hurd in the 21st century.</p></li>
+</ul>
+</section>
 <section id="the-bigger-picture">
 <h2>The bigger picture<a class="headerlink" href="#the-bigger-picture" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
@@ -667,14 +705,6 @@ resources available at that time.”</p></li>
 </li>
 </ul>
 </section>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-
-
-
-<span class="p">{</span><span class="o">%</span> <span class="n">include</span> <span class="n">links</span><span class="o">.</span><span class="n">md</span> <span class="o">%</span><span class="p">}</span>
-
-</pre></div>
-</div>
 </section>
 
     <script type="text/x-thebe-config">
