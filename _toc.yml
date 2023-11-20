@@ -27,3 +27,6 @@ parts:
     - file: lectures/13-file-systems.md
     - file: lectures/14-crash-consistency-fsck-journaling.md  
     - file: lectures/15-minix.md
+- caption: Cloud
+  chapters:
+    - file: lectures/16-cloudlab.md
