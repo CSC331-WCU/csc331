@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction to CloudLab &#8212; Operating Systems</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Micro versus monolithnic kernels: Minix and Linux" href="15-minix.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Operating Systems</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../index.html">
+                    CSC 331: Operating Systems
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   Introduction to Operating Systems
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtualization
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-process.html">
+   Abstraction: The process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-process-api.html">
+   Process API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-limited-direct-execution.html">
+   Limited Direct Execution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-cpu-scheduling.html">
+   CPU Scheduling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-memory-virtualization.html">
+   Memory virtualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-address-translation.html">
+   Memory virtualization mechanism: address translation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-paging.html">
+   Memory virtualization mechanism: paging and tlb
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Concurrency
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-concurrency.html">
+   Introduction to concurrency using threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lock-condition-variables.html">
+   Lock and Condition Variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-semaphores.html">
+   Semaphores
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Persistence
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-io-disk-scheduling.html">
+   I/O and Disks: Disk Scheduling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-file-systems.html">
+   Introduction to file systems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
+   Crash consistency: fsck and journaling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-minix.html">
+   Micro versus monolithnic kernels: Minix and Linux
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Cloud
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Introduction to CloudLab
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/16-cloudlab.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cloudlab">
+   1. CloudLab
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-ssh">
+   2. Setup SSH
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cloudlab-profiles-and-experiments">
+   3. CloudLab Profiles and Experiments
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction to CloudLab</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cloudlab">
+   1. CloudLab
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#setup-ssh">
+   2. Setup SSH
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#cloudlab-profiles-and-experiments">
+   3. CloudLab Profiles and Experiments
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-cloudlab">
+<h1>Introduction to CloudLab<a class="headerlink" href="#introduction-to-cloudlab" title="Permalink to this headline">#</a></h1>
+<section id="cloudlab">
+<h2>1. CloudLab<a class="headerlink" href="#cloudlab" title="Permalink to this headline">#</a></h2>
+<div class="dropdown admonition">
+<p class="admonition-title">Overview</p>
+<ul class="simple">
+<li><p>Visit <a class="reference external" href="https://cloudlab.us">CloudLab’s website</a></p></li>
+<li><p>Click “Request an Account”</p></li>
+<li><p>Fill in the information as shown in the following figure and click “Submit Request”</p></li>
+<li><p>Wait for a confirm
+ation email to arrive in your <a class="reference external" href="http://wcupa.edu">wcupa.edu</a> mailbox. You might have to
+resubmit a new request if you don’t see this email in about half an hour.</p></li>
+</ul>
+<p><img alt="Account creation forms" src="../_images/019.png" /></p>
+<ul class="simple">
+<li><p>After your account is confirmed, the instructor will be able to see your application
+and can grant you access to CloudLab.</p></li>
+<li><p>If you already had a CloudLab account, you can select <code class="docutils literal notranslate"><span class="pre">Start/Join</span> <span class="pre">Project</span></code> under
+your username, then select <code class="docutils literal notranslate"><span class="pre">Join</span> <span class="pre">Existing</span> <span class="pre">Project</span></code> and provide the name <code class="docutils literal notranslate"><span class="pre">cloud-edu</span></code>.</p></li>
+</ul>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">CloudLab Network</p>
+<ul class="simple">
+<li><p>Experimental testbed for future computing research</p></li>
+<li><p>Allow researchers control to the bare metal</p></li>
+<li><p>Diverse, distributed resources at large scale</p></li>
+<li><p>Allow repeatable and scientific design of experiments</p></li>
+</ul>
+<p><img alt="CloudLab GENI" src="../_images/028.png" /></p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">GENI</p>
+<ul class="simple">
+<li><p>Global Environment for Networking Innovation</p></li>
+<li><p>Combining heterogeneous resource types, each virtualized
+along one or more suitable dimensions, to produce a single
+platform for network science researchers”</p></li>
+<li><p>Key components:</p>
+<ul>
+<li><p>GENI racks: virtualized computation and storage resources</p></li>
+<li><p>Software-defined networks (SDNs): virtualized, programmable network resources</p></li>
+<li><p>WiMAX: virtualized cellular wireless communication</p></li>
+</ul>
+</li>
+</ul>
+<p><em>Berman, M., Chase, J.S., Landweber, L., Nakao, A., Ott, M., Raychaudhuri,
+D., Ricci, R. , and Seskar, I., 2014. GENI: A federated testbed for innovative
+network experiments. Computer Networks, 61, pp.5-23.</em></p>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Key experimental concepts</p>
+<ul class="simple">
+<li><p>Sliceability: the ability to support virtualization while
+maintaining some degree of isolation for simultaneous experiments</p></li>
+<li><p>Deep programmability: the ability to influence the behavior of
+computing, storage, routing, and forwarding components deep inside the
+network, not just at or near the network edge.</p></li>
+</ul>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">CloudLab Hardware</p>
+<ul class="simple">
+<li><p>Utah/HP: Low-power ARM64 (785 nodes)</p>
+<ul>
+<li><p>315 m400: 1X 8-core ARMv8 at 2.4GHz, 64GB RAM, 120GB flash</p></li>
+<li><p>270 m510: 1X 8-core Intel Xeon D-1548 at 2.0 GHz, 64GB RAM, 256 GB flash</p></li>
+<li><p>200 xl170: 1X 10-core Intel E5-2640v4 at 2.4 Ghz, 64 GB RAM, 480 GB SSD</p></li>
+</ul>
+</li>
+<li><p>Wisconsin/Cisco: 530 nodes</p>
+<ul>
+<li><p>90 c220g1: 2X 8-core Intel Haswell at 2.4GHz, 128GB RAM, 1X 480GB SDD, 2X 1.2TB HDD</p></li>
+<li><p>10 c240g1: 2X 8-core Intel Haswell at 2.4GHz, 128GB RAM, 1X 480GB SDD, 1X 1TB HDD, 12X 3TB HDD</p></li>
+<li><p>163 c220g2: 2X 10-core Intel Haswell at 2.6GHz, 160GB RAM, 1X 480GB SDD, 2X 1.2TB HDD</p></li>
+<li><p>7 c240g2: 2X Intel Haswell 10-core at 2.6GHz, 160GB RAM, 2X 480GB SDD, 12X 3TB HDD</p></li>
+<li><p>224 c220g5: 2X 10-core Intel Skylake at 2.20GHz, 192GB RAM, 1TB HDD</p></li>
+<li><p>32 c240g5: 2X 10-core Intel Skylake at 2.20GHz, 192GB RAM, 1TB HDD, 1 NVIDIA P100 GPU</p></li>
+<li><p>4 c4130: 2X 8-core Intel Broadwell at 3.20GHz, 128GB RAM, 2X 960GB HDD, 4 NVIDIA V100</p></li>
+</ul>
+</li>
+<li><p>Clemson/Dell: 281 nodes</p>
+<ul>
+<li><p>96 c8220: 2X 10-core Intel Ivy Bridge at 2.2GHz, 256GB RAM, 2X 1TB HDD</p></li>
+<li><p>4 c8220x: 2X 10-core Intel Ivy Bridge at 2.2GHz, 256GB RAM, 8X 1TB HDD, 12X 4TB HDD</p></li>
+<li><p>84 c6420: 2X 14-core Intel Haswell at 2.0GHz, 256GB RAM, 2X 1TB HDD</p></li>
+<li><p>2 c4130: 2X 12-core Intel Haswell at 2.5GHz, 256GB RAM, 2X 1TB HDD, 2 NVIDIA K40m</p></li>
+<li><p>2 dss7500: 2X 6-core Intel Haswell at 2.4GHz, 128GN RAM, 2X 126GB SSD, 45X 6TB HDD</p></li>
+<li><p>72 c6420: 2X 16-core Intel Skylake at 2.6GHz, 386GB RAM, 2X 1TB HDD</p></li>
+<li><p>6 ibm8335: 2X 10-core IBM POWER8NVL at 2.87GHz, 512GB RAM, 1X 2TB HDD, 2 NVIDIA GV100GL</p></li>
+<li><p>15 r7515: 2X 32-core AMD EPYC Rome at 2.9GHz, 512GB RAM, 1X 2TB HDD, 2 NVIDIA GV100GL</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="setup-ssh">
+<h2>2. Setup SSH<a class="headerlink" href="#setup-ssh" title="Permalink to this headline">#</a></h2>
+<div class="dropdown admonition">
+<p class="admonition-title">Command line terminal software </p>
+<ul class="simple">
+<li><p>Download and install <a class="reference external" href="https://www.microsoft.com/en-us/p/windows-terminal/9n0dx20hk701?activetab=pivot:overviewtab">Windows Terminal from the Microsoft Store</a>.</p></li>
+</ul>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Command line terminal software on Mac</p>
+<ul class="simple">
+<li><p>Use the Search box (magnifying glass on top-right of your Mac Desktop) and
+type in the word <code class="docutils literal notranslate"><span class="pre">Terminal</span></code>.</p></li>
+<li><p>Launch the resulting Terminal app.</p></li>
+</ul>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">SSH setup</p>
+<ul class="simple">
+<li><p>Launch your terminal (Windows Terminal or Mac) and run the following command:</p></li>
+<li><p>Hit <code class="docutils literal notranslate"><span class="pre">Enter</span></code> for all questions. <strong>Do not enter a password or change the default location of the files</strong>.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span>
+ssh-keygen -t rsa
+</pre></div>
+</div>
+<p><img alt="Generate SSH keys" src="../_images/038.png" /></p>
+<ul class="simple">
+<li><p>Run the following command to display the public key</p></li>
+<li><p>Drag your mouse over to paint/copy the key (just the text, no extra spaces after the last
+character)</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cat ~/.ssh/id_rsa.pub
+</pre></div>
+</div>
+<p><img alt="Public key generated" src="../_images/048.png" /></p>
+<ul class="simple">
+<li><p>Log into CloudLab, click on your username (top right) and select <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">SSH</span> <span class="pre">Keys</span></code>:</p></li>
+</ul>
+<p><img alt="Manage SSH Keys box" src="../_images/058.png" /></p>
+<ul class="simple">
+<li><p>Paste the key into the <code class="docutils literal notranslate"><span class="pre">Key</span></code> box and click <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">Key</span></code>:</p></li>
+</ul>
+<p><img alt="Paste SSH keys" src="../_images/068.png" /></p>
+</div>
+</section>
+<section id="cloudlab-profiles-and-experiments">
+<h2>3. CloudLab Profiles and Experiments<a class="headerlink" href="#cloudlab-profiles-and-experiments" title="Permalink to this headline">#</a></h2>
+<div class="dropdown admonition">
+<p class="admonition-title">Setup GitHub repository</p>
+<ul class="simple">
+<li><p>Go to your GitHub account, under <code class="docutils literal notranslate"><span class="pre">Repositories</span></code>, select <code class="docutils literal notranslate"><span class="pre">New</span></code>.</p></li>
+</ul>
+<p><img alt="Button to create new repository" src="../_images/078.png" /></p>
+<ul class="simple">
+<li><p>You can select any name for your repo.</p></li>
+<li><p>Repository must be <code class="docutils literal notranslate"><span class="pre">public</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">a</span> <span class="pre">README</span> <span class="pre">file</span></code> box must be checked.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">repository</span></code> when done.</p></li>
+</ul>
+<p><img alt="Create new repository" src="../_images/086.png" /></p>
+<ul class="simple">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Add</span> <span class="pre">file</span></code> and select <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">new</span> <span class="pre">file</span></code></p></li>
+</ul>
+<p><img alt="Button to create new file in repository" src="../_images/096.png" /></p>
+<ul class="simple">
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">profile.py</span></code> for the file name and enter the content below into the text editor.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Commit</span> <span class="pre">new</span> <span class="pre">file</span></code> when done.</p></li>
+</ul>
+<script src="https://gist.github.com/linhbngo/6d5747ab8f04763f9dc265c361d7ebcf.js?file=profile-basic.py"></script>
+</div>
+<div class="dropdown admonition">
+<p class="admonition-title">Profile creation and experiment instantiation</p>
+<ul class="simple">
+<li><p>Login to your CloudLab account, click <code class="docutils literal notranslate"><span class="pre">Experiments</span></code> on top left,
+select <code class="docutils literal notranslate"><span class="pre">Create</span> <span class="pre">Experiment</span> <span class="pre">Profile</span></code>.</p></li>
+</ul>
+<p><img alt="Create a CloudLab profile" src="../_images/113.png" /></p>
+<ul class="simple">
+<li><p>Click on <code class="docutils literal notranslate"><span class="pre">Git</span> <span class="pre">Repo</span></code></p></li>
+</ul>
+<p><img alt="Create a CloudLab profile using Git Repo" src="../_images/122.png" /></p>
+<ul class="simple">
+<li><p>Paste the URL of <strong>your</strong> previously created Git repo here and click <code class="docutils literal notranslate"><span class="pre">Confirm</span></code></p></li>
+</ul>
+<p><img alt="HTTPS Git URL" src="../_images/131.png" /></p>
+<ul class="simple">
+<li><p>Enter the name for your profile, put in some words for the Description.</p></li>
+<li><p>You will not have a drop-down list of Project.</p></li>
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Create</span></code> when done.</p></li>
+</ul>
+<p><img alt="Fill in name and description of a CloudLab profile" src="../_images/141.png" /></p>
+<ul class="simple">
+<li><p>Click <code class="docutils literal notranslate"><span class="pre">Instantiate</span></code> to launch an experiment from your profile.</p></li>
+</ul>
+<p><img alt="CloudLab profile description and instantiation" src="../_images/151.png" /></p>
+<ul class="simple">
+<li><p>Select a Cluster from Wisconsin, Clemson, or Emulab, then click <code class="docutils literal notranslate"><span class="pre">Next</span></code>.</p></li>
+<li><p>Do not do anything on the next <code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">on</span> <span class="pre">date/time</span></code> screen. Click <code class="docutils literal notranslate"><span class="pre">Finish</span></code>.</p></li>
+</ul>
+<p><img alt="Cluster selection" src="../_images/161.png" /></p>
+<ul class="simple">
+<li><p>Your experiment is now being <code class="docutils literal notranslate"><span class="pre">provision</span></code>, and then `booting</p></li>
+</ul>
+<p><img alt="CloudLab experiment provisioning" src="../_images/17.png" />
+<img alt="CloudLab experiment booting" src="../_images/18.png" /></p>
+<ul class="simple">
+<li><p>When it is ready, you can use the provided SSH command to log in to your experiment (assuming
+your key was set up correctly).</p></li>
+<li><p>The command is in the <strong>List View</strong> tab.</p></li>
+</ul>
+<p><img alt="CloudLab experiment status" src="../_images/19.png" /></p>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lectures"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="15-minix.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Micro versus monolithnic kernels: Minix and Linux</p>
+        </div>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Linh Ngo<br/>
+  
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

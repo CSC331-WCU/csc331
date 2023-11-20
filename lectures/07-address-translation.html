@@ -1,59 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Memory virtualization mechanism: address translation &#8212; Operating Systems</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -61,93 +50,61 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/07-address-translation';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Memory virtualization mechanism: paging and tlb" href="08-paging.html" />
     <link rel="prev" title="Memory virtualization" href="06-memory-virtualization.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="../index.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Operating Systems</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -156,207 +113,443 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-introduction.html">Introduction to Operating Systems</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   Introduction to Operating Systems
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Virtualization</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtualization
+ </span>
+</p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="02-process.html">Abstraction: The process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-process-api.html">Process API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-limited-direct-execution.html">Limited Direct Execution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-cpu-scheduling.html">CPU Scheduling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-memory-virtualization.html">Memory virtualization</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memory virtualization mechanism: address translation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="08-paging.html">Memory virtualization mechanism: paging and tlb</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-process.html">
+   Abstraction: The process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-process-api.html">
+   Process API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-limited-direct-execution.html">
+   Limited Direct Execution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-cpu-scheduling.html">
+   CPU Scheduling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-memory-virtualization.html">
+   Memory virtualization
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Memory virtualization mechanism: address translation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="08-paging.html">
+   Memory virtualization mechanism: paging and tlb
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Concurrency</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Concurrency
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="09-concurrency.html">Introduction to concurrency using threads</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-lock-condition-variables.html">Lock and Condition Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-semaphores.html">Semaphores</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-concurrency.html">
+   Introduction to concurrency using threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lock-condition-variables.html">
+   Lock and Condition Variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-semaphores.html">
+   Semaphores
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Persistence
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="12-io-disk-scheduling.html">I/O and Disks: Disk Scheduling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-file-systems.html">Introduction to file systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-crash-consistency-fsck-journaling.html">Crash consistency: fsck and journaling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-minix.html">Micro versus monolithnic kernels: Minix and Linux</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-io-disk-scheduling.html">
+   I/O and Disks: Disk Scheduling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-file-systems.html">
+   Introduction to file systems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
+   Crash consistency: fsck and journaling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-minix.html">
+   Micro versus monolithnic kernels: Minix and Linux
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Cloud
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-cloudlab.html">
+   Introduction to CloudLab
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="../_sources/lectures/07-address-translation.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
+    <div id="rtd-footer-container"></div>
 </div>
 
 
+          
 
 
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
   </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/07-address-translation.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
   
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Memory virtualization mechanism: address translation</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-questions">1. The questions?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-technique">2. General technique</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-assumptions">3. Initial assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-revisiting-where-things-are-in-memory">4. Hands on: revisiting where things are in memory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5. Initial assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-attempt-dynamic-relocation">6. Early attempt: dynamic relocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-after-boot">7. Dynamic relocation: after boot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-during-process-run">8. Dynamic relocation: during process run</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-summary">9. Dynamic relocation: Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10. Initial assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-generalized-base-bounds">11. Segmentation: generalized base/bounds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">12. Segmentation: generalized base/bounds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">13. Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-with-generalized-base-bounds-summary">14. Segmentation with generalized base/bounds: Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-compacting">15. External fragmentation: compacting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-algorithmic-allocation">16. External fragmentation: algorithmic allocation</a></li>
-</ul>
-            </nav>
-        </div>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-              
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-questions">
+   1. The questions?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-technique">
+   2. General technique
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-assumptions">
+   3. Initial assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-revisiting-where-things-are-in-memory">
+   4. Hands on: revisiting where things are in memory
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   5. Initial assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#early-attempt-dynamic-relocation">
+   6. Early attempt: dynamic relocation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-relocation-after-boot">
+   7. Dynamic relocation: after boot
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-relocation-during-process-run">
+   8. Dynamic relocation: during process run
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-relocation-summary">
+   9. Dynamic relocation: Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   10. Initial assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segmentation-generalized-base-bounds">
+   11. Segmentation: generalized base/bounds
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   12. Segmentation: generalized base/bounds
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example">
+   13. Example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segmentation-with-generalized-base-bounds-summary">
+   14. Segmentation with generalized base/bounds: Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#external-fragmentation-compacting">
+   15. External fragmentation: compacting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#external-fragmentation-algorithmic-allocation">
+   16. External fragmentation: algorithmic allocation
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Memory virtualization mechanism: address translation</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-questions">
+   1. The questions?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-technique">
+   2. General technique
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#initial-assumptions">
+   3. Initial assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-revisiting-where-things-are-in-memory">
+   4. Hands on: revisiting where things are in memory
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   5. Initial assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#early-attempt-dynamic-relocation">
+   6. Early attempt: dynamic relocation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-relocation-after-boot">
+   7. Dynamic relocation: after boot
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-relocation-during-process-run">
+   8. Dynamic relocation: during process run
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dynamic-relocation-summary">
+   9. Dynamic relocation: Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   10. Initial assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segmentation-generalized-base-bounds">
+   11. Segmentation: generalized base/bounds
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   12. Segmentation: generalized base/bounds
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example">
+   13. Example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#segmentation-with-generalized-base-bounds-summary">
+   14. Segmentation with generalized base/bounds: Summary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#external-fragmentation-compacting">
+   15. External fragmentation: compacting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#external-fragmentation-algorithmic-allocation">
+   16. External fragmentation: algorithmic allocation
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+              <div>
+                
   <section class="tex2jax_ignore mathjax_ignore" id="memory-virtualization-mechanism-address-translation">
-<h1>Memory virtualization mechanism: address translation<a class="headerlink" href="#memory-virtualization-mechanism-address-translation" title="Permalink to this heading">#</a></h1>
+<h1>Memory virtualization mechanism: address translation<a class="headerlink" href="#memory-virtualization-mechanism-address-translation" title="Permalink to this headline">#</a></h1>
 <div class="tip admonition">
 <p class="admonition-title">Key concept</p>
 <ul class="simple">
@@ -366,7 +559,7 @@ document.write(`
 </ul>
 </div>
 <section id="the-questions">
-<h2>1. The questions?<a class="headerlink" href="#the-questions" title="Permalink to this heading">#</a></h2>
+<h2>1. The questions?<a class="headerlink" href="#the-questions" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>How can we build an efficient virtualization of memory?</p></li>
 <li><p>How do we provide the flexibility needed by applications?</p></li>
@@ -375,7 +568,7 @@ application can access?</p></li>
 </ul>
 </section>
 <section id="general-technique">
-<h2>2. General technique<a class="headerlink" href="#general-technique" title="Permalink to this heading">#</a></h2>
+<h2>2. General technique<a class="headerlink" href="#general-technique" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Hardware-based address translation (address translation)</p>
 <ul>
@@ -387,7 +580,7 @@ to keep track of and maintain control over free and used memory locations.</p></
 </ul>
 </section>
 <section id="initial-assumptions">
-<h2>3. Initial assumptions<a class="headerlink" href="#initial-assumptions" title="Permalink to this heading">#</a></h2>
+<h2>3. Initial assumptions<a class="headerlink" href="#initial-assumptions" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>User’s address space must be place <strong>contiguously in physical memory</strong>.</p></li>
 <li><p>The size of the address space is <strong>less than the size of physical memory</strong>.</p></li>
@@ -395,11 +588,11 @@ to keep track of and maintain control over free and used memory locations.</p></
 </ul>
 </section>
 <section id="hands-on-revisiting-where-things-are-in-memory">
-<h2>4. Hands on: revisiting where things are in memory<a class="headerlink" href="#hands-on-revisiting-where-things-are-in-memory" title="Permalink to this heading">#</a></h2>
+<h2>4. Hands on: revisiting where things are in memory<a class="headerlink" href="#hands-on-revisiting-where-things-are-in-memory" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Launch your container/Linux interface</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>--rm<span class="w"> </span>--userns<span class="o">=</span>host<span class="w"> </span>--cap-add<span class="o">=</span>SYS_PTRACE<span class="w"> </span>--security-opt<span class="w"> </span><span class="nv">seccomp</span><span class="o">=</span>unconfined<span class="w"> </span>-it<span class="w"> </span>linhbngo/csc-container<span class="w"> </span>/bin/bash
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run --rm --userns<span class="o">=</span>host --cap-add<span class="o">=</span>SYS_PTRACE --security-opt <span class="nv">seccomp</span><span class="o">=</span>unconfined -it linhbngo/csc-container /bin/bash
 </pre></div>
 </div>
 <ul class="simple">
@@ -409,8 +602,8 @@ to keep track of and maintain control over free and used memory locations.</p></
 <ul class="simple">
 <li><p>Compile and view <code class="docutils literal notranslate"><span class="pre">simple5.c</span></code> object file</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-c<span class="w"> </span>simple5.c
-objdump<span class="w"> </span>-d<span class="w"> </span>simple5.o
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc -c simple5.c
+objdump -d simple5.o
 </pre></div>
 </div>
 <p><img alt="Object dump" src="../_images/014.png" /></p>
@@ -428,7 +621,7 @@ objdump<span class="w"> </span>-d<span class="w"> </span>simple5.o
 </ul>
 </section>
 <section id="id1">
-<h2>5. Initial assumptions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2>5. Initial assumptions<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>User’s address space must be place <strong>contiguously in physical memory</strong>.</p></li>
 <li><p>The size of the address space is <strong>less than the size of physical memory</strong>.</p></li>
@@ -437,7 +630,7 @@ objdump<span class="w"> </span>-d<span class="w"> </span>simple5.o
 <p><img alt="Early implementation" src="../_images/033.png" /></p>
 </section>
 <section id="early-attempt-dynamic-relocation">
-<h2>6. Early attempt: dynamic relocation<a class="headerlink" href="#early-attempt-dynamic-relocation" title="Permalink to this heading">#</a></h2>
+<h2>6. Early attempt: dynamic relocation<a class="headerlink" href="#early-attempt-dynamic-relocation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Hardware-based</p></li>
 <li><p>Aka base and bounds</p></li>
@@ -454,15 +647,15 @@ objdump<span class="w"> </span>-d<span class="w"> </span>simple5.o
 </div>
 </section>
 <section id="dynamic-relocation-after-boot">
-<h2>7. Dynamic relocation: after boot<a class="headerlink" href="#dynamic-relocation-after-boot" title="Permalink to this heading">#</a></h2>
+<h2>7. Dynamic relocation: after boot<a class="headerlink" href="#dynamic-relocation-after-boot" title="Permalink to this headline">#</a></h2>
 <p><img alt="Dynamic relocation after boot" src="../_images/043.png" /></p>
 </section>
 <section id="dynamic-relocation-during-process-run">
-<h2>8. Dynamic relocation: during process run<a class="headerlink" href="#dynamic-relocation-during-process-run" title="Permalink to this heading">#</a></h2>
+<h2>8. Dynamic relocation: during process run<a class="headerlink" href="#dynamic-relocation-during-process-run" title="Permalink to this headline">#</a></h2>
 <p><img alt="Dynamic relocation during process running" src="../_images/053.png" /></p>
 </section>
 <section id="dynamic-relocation-summary">
-<h2>9. Dynamic relocation: Summary<a class="headerlink" href="#dynamic-relocation-summary" title="Permalink to this heading">#</a></h2>
+<h2>9. Dynamic relocation: Summary<a class="headerlink" href="#dynamic-relocation-summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Pros:</p>
 <ul>
@@ -479,7 +672,7 @@ the allocated (contiguous) memory units are not fully utilized.</p></li>
 </ul>
 </section>
 <section id="id2">
-<h2>10. Initial assumptions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2>10. Initial assumptions<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>~~User’s address space must be place <strong>contiguously in physical memory</strong>.~~</p></li>
 <li><p>~~The size of the address space is <strong>less than the size of physical memory</strong>.~~</p></li>
@@ -489,7 +682,7 @@ the allocated (contiguous) memory units are not fully utilized.</p></li>
 between the stack and the heap?</em></p>
 </section>
 <section id="segmentation-generalized-base-bounds">
-<h2>11. Segmentation: generalized base/bounds<a class="headerlink" href="#segmentation-generalized-base-bounds" title="Permalink to this heading">#</a></h2>
+<h2>11. Segmentation: generalized base/bounds<a class="headerlink" href="#segmentation-generalized-base-bounds" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Original: One base/bound pair for one address space.</p></li>
 <li><p>Segmentation: One base/bound pair per logical segment of an address space:</p>
@@ -502,15 +695,15 @@ between the stack and the heap?</em></p>
 </ul>
 </section>
 <section id="id3">
-<h2>12. Segmentation: generalized base/bounds<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<h2>12. Segmentation: generalized base/bounds<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <p><img alt="Mapping of virtual address space to physical memory in generalized base/bounds" src="../_images/063.png" /></p>
 </section>
 <section id="example">
-<h2>13. Example<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h2>
+<h2>13. Example<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Note: 32K = 2<sup>15</sup> = 32768</p></li>
 </ul>
-<table class="table">
+<table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>Segment</p></th>
 <th class="head"><p>Virtual segment base</p></th>
@@ -572,7 +765,7 @@ between the stack and the heap?</em></p>
 </ul>
 </section>
 <section id="segmentation-with-generalized-base-bounds-summary">
-<h2>14. Segmentation with generalized base/bounds: Summary<a class="headerlink" href="#segmentation-with-generalized-base-bounds-summary" title="Permalink to this heading">#</a></h2>
+<h2>14. Segmentation with generalized base/bounds: Summary<a class="headerlink" href="#segmentation-with-generalized-base-bounds-summary" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Pros:</p>
 <ul>
@@ -588,14 +781,14 @@ between the stack and the heap?</em></p>
 </ul>
 </section>
 <section id="external-fragmentation-compacting">
-<h2>15. External fragmentation: compacting<a class="headerlink" href="#external-fragmentation-compacting" title="Permalink to this heading">#</a></h2>
+<h2>15. External fragmentation: compacting<a class="headerlink" href="#external-fragmentation-compacting" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Computationally expensive</p></li>
 </ul>
 <p><img alt="Compacting fragmented memory" src="../_images/073.png" /></p>
 </section>
 <section id="external-fragmentation-algorithmic-allocation">
-<h2>16. External fragmentation: algorithmic allocation<a class="headerlink" href="#external-fragmentation-algorithmic-allocation" title="Permalink to this heading">#</a></h2>
+<h2>16. External fragmentation: algorithmic allocation<a class="headerlink" href="#external-fragmentation-algorithmic-allocation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>A data structure that keeps track of free memory regions:</p>
 <ul>
@@ -623,7 +816,7 @@ between the stack and the heap?</em></p>
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./lectures"
         },
         predefinedOutput: true
@@ -631,116 +824,52 @@ between the stack and the heap?</em></p>
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="06-memory-virtualization.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Memory virtualization</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="06-memory-virtualization.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Memory virtualization</p>
+        </div>
     </a>
-    <a class="right-next"
-       href="08-paging.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="08-paging.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Memory virtualization mechanism: paging and tlb</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div></div>
-  
-</div>
-
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-questions">1. The questions?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#general-technique">2. General technique</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-assumptions">3. Initial assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-revisiting-where-things-are-in-memory">4. Hands on: revisiting where things are in memory</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">5. Initial assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#early-attempt-dynamic-relocation">6. Early attempt: dynamic relocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-after-boot">7. Dynamic relocation: after boot</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-during-process-run">8. Dynamic relocation: during process run</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-relocation-summary">9. Dynamic relocation: Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">10. Initial assumptions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-generalized-base-bounds">11. Segmentation: generalized base/bounds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">12. Segmentation: generalized base/bounds</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">13. Example</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#segmentation-with-generalized-base-bounds-summary">14. Segmentation with generalized base/bounds: Summary</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-compacting">15. External fragmentation: compacting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#external-fragmentation-algorithmic-allocation">16. External fragmentation: algorithmic allocation</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Linh Ngo
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-<div class="extra_footer">
-  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
-</div>
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
     </div>
-  </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Linh Ngo<br/>
+  
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>

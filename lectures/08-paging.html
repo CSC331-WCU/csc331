@@ -1,59 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Memory virtualization mechanism: paging and tlb &#8212; Operating Systems</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=62ba249389abaaa9ffc34bf36a076bdc1d65ee18" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=f31d14ad54b65d19161ba51d4ffff3a77ae00456"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -61,93 +50,61 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lectures/08-paging';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Introduction to concurrency using threads" href="09-concurrency.html" />
     <link rel="prev" title="Memory virtualization mechanism: address translation" href="07-address-translation.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="../index.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Operating Systems</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -156,222 +113,593 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Introduction
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-introduction.html">Introduction to Operating Systems</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   Introduction to Operating Systems
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Virtualization</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Virtualization
+ </span>
+</p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="02-process.html">Abstraction: The process</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-process-api.html">Process API</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-limited-direct-execution.html">Limited Direct Execution</a></li>
-<li class="toctree-l1"><a class="reference internal" href="05-cpu-scheduling.html">CPU Scheduling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="06-memory-virtualization.html">Memory virtualization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="07-address-translation.html">Memory virtualization mechanism: address translation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Memory virtualization mechanism: paging and tlb</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-process.html">
+   Abstraction: The process
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-process-api.html">
+   Process API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-limited-direct-execution.html">
+   Limited Direct Execution
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-cpu-scheduling.html">
+   CPU Scheduling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-memory-virtualization.html">
+   Memory virtualization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-address-translation.html">
+   Memory virtualization mechanism: address translation
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Memory virtualization mechanism: paging and tlb
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Concurrency</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Concurrency
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="09-concurrency.html">Introduction to concurrency using threads</a></li>
-<li class="toctree-l1"><a class="reference internal" href="10-lock-condition-variables.html">Lock and Condition Variables</a></li>
-<li class="toctree-l1"><a class="reference internal" href="11-semaphores.html">Semaphores</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="09-concurrency.html">
+   Introduction to concurrency using threads
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="10-lock-condition-variables.html">
+   Lock and Condition Variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="11-semaphores.html">
+   Semaphores
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Persistence
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="12-io-disk-scheduling.html">I/O and Disks: Disk Scheduling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="13-file-systems.html">Introduction to file systems</a></li>
-<li class="toctree-l1"><a class="reference internal" href="14-crash-consistency-fsck-journaling.html">Crash consistency: fsck and journaling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="15-minix.html">Micro versus monolithnic kernels: Minix and Linux</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="12-io-disk-scheduling.html">
+   I/O and Disks: Disk Scheduling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="13-file-systems.html">
+   Introduction to file systems
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="14-crash-consistency-fsck-journaling.html">
+   Crash consistency: fsck and journaling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="15-minix.html">
+   Micro versus monolithnic kernels: Minix and Linux
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Cloud
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="16-cloudlab.html">
+   Introduction to CloudLab
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="../_sources/lectures/08-paging.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
+    <div id="rtd-footer-container"></div>
 </div>
 
 
+          
 
 
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
   </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lectures/08-paging.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
   
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Memory virtualization mechanism: paging and tlb</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-paging">1. What is paging?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#after-allocation">2. After allocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-data-structure-is-needed">3. What data structure is needed?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#address-translation-with-paging">4. Address translation with paging.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-questions">5. New questions!</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contents-of-a-page-table-entry-pte-for-32-bit-x86">6. Contents of a page table entry (PTE) for 32-bit x86</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#size-of-page-table-32-bit-x86">7. Size of page table 32-bit x86</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-we-reduce-the-size-of-the-page-table">8. How can we reduce the size of the page table?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bigger-pages">9. Bigger pages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hybrid">10. Hybrid</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-page-tables">11. Multi-level page tables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12. Multi-level page tables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-page-tables-advantages">13. Multi-level page tables: advantages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-page-tables-cost">14. Multi-level page tables: cost</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">15. Multi-level page tables: cost</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#translation-lookaside-buffer">16. Translation Lookaside Buffer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-in-tlb">17. What is in TLB?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-issue-with-tlb">18. First issue with TLB</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-issue-with-tlb">19. Second issue with TLB</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tlb-and-locality">20. TLB and locality</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-memory-access">21. Hands on: memory access</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-paging">22. Demand paging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">23. Demand paging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">24. Demand paging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-paging-control-flow">25. Demand paging control flow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dirty-bit">26. Dirty bit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replacement-algorithms">27. Replacement algorithms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-predict-the-future-based-on-patterns">28. We predict the future based on patterns …</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-policies">29. Example policies</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">30. Matrix multiplication</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-matrix-multiplication">31. Hands on: matrix multiplication</a></li>
-</ul>
-            </nav>
-        </div>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-              
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-paging">
+   1. What is paging?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#after-allocation">
+   2. After allocation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-data-structure-is-needed">
+   3. What data structure is needed?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#address-translation-with-paging">
+   4. Address translation with paging.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#new-questions">
+   5. New questions!
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contents-of-a-page-table-entry-pte-for-32-bit-x86">
+   6. Contents of a page table entry (PTE) for 32-bit x86
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#size-of-page-table-32-bit-x86">
+   7. Size of page table 32-bit x86
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-can-we-reduce-the-size-of-the-page-table">
+   8. How can we reduce the size of the page table?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bigger-pages">
+   9. Bigger pages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hybrid">
+   10. Hybrid
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-page-tables">
+   11. Multi-level page tables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   12. Multi-level page tables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-page-tables-advantages">
+   13. Multi-level page tables: advantages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-page-tables-cost">
+   14. Multi-level page tables: cost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   15. Multi-level page tables: cost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#translation-lookaside-buffer">
+   16. Translation Lookaside Buffer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-in-tlb">
+   17. What is in TLB?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#first-issue-with-tlb">
+   18. First issue with TLB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#second-issue-with-tlb">
+   19. Second issue with TLB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tlb-and-locality">
+   20. TLB and locality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-memory-access">
+   21. Hands on: memory access
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#demand-paging">
+   22. Demand paging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   23. Demand paging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   24. Demand paging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#demand-paging-control-flow">
+   25. Demand paging control flow
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dirty-bit">
+   26. Dirty bit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#replacement-algorithms">
+   27. Replacement algorithms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#we-predict-the-future-based-on-patterns">
+   28. We predict the future based on patterns …
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-policies">
+   29. Example policies
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matrix-multiplication">
+   30. Matrix multiplication
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-matrix-multiplication">
+   31. Hands on: matrix multiplication
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Memory virtualization mechanism: paging and tlb</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-paging">
+   1. What is paging?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#after-allocation">
+   2. After allocation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-data-structure-is-needed">
+   3. What data structure is needed?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#address-translation-with-paging">
+   4. Address translation with paging.
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#new-questions">
+   5. New questions!
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contents-of-a-page-table-entry-pte-for-32-bit-x86">
+   6. Contents of a page table entry (PTE) for 32-bit x86
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#size-of-page-table-32-bit-x86">
+   7. Size of page table 32-bit x86
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-can-we-reduce-the-size-of-the-page-table">
+   8. How can we reduce the size of the page table?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bigger-pages">
+   9. Bigger pages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hybrid">
+   10. Hybrid
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-page-tables">
+   11. Multi-level page tables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   12. Multi-level page tables
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-page-tables-advantages">
+   13. Multi-level page tables: advantages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multi-level-page-tables-cost">
+   14. Multi-level page tables: cost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   15. Multi-level page tables: cost
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#translation-lookaside-buffer">
+   16. Translation Lookaside Buffer
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#what-is-in-tlb">
+   17. What is in TLB?
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#first-issue-with-tlb">
+   18. First issue with TLB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#second-issue-with-tlb">
+   19. Second issue with TLB
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tlb-and-locality">
+   20. TLB and locality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-memory-access">
+   21. Hands on: memory access
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#demand-paging">
+   22. Demand paging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   23. Demand paging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id4">
+   24. Demand paging
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#demand-paging-control-flow">
+   25. Demand paging control flow
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dirty-bit">
+   26. Dirty bit
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#replacement-algorithms">
+   27. Replacement algorithms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#we-predict-the-future-based-on-patterns">
+   28. We predict the future based on patterns …
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example-policies">
+   29. Example policies
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matrix-multiplication">
+   30. Matrix multiplication
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hands-on-matrix-multiplication">
+   31. Hands on: matrix multiplication
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+              <div>
+                
   <section class="tex2jax_ignore mathjax_ignore" id="memory-virtualization-mechanism-paging-and-tlb">
-<h1>Memory virtualization mechanism: paging and tlb<a class="headerlink" href="#memory-virtualization-mechanism-paging-and-tlb" title="Permalink to this heading">#</a></h1>
+<h1>Memory virtualization mechanism: paging and tlb<a class="headerlink" href="#memory-virtualization-mechanism-paging-and-tlb" title="Permalink to this headline">#</a></h1>
 <div class="tip admonition">
 <p class="admonition-title">Key concept</p>
 <ul class="simple">
@@ -380,7 +708,7 @@ document.write(`
 </ul>
 </div>
 <section id="what-is-paging">
-<h2>1. What is paging?<a class="headerlink" href="#what-is-paging" title="Permalink to this heading">#</a></h2>
+<h2>1. What is paging?<a class="headerlink" href="#what-is-paging" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Divide contents into fixed-size units, called pages.</p>
 <ul>
@@ -398,7 +726,7 @@ document.write(`
 <p><img alt="Pages" src="../_images/015.png" /></p>
 </section>
 <section id="after-allocation">
-<h2>2. After allocation<a class="headerlink" href="#after-allocation" title="Permalink to this heading">#</a></h2>
+<h2>2. After allocation<a class="headerlink" href="#after-allocation" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>For allocation management, the OS keeps a list of free (fixed-size) pages.</p>
 <ul>
@@ -412,7 +740,7 @@ physical memory space.</p></li>
 <p><img alt="Page allocation" src="../_images/024.png" /></p>
 </section>
 <section id="what-data-structure-is-needed">
-<h2>3. What data structure is needed?<a class="headerlink" href="#what-data-structure-is-needed" title="Permalink to this heading">#</a></h2>
+<h2>3. What data structure is needed?<a class="headerlink" href="#what-data-structure-is-needed" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Page Table: Mapping from virtual page number to physical page frame</p>
 <ul>
@@ -427,7 +755,7 @@ physical memory space.</p></li>
 <p><img alt="Page allocation" src="../_images/024.png" /></p>
 </section>
 <section id="address-translation-with-paging">
-<h2>4. Address translation with paging.<a class="headerlink" href="#address-translation-with-paging" title="Permalink to this heading">#</a></h2>
+<h2>4. Address translation with paging.<a class="headerlink" href="#address-translation-with-paging" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>To translate a virtual address, we need:</p>
 <ul>
@@ -458,7 +786,7 @@ physical memory space.</p></li>
 <p><img alt="Address translation" src="../_images/044.png" /></p>
 </section>
 <section id="new-questions">
-<h2>5. New questions!<a class="headerlink" href="#new-questions" title="Permalink to this heading">#</a></h2>
+<h2>5. New questions!<a class="headerlink" href="#new-questions" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>What are the typical contents of the page table?</p></li>
 <li><p>How big are the page tables?</p></li>
@@ -467,7 +795,7 @@ physical memory space.</p></li>
 </ul>
 </section>
 <section id="contents-of-a-page-table-entry-pte-for-32-bit-x86">
-<h2>6. Contents of a page table entry (PTE) for 32-bit x86<a class="headerlink" href="#contents-of-a-page-table-entry-pte-for-32-bit-x86" title="Permalink to this heading">#</a></h2>
+<h2>6. Contents of a page table entry (PTE) for 32-bit x86<a class="headerlink" href="#contents-of-a-page-table-entry-pte-for-32-bit-x86" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">PFN</span></code>: 20 bits for physical page frame number (page size 4K)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">P</span></code>: present bit, whether this page is on memory or on disk (swapped)</p></li>
@@ -480,7 +808,7 @@ physical memory space.</p></li>
 <p><img alt="Page table entry" src="../_images/054.png" /></p>
 </section>
 <section id="size-of-page-table-32-bit-x86">
-<h2>7. Size of page table 32-bit x86<a class="headerlink" href="#size-of-page-table-32-bit-x86" title="Permalink to this heading">#</a></h2>
+<h2>7. Size of page table 32-bit x86<a class="headerlink" href="#size-of-page-table-32-bit-x86" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Typical page size is 4KB (run <code class="docutils literal notranslate"><span class="pre">getconf</span> <span class="pre">PAGESIZE</span></code> in your VM to observe this)</p></li>
 <li><p>Size of address space: 4GB</p></li>
@@ -494,7 +822,7 @@ physical memory space.</p></li>
 </ul>
 </section>
 <section id="how-can-we-reduce-the-size-of-the-page-table">
-<h2>8. How can we reduce the size of the page table?<a class="headerlink" href="#how-can-we-reduce-the-size-of-the-page-table" title="Permalink to this heading">#</a></h2>
+<h2>8. How can we reduce the size of the page table?<a class="headerlink" href="#how-can-we-reduce-the-size-of-the-page-table" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Bigger pages.</p></li>
 <li><p>Hybrid: Page + Base/Bound</p></li>
@@ -502,7 +830,7 @@ physical memory space.</p></li>
 </ul>
 </section>
 <section id="bigger-pages">
-<h2>9. Bigger pages<a class="headerlink" href="#bigger-pages" title="Permalink to this heading">#</a></h2>
+<h2>9. Bigger pages<a class="headerlink" href="#bigger-pages" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Let the page size be 16K instead of 4K</p>
 <ul>
@@ -525,7 +853,7 @@ physical memory space.</p></li>
 </ul>
 </section>
 <section id="hybrid">
-<h2>10. Hybrid<a class="headerlink" href="#hybrid" title="Permalink to this heading">#</a></h2>
+<h2>10. Hybrid<a class="headerlink" href="#hybrid" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Separate page tables for stack, heap, and code.</p></li>
 <li><p>For each page table, use base/bound register to keep the physical address
@@ -541,7 +869,7 @@ of the page table.</p></li>
 </ul>
 </section>
 <section id="multi-level-page-tables">
-<h2>11. Multi-level page tables<a class="headerlink" href="#multi-level-page-tables" title="Permalink to this heading">#</a></h2>
+<h2>11. Multi-level page tables<a class="headerlink" href="#multi-level-page-tables" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Overall idea</p>
 <ul>
@@ -554,7 +882,7 @@ of the page table at all (reduce memory space).</p></li>
 </ul>
 </section>
 <section id="id1">
-<h2>12. Multi-level page tables<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<h2>12. Multi-level page tables<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Two-level table</p></li>
 <li><p>One entry per page of page table (Page Directory Entry - PDE)</p></li>
@@ -566,7 +894,7 @@ the entry points to (via the PFN) is valid.</p></li>
 <p><img alt="Multi-level page table" src="../_images/064.png" /></p>
 </section>
 <section id="multi-level-page-tables-advantages">
-<h2>13. Multi-level page tables: advantages<a class="headerlink" href="#multi-level-page-tables-advantages" title="Permalink to this heading">#</a></h2>
+<h2>13. Multi-level page tables: advantages<a class="headerlink" href="#multi-level-page-tables-advantages" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Only allocates page-table space in proportion to the amount of address
 spaces being used.</p></li>
@@ -576,7 +904,7 @@ contiguous memory location).</p></li>
 </ul>
 </section>
 <section id="multi-level-page-tables-cost">
-<h2>14. Multi-level page tables: cost<a class="headerlink" href="#multi-level-page-tables-cost" title="Permalink to this heading">#</a></h2>
+<h2>14. Multi-level page tables: cost<a class="headerlink" href="#multi-level-page-tables-cost" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Space</span></code> versus <code class="docutils literal notranslate"><span class="pre">Time</span></code>: To reduce space, increased access translation steps are needed:
 one for the page directory and one for the PTE itself.</p></li>
@@ -585,7 +913,7 @@ page-table look up.</p></li>
 </ul>
 </section>
 <section id="id2">
-<h2>15. Multi-level page tables: cost<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
+<h2>15. Multi-level page tables: cost<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Each level of multi-level page tables requires one additional memory access:</p>
 <ul>
@@ -602,7 +930,7 @@ page-table look up.</p></li>
 </ul>
 </section>
 <section id="translation-lookaside-buffer">
-<h2>16. Translation Lookaside Buffer<a class="headerlink" href="#translation-lookaside-buffer" title="Permalink to this heading">#</a></h2>
+<h2>16. Translation Lookaside Buffer<a class="headerlink" href="#translation-lookaside-buffer" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Part of the memory management unit (MMU)</p></li>
 <li><p>Small, fully associative hardware cache of recently used translations</p>
@@ -617,7 +945,7 @@ page-table look up.</p></li>
 </ul>
 </section>
 <section id="what-is-in-tlb">
-<h2>17. What is in TLB?<a class="headerlink" href="#what-is-in-tlb" title="Permalink to this heading">#</a></h2>
+<h2>17. What is in TLB?<a class="headerlink" href="#what-is-in-tlb" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Lookup entries: VPN -&gt; PFN plus some other bits</p></li>
 <li><p>A TLB typically has 32, 64, or 128 entries</p></li>
@@ -625,7 +953,7 @@ page-table look up.</p></li>
 <p><img alt="Intel Skylake cache" src="../_images/074.png" /></p>
 </section>
 <section id="first-issue-with-tlb">
-<h2>18. First issue with TLB<a class="headerlink" href="#first-issue-with-tlb" title="Permalink to this heading">#</a></h2>
+<h2>18. First issue with TLB<a class="headerlink" href="#first-issue-with-tlb" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Context switch invalidates all entries in TLB. Why?</p>
 <ul>
@@ -654,7 +982,7 @@ each other.</p></li>
 </ul>
 </section>
 <section id="second-issue-with-tlb">
-<h2>19. Second issue with TLB<a class="headerlink" href="#second-issue-with-tlb" title="Permalink to this heading">#</a></h2>
+<h2>19. Second issue with TLB<a class="headerlink" href="#second-issue-with-tlb" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Replacement policy</p></li>
 <li><p>When TLB is full, and we want to add a new entry to it, we will have to
@@ -663,7 +991,7 @@ evict an existing entry.</p></li>
 </ul>
 </section>
 <section id="tlb-and-locality">
-<h2>20. TLB and locality<a class="headerlink" href="#tlb-and-locality" title="Permalink to this heading">#</a></h2>
+<h2>20. TLB and locality<a class="headerlink" href="#tlb-and-locality" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Processes only use a handful of pages at a time.</p></li>
 <li><p>A TLB with 64 entries can map 64 * 4K = 192KB of memory, which usually.
@@ -673,7 +1001,7 @@ covers most of the frequently accessed memory by a process within certain time s
 </ul>
 </section>
 <section id="hands-on-memory-access">
-<h2>21. Hands on: memory access<a class="headerlink" href="#hands-on-memory-access" title="Permalink to this heading">#</a></h2>
+<h2>21. Hands on: memory access<a class="headerlink" href="#hands-on-memory-access" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Launch a tmux session called <code class="docutils literal notranslate"><span class="pre">mem</span></code> with two vertical panels.</p></li>
 <li><p>Create two vertical panels.</p></li>
@@ -692,21 +1020,21 @@ the following contents:</p></li>
 <li><p>Why?</p></li>
 <li><p>In the left panel, compile and timed run <code class="docutils literal notranslate"><span class="pre">memory_access_v1.c</span></code>:</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-o<span class="w"> </span>memory_access_v1<span class="w"> </span>memory_access_v1.c
-<span class="nb">time</span><span class="w"> </span>./memory_access_v1
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc -o memory_access_v1 memory_access_v1.c
+<span class="nb">time</span> ./memory_access_v1
 </pre></div>
 </div>
 <ul class="simple">
 <li><p>In the right panel, compile and timed run <code class="docutils literal notranslate"><span class="pre">memory_access_v2.c</span></code>.</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-o<span class="w"> </span>memory_access_v2<span class="w"> </span>memory_access_v2.c
-<span class="nb">time</span><span class="w"> </span>./memory_access_v2
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc -o memory_access_v2 memory_access_v2.c
+<span class="nb">time</span> ./memory_access_v2
 </pre></div>
 </div>
 <p><img alt="Large memory access" src="../_images/082.png" /></p>
 </section>
 <section id="demand-paging">
-<h2>22. Demand paging<a class="headerlink" href="#demand-paging" title="Permalink to this heading">#</a></h2>
+<h2>22. Demand paging<a class="headerlink" href="#demand-paging" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>In an ideal world, we have an infinite amount of RAM …</p></li>
 <li><p>In reality:</p>
@@ -723,7 +1051,7 @@ address space.</p></li>
 </ul>
 </section>
 <section id="id3">
-<h2>23. Demand paging<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h2>
+<h2>23. Demand paging<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Swap space: a reserved space on hard disk for moving pages back and forth</p>
 <ul>
@@ -737,7 +1065,7 @@ address space.</p></li>
 </ul>
 </section>
 <section id="id4">
-<h2>24. Demand paging<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h2>
+<h2>24. Demand paging<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Present bit (<code class="docutils literal notranslate"><span class="pre">P</span></code>) indicates whether the page is in memory or on disk.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">P</span></code> = 0 (on disk), then the remaining bits in PTE store the disk address of the page.</p></li>
@@ -747,7 +1075,7 @@ are updated.</p></li>
 <p><img alt="Page table entry" src="../_images/054.png" /></p>
 </section>
 <section id="demand-paging-control-flow">
-<h2>25. Demand paging control flow<a class="headerlink" href="#demand-paging-control-flow" title="Permalink to this heading">#</a></h2>
+<h2>25. Demand paging control flow<a class="headerlink" href="#demand-paging-control-flow" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>If the page is in memory, keep going.</p></li>
 <li><p>If the page is to be evicted, the OS sets <code class="docutils literal notranslate"><span class="pre">P</span></code> to 0, moves the page to swap space,
@@ -760,7 +1088,7 @@ page fault.</p></li>
 </ul>
 </section>
 <section id="dirty-bit">
-<h2>26. Dirty bit<a class="headerlink" href="#dirty-bit" title="Permalink to this heading">#</a></h2>
+<h2>26. Dirty bit<a class="headerlink" href="#dirty-bit" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>If the page has been not been modified (<code class="docutils literal notranslate"><span class="pre">dirty</span></code> == 0) since it was loaded from swap,
 nothing will need to be written to disk when the page is evicted again.</p></li>
@@ -775,7 +1103,7 @@ is evicted.</p></li>
 </ul>
 </section>
 <section id="replacement-algorithms">
-<h2>27. Replacement algorithms<a class="headerlink" href="#replacement-algorithms" title="Permalink to this heading">#</a></h2>
+<h2>27. Replacement algorithms<a class="headerlink" href="#replacement-algorithms" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Reduce fault/miss rate by selecting the best victim to evict.</p></li>
 <li><p>Unrealistic assumption: we know the <strong>whole</strong> memory reference trace of the
@@ -796,7 +1124,7 @@ being perfect!</p></li>
 </ul>
 </section>
 <section id="we-predict-the-future-based-on-patterns">
-<h2>28. We predict the future based on patterns …<a class="headerlink" href="#we-predict-the-future-based-on-patterns" title="Permalink to this heading">#</a></h2>
+<h2>28. We predict the future based on patterns …<a class="headerlink" href="#we-predict-the-future-based-on-patterns" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Locality</span></code>: the patterns in computer programs’ behaviors.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">Spatial</span> <span class="pre">locality</span></code>: If an address A is accessed, then addresses A - 1 and A + 1
@@ -808,7 +1136,7 @@ when designing computing systems.</p></li>
 </ul>
 </section>
 <section id="example-policies">
-<h2>29. Example policies<a class="headerlink" href="#example-policies" title="Permalink to this heading">#</a></h2>
+<h2>29. Example policies<a class="headerlink" href="#example-policies" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>FIFO:</p>
 <ul>
@@ -832,7 +1160,7 @@ when designing computing systems.</p></li>
 </ul>
 </section>
 <section id="matrix-multiplication">
-<h2>30. Matrix multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this heading">#</a></h2>
+<h2>30. Matrix multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Which approach is faster?</p></li>
 <li><p>Why?</p></li>
@@ -840,7 +1168,7 @@ when designing computing systems.</p></li>
 <p><img alt="Matrix multiplication" src="../_images/092.png" /></p>
 </section>
 <section id="hands-on-matrix-multiplication">
-<h2>31. Hands on: matrix multiplication<a class="headerlink" href="#hands-on-matrix-multiplication" title="Permalink to this heading">#</a></h2>
+<h2>31. Hands on: matrix multiplication<a class="headerlink" href="#hands-on-matrix-multiplication" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>In the left panel, change to directory <code class="docutils literal notranslate"><span class="pre">memory</span></code> and create <code class="docutils literal notranslate"><span class="pre">matrix_compare.c</span></code> with
 the following contents:</p></li>
@@ -852,10 +1180,10 @@ the following contents:</p></li>
 which multiplication approach from slide 30?</p></li>
 <li><p>Compile and run <code class="docutils literal notranslate"><span class="pre">matrix_compare.c</span></code>:</p></li>
 </ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc<span class="w"> </span>-o<span class="w"> </span>matrix_compare<span class="w"> </span>matrix_compare.c
-./matrix_compare<span class="w"> </span><span class="m">1000</span>
-./matrix_compare<span class="w"> </span><span class="m">1500</span>
-./matrix_compare<span class="w"> </span><span class="m">2000</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gcc -o matrix_compare matrix_compare.c
+./matrix_compare <span class="m">1000</span>
+./matrix_compare <span class="m">1500</span>
+./matrix_compare <span class="m">2000</span>
 </pre></div>
 </div>
 <p><img alt="Matrix compare" src="../_images/10.png" />
@@ -875,7 +1203,7 @@ which multiplication approach from slide 30?</p></li>
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./lectures"
         },
         predefinedOutput: true
@@ -883,131 +1211,52 @@ which multiplication approach from slide 30?</p></li>
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="07-address-translation.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Memory virtualization mechanism: address translation</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="07-address-translation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Memory virtualization mechanism: address translation</p>
+        </div>
     </a>
-    <a class="right-next"
-       href="09-concurrency.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="09-concurrency.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Introduction to concurrency using threads</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div></div>
-  
-</div>
-
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-paging">1. What is paging?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#after-allocation">2. After allocation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-data-structure-is-needed">3. What data structure is needed?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#address-translation-with-paging">4. Address translation with paging.</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#new-questions">5. New questions!</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contents-of-a-page-table-entry-pte-for-32-bit-x86">6. Contents of a page table entry (PTE) for 32-bit x86</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#size-of-page-table-32-bit-x86">7. Size of page table 32-bit x86</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-can-we-reduce-the-size-of-the-page-table">8. How can we reduce the size of the page table?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bigger-pages">9. Bigger pages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hybrid">10. Hybrid</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-page-tables">11. Multi-level page tables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12. Multi-level page tables</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-page-tables-advantages">13. Multi-level page tables: advantages</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-level-page-tables-cost">14. Multi-level page tables: cost</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">15. Multi-level page tables: cost</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#translation-lookaside-buffer">16. Translation Lookaside Buffer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-in-tlb">17. What is in TLB?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#first-issue-with-tlb">18. First issue with TLB</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#second-issue-with-tlb">19. Second issue with TLB</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tlb-and-locality">20. TLB and locality</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-memory-access">21. Hands on: memory access</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-paging">22. Demand paging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">23. Demand paging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">24. Demand paging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#demand-paging-control-flow">25. Demand paging control flow</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dirty-bit">26. Dirty bit</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#replacement-algorithms">27. Replacement algorithms</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#we-predict-the-future-based-on-patterns">28. We predict the future based on patterns …</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example-policies">29. Example policies</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">30. Matrix multiplication</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hands-on-matrix-multiplication">31. Hands on: matrix multiplication</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Linh Ngo
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-<div class="extra_footer">
-  <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
-</div>
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
     </div>
-  </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Linh Ngo<br/>
+  
+    <div class="extra_footer">
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"></a> <span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Introduction to Cloud Computing</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+    </div>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>
